@@ -516,6 +516,7 @@ files_var_lib_filetrans(xdm_t, xdm_var_lib_t, { file dir })
 files_read_var_lib_files(xdm_t)
 allow xdm_t xdm_var_lib_t:dir { map watch_dir_perms };
 
+filetrans_pattern(xdm_t, var_run_t, xdm_var_run_t, dir, "gdm")
 manage_dirs_pattern(xdm_t, xdm_var_run_t, xdm_var_run_t)
 manage_files_pattern(xdm_t, xdm_var_run_t, xdm_var_run_t)
 exec_files_pattern(xdm_t, xdm_var_run_t, xdm_var_run_t)
