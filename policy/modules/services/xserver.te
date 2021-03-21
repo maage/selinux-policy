@@ -1855,6 +1855,16 @@ optional_policy(`
 
 optional_policy(`
 	gen_require(`
+		type iceauth_home_t;
+		type user_tmp_t;
+	')
+	# /run/user/<uid>/ICEauthority
+	# on login file is created by /usr/libexec/gnome-session-binary
+	manage_files_pattern(xdm_t, user_tmp_t, iceauth_home_t)
+')
+
+optional_policy(`
+	gen_require(`
 		type pulseaudio_var_run_t;
 		type user_tmp_t;
 	')
