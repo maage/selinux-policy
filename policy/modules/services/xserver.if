@@ -2292,6 +2292,13 @@ interface(`xserver_filetrans_home_content',`
 	userdom_user_home_dir_filetrans($1, user_fonts_cache_t, dir, ".fontconfig")
 	filetrans_pattern($1, user_fonts_t, user_fonts_cache_t, dir, "auto")
 	files_tmp_filetrans($1, user_fonts_t, dir, ".font-unix")
+
+	# /run/user/<uid>/ICEauthority
+	# by:
+	#   /usr/libexec/gnome-session-binary
+	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority")
+	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority-c")
+	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority-l")
 ')
 
 ########################################
