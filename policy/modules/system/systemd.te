@@ -1489,3 +1489,19 @@ optional_policy(`
 	userdom_user_tmp_filetrans(systemd_logind_t, pulseaudio_var_run_t, file, "pipewire-9.lock")
 	manage_files_pattern(systemd_logind_t, user_tmp_t, pulseaudio_var_run_t)
 ')
+
+optional_policy(`
+	gen_require(`
+		type gnome_home_t;
+		type user_tmp_t;
+	')
+
+	### /run/user/<uid>/gnome-shell/
+	# /usr/lib/systemd/systemd-user-runtime-dir: logout multiple actions
+	manage_dirs_pattern(systemd_logind_t, user_tmp_t, gnome_home_t)
+	manage_files_pattern(systemd_logind_t, gnome_home_t, gnome_home_t)
+
+	### /run/user/<uid>/gnome-session-leader-fifo
+	# /usr/lib/systemd/systemd-user-runtime-dir: logout, just remove
+	delete_fifo_files_pattern(systemd_logind_t, user_tmp_t, gnome_home_t)
+')
