@@ -445,6 +445,35 @@ optional_policy(`
 	manage_sock_files_pattern(login_userdomain, user_tmp_t, system_dbusd_var_run_t)
 ')
 
+optional_policy(`
+	gen_require(`
+		type pulseaudio_var_run_t;
+		type user_tmp_t;
+	')
+
+	## ??? might create/delete these
+
+	# /run/user/<uid>/pulse
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, dir, "pulse")
+	manage_dirs_pattern(login_userdomain, user_tmp_t, pulseaudio_var_run_t)
+
+	# /run/user/<uid>/pulse/native
+	manage_sock_files_pattern(login_userdomain, pulseaudio_var_run_t, pulseaudio_var_run_t)
+
+	# /run/user/<uid>/pipewire-<d>.lock
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-0.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-1.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-2.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-3.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-4.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-5.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-6.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-7.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-8.lock")
+	userdom_user_tmp_filetrans(login_userdomain, pulseaudio_var_run_t, file, "pipewire-9.lock")
+	manage_files_pattern(login_userdomain, user_tmp_t, pulseaudio_var_run_t)
+')
+
 ############################################################
 # Local Policy Confined Admin
 #

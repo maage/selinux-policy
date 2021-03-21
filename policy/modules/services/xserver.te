@@ -1820,3 +1820,11 @@ tunable_policy(`selinuxuser_direct_dri_enabled',`
 ',`
 	dev_dontaudit_rw_dri(dridomain)
 ')
+
+optional_policy(`
+	gen_require(`
+		type pulseaudio_var_run_t;
+		type user_tmp_t;
+	')
+	manage_dirs_pattern(xdm_t, user_tmp_t, pulseaudio_var_run_t)
+')
