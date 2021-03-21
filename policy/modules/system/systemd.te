@@ -1443,6 +1443,17 @@ optional_policy(`
 
 optional_policy(`
 	gen_require(`
+		type iceauth_home_t;
+		type user_tmp_t;
+	')
+
+	### /run/user/<uid>/ICEauthority
+	# /usr/lib/systemd/systemd-user-runtime-dir: logout, just remove
+	delete_files_pattern(systemd_logind_t, user_tmp_t, iceauth_home_t)
+')
+
+optional_policy(`
+	gen_require(`
 		type pulseaudio_var_run_t;
 		type user_tmp_t;
 	')
