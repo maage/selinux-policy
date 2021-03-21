@@ -40,6 +40,8 @@ HOME_DIR/\.dmrc.*	--	gen_context(system_u:object_r:xdm_home_t,s0)
 /root/\.wayland-errors.*	--	gen_context(system_u:object_r:xdm_home_t,s0)
 /root/\.dmrc.*	--	gen_context(system_u:object_r:xdm_home_t,s0)
 
+/var/run/user/%{USERID}/ICEauthority.*	--	gen_context(system_u:object_r:iceauth_home_t,s0)
+
 #
 # /dev
 #
