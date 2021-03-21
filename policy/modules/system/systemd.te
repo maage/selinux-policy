@@ -1369,6 +1369,15 @@ optional_policy(`
     gpg_exec(systemd_importd_t)
 ')
 
+optional_policy(`
+	gen_require(`
+		type gpg_agent_tmp_t;
+	')
+	userdom_user_tmp_filetrans(systemd_logind_t, gpg_agent_tmp_t, dir, "gnupg")
+	manage_dirs_pattern(systemd_logind_t, user_tmp_t, gpg_agent_tmp_t)
+	manage_sock_files_pattern(systemd_logind_t, gpg_agent_tmp_t, gpg_agent_tmp_t)
+')
+
 ########################################
 #
 # systemd_userdbd local policy
