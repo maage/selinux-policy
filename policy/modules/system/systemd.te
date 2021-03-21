@@ -1492,6 +1492,24 @@ optional_policy(`
 
 optional_policy(`
 	gen_require(`
+		type user_tmp_t;
+		type xauth_home_t;
+		type xdm_home_t;
+	')
+	### /run/user/<uid>/gdm
+	# created by: /usr/lib/systemd/systemd-user-runtime-dir
+	manage_dirs_pattern(systemd_logind_t, user_tmp_t, xdm_home_t)
+	manage_files_pattern(systemd_logind_t, xdm_home_t, xdm_home_t)
+	manage_files_pattern(systemd_logind_t, user_tmp_t, xdm_home_t)
+
+	### /run/user/<uid>/gdm/Xauthority
+	# created by: /usr/lib/systemd/systemd-user-runtime-dir
+	filetrans_pattern(systemd_logind_t, xdm_home_t, xauth_home_t, file, "Xauthority")
+	manage_files_pattern(systemd_logind_t, xdm_home_t, xauth_home_t)
+')
+
+optional_policy(`
+	gen_require(`
 		type gnome_home_t;
 		type user_tmp_t;
 	')

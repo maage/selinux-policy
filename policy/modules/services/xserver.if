@@ -2293,6 +2293,13 @@ interface(`xserver_filetrans_home_content',`
 	filetrans_pattern($1, user_fonts_t, user_fonts_cache_t, dir, "auto")
 	files_tmp_filetrans($1, user_fonts_t, dir, ".font-unix")
 
+	# /run/user/<uid>/gdm/Xauthority
+	# by:
+	#   /usr/libexec/gdm-session-worker
+	#   /usr/libexec/gdm-x-session
+	userdom_user_tmp_filetrans($1, xdm_home_t, dir, "gdm")
+	filetrans_pattern($1, xdm_home_t, xauth_home_t, file, "Xauthority")
+
 	optional_policy(`
 		gen_require(`
 			type gnome_home_t;
