@@ -3299,6 +3299,7 @@ interface(`init_filetrans_named_content',`
 	init_pid_filetrans($1, systemd_unit_file_t, dir, "generator.early")
 	init_pid_filetrans($1, systemd_unit_file_t, dir, "generator.late")
 	init_pid_filetrans($1, systemd_unit_file_t, dir, "system")
+	init_pid_filetrans($1, systemd_unit_file_t, dir, "user")
 ')
 
 ########################################
