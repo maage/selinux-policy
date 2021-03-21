@@ -188,3 +188,7 @@ HOME_DIR/\.local/share/systemd/user(/.*)?			gen_context(system_u:object_r:system
 # invocation files
 /run/systemd/units(/.*)?			gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /run/user/%{USERID}/systemd/units(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+
+# inaccessible
+/run/systemd/inaccessbile(/.*)?			gen_context(system_u:object_r:systemd_logind_inaccessible_var_run_t,s0)
+/run/user/%{USERID}/systemd/inaccessible(/.*)?	gen_context(system_u:object_r:systemd_logind_inaccessible_var_run_t,s0)
