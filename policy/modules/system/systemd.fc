@@ -29,10 +29,7 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /usr/lib/systemd/systemd-userdbd	--	gen_context(system_u:object_r:systemd_userdbd_exec_t,s0)
 /usr/lib/systemd/systemd-userwork	--	gen_context(system_u:object_r:systemd_userdbd_exec_t,s0)
 
-/etc/systemd/system\.control(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/lib/dracut/modules.d/.*\.service	gen_context(system_u:object_r:systemd_unit_file_t,s0)
-/usr/lib/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
-/usr/lib/systemd/user(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-machined\.service	--	gen_context(system_u:object_r:systemd_machined_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-networkd\.service     gen_context(system_u:object_r:systemd_networkd_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-resolved\.service     gen_context(system_u:object_r:systemd_resolved_unit_file_t,s0)
@@ -137,7 +134,7 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /run/systemd/ask-password(/.*)?	gen_context(system_u:object_r:systemd_passwd_var_run_t,s0)
 /run/systemd/machine(/.*)?	gen_context(system_u:object_r:systemd_machined_var_run_t,s0)
 /run/systemd/machines(/.*)?	gen_context(system_u:object_r:systemd_machined_var_run_t,s0)
-/run/systemd/machines.lock	--	gen_context(system_u:object_r:systemd_machined_var_run_t,s0)
+/run/systemd/machines\.lock	--	gen_context(system_u:object_r:systemd_machined_var_run_t,s0)
 /run/systemd/resolve(/.*)?	gen_context(system_u:object_r:systemd_resolved_var_run_t,s0)
 /run/systemd/netif(/.*)?	gen_context(system_u:object_r:systemd_networkd_var_run_t,s0)
 /run/systemd/import(/.*)?		gen_context(system_u:object_r:systemd_importd_var_run_t,s0)
@@ -153,6 +150,20 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /run/systemd/resolve(/.*)?	gen_context(system_u:object_r:systemd_resolved_var_run_t,s0)
 
 /run/user/%{USERID}/systemd(/.*)?	gen_context(system_u:object_r:systemd_logind_var_run_t,s0)
+
+# source: systemd-analyze unit-paths | sort
+/etc/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/etc/systemd/system\.attached(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/etc/systemd/system\.control(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/generator(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/generator\.early(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/generator\.late(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/system\.attached(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/system\.control(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/systemd/transient(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/usr/lib/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/usr/local/lib/systemd/system(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 
 # source: systemd-analyze unit-paths  --user | sort
 /etc/systemd/user(/.*)?						gen_context(system_u:object_r:systemd_unit_file_t,s0)
@@ -173,3 +184,7 @@ HOME_DIR/\.local/share/systemd/user(/.*)?			gen_context(system_u:object_r:system
 /usr/local/share/systemd/user(/.*)?				gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/share/systemd/user(/.*)?					gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /var/lib/flatpak/exports/share/systemd/user(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+
+# invocation files
+/run/systemd/units(/.*)?			gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/run/user/%{USERID}/systemd/units(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
