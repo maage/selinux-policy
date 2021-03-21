@@ -24,6 +24,8 @@ HOME_DIR/\.xine(/.*)?		gen_context(system_u:object_r:config_home_t,s0)
 
 /run/user/%{USERID}/\.orc(/.*)?		gen_context(system_u:object_r:gstreamer_home_t,s0)
 /run/user/%{USERID}/dconf(/.*)?	gen_context(system_u:object_r:config_home_t,s0)
+/run/user/%{USERID}/gnome-session-leader-fifo	-p	gen_context(system_u:object_r:gnome_home_t,s0)
+/run/user/%{USERID}/gnome-shell(/.*)?			gen_context(system_u:object_r:gnome_home_t,s0)
 /run/user/%{USERID}/keyring.*	gen_context(system_u:object_r:gkeyringd_tmp_t,s0)
 /run/gnome-initial-setup(/.*)?	gen_context(system_u:object_r:gnome_initial_setup_var_run_t,s0)
 
