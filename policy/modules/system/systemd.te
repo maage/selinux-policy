@@ -26,7 +26,7 @@ type systemd_logind_var_lib_t;
 files_type(systemd_logind_var_lib_t)
 systemd_mount_dir(systemd_logind_var_lib_t)
 
-# /run/systemd/{seats, users}
+# /run/systemd/{seats, shutdown, users}
 type systemd_logind_var_run_t;
 files_pid_file(systemd_logind_var_run_t)
 
