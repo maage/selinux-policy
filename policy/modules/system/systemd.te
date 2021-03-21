@@ -30,6 +30,10 @@ systemd_mount_dir(systemd_logind_var_lib_t)
 type systemd_logind_var_run_t;
 files_pid_file(systemd_logind_var_run_t)
 
+# /run/systemd/inaccessible /run/user/<uid>/systemd/inaccessible
+type systemd_logind_inaccessible_var_run_t;
+files_pid_file(systemd_logind_inaccessible_var_run_t)
+
 type systemd_logind_inhibit_var_run_t;
 files_pid_file(systemd_logind_inhibit_var_run_t)
 
@@ -1436,6 +1440,25 @@ userdom_user_tmp_filetrans(systemd_logind_t, systemd_logind_var_run_t, dir, "sys
 manage_dirs_pattern(systemd_logind_t, user_tmp_t, systemd_runtime_unit_file_t)
 manage_files_pattern(systemd_logind_t, systemd_unit_file_t, systemd_runtime_unit_file_t)
 manage_lnk_files_pattern(systemd_logind_t, systemd_unit_file_t, systemd_runtime_unit_file_t)
+
+# /run/systemd/inaccessible
+filetrans_pattern(systemd_logind_t, init_var_run_t, systemd_logind_inaccessible_var_run_t, dir, "inaccessible")
+
+### /run/user/<uid>/systemd/inaccessible: both of these can create/remove these files
+# created by: /usr/lib/systemd/systemd-user-runtime-dir
+filetrans_pattern(systemd_logind_t, systemd_logind_var_run_t, systemd_logind_inaccessible_var_run_t, dir, "inaccessible")
+# /run/user/<uid>/systemd/inaccessible/blk
+manage_blk_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+# /run/user/<uid>/systemd/inaccessible/chr
+manage_chr_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+# /run/user/<uid>/systemd/inaccessible/dir
+manage_dirs_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+# /run/user/<uid>/systemd/inaccessible/fifo
+manage_fifo_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+# /run/user/<uid>/systemd/inaccessible/reg
+manage_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+# /run/user/<uid>/systemd/inaccessible/sock
+manage_sock_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
 
 optional_policy(`
 	sysstat_domtrans(systemd_sleep_t)

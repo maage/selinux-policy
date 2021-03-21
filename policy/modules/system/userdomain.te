@@ -478,6 +478,28 @@ optional_policy(`
 
 optional_policy(`
 	gen_require(`
+		type systemd_logind_var_run_t;
+		type systemd_logind_inaccessible_var_run_t;
+	')
+	### /run/user/<uid>/systemd/inaccessible: both of these can create/remove these files
+	# created by: /usr/lib/systemd/systemd-user-runtime-dir
+	filetrans_pattern(login_userdomain, systemd_logind_var_run_t, systemd_logind_inaccessible_var_run_t, dir, "inaccessible")
+	# /run/user/<uid>/systemd/inaccessible/blk
+	manage_blk_files_pattern(login_userdomain, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+	# /run/user/<uid>/systemd/inaccessible/chr
+	manage_chr_files_pattern(login_userdomain, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+	# /run/user/<uid>/systemd/inaccessible/dir
+	manage_dirs_pattern(login_userdomain, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+	# /run/user/<uid>/systemd/inaccessible/fifo
+	manage_fifo_files_pattern(login_userdomain, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+	# /run/user/<uid>/systemd/inaccessible/reg
+	manage_files_pattern(login_userdomain, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+	# /run/user/<uid>/systemd/inaccessible/sock
+	manage_sock_files_pattern(login_userdomain, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+')
+
+optional_policy(`
+	gen_require(`
 		type gpg_agent_tmp_t;
 	')
 	userdom_user_tmp_filetrans(login_userdomain, gpg_agent_tmp_t, dir, "gnupg")
