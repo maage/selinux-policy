@@ -1852,3 +1852,11 @@ optional_policy(`
 	gnome_remote_desktop_rw_tcp_sockets(xdm_t)
 	dev_rw_dma_dev(xdm_t)
 ')
+
+optional_policy(`
+	gen_require(`
+		type pulseaudio_var_run_t;
+		type user_tmp_t;
+	')
+	manage_dirs_pattern(xdm_t, user_tmp_t, pulseaudio_var_run_t)
+')
