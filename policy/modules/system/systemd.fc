@@ -26,10 +26,7 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /usr/lib/systemd/systemd-userdbd	--	gen_context(system_u:object_r:systemd_userdbd_exec_t,s0)
 /usr/lib/systemd/systemd-userwork	--	gen_context(system_u:object_r:systemd_userdbd_exec_t,s0)
 
-/etc/systemd/system\.control(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/lib/dracut/modules.d/.*\.service	gen_context(system_u:object_r:systemd_unit_file_t,s0)
-/usr/lib/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
-/usr/lib/systemd/user(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-machined\.service	--	gen_context(system_u:object_r:systemd_machined_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-networkd\.service     gen_context(system_u:object_r:systemd_networkd_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-resolved\.service     gen_context(system_u:object_r:systemd_resolved_unit_file_t,s0)
@@ -85,7 +82,6 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /var/run/systemd/seats(/.*)?	gen_context(system_u:object_r:systemd_logind_var_run_t,s0)
 /var/run/systemd/sessions(/.*)?	gen_context(system_u:object_r:systemd_logind_sessions_t,s0)
 /var/run/systemd/shutdown(/.*)?	gen_context(system_u:object_r:systemd_logind_var_run_t,s0)
-/var/run/systemd/transient(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /var/run/systemd/userdb(/.*)?	gen_context(system_u:object_r:systemd_userdbd_runtime_t,s0)
 /var/run/systemd/users(/.*)?	gen_context(system_u:object_r:systemd_logind_var_run_t,s0)
 /var/run/systemd/inhibit(/.*)?	gen_context(system_u:object_r:systemd_logind_inhibit_var_run_t,s0)
@@ -100,13 +96,25 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 
 /var/run/log/bootchart.*	--	gen_context(system_u:object_r:systemd_bootchart_var_run_t,s0)
 
-/var/run/systemd/units(/.*)?		gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
-
 /var/run/initramfs(/.*)?	<<none>>
 
 /run/systemd/resolve(/.*)?	gen_context(system_u:object_r:systemd_resolved_var_run_t,s0)
 
 /var/run/user/%{USERID}/systemd(/.*)?	gen_context(system_u:object_r:systemd_logind_var_run_t,s0)
+
+# source: systemd-analyze unit-paths | sort
+/etc/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/etc/systemd/system\.attached(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/etc/systemd/system\.control(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/var/run/systemd/generator(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/systemd/generator\.early(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/systemd/generator\.late(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/systemd/system\.attached(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/systemd/system\.control(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/systemd/transient(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/usr/lib/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/usr/local/lib/systemd/system(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 
 # source: systemd-analyze unit-paths  --user | sort
 /etc/systemd/user(/.*)?						gen_context(system_u:object_r:systemd_unit_file_t,s0)
@@ -127,3 +135,7 @@ HOME_DIR/\.local/share/systemd/user(/.*)?			gen_context(system_u:object_r:system
 /usr/local/share/systemd/user(/.*)?				gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/share/systemd/user(/.*)?					gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /var/lib/flatpak/exports/share/systemd/user(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
+
+# invocation files
+/var/run/systemd/units(/.*)?			gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
+/var/run/user/%{USERID}/systemd/units(/.*)?	gen_context(system_u:object_r:systemd_runtime_unit_file_t,s0)
