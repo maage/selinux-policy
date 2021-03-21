@@ -2293,6 +2293,24 @@ interface(`xserver_filetrans_home_content',`
 	filetrans_pattern($1, user_fonts_t, user_fonts_cache_t, dir, "auto")
 	files_tmp_filetrans($1, user_fonts_t, dir, ".font-unix")
 
+	optional_policy(`
+		gen_require(`
+			type gnome_home_t;
+		')
+		# /run/user/<uid>/gnome-session-leader-fifo
+		# by:
+		#   /usr/libexec/gnome-session-binary
+		userdom_user_tmp_filetrans($1, gnome_home_t, fifo_file, "gnome-session-leader-fifo")
+
+		# /run/user/<uid>/gnome-shell/
+		userdom_user_tmp_filetrans($1, gnome_home_t, dir, "gnome-shell")
+
+		# /run/user/<uid>/gnome-shell-disable-extensions
+		# by:
+		#   /usr/libexec/gnome-session-binary
+		userdom_user_tmp_filetrans($1, gnome_home_t, file, "gnome-shell-disable-extensions")
+	')
+
 	# /run/user/<uid>/ICEauthority
 	# by:
 	#   /usr/libexec/gnome-session-binary
