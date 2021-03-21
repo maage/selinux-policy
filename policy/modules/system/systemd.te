@@ -1301,6 +1301,8 @@ optional_policy(`
     dbus_system_bus_client(systemd_importd_t)
     dbus_acquire_svc_system_dbusd(systemd_importd_t)
     unconfined_dbus_send(systemd_importd_t)
+	# /run/user/<uid>/bus
+	manage_sock_files_pattern(systemd_logind_t, user_tmp_t, system_dbusd_var_run_t)
 ')
 
 optional_policy(`
