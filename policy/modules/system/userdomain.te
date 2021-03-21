@@ -509,6 +509,12 @@ optional_policy(`
 	xserver_stream_accept_xdm(login_userdomain)
 ')
 
+optional_policy(`
+	gen_require(`
+		type system_dbusd_var_run_t;
+	')
+	manage_sock_files_pattern(login_userdomain, user_tmp_t, system_dbusd_var_run_t)
+')
 
 ############################################################
 # Local Policy Confined Admin
