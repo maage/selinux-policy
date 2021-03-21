@@ -41,6 +41,8 @@ HOME_DIR/\.dmrc.*	--	gen_context(system_u:object_r:xdm_home_t,s0)
 /root/\.dmrc.*	--	gen_context(system_u:object_r:xdm_home_t,s0)
 
 /var/run/user/%{USERID}/ICEauthority.*	--	gen_context(system_u:object_r:iceauth_home_t,s0)
+/var/run/user/%{USERID}/gdm(/.*)?		gen_context(system_u:object_r:xdm_home_t,s0)
+/var/run/user/%{USERID}/gdm/Xauthority	--	gen_context(system_u:object_r:xauth_home_t,s0)
 
 #
 # /dev
