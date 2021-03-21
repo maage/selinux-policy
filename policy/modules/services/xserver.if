@@ -2387,6 +2387,27 @@ interface(`xserver_filetrans_home_content',`
 	filetrans_pattern($1, user_fonts_t, user_fonts_cache_t, dir, "auto")
 	files_tmp_filetrans($1, user_fonts_t, dir, ".font-unix")
 
+	optional_policy(`
+		gen_require(`
+			type gnome_home_t;
+		')
+		# /run/user/<uid>/gnome-session-leader-fifo
+		# by:
+		#   /usr/libexec/gnome-session-binary
+		userdom_user_tmp_filetrans($1, gnome_home_t, fifo_file, "gnome-session-leader-fifo")
+
+		# type=AVC avc: denied { write } for pid=9 comm=gnome-session-i name=gnome-session-leader-fifo dev="tmpfs" ino=55 scontext=system_u:system_r:xdm_t:s0-s0:c0.c1023 tcontext=unconfined_u:object_r:gnome_home_t:s0 tclass=fifo_file permissive=0
+		allow $1 gnome_home_t:fifo_file { create getattr open write };
+
+		# /run/user/<uid>/gnome-shell/
+		userdom_user_tmp_filetrans($1, gnome_home_t, dir, "gnome-shell")
+
+		# /run/user/<uid>/gnome-shell-disable-extensions
+		# by:
+		#   /usr/libexec/gnome-session-binary
+		userdom_user_tmp_filetrans($1, gnome_home_t, file, "gnome-shell-disable-extensions")
+	')
+
 	# /run/user/<uid>/ICEauthority
 	# by:
 	#   /usr/libexec/gnome-session-binary
