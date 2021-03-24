@@ -1132,6 +1132,12 @@ optional_policy(`
 ')
 
 optional_policy(`
+	# libgio use dbus
+	unconfined_server_stream_connect(xdm_t)
+	files_rw_generic_tmp_sockets(xdm_t)
+')
+
+optional_policy(`
 	usbmuxd_stream_connect(xdm_t)
 ')
 
