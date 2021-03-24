@@ -132,43 +132,55 @@ refresh:
 #
 # Load module packages
 #
+tmp:
+	@mkdir -p tmp
 
 load: tmp/loaded
+tmp/loaded: | tmp
 tmp/loaded: $(all_packages)
 	@$(EINFO) "Loading $(NAME) modules: $(basename $(notdir $?))"
 	$(verbose) $(SEMODULE) $(foreach mod,$?,-i $(mod))
-	@mkdir -p tmp
 	@touch tmp/loaded
 
+reload: | tmp
 reload: $(all_packages)
 	@$(EINFO) "Loading $(NAME) modules: $(basename $(notdir $^))"
 	$(verbose) $(SEMODULE) $(foreach mod,$^,-i $(mod))
-	@mkdir -p tmp
 	@touch tmp/loaded
 
 ########################################
 #
 # Build module packages
 #
-tmp/%.mod: $(m4support) tmp/all_interfaces.conf %.te
+tmp/m4support.m4f: | tmp
+tmp/m4support.m4f: $(m4support)
+	$(verbose) $(M4) $(M4PARAM) -F $@ $^ > /dev/null
+
+tmp/m4support_all.m4f: | tmp
+tmp/m4support_all.m4f: $(m4support) tmp/all_interfaces.conf
+	$(verbose) $(M4) $(M4PARAM) -F $@ $^ > /dev/null
+
+tmp/%.mod: | tmp
+tmp/%.mod: tmp/m4support_all.m4f %.te
 	@$(EINFO) "Compiling $(NAME) $(basename $(@F)) module"
-	@test -d $(@D) || mkdir -p $(@D)
-	$(verbose) $(M4) $(M4PARAM) -s $^ > $(@:.mod=.tmp)
+	$(verbose) $(M4) $(M4PARAM) -s -R $^ > $(@:.mod=.tmp)
 	$(verbose) $(CHECKMODULE) -m $(@:.mod=.tmp) -o $@
 
-tmp/%.mod.fc: $(m4support) %.fc
-	@test -d $(@D) || mkdir -p $(@D)
-	$(verbose) $(M4) $(M4PARAM) $^ > $@
+tmp/%.mod.fc: | tmp
+tmp/%.mod.fc: tmp/m4support.m4f %.fc
+	$(verbose) $(M4) $(M4PARAM) -R $^ > $@
 
 %.pp: tmp/%.mod tmp/%.mod.fc
 	@echo "Creating $(NAME) $(@F) policy package"
 	$(verbose) $(SEMOD_PKG) -o $@ -m $< -f $<.fc
 
-tmp/all_interfaces.conf: $(m4support) $(header_interfaces) $(detected_ifs)
-	@test -d $(@D) || mkdir -p $(@D)
+tmp/iferror.m4:
 	@echo "ifdef(\`__if_error',\`m4exit(1)')" > tmp/iferror.m4
+
+tmp/all_interfaces.conf: | tmp
+tmp/all_interfaces.conf: tmp/m4support.m4f $(header_interfaces) $(detected_ifs) tmp/iferror.m4
 	@echo "divert(-1)" > $@
-	$(verbose) $(M4) $^ tmp/iferror.m4 | sed -e s/dollarsstar/\$$\*/g >> $@
+	$(verbose) $(M4) -R $^ | sed -e s/dollarsstar/\$$\*/g >> $@
 	@echo "divert" >> $@
 
 # so users dont have to make empty .fc and .if files
@@ -182,8 +194,8 @@ $(detected_ifs):
 #
 # Documentation generation
 #
+tmp/%.xml: | tmp
 tmp/%.xml: %/*.te %/*.if
-	@test -d $(@D) || mkdir -p $(@D)
 	$(verbose) test -f $(HEADERDIR)/$*.xml || cat $*/$(metaxml) > $@
 	$(verbose) $(genxml) -w -m $(sort $(basename $^)) >> $@
 
