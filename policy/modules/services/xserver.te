@@ -797,6 +797,8 @@ optional_policy(`
     dbus_systemctl(xdm_t)
     dbus_watch_config(xdm_t)
     dbus_write_session_tmp_sock_files(xdm_t)
+	# gnome-shell / ibus-daemon
+	system_dbusd_signull(xdm_t)
 ')
 
 optional_policy(`
