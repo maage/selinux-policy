@@ -789,6 +789,8 @@ optional_policy(`
     dbus_exec_system_dbusd(xdm_t)
     dbus_stream_connect_session_bus(xdm_t)
     dbus_systemctl(xdm_t)
+	# gnome-shell / ibus-daemon
+	system_dbusd_signull(xdm_t)
 ')
 
 optional_policy(`

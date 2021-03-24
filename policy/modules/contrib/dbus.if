@@ -55,6 +55,24 @@ interface(`dbus_exec_system_dbusd',`
 
 ########################################
 ## <summary>
+##      Send a null signal to system_dbusd processes.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`system_dbusd_signull',`
+	gen_require(`
+		type system_dbusd_t;
+	')
+
+	allow $1 system_dbusd_t:process signull;
+')
+
+########################################
+## <summary>
 ##	Role access for dbus
 ## </summary>
 ## <param name="role_prefix">
