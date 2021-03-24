@@ -36,6 +36,43 @@ interface(`dbus_exec_dbusd',`
 
 ########################################
 ## <summary>
+##	Execute dbus-daemon in the systemd_dbusd_t domain.
+## </summary>
+## <param name="domain" unused="true">
+##	<summary>
+##	Domain allowed access
+##	</summary>
+## </param>
+#
+interface(`dbus_exec_system_dbusd',`
+	gen_require(`
+        	type dbusd_exec_t, system_dbusd_t;
+	')
+
+ 	corecmd_search_bin($1)
+	domtrans_pattern($1, dbusd_exec_t, system_dbusd_t)
+')
+
+########################################
+## <summary>
+##      Send a null signal to system_dbusd processes.
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed access.
+##      </summary>
+## </param>
+#
+interface(`system_dbusd_signull',`
+	gen_require(`
+		type system_dbusd_t;
+	')
+
+	allow $1 system_dbusd_t:process signull;
+')
+
+########################################
+## <summary>
 ##	Role access for dbus
 ## </summary>
 ## <param name="role_prefix">
