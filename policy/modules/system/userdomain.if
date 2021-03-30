@@ -1510,6 +1510,7 @@ tunable_policy(`deny_bluetooth',`',`
 	miscfiles_read_hwdata($1_usertype)
 
     fs_manage_cgroup_dirs($1_t)
+	fs_manage_cgroup_files($1_t)
 	fs_mounton_fusefs($1_usertype)
 
 	# Allow users to run TCP servers (bind to ports and accept connection from
