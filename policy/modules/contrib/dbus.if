@@ -137,8 +137,7 @@ template(`dbus_role_template',`
     allow $1_dbusd_t $3:system { start reload };
     allow $1_dbusd_t session_dbusd_tmp_t:service { start stop };
 	allow $1_dbusd_t systemd_unit_file_type:service { start stop };
-    allow $3 session_dbusd_tmp_t:dir manage_dir_perms;
-    allow $3 session_dbusd_tmp_t:file manage_file_perms;
+	dbus_session_tmp_manage($3)
 
     can_exec($1_dbusd_t, dbusd_exec_t)
 
@@ -173,6 +172,33 @@ template(`dbus_role_template',`
 	optional_policy(`
 		systemd_start_systemd_services($1_dbusd_t)
 	')
+')
+
+#######################################
+## <summary>
+##	Template to allow domain to manage
+##	/var/run/user/%{USERID}/bus / dbus-1
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`dbus_session_tmp_manage',`
+	gen_require(`
+		type session_dbusd_tmp_t;
+	')
+
+	allow $1 session_dbusd_tmp_t:dir manage_dir_perms;
+	allow $1 session_dbusd_tmp_t:file manage_file_perms;
+	allow $1 session_dbusd_tmp_t:sock_file manage_sock_file_perms;
+
+	# /var/run/user/%{USERID}/bus
+	userdom_user_tmp_filetrans($1, session_dbusd_tmp_t, sock_file, "bus")
+
+	# /var/run/user/%{USERID}/dbus
+	userdom_user_tmp_filetrans($1, session_dbusd_tmp_t, dir, "dbus")
 ')
 
 #######################################
