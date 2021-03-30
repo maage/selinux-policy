@@ -160,11 +160,30 @@ interface(`systemd_domtrans_systemctl',`
 ## </param>
 #
 interface(`systemd_unit_file',`
-        gen_require(`
-                attribute systemd_unit_file_type;
-        ')
+	gen_require(`
+		attribute systemd_unit_file_type;
+	')
 
-        typeattribute $1 systemd_unit_file_type;
+	typeattribute $1 systemd_unit_file_type;
+	files_type($1)
+')
+
+#######################################
+## <summary>
+##      Create a file type used for systemd runtime unit files.
+## </summary>
+## <param name="script_file">
+##      <summary>
+##      Type to be used for an runtime unit file.
+##      </summary>
+## </param>
+#
+interface(`systemd_runtime_unit_file',`
+	gen_require(`
+		attribute systemd_runtime_unit_file_type;
+	')
+
+	typeattribute $1 systemd_runtime_unit_file_type;
 	files_type($1)
 ')
 
@@ -1315,6 +1334,24 @@ interface(`systemd_manage_unit_dirs',`
 
 ########################################
 ## <summary>
+##	manage systemd unit dirs
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`systemd_manage_runtime_unit_dirs',`
+	gen_require(`
+		attribute systemd_runtime_unit_file_type;
+	')
+
+	manage_dirs_pattern($1, systemd_runtime_unit_file_type, systemd_runtime_unit_file_type)
+')
+
+########################################
+## <summary>
 ##	manage systemd unit link files
 ## </summary>
 ## <param name="domain">
@@ -1348,6 +1385,25 @@ interface(`systemd_manage_all_unit_files',`
 
 	manage_files_pattern($1, systemd_unit_file_type, systemd_unit_file_type)
 	manage_lnk_files_pattern($1, systemd_unit_file_type, systemd_unit_file_type)
+')
+
+########################################
+## <summary>
+##	manage runtime systemd unit files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`systemd_manage_runtime_unit_files',`
+	gen_require(`
+		attribute systemd_runtime_unit_file_type;
+	')
+
+	manage_files_pattern($1, systemd_runtime_unit_file_type, systemd_runtime_unit_file_type)
+	manage_lnk_files_pattern($1, systemd_runtime_unit_file_type, systemd_runtime_unit_file_type)
 ')
 
 ########################################
@@ -1402,6 +1458,24 @@ interface(`systemd_reload_all_services',`
     ')
 
     allow $1 systemd_unit_file_type:service reload;
+')
+
+#######################################
+## <summary>
+##  Allow the specified domain to manage runtime systemd services.
+## </summary>
+## <param name="domain">
+##  <summary>
+##  Domain allowed access.
+##  </summary>
+## </param>
+#
+interface(`systemd_manage_runtime_services',`
+	gen_require(`
+		attribute systemd_runtime_unit_file_type;
+	')
+
+	allow $1 systemd_runtime_unit_file_type:service { reload start status stop };
 ')
 
 ########################################

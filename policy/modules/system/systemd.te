@@ -6,6 +6,7 @@ policy_module(systemd, 1.0.0)
 #
 
 attribute systemd_unit_file_type;
+attribute systemd_runtime_unit_file_type;
 attribute systemd_domain;
 attribute systemctl_domain;
 attribute systemd_mount_directory;
@@ -118,6 +119,7 @@ systemd_unit_file(systemd_unit_file_t)
 
 type systemd_runtime_unit_file_t;
 systemd_unit_file(systemd_runtime_unit_file_t)
+systemd_runtime_unit_file(systemd_runtime_unit_file_t)
 
 type power_unit_file_t;
 systemd_unit_file(power_unit_file_t)

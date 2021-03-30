@@ -1188,6 +1188,12 @@ template(`userdom_login_user_template', `
 	')
 
 	optional_policy(`
+		systemd_manage_runtime_unit_dirs($1_usertype)
+		systemd_manage_runtime_unit_files($1_usertype)
+		systemd_manage_runtime_services($1_usertype)
+	')
+
+	optional_policy(`
 		oddjob_run_mkhomedir($1_t, $1_r)
 		oddjob_run($1_t, $1_r)
 	')
