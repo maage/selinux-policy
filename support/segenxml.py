@@ -171,7 +171,7 @@ def getModuleXML(file_name):
     # Otherwise there are some lingering XML comments at the bottom, warn
     #  the user.
     elif temp_buf:
-        warning(f"orphan XML comments at bottom of file {file_name}")
+        warning(f"orphan XML comments at bottom of file {file_name}\n{temp_buf}")
 
     # Process the TE file if it exists.
     module_buf = module_buf + getTunableXML(module_te, "both")
@@ -227,8 +227,8 @@ def getTunableXML(file_name, kind):
 
     # If there are XML comments at the end of the file, they arn't
     # attributed to anything. These are ignored.
-    if len(temp_buf):
-        warning(f"orphan XML comments at bottom of file {file_name}")
+    if temp_buf:
+        warning(f"orphan XML comments at bottom of file {file_name}\n{temp_buf}")
 
     return tunable_buf
 
