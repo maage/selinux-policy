@@ -217,7 +217,7 @@ allow pki_apache_domain self:netlink_route_socket { write getattr read bind crea
 # allow writing to the kernel keyring
 allow pki_apache_domain self:key { write read };
 
-## internal communication is often done using fifo and unix sockets.
+# internal communication is often done using fifo and unix sockets.
 allow pki_apache_domain self:fifo_file rw_file_perms;
 allow pki_apache_domain self:unix_stream_socket create_stream_socket_perms;
 
