@@ -157,7 +157,7 @@ def getModuleXML(file_name):
 			# Add default summaries and parameters so that the
 			#  DTD is happy.
 			else:
-				warning ("unable to find XML for %s %s()" % (groups[0], groups[1]))	
+				warning ("%s:%s: unable to find XML for %s %s()" % (file_name, line_num, groups[0], groups[1]))
 				module_buf.append("<summary>\n")
 				module_buf.append("Summary is missing!\n")
 				module_buf.append("</summary>\n")
