@@ -128,7 +128,7 @@ xml: $(polxml)
 #
 refresh:
 	@$(EINFO) "Refreshing $(NAME) modules"
-	$(verbose) $(SEMODULE) -b $(SHAREDIR)/$(NAME)/base.pp $(foreach mod,$(match_sys) $(match_loc),-i $(mod))
+	$(verbose) $(SEMODULE) -i $(SHAREDIR)/$(NAME)/base.pp $(foreach mod,$(match_sys) $(match_loc),-i $(mod))
 
 ########################################
 #
