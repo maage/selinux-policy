@@ -201,7 +201,7 @@ type xauth_tmp_t;
 typealias xauth_tmp_t alias { user_xauth_tmp_t staff_xauth_tmp_t sysadm_xauth_tmp_t };
 typealias xauth_tmp_t alias { xguest_xauth_tmp_t unconfined_xauth_tmp_t };
 typealias xauth_tmp_t alias { auditadm_xauth_tmp_t secadm_xauth_tmp_t };
-userdom_user_tmp_file(xauth_tmp_t)
+# userdom_user_tmp_file(xauth_tmp_t)
 
 # this is not actually a device, its a pipe
 type xconsole_device_t;
@@ -275,7 +275,7 @@ files_config_file(xserver_etc_t)
 type xserver_tmpfs_t;
 typealias xserver_tmpfs_t alias { user_xserver_tmpfs_t staff_xserver_tmpfs_t sysadm_xserver_tmpfs_t xguest_xserver_tmpfs_t unconfined_xserver_tmpfs_t xdm_xserver_tmpfs_t };
 typealias xserver_tmpfs_t alias { auditadm_xserver_tmpfs_t secadm_xserver_tmpfs_t };
-userdom_user_tmp_file(xserver_tmpfs_t)
+# userdom_user_tmp_file(xserver_tmpfs_t)
 
 type xsession_exec_t;
 corecmd_executable_file(xsession_exec_t)
@@ -307,7 +307,7 @@ dev_read_rand(iceauth_t)
 fs_search_auto_mountpoints(iceauth_t)
 
 userdom_use_inherited_user_terminals(iceauth_t)
-userdom_read_user_tmp_files(iceauth_t)
+# userdom_read_user_tmp_files(iceauth_t)
 userdom_read_all_users_state(iceauth_t)
 userdom_home_manager(iceauth_t)
 
@@ -321,7 +321,7 @@ ifdef(`hide_broken_symptoms',`
 
 	userdom_dontaudit_read_user_home_content_files(iceauth_t)
 	userdom_dontaudit_write_user_home_content_files(iceauth_t)
-	userdom_dontaudit_write_user_tmp_files(iceauth_t)
+# 	userdom_dontaudit_write_user_tmp_files(iceauth_t)
 
 	optional_policy(`
 		mozilla_dontaudit_rw_user_home_files(iceauth_t)
@@ -383,7 +383,7 @@ term_dontaudit_use_console(xauth_t)
 auth_use_nsswitch(xauth_t)
 
 userdom_use_inherited_user_terminals(xauth_t)
-userdom_read_user_tmp_files(xauth_t)
+# userdom_read_user_tmp_files(xauth_t)
 userdom_read_all_users_state(xauth_t)
 userdom_search_user_home_dirs(xauth_t)
 userdom_user_home_dir_filetrans(xauth_t, xauth_home_t, file)
@@ -394,11 +394,11 @@ userdom_user_home_dir_filetrans(xauth_t, xauth_home_t, file, ".Xauthority-n")
 userdom_user_home_dir_filetrans(xauth_t, xauth_home_t, file, ".xauth")
 userdom_user_home_dir_filetrans(xauth_t, xauth_home_t, file, ".Xauth")
 
-userdom_rw_user_tmp_files(xauth_t)
+# userdom_rw_user_tmp_files(xauth_t)
 
 ifdef(`hide_broken_symptoms',`
 	userdom_manage_user_home_content_files(xauth_t)
-	userdom_manage_user_tmp_files(xauth_t)
+# 	userdom_manage_user_tmp_files(xauth_t)
 	dev_dontaudit_rw_generic_dev_nodes(xauth_t)
 	miscfiles_read_fonts(xauth_t)
 ')
@@ -486,8 +486,8 @@ read_files_pattern(xdm_t, xdm_etc_t, xdm_etc_t)
 # this is ugly, daemons should not create files under /etc!
 manage_files_pattern(xdm_t, xdm_rw_etc_t, xdm_rw_etc_t)
 
-userdom_manage_all_user_tmp_content(xdm_t)
-userdom_exec_user_tmp_files(xdm_t)
+# userdom_manage_all_user_tmp_content(xdm_t)
+# userdom_exec_user_tmp_files(xdm_t)
 
 manage_dirs_pattern(xdm_t, xdm_tmpfs_t, xdm_tmpfs_t)
 manage_files_pattern(xdm_t, xdm_tmpfs_t, xdm_tmpfs_t)
@@ -747,10 +747,10 @@ userdom_read_user_home_content_files(xdm_t)
 userdom_read_all_users_state(xdm_t)
 userdom_signal_all_users(xdm_t)
 userdom_stream_connect(xdm_t)
-userdom_manage_user_tmp_dirs(xdm_t)
-userdom_manage_user_tmp_files(xdm_t)
-userdom_manage_user_tmp_sockets(xdm_t)
-userdom_manage_tmp_role(system_r, xdm_t)
+# userdom_manage_user_tmp_dirs(xdm_t)
+# userdom_manage_user_tmp_files(xdm_t)
+# userdom_manage_user_tmp_sockets(xdm_t)
+# userdom_manage_tmp_role(system_r, xdm_t)
 userdom_nnp_transition_login_userdomain(xdm_t)
 
 #userdom_home_manager(xdm_t)
@@ -1353,9 +1353,9 @@ seutil_read_file_contexts(xserver_t)
 userdom_search_user_home_dirs(xserver_t)
 userdom_use_user_ttys(xserver_t)
 userdom_setattr_user_ttys(xserver_t)
-userdom_read_user_tmp_files(xserver_t)
-userdom_rw_user_tmp_files(xserver_t)
-userdom_map_tmp_files(xserver_t)
+# userdom_read_user_tmp_files(xserver_t)
+# userdom_rw_user_tmp_files(xserver_t)
+# userdom_map_tmp_files(xserver_t)
 
 ifndef(`distro_redhat',`
 	allow xserver_t self:process { execmem execheap execstack };
@@ -1481,8 +1481,8 @@ dontaudit xserver_t xdm_var_lib_t:dir search_dir_perms;
 read_files_pattern(xserver_t, xdm_var_run_t, xdm_var_run_t)
 
 # Label pid and temporary files with derived types.
-userdom_manage_user_tmp_files(xserver_t)
-userdom_manage_user_tmp_sockets(xserver_t)
+# userdom_manage_user_tmp_files(xserver_t)
+# userdom_manage_user_tmp_sockets(xserver_t)
 
 # Run xkbcomp.
 allow xserver_t xkb_var_lib_t:lnk_file read_lnk_file_perms;
