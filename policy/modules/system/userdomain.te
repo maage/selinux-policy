@@ -457,6 +457,14 @@ optional_policy(`
 optional_policy(`
 	gen_require(`
 		type systemd_logind_var_run_t;
+	')
+	### sockets: /run/user/<uid>/systemd/notify /run/user/<uid>/systemd/private:
+	manage_sock_files_pattern(login_userdomain, systemd_logind_var_run_t, systemd_logind_var_run_t)
+')
+
+optional_policy(`
+	gen_require(`
+		type systemd_logind_var_run_t;
 		type systemd_runtime_unit_file_t;
 	')
 	manage_dirs_pattern(login_userdomain, systemd_logind_var_run_t, systemd_runtime_unit_file_t)
