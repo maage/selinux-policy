@@ -902,6 +902,15 @@ xserver_rw_session(xdm_t, xdm_tmpfs_t)
 xserver_unconfined(xdm_t)
 xserver_domtrans_xauth(xdm_t)
 
+#### Allow: gnome-shell: /dev/shm
+# or /usr/bin/gnome-session-custom-session
+# /dev/shm/<dir>
+# memfd:/.glXXXXXX
+# memfd:pulseaudio
+fs_manage_tmpfs_dirs(xdm_t)
+fs_manage_tmpfs_files(xdm_t)
+allow xdm_t tmpfs_t:file mmap_file_perms;
+
 ifndef(`distro_redhat',`
 	allow xdm_t self:process { execheap execmem };
 ')
