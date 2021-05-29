@@ -220,6 +220,16 @@ optional_policy(`
 ')
 
 optional_policy(`
+	gen_require(`
+		type unconfined_t;
+		type dma_device_t;
+	')
+
+	# /dev/dma_heap
+	manage_dirs_pattern(unconfined_t, dma_device_t, dma_device_t)
+')
+
+optional_policy(`
 	container_runtime_entrypoint(unconfined_t)
 ')
 
