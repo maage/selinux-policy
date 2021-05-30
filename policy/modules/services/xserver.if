@@ -411,8 +411,6 @@ template(`xserver_user_x_domain_template',`
 	# for when /tmp/.X11-unix is created by the system
 	allow $2 xdm_t:fd use;
 	allow $2 xdm_t:fifo_file rw_inherited_fifo_file_perms;
-    userdom_search_user_tmp_dirs($2)
-    userdom_rw_user_tmp_sock_files($2)
 	dontaudit $2 xdm_t:tcp_socket { read write };
 
 	# Allow connections to X server.
@@ -2253,6 +2251,7 @@ interface(`xserver_filetrans_home_content',`
 	gen_require(`
 		type xdm_home_t, xauth_home_t, iceauth_home_t;
 		type iceauth_tmp_t;
+		type x11_tmp_t;
 		type user_home_t, user_fonts_t, user_fonts_cache_t;
 		type user_fonts_config_t;
 	')
@@ -2298,6 +2297,15 @@ interface(`xserver_filetrans_home_content',`
 	filetrans_pattern($1, tmp_t, iceauth_tmp_t, dir, ".ICE-unix")
 	manage_dirs_pattern($1, tmp_t, iceauth_tmp_t)
 	manage_sock_files_pattern($1, iceauth_tmp_t, iceauth_tmp_t)
+
+	# /tmp/.X0-lock
+	filetrans_pattern($1, tmp_t, x11_tmp_t, file, ".X0-lock")
+	manage_files_pattern($1, tmp_t, x11_tmp_t)
+
+	# /tmp/.X11-unix/
+	filetrans_pattern($1, tmp_t, x11_tmp_t, dir, ".X11-unix")
+	manage_dirs_pattern($1, tmp_t, x11_tmp_t)
+	manage_sock_files_pattern($1, x11_tmp_t, x11_tmp_t)
 
 
 	# /run/user/<uid>/gdm/Xauthority
