@@ -1425,6 +1425,8 @@ allow systemd_sleep_t self:lockdown integrity;
 
 kernel_dgram_send(systemd_sleep_t)
 
+kernel_read_network_state(systemd_sleep_t)
+
 corecmd_exec_bin(systemd_sleep_t)
 corecmd_exec_shell(systemd_sleep_t)
 
