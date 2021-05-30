@@ -253,6 +253,9 @@ init_named_pid_filetrans(systemd_logind_t, systemd_logind_sessions_t, dir, "sess
 init_pid_filetrans(systemd_logind_t, systemd_logind_var_run_t, dir)
 files_pid_filetrans(systemd_logind_t, systemd_logind_var_run_t, file)
 
+# logout: /usr/lib/systemd/systemd-user-runtime-dir remove /run/user/<uid>/systemd/{notify,private}
+delete_sock_files_pattern(systemd_logind_t, systemd_logind_var_run_t, systemd_logind_var_run_t)
+
 manage_dirs_pattern(systemd_logind_t, systemd_logind_inhibit_var_run_t, systemd_logind_inhibit_var_run_t)
 manage_files_pattern(systemd_logind_t, systemd_logind_inhibit_var_run_t, systemd_logind_inhibit_var_run_t)
 manage_fifo_files_pattern(systemd_logind_t, systemd_logind_inhibit_var_run_t, systemd_logind_inhibit_var_run_t)
