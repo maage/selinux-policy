@@ -184,6 +184,13 @@ typealias iceauth_home_t alias { auditadm_iceauth_home_t secadm_iceauth_home_t }
 typealias iceauth_home_t alias { xguest_iceauth_home_t };
 userdom_user_home_content(iceauth_home_t)
 
+type iceauth_tmp_t;
+#typealias iceauth_tmp_t alias { user_iceauth_tmp_t staff_iceauth_tmp_t sysadm_iceauth_tmp_t };
+#typealias iceauth_tmp_t alias { xguest_iceauth_tmp_t unconfined_iceauth_tmp_t };
+#typealias iceauth_tmp_t alias { auditadm_iceauth_tmp_t secadm_iceauth_tmp_t };
+fs_associate_tmpfs(iceauth_tmp_t)
+userdom_user_tmp_content(iceauth_tmp_t)
+
 type xauth_t;
 type xauth_exec_t;
 typealias xauth_t alias { user_xauth_t staff_xauth_t sysadm_xauth_t };
@@ -1759,7 +1766,7 @@ userdom_rw_user_tmp_sock_files(x_userdomain)
 # gnome-session creates socket under /tmp/.ICE-unix/
 userdom_create_user_tmp_sockets(x_userdomain)
 # Needed for escd, remove if we get escd policy
-userdom_manage_user_tmp_files(x_userdomain)
+#userdom_manage_user_tmp_files(x_userdomain)
 dontaudit x_userdomain xdm_t:tcp_socket { read write };
 
 allow x_userdomain xdm_t:dbus send_msg;

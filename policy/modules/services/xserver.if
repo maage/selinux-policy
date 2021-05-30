@@ -2252,6 +2252,7 @@ interface(`xserver_filetrans_fonts_cache_home_content',`
 interface(`xserver_filetrans_home_content',`
 	gen_require(`
 		type xdm_home_t, xauth_home_t, iceauth_home_t;
+		type iceauth_tmp_t;
 		type user_home_t, user_fonts_t, user_fonts_cache_t;
 		type user_fonts_config_t;
 	')
@@ -2292,6 +2293,12 @@ interface(`xserver_filetrans_home_content',`
 	userdom_user_home_dir_filetrans($1, user_fonts_cache_t, dir, ".fontconfig")
 	filetrans_pattern($1, user_fonts_t, user_fonts_cache_t, dir, "auto")
 	files_tmp_filetrans($1, user_fonts_t, dir, ".font-unix")
+
+	# /tmp/.ICE-unix/
+	filetrans_pattern($1, tmp_t, iceauth_tmp_t, dir, ".ICE-unix")
+	manage_dirs_pattern($1, tmp_t, iceauth_tmp_t)
+	manage_sock_files_pattern($1, iceauth_tmp_t, iceauth_tmp_t)
+
 
 	# /run/user/<uid>/gdm/Xauthority
 	# by:
