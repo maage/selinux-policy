@@ -2317,6 +2317,14 @@ interface(`xserver_filetrans_home_content',`
 	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority")
 	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority-c")
 	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority-l")
+
+	optional_policy(`
+		gen_require(`
+			type gkeyringd_tmp_t;
+		')
+		# /run/user/<uid>/keyring: /usr/bin/gnome-keyring-daemon
+		userdom_user_tmp_filetrans($1, gkeyringd_tmp_t, dir, "keyring")
+	')
 ')
 
 ########################################
