@@ -791,6 +791,7 @@ template(`userdom_common_user_template',`
 	files_read_var_symlinks($1_usertype)
 	files_read_generic_spool($1_usertype)
 	files_read_var_lib_files($1_usertype)
+	files_read_var_lib_symlinks($1_usertype)
 	# Stat lost+found.
 	files_getattr_lost_found_dirs($1_usertype)
 	files_read_config_files($1_usertype)
