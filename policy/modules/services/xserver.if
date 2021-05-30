@@ -2394,6 +2394,22 @@ interface(`xserver_filetrans_home_content',`
 	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority")
 	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority-c")
 	userdom_user_tmp_filetrans($1, iceauth_home_t, file, "ICEauthority-l")
+
+	optional_policy(`
+		gen_require(`
+			type gkeyringd_tmp_t;
+		')
+		# /run/user/<uid>/keyring: /usr/bin/gnome-keyring-daemon
+		userdom_user_tmp_filetrans($1, gkeyringd_tmp_t, dir, "keyring")
+
+		# /run/user/<uid>/keyring/control: /usr/bin/gnome-keyring-daemon
+		# AVC avc:  denied  { create } for  pid=2627 comm=gnome-keyring-d name=control scontext=system_u:system_r:xdm_t:s0-s0:c0.c1023 tcontext=system_u:object_r:gkeyringd_tmp_t:s0 tclass=sock_file permissive=1 "
+		allow $1 gkeyringd_tmp_t:sock_file create;
+
+		# AVC avc:  denied  { create } for  pid=2627 comm=gnome-keyring-d name=keyring scontext=system_u:system_r:xdm_t:s0-s0:c0.c1023 tcontext=system_u:object_r:gkeyringd_tmp_t:s0 tclass=dir permissive=1
+		# AVC avc:  denied  { add_name } for  pid=2627 comm=gnome-keyring-d name=control scontext=system_u:system_r:xdm_t:s0-s0:c0.c1023 tcontext=system_u:object_r:gkeyringd_tmp_t:s0 tclass=dir permissive=1  "
+		gnome_manage_gkeyringd_tmp_dirs($1)
+	')
 ')
 
 ########################################
