@@ -1469,6 +1469,7 @@ manage_sock_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_
 
 optional_policy(`
 	sysstat_domtrans(systemd_sleep_t)
+	sysstat_manage_log(systemd_sleep_t)
 ')
 
 optional_policy(`
