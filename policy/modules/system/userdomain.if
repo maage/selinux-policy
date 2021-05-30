@@ -799,6 +799,10 @@ template(`userdom_common_user_template',`
 	fs_read_noxattr_fs_symlinks($1_usertype)
 	fs_rw_cgroup_files($1_usertype)
 
+	files_watch_non_auth_dirs($1_usertype)
+	files_watch_var_run_dirs($1_usertype)
+	libs_watch_lib_dirs($1_usertype)
+
 	application_getattr_socket($1_usertype)
 
 
