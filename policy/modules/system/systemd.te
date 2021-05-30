@@ -1475,6 +1475,16 @@ optional_policy(`
 
 optional_policy(`
 	gen_require(`
+		type session_dbusd_tmp_t;
+	')
+
+	### /run/user/<uid>/bus
+	# /usr/lib/systemd/systemd-user-runtime-dir: logout, just remove
+	delete_sock_files_pattern(systemd_logind_t, user_tmp_t, session_dbusd_tmp_t)
+')
+
+optional_policy(`
+	gen_require(`
 		type iceauth_home_t;
 		type user_tmp_t;
 	')
