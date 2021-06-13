@@ -193,8 +193,7 @@ allow openshift_domain openshift_file_type:file { execute execute_no_trans };
 
 # Dontaudit openshift domains trying to search other openshift domains directories, 
 # this happens just when users are probing the system
-dontaudit openshift_domain openshift_file_type:dir search_dir_perms
-;
+dontaudit openshift_domain openshift_file_type:dir search_dir_perms;
 
 manage_dirs_pattern(openshift_domain, openshift_tmpfs_t, openshift_tmpfs_t)
 manage_files_pattern(openshift_domain, openshift_tmpfs_t, openshift_tmpfs_t)
