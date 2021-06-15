@@ -1294,6 +1294,7 @@ interface(`dev_dontaudit_getattr_all_chr_files',`
 interface(`dev_setattr_all_blk_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	setattr_blk_files_pattern($1, device_t, device_node)
@@ -1313,6 +1314,7 @@ interface(`dev_setattr_all_blk_files',`
 interface(`dev_setattr_all_chr_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	setattr_chr_files_pattern($1, device_t, device_node)
@@ -1403,6 +1405,7 @@ interface(`dev_dontaudit_write_all_chr_files',`
 interface(`dev_create_all_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	create_files_pattern($1, device_t, device_node)
@@ -1421,6 +1424,7 @@ interface(`dev_create_all_files',`
 interface(`dev_create_all_blk_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	create_blk_files_pattern($1, device_t, device_node)
@@ -1439,6 +1443,7 @@ interface(`dev_create_all_blk_files',`
 interface(`dev_create_all_chr_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	create_chr_files_pattern($1, device_t, device_node)
@@ -1493,6 +1498,7 @@ interface(`dev_rw_all_inherited_blk_files',`
 interface(`dev_delete_all_blk_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	delete_blk_files_pattern($1, device_t, device_node)
@@ -1511,6 +1517,7 @@ interface(`dev_delete_all_blk_files',`
 interface(`dev_delete_all_chr_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	delete_chr_files_pattern($1, device_t, device_node)
@@ -1529,6 +1536,7 @@ interface(`dev_delete_all_chr_files',`
 interface(`dev_rename_all_blk_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	rename_blk_files_pattern($1, device_t, device_node)
@@ -1547,6 +1555,7 @@ interface(`dev_rename_all_blk_files',`
 interface(`dev_rename_all_chr_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	rename_chr_files_pattern($1, device_t, device_node)
@@ -1565,6 +1574,7 @@ interface(`dev_rename_all_chr_files',`
 interface(`dev_manage_all_blk_files',`
 	gen_require(`
 		attribute device_node;
+		type device_t;
 	')
 
 	manage_blk_files_pattern($1, device_t, device_node)
@@ -1589,6 +1599,7 @@ interface(`dev_manage_all_blk_files',`
 interface(`dev_manage_all_chr_files',`
 	gen_require(`
 		attribute device_node, memory_raw_read, memory_raw_write;
+		type device_t;
 	')
 
 	manage_chr_files_pattern($1, device_t, device_node)
@@ -1846,7 +1857,7 @@ interface(`dev_relabel_autofs_dev',`
 #
 interface(`dev_rw_cardmgr',`
 	gen_require(`
-		type cardmgr_dev_t;
+		type device_t, cardmgr_dev_t;
 	')
 
 	rw_chr_files_pattern($1, device_t, cardmgr_dev_t)
@@ -2188,7 +2199,7 @@ interface(`dev_setattr_dri_dev',`
 #
 interface(`dev_map_dri',`
 	gen_require(`
-		type device_t, dri_device_t;
+		type dri_device_t;
 	')
 
 	allow $1 dri_device_t:chr_file map;
@@ -2626,7 +2637,7 @@ interface(`dev_dontaudit_setattr_framebuffer_dev',`
 #
 interface(`dev_read_framebuffer',`
 	gen_require(`
-		type framebuf_device_t;
+		type device_t, framebuf_device_t;
 	')
 
 	read_chr_files_pattern($1, device_t, framebuf_device_t)
@@ -3291,7 +3302,7 @@ interface(`dev_raw_memory_writer',`
 #
 interface(`dev_rx_raw_memory',`
 	gen_require(`
-		type device_t, memory_device_t;
+		type memory_device_t;
 	')
 
 	dev_read_raw_memory($1)
@@ -3310,7 +3321,7 @@ interface(`dev_rx_raw_memory',`
 #
 interface(`dev_wx_raw_memory',`
 	gen_require(`
-		type device_t, memory_device_t;
+		type memory_device_t;
 	')
 
 	dev_write_raw_memory($1)
@@ -4037,7 +4048,7 @@ interface(`dev_dontaudit_getattr_nvram_dev',`
 #
 interface(`dev_read_nvram',`
 	gen_require(`
-		type nvram_device_t;
+		type device_t, nvram_device_t;
 	')
 
 	read_chr_files_pattern($1, device_t, nvram_device_t)
@@ -4055,7 +4066,7 @@ interface(`dev_read_nvram',`
 #
 interface(`dev_rw_nvram',`
 	gen_require(`
-		type nvram_device_t;
+		type device_t, nvram_device_t;
 	')
 
 	rw_chr_files_pattern($1, device_t, nvram_device_t)
@@ -5328,7 +5339,7 @@ interface(`dev_dontaudit_write_urand',`
 #
 interface(`dev_getattr_generic_usb_dev',`
 	gen_require(`
-		type usb_device_t,device_t;
+		type device_t, usb_device_t;
 	')
 
 	getattr_chr_files_pattern($1, device_t, usb_device_t)
@@ -5346,7 +5357,7 @@ interface(`dev_getattr_generic_usb_dev',`
 #
 interface(`dev_setattr_generic_usb_dev',`
 	gen_require(`
-		type usb_device_t;
+		type device_t, usb_device_t;
 	')
 
 	setattr_chr_files_pattern($1, device_t, usb_device_t)
@@ -5364,7 +5375,7 @@ interface(`dev_setattr_generic_usb_dev',`
 #
 interface(`dev_read_generic_usb_dev',`
 	gen_require(`
-		type usb_device_t;
+		type device_t, usb_device_t;
 	')
 
 	read_chr_files_pattern($1, device_t, usb_device_t)
@@ -5400,7 +5411,7 @@ interface(`dev_rw_generic_usb_dev',`
 #
 interface(`dev_relabel_generic_usb_dev',`
 	gen_require(`
-		type usb_device_t;
+		type device_t, usb_device_t;
 	')
 
 	relabel_chr_files_pattern($1, device_t, usb_device_t)
@@ -5662,7 +5673,7 @@ interface(`dev_rw_userio_dev',`
 #
 interface(`dev_map_userio_dev',`
 	gen_require(`
-		type device_t, userio_device_t;
+		type userio_device_t;
 	')
 
 	allow $1 userio_device_t:chr_file map;
@@ -5773,7 +5784,7 @@ interface(`dev_read_video_dev',`
 #
 interface(`dev_map_video_dev',`
 	gen_require(`
-		type device_t, v4l_device_t;
+		type v4l_device_t;
 	')
 
 	allow $1 v4l_device_t:chr_file map;
@@ -5956,7 +5967,7 @@ interface(`dev_rw_vhost',`
 #
 interface(`dev_rw_inherited_vhost',`
 	gen_require(`
-		type device_t, vhost_device_t;
+		type vhost_device_t;
 	')
 
 	allow $1 vhost_device_t:chr_file rw_inherited_chr_file_perms;
