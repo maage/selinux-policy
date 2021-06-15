@@ -7386,7 +7386,7 @@ interface(`files_write_var_dirs',`
 #
 interface(`files_setattr_var_dirs',`
 	gen_require(`
-		type usr_t;
+		type var_t;
 	')
 
 	allow $1 var_t:dir setattr;
