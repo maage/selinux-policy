@@ -5997,6 +5997,7 @@ interface(`files_getattr_tmp_dirs',`
 interface(`files_dontaudit_access_check_tmp',`
 	gen_require(`
 		type etc_t;
+		type tmp_t;
 	')
 
 	dontaudit $1 tmp_t:dir_file_class_set audit_access;
