@@ -197,7 +197,7 @@ hadoop_match_lan_spd(hadoop_domain)
 kernel_read_kernel_sysctls(hadoop_domain)
 kernel_read_network_state(hadoop_domain)
 kernel_read_sysctl(hadoop_domain)
-kernel_read_system_state(hadoop_domain)
+# kernel_read_system_state(hadoop_domain)
 
 corecmd_exec_bin(hadoop_domain)
 corecmd_exec_shell(hadoop_domain)
@@ -226,7 +226,7 @@ init_use_script_ptys(hadoop_domain)
 
 logging_search_logs(hadoop_domain)
 logging_send_audit_msgs(hadoop_domain)
-logging_send_syslog_msg(hadoop_domain)
+# logging_send_syslog_msg(hadoop_domain)
 
 miscfiles_read_localization(hadoop_domain)
 
@@ -255,7 +255,7 @@ hadoop_exec_config(hadoop_initrc_domain)
 
 kernel_read_kernel_sysctls(hadoop_initrc_domain)
 kernel_read_sysctl(hadoop_initrc_domain)
-kernel_read_system_state(hadoop_initrc_domain)
+# kernel_read_system_state(hadoop_initrc_domain)
 
 corecmd_exec_bin(hadoop_initrc_domain)
 corecmd_exec_shell(hadoop_initrc_domain)
@@ -273,7 +273,7 @@ init_use_fds(hadoop_initrc_domain)
 init_use_script_ptys(hadoop_initrc_domain)
 
 logging_search_logs(hadoop_initrc_domain)
-logging_send_syslog_msg(hadoop_initrc_domain)
+# logging_send_syslog_msg(hadoop_initrc_domain)
 logging_send_audit_msgs(hadoop_initrc_domain)
 
 miscfiles_read_localization(hadoop_initrc_domain)
