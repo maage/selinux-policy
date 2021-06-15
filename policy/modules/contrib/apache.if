@@ -221,6 +221,11 @@ template(`apache_content_template',`
 ##	Create a set of derived types for apache
 ##	web content.
 ## </summary>
+## <desc>
+## <p>
+##      This can only be used after respective apache_content_template
+## </p>
+## </desc>
 ## <param name="prefix">
 ##	<summary>
 ##	The prefix to be used for deriving new type names.
