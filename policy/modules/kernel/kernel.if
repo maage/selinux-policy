@@ -1532,6 +1532,7 @@ interface(`kernel_dontaudit_search_network_state',`
 #
 interface(`kernel_search_network_state',`
 	gen_require(`
+		type proc_t;
 		type proc_net_t;
 	')
 
