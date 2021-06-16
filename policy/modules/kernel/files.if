@@ -5789,7 +5789,7 @@ interface(`files_filetrans_system_conf_named_files',`
 #
 interface(`files_relabelto_system_conf_files',`
     gen_require(`
-        type usr_t;
+        type system_conf_t;
     ')
 
     relabelto_files_pattern($1, system_conf_t, system_conf_t)
@@ -5807,7 +5807,7 @@ interface(`files_relabelto_system_conf_files',`
 #
 interface(`files_relabelfrom_system_conf_files',`
     gen_require(`
-        type usr_t;
+        type system_conf_t;
     ')
 
     relabelfrom_files_pattern($1, system_conf_t, system_conf_t)
