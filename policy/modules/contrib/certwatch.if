@@ -64,7 +64,7 @@ interface(`certwatch_run',`
 ##	Role allowed access.
 ##	</summary>
 ## </param>
-## <param name="terminal">
+## <param name="object">
 ##	<summary>
 ##	The type of the terminal allow the certwatch domain to use.
 ##	</summary>
