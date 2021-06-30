@@ -6543,7 +6543,7 @@ interface(`dev_rw_hypervvssd',`
 interface(`dev_filetrans_printer_named_dev',`
 
 	gen_require(`
-		type printer_device_t;
+		type device_t, printer_device_t;
 
 	')
 	filetrans_pattern($1, device_t, printer_device_t, chr_file, "irlpt0")
