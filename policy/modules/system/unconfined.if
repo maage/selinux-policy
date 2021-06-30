@@ -414,7 +414,7 @@ interface(`unconfined_server_create_shm',`
 ## <summary>
 ##	Allow the specified domain read unconfined service semaphores
 ## </summary>
-##	<param name="domain">
+## <param name="domain">
 ##	<summary>
 ##	Domain allowed access.
 ##	</summary>

@@ -99,9 +99,9 @@ interface(`snmp_read_snmp_var_lib_files',`
 ##  Read snmpd libraries directories
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`snmp_read_snmp_var_lib_dirs',`

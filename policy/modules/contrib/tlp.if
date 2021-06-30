@@ -6,9 +6,9 @@
 ##	Execute tlp_exec_t in the tlp domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`tlp_domtrans',`

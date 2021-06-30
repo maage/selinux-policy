@@ -7,9 +7,9 @@
 ##  condor init daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`condor_domain_template',`
@@ -46,9 +46,9 @@ template(`condor_domain_template',`
 ##	Transition to condor.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`condor_domtrans_master',`
@@ -67,19 +67,19 @@ interface(`condor_domtrans_master',`
 ##  with a range transition.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  The process type entered by condor_startd.
-##  </summary>
+##	<summary>
+##	The process type entered by condor_startd.
+##	</summary>
 ## </param>
 ## <param name="entrypoint">
-##  <summary>
-##  The executable type for the entrypoint.
-##  </summary>
+##	<summary>
+##	The executable type for the entrypoint.
+##	</summary>
 ## </param>
 ## <param name="range">
-##  <summary>
-##  Range for the domain.
-##  </summary>
+##	<summary>
+##	Range for the domain.
+##	</summary>
 ## </param>
 #
 interface(`condor_startd_ranged_domtrans_to',`
@@ -101,14 +101,14 @@ interface(`condor_startd_ranged_domtrans_to',`
 ##  by transitioning to the specified domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  The process type entered by condor_startd.
-##  </summary>
+##	<summary>
+##	The process type entered by condor_startd.
+##	</summary>
 ## </param>
 ## <param name="entrypoint">
-##  <summary>
-##  The executable type for the entrypoint.
-##  </summary>
+##	<summary>
+##	The executable type for the entrypoint.
+##	</summary>
 ## </param>
 #
 interface(`condor_startd_domtrans_to',`
@@ -222,9 +222,9 @@ interface(`condor_read_lib_files',`
 ##  Read and write condor lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`condor_rw_lib_files',`
@@ -323,9 +323,9 @@ interface(`condor_systemctl',`
 ##  Read and write condor_startd server TCP sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`condor_rw_tcp_sockets_startd',`
@@ -341,9 +341,9 @@ interface(`condor_rw_tcp_sockets_startd',`
 ##  Read and write condor_schedd server TCP sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`condor_rw_tcp_sockets_schedd',`

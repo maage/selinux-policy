@@ -6,9 +6,9 @@
 ##	Execute a domain transition to run wdmd.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`wdmd_domtrans',`
@@ -98,9 +98,9 @@ interface(`wdmd_manage_pid_files',`
 ##      Connect to wdmd over a unix stream socket.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`wdmd_stream_connect',`
@@ -118,9 +118,9 @@ interface(`wdmd_stream_connect',`
 ##  Allow the specified domain to read/write wdmd's tmpfs files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`wdmd_rw_tmpfs',`

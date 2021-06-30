@@ -7,9 +7,9 @@
 ##	Execute a domain transition to run dspam.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`dspam_domtrans',`
@@ -65,9 +65,9 @@ interface(`dspam_read_log',`
 ##	dspam log files.
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed to transition.
-## 	</summary>
+##	</summary>
 ## </param>
 #
 interface(`dspam_append_log',`
@@ -202,9 +202,9 @@ interface(`dspam_read_pid_files',`
 ##  Connect to DSPAM using a unix domain stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dspam_stream_connect',`

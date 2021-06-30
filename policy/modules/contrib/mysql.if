@@ -59,9 +59,9 @@ interface(`mysql_signal',`
 ##  Send a null signal to mysql.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mysql_signull',`
@@ -571,7 +571,7 @@ interface(`mysql_read_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

@@ -5,9 +5,9 @@
 ##      Execute a domain transition to run ftpd.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`ftp_domtrans',`
@@ -25,9 +25,9 @@ interface(`ftp_domtrans',`
 ##  Execute ftpd server in the ftpd domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  The type of the process performing this action.
-##  </summary>
+##	<summary>
+##	The type of the process performing this action.
+##	</summary>
 ## </param>
 #
 interface(`ftp_initrc_domtrans',`

@@ -7,9 +7,9 @@
 ##	Execute a domain transition to run sanlock.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sanlock_domtrans',`
@@ -63,9 +63,9 @@ interface(`sanlock_manage_pid_files',`
 ##      Connect to sanlock over a unix stream socket.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sanlock_stream_connect',`
@@ -146,9 +146,9 @@ interface(`sanlock_admin',`
 ##	Execute sanlk_resetd_exec_t in the sanlk_resetd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sanlock_domtrans_sanlk_resetd',`

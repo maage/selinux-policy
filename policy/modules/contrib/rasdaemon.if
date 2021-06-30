@@ -6,9 +6,9 @@
 ##	Execute TEMPLATE in the rasdaemon domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rasdaemon_domtrans',`

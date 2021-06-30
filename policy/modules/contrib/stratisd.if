@@ -6,9 +6,9 @@
 ##      stratisd over dbus.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`stratisd_dbus_chat',`
@@ -26,9 +26,9 @@ interface(`stratisd_dbus_chat',`
 ##  Execute stratisd_exec_t in the stratisd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`stratisd_domtrans',`

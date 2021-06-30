@@ -709,9 +709,9 @@ interface(`mta_dontaudit_rw_delivery_tcp_sockets',`
 ##  sockets of mail delivery domains.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`mta_rw_delivery_tcp_sockets',`
@@ -838,9 +838,9 @@ interface(`mta_spool_filetrans',`
 ##  Read the mail spool.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mta_read_spool',`
@@ -1183,9 +1183,9 @@ interface(`mta_read_home',`
 ##      ALlow domain to mmap mail content in the homedir
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mta_mmap_home_rw',`
@@ -1201,9 +1201,9 @@ interface(`mta_mmap_home_rw',`
 ##      ALlow domain to read mail content in the homedir
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mta_read_home_rw',`
@@ -1226,9 +1226,9 @@ interface(`mta_read_home_rw',`
 ##      Allow domain to manage mail content in the homedir
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mta_manage_home_rw',`
@@ -1282,7 +1282,7 @@ interface(`mta_filetrans_admin_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1308,7 +1308,7 @@ interface(`mta_filetrans_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

@@ -337,9 +337,9 @@ interface(`spamassassin_read_pid_files',`
 ##  Transition to spamassassin named content
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##      Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`spamassassin_filetrans_home_content',`
@@ -358,9 +358,9 @@ interface(`spamassassin_filetrans_home_content',`
 ##  Transition to spamassassin named content
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##      Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`spamassassin_filetrans_admin_home_content',`

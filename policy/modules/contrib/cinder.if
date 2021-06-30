@@ -5,9 +5,9 @@
 ##  Manage cinder lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cinder_manage_lib_files',`
@@ -25,9 +25,9 @@ interface(`cinder_manage_lib_files',`
 ##  openstack-cinder systemd daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`cinder_domain_template',`

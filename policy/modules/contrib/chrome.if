@@ -6,9 +6,9 @@
 ##	Execute a domain transition to run chrome_sandbox.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`chrome_domtrans_sandbox',`
@@ -139,9 +139,9 @@ interface(`chrome_dontaudit_sandbox_leaks',`
 ##      with an correct label.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`chrome_filetrans_home_content',`

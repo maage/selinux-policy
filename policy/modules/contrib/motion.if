@@ -6,9 +6,9 @@
 ##	Execute motion in the motion domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`motion_domtrans',`
@@ -84,9 +84,9 @@ interface(`motion_manage_log',`
 ## Manage motion pid files
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`motion_manage_pid',`
@@ -103,9 +103,9 @@ interface(`motion_manage_pid',`
 ## Manage motion data files
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`motion_manage_data',`
@@ -147,9 +147,9 @@ interface(`motion_systemctl',`
 ## Manage all motion files.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`motion_manage_all_files',`

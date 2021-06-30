@@ -40,9 +40,9 @@ interface(`ntp_domtrans',`
 ##     Execute ntp server in the caller domain.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed to transition.
-##     </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`ntp_exec',`
@@ -122,9 +122,9 @@ interface(`ntp_initrc_domtrans',`
 ##      Allow domain to read ntpd systemd unit files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ntp_read_unit_file',`
@@ -165,9 +165,9 @@ interface(`ntp_systemctl',`
 ##     Send a generic signal to ntpd
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ntp_signal',`
@@ -302,7 +302,7 @@ interface(`ntp_admin',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -323,9 +323,9 @@ interface(`ntp_filetrans_named_content',`
 ##      ntp log content.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ntp_manage_log',`

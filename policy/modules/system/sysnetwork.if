@@ -372,9 +372,9 @@ interface(`sysnet_setattr_config',`
 ##      Allow caller to relabel net_conf files
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sysnet_relabelfrom_net_conf',`
@@ -391,9 +391,9 @@ interface(`sysnet_relabelfrom_net_conf',`
 ##      Allow caller to relabel net_conf files
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sysnet_relabelto_net_conf',`
@@ -568,7 +568,7 @@ interface(`sysnet_etc_filetrans_config',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 ## <param name="private type">
@@ -640,9 +640,9 @@ interface(`sysnet_manage_config_dirs',`
 ##      network config pipes.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sysnet_manage_config_pipes',`
@@ -696,9 +696,9 @@ interface(`sysnet_delete_dhcpc_pid',`
 ##  Manage the dhcp client pid file.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.  
-##  </summary>
+##	<summary>
+##	Domain allowed access.  
+##	</summary>
 ## </param>
 #
 interface(`sysnet_manage_dhcpc_pid',`
@@ -758,9 +758,9 @@ interface(`sysnet_domtrans_ifconfig',`
 ##	NNP Transition to ifconfig_t.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sysnet_nnp_domtrans_ifconfig',`
@@ -1149,7 +1149,7 @@ interface(`sysnet_role_transition_dhcpc',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1172,7 +1172,7 @@ interface(`sysnet_filetrans_systemd_resolved',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1211,7 +1211,7 @@ interface(`sysnet_filetrans_named_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1269,7 +1269,7 @@ interface(`sysnet_read_ifconfig_run_files',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1287,7 +1287,7 @@ interface(`sysnet_filetrans_named_content_ifconfig',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1305,7 +1305,7 @@ interface(`sysnet_filetrans_net_conf',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
