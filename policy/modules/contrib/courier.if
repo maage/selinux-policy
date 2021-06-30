@@ -145,7 +145,7 @@ interface(`courier_manage_spool_dirs',`
 ##	Create, read, write, and delete courier
 ##	spool files.
 ## </summary>
-## <param name="domains">
+## <param name="domain">
 ##	<summary>
 ##	Domain allowed access.
 ##	</summary>
@@ -164,7 +164,7 @@ interface(`courier_manage_spool_files',`
 ## <summary>
 ##	Manage named socket in a courier spool directory.
 ## </summary>
-## <param name="domains">
+## <param name="domain">
 ##	<summary>
 ##	Domain allowed access.
 ##	</summary>
