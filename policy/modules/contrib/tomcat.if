@@ -7,9 +7,9 @@
 ##      tomcat daemon domain.
 ## </summary>
 ## <param name="prefix">
-##      <summary>
-##      Prefix for the domain.
-##      </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`tomcat_domain_template',`
@@ -81,9 +81,9 @@ template(`tomcat_domain_template',`
 ##	Transition to tomcat.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`tomcat_domtrans',`

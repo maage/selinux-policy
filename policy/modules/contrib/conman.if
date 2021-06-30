@@ -5,9 +5,9 @@
 ##	Execute conman in the conman domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`conman_domtrans',`

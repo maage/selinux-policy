@@ -80,9 +80,9 @@ interface(`dirsrvadmin_manage_config',`
 ##      Read dirsrv-adminserver tmp files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrvadmin_read_tmp',`
@@ -98,9 +98,9 @@ interface(`dirsrvadmin_read_tmp',`
 ##      Manage dirsrv-adminserver tmp files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrvadmin_manage_tmp',`
@@ -141,9 +141,9 @@ interface(`dirsrvadmin_systemctl',`
 ##  Execute admin cgi programs in caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrvadmin_domtrans_unconfined_script_t',`

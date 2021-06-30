@@ -6,9 +6,9 @@
 ##	Execute opensm in the opensm domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`opensm_domtrans',`

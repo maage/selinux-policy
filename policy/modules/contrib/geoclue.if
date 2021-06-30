@@ -6,9 +6,9 @@
 ##	Execute geoclue in the geoclue domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`geoclue_domtrans',`
@@ -102,9 +102,9 @@ interface(`geoclue_manage_lib_dirs',`
 ##  geoclue over dbus.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##      Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`geoclue_dbus_chat',`

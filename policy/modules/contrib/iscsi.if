@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run iscsid.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`iscsid_domtrans',`
@@ -24,14 +24,14 @@ interface(`iscsid_domtrans',`
 ##	Execute iscsid programs in the iscsid domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  The role to allow the iscsid domain.
-##  </summary>
+##	<summary>
+##	The role to allow the iscsid domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -130,7 +130,7 @@ interface(`iscsi_read_lib_files',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -147,9 +147,9 @@ interface(`iscsi_filetrans_named_content',`
 ##     Execute iscsi server in the iscsi domain.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed to transition.
-##     </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`iscsi_systemctl',`

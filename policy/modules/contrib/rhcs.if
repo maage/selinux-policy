@@ -180,9 +180,9 @@ interface(`rhcs_domtrans_fenced',`
 ##  Allow a domain to getattr on fenced executable.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_getattr_fenced',`
@@ -377,9 +377,9 @@ interface(`rhcs_stream_connect_gfs_controld',`
 ##	Execute a domain transition to run groupd.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rhcs_domtrans_groupd',`
@@ -618,9 +618,9 @@ interface(`rhcs_read_cluster_lib_files',`
 ##  Allow domain to manage cluster lib files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_manage_cluster_lib_files',`
@@ -637,9 +637,9 @@ interface(`rhcs_manage_cluster_lib_files',`
 ##  Allow domain to relabel cluster lib files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_relabel_cluster_lib_files',`
@@ -657,9 +657,9 @@ interface(`rhcs_relabel_cluster_lib_files',`
 ##  Execute a domain transition to run cluster administrative domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_domtrans_cluster',`
@@ -677,9 +677,9 @@ interface(`rhcs_domtrans_cluster',`
 ##  the init script domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_initrc_domtrans_cluster',`
@@ -695,9 +695,9 @@ interface(`rhcs_initrc_domtrans_cluster',`
 ##  Execute cluster in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_exec_cluster',`
@@ -714,9 +714,9 @@ interface(`rhcs_exec_cluster',`
 ##  Read cluster log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_read_log_cluster',`
@@ -734,9 +734,9 @@ interface(`rhcs_read_log_cluster',`
 ##  Setattr cluster log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_setattr_log_cluster',`
@@ -752,9 +752,9 @@ interface(`rhcs_setattr_log_cluster',`
 ##  Allow the specified domain to read/write inherited cluster's tmpf files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_rw_inherited_cluster_tmp_files',`
@@ -770,9 +770,9 @@ interface(`rhcs_rw_inherited_cluster_tmp_files',`
 ##  Allow manage cluster tmp files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_manage_cluster_tmp_files',`
@@ -789,9 +789,9 @@ interface(`rhcs_manage_cluster_tmp_files',`
 ##  Allow the specified domain to read/write cluster's tmpfs files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_rw_cluster_tmpfs',`
@@ -809,9 +809,9 @@ interface(`rhcs_rw_cluster_tmpfs',`
 ##  Allow manage cluster tmpfs files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_manage_cluster_tmpfs_files',`
@@ -828,9 +828,9 @@ interface(`rhcs_manage_cluster_tmpfs_files',`
 ##  Allow read cluster pid files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_read_cluster_pid_files',`
@@ -848,9 +848,9 @@ interface(`rhcs_read_cluster_pid_files',`
 ##  Allow manage cluster pid files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_manage_cluster_pid_files',`
@@ -867,9 +867,9 @@ interface(`rhcs_manage_cluster_pid_files',`
 ##  Execute cluster server in the cluster domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`rhcs_systemctl_cluster',`
@@ -915,14 +915,14 @@ interface(`rhcs_dbus_chat_cluster',`
 ##  an cluster environment
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  The role to be allowed to manage the rgmanager domain.
-##  </summary>
+##	<summary>
+##	The role to be allowed to manage the rgmanager domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

@@ -258,9 +258,9 @@ interface(`rpc_domtrans_rpcd',`
 ##	</summary>
 ## </param>
 ## <param name="role">
-##      <summary>
-##      Role allowed access.
-##      </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -487,7 +487,7 @@ interface(`rpc_rw_gssd_keys',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -505,14 +505,14 @@ interface(`rpc_filetrans_var_lib_nfs_content',`
 ##  administrate an rpc environment.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

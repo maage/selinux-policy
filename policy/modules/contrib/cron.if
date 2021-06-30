@@ -971,9 +971,9 @@ interface(`cron_manage_system_job_lib_files',`
 ##  cron log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cron_manage_log_files',`
@@ -992,19 +992,19 @@ interface(`cron_manage_log_files',`
 ##  log directories with the cron log file type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="object_class">
-##  <summary>
-##  Class of the object being created.
-##  </summary>
+##	<summary>
+##	Class of the object being created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
-##  <summary>
-##  The name of the object being created.
-##  </summary>
+##	<summary>
+##	The name of the object being created.
+##	</summary>
 ## </param>
 #
 interface(`cron_generic_log_filetrans_log',`
@@ -1021,19 +1021,19 @@ interface(`cron_generic_log_filetrans_log',`
 ##  log directories with the cron log file type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="object_class">
-##  <summary>
-##  Class of the object being created.
-##  </summary>
+##	<summary>
+##	Class of the object being created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
-##  <summary>
-##  The name of the object being created.
-##  </summary>
+##	<summary>
+##	The name of the object being created.
+##	</summary>
 ## </param>
 #
 interface(`cron_generic_log_filetrans_log_insights',`

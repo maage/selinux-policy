@@ -6,9 +6,9 @@
 ##	Execute sbd_exec_t in the sbd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sbd_domtrans',`

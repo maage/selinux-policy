@@ -50,9 +50,9 @@ interface(`application_executable_file',`
 ##      This does not include shared libraries.
 ## </summary>
 ## <param name="type">
-##      <summary>
-##      Type to be used for files.
-##      </summary>
+##	<summary>
+##	Type to be used for files.
+##	</summary>
 ## </param>
 #
 interface(`application_executable_ioctl',`
@@ -267,9 +267,9 @@ interface(`application_dontaudit_sigkill',`
 ##  Getattr all application sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`application_getattr_socket',`

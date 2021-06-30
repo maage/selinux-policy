@@ -50,9 +50,9 @@ interface(`quota_run',`
 ##  Alow to read of filesystem quota data files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`quota_read_db',`
@@ -127,7 +127,7 @@ interface(`quota_manage_flags',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -163,9 +163,9 @@ interface(`quota_filetrans_named_content',`
 ##  Transition to quota_nld.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`quota_domtrans_nld',`

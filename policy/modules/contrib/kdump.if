@@ -202,9 +202,9 @@ interface(`kdump_rw_lock',`
 ##      Read/write inherited kdump /var/tmp named pipes.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kdump_rw_inherited_kdumpctl_tmp_pipes',`
@@ -221,9 +221,9 @@ interface(`kdump_rw_inherited_kdumpctl_tmp_pipes',`
 ##      Manage kdump /var/tmp files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kdump_manage_kdumpctl_tmp_files',`
@@ -244,9 +244,9 @@ interface(`kdump_manage_kdumpctl_tmp_files',`
 ##  Transition content labels to kdump named content
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##      Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kdump_filetrans_named_content',`
@@ -309,9 +309,9 @@ interface(`kdump_admin',`
 ##     Dontaudit Read/write inherited kdump /var/tmp named pipes.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain to not audit
-##      </summary>
+##	<summary>
+##	Domain to not audit
+##	</summary>
 ## </param>
 #
 interface(`kdump_dontaudit_inherited_kdumpctl_tmp_pipes',`
@@ -328,9 +328,9 @@ interface(`kdump_dontaudit_inherited_kdumpctl_tmp_pipes',`
 ##     Manage kdump lib files
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain to allow access
-##      </summary>
+##	<summary>
+##	Domain to allow access
+##	</summary>
 ## </param>
 #
 interface(`kdump_manage_lib_files',`

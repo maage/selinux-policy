@@ -46,9 +46,9 @@ interface(`zebra_stream_connect',`
 ##  Execute zebra services in the zebra domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`zebra_systemctl',`

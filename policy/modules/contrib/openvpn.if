@@ -148,9 +148,9 @@ interface(`openvpn_read_config',`
 ##	a unix domain stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`openvpn_stream_connect',`

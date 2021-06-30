@@ -6,9 +6,9 @@
 ##	Execute TEMPLATE in the hypervkvp domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`hypervkvp_domtrans',`
@@ -84,9 +84,9 @@ interface(`hypervkvp_manage_lib_files',`
 ##  Execute hypervkvp server in the hypervkvp domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`hypervkvp_systemctl',`

@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run dirsrv.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_domtrans',`
@@ -48,9 +48,9 @@ interface(`dirsrv_run',`
 ##  Allow caller to signal dirsrv.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_signal',`
@@ -67,9 +67,9 @@ interface(`dirsrv_signal',`
 ##      Send a null signal to dirsrv.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_signull',`
@@ -111,9 +111,9 @@ interface(`dirsrv_systemctl',`
 ##      Allow a domain to manage dirsrv logs.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_manage_log',`
@@ -131,9 +131,9 @@ interface(`dirsrv_manage_log',`
 ##      Allow a domain to manage dirsrv /var/lib files.
 ## </summary>
 ## <param name="domain">
-## 	<summary>
-##		Domain allowed access.
-## 	</summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_manage_var_lib',`
@@ -168,9 +168,9 @@ interface(`dirsrv_stream_connect',`
 ##      Allow a domain to manage dirsrv /var/run files.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_manage_var_run',`
@@ -187,9 +187,9 @@ interface(`dirsrv_manage_var_run',`
 ##      Allow a domain to create dirsrv pid directories.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_pid_filetrans',`
@@ -205,9 +205,9 @@ interface(`dirsrv_pid_filetrans',`
 ##      Allow a domain to read dirsrv /var/run files.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_read_var_run',`
@@ -223,9 +223,9 @@ interface(`dirsrv_read_var_run',`
 ##      Manage dirsrv configuration files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_manage_config',`
@@ -242,9 +242,9 @@ interface(`dirsrv_manage_config',`
 ##      Read dirsrv share files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dirsrv_read_share',`

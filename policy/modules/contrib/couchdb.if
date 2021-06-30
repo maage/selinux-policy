@@ -120,9 +120,9 @@ interface(`couchdb_read_pid_files',`
 ##      Search couchdb PID dirs.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`couchdb_search_pid_dirs',`
@@ -139,9 +139,9 @@ interface(`couchdb_search_pid_dirs',`
 ##  Allow domain to manage couchdb content.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`couchdb_manage_files',`
@@ -192,7 +192,7 @@ interface(`couchdb_systemctl',`
 ## <param name="domain">
 ##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 ## <param name="role">
 ##	<summary>

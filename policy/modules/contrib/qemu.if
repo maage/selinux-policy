@@ -104,9 +104,9 @@ template(`qemu_domain_template',`
 ##	Execute a domain transition to run qemu.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`qemu_domtrans',`
@@ -122,9 +122,9 @@ interface(`qemu_domtrans',`
 ##	Execute a qemu in the callers domain
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`qemu_exec',`
@@ -337,9 +337,9 @@ interface(`qemu_manage_tmp_files',`
 ##     the specified domain.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     The domain for which qemu_exec_t is an entrypoint.
-##     </summary>
+##	<summary>
+##	The domain for which qemu_exec_t is an entrypoint.
+##	</summary>
 ## </param>
 #
 interface(`qemu_entry_type',`
@@ -355,9 +355,9 @@ interface(`qemu_entry_type',`
 ##  Getattr on qemu executable.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`qemu_getattr_exec',`

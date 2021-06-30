@@ -6,9 +6,9 @@
 ##	Execute rrdcached_exec_t in the rrdcached domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rrdcached_domtrans',`

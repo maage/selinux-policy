@@ -41,9 +41,9 @@ interface(`ajaxterm_initrc_domtrans',`
 ##  Read and write the ajaxterm pty type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ajaxterm_rw_ptys',`

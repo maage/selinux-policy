@@ -5,9 +5,9 @@
 ##	Execute domain in the phc2sys domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`linuxptp_domtrans_phc2sys',`
@@ -24,9 +24,9 @@ interface(`linuxptp_domtrans_phc2sys',`
 ##	Execute domain in the phc2sys domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`linuxptp_domtrans_ptp4l',`
@@ -43,9 +43,9 @@ interface(`linuxptp_domtrans_ptp4l',`
 ##  domain stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`timemaster_stream_connect',`
@@ -62,9 +62,9 @@ interface(`timemaster_stream_connect',`
 ## Read timemaster conf files.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`timemaster_read_pid_files',`
@@ -80,9 +80,9 @@ interface(`timemaster_read_pid_files',`
 ## Read and write timemaster shared memory.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`timemaster_rw_shm',`
@@ -102,9 +102,9 @@ interface(`timemaster_rw_shm',`
 ## Read and write ptp4l_t shared memory.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ptp4l_rw_shm',`
@@ -124,9 +124,9 @@ interface(`ptp4l_rw_shm',`
 ## Read and write phc2sys_t shared memory.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`phc2sys_rw_shm',`

@@ -201,9 +201,9 @@ interface(`psad_write_log',`
 ##  Allow the specified domain to setattr to psad's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`psad_setattr_log',`
@@ -239,9 +239,9 @@ interface(`psad_rw_fifo_file',`
 ##  Allow setattr to psad fifo files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`psad_setattr_fifo_file',`
@@ -259,9 +259,9 @@ interface(`psad_setattr_fifo_file',`
 ##  Allow search to psad lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`psad_search_lib_files',`

@@ -24,9 +24,9 @@ interface(`dnsmasq_domtrans',`
 ##  Execute dnsmasq server in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`dnsmasq_exec',`
@@ -180,9 +180,9 @@ interface(`dnsmasq_kill',`
 ##	Read dnsmasq config files.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`dnsmasq_read_config',`
@@ -199,9 +199,9 @@ interface(`dnsmasq_read_config',`
 ##	Write dnsmasq config files.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`dnsmasq_write_config',`
@@ -314,7 +314,7 @@ interface(`dnsmasq_read_state',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 ## <param name="private type">
@@ -337,9 +337,9 @@ interface(`dnsmasq_filetrans_named_content_fromdir',`
 ##      Transition to dnsmasq named content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dnsmasq_filetrans_named_content',`

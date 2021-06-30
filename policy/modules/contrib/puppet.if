@@ -14,9 +14,9 @@
 ##	domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`puppet_domtrans_master',`
@@ -34,9 +34,9 @@ interface(`puppet_domtrans_master',`
 ##	domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`puppet_domtrans',`
@@ -54,9 +54,9 @@ interface(`puppet_domtrans',`
 ##	domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`puppet_domtrans_puppetca',`
@@ -169,9 +169,9 @@ interface(`puppet_read_lib',`
 ##  Manage Puppet lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_manage_lib',`
@@ -188,9 +188,9 @@ interface(`puppet_manage_lib',`
 ##  Allow the specified domain to search puppet's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_search_log',`
@@ -207,9 +207,9 @@ interface(`puppet_search_log',`
 ##  Allow the specified domain to read puppet's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_read_log',`
@@ -226,9 +226,9 @@ interface(`puppet_read_log',`
 ##  Allow the specified domain to create puppet's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_create_log',`
@@ -245,9 +245,9 @@ interface(`puppet_create_log',`
 ##  Allow the specified domain to append puppet's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_append_log',`
@@ -264,9 +264,9 @@ interface(`puppet_append_log',`
 ##  Allow the specified domain to manage puppet's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_manage_log',`
@@ -283,9 +283,9 @@ interface(`puppet_manage_log',`
 ##  Allow the specified domain to read puppet's config files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_read_config',`
@@ -304,9 +304,9 @@ interface(`puppet_read_config',`
 ##  Allow the specified domain to search puppet's pid files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`puppet_search_pid',`

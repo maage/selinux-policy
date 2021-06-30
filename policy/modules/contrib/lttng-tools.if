@@ -6,9 +6,9 @@
 ##	Execute lttng_sessiond_exec_t in the lttng_sessiond domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`lttng_sessiond_domtrans',`
@@ -102,9 +102,9 @@ interface(`lttng_sessiond_admin',`
 ## Read and write lttng-tools shared memory.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`lttng_read_shm',`

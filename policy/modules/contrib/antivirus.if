@@ -6,9 +6,9 @@
 ##  antivirus domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_domain_template',`
@@ -26,9 +26,9 @@ interface(`antivirus_domain_template',`
 ##  Execute a domain transition to run antivirus program.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_domtrans',`
@@ -44,9 +44,9 @@ interface(`antivirus_domtrans',`
 ##  Execute antivirus program without a transition.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_exec',`
@@ -62,9 +62,9 @@ interface(`antivirus_exec',`
 ##  Connect to run antivirus program.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_stream_connect',`
@@ -83,9 +83,9 @@ interface(`antivirus_stream_connect',`
 ##  to antivirus log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_append_log',`
@@ -103,9 +103,9 @@ interface(`antivirus_append_log',`
 ##  Read antivirus configuration files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_read_config',`
@@ -122,9 +122,9 @@ interface(`antivirus_read_config',`
 ##  Search antivirus db content directories.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_search_db',`
@@ -142,9 +142,9 @@ interface(`antivirus_search_db',`
 ##  Read antivirus db content directories.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_read_db',`
@@ -163,9 +163,9 @@ interface(`antivirus_read_db',`
 ##  Read and write antivirus db content directories.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_rw_db',`
@@ -183,9 +183,9 @@ interface(`antivirus_rw_db',`
 ##  Manage antivirus db content directories.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_manage_db',`
@@ -204,9 +204,9 @@ interface(`antivirus_manage_db',`
 ##  Manage antivirus pid content.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_manage_pid',`
@@ -223,9 +223,9 @@ interface(`antivirus_manage_pid',`
 ##      Read antivirus state files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_read_state_clamd',`
@@ -242,9 +242,9 @@ interface(`antivirus_read_state_clamd',`
 ##      Execute antivirus server in the antivirus domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed to transition.
-##      </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`antivirus_systemctl',`
@@ -268,14 +268,14 @@ interface(`antivirus_systemctl',`
 ##  an antivirus programs environment
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  The role to be allowed to manage the clamav domain.
-##  </summary>
+##	<summary>
+##	The role to be allowed to manage the clamav domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

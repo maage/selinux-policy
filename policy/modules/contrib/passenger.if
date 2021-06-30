@@ -42,9 +42,9 @@ interface(`passenger_exec',`
 ##  Getattr passenger log files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`passenger_getattr_log_files',`
@@ -101,9 +101,9 @@ interface(`passenger_manage_lib_files',`
 ##  Manage passenger var_run content.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`passenger_manage_pid_content',`
@@ -146,9 +146,9 @@ interface(`passenger_stream_connect',`
 ##  Allow to manage passenger tmp files/dirs.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`passenger_manage_tmp_files',`

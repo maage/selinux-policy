@@ -6,9 +6,9 @@
 ##  cloudform daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`cloudform_domain_template',`
@@ -28,9 +28,9 @@ template(`cloudform_domain_template',`
 ##	Execute a domain transition to run cloud_init.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`cloudform_init_domtrans',`
@@ -64,9 +64,9 @@ interface(`cloudform_exec_mongod',`
 ##  Allow read to cloud lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cloudform_read_lib_files',`
@@ -83,9 +83,9 @@ interface(`cloudform_read_lib_files',`
 ##  Allow read to cloud lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cloudform_read_lib_lnk_files',`
