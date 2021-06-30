@@ -192,7 +192,7 @@ interface(`bluetooth_domtrans_helper',`
 ##	Role allowed access.
 ##	</summary>
 ## </param>
-## <param name="terminal">
+## <param name="object">
 ##	<summary>
 ##	The type of the terminal allow the bluetooth_helper domain to use.
 ##	</summary>
