@@ -4109,7 +4109,7 @@ interface(`kernel_dontaudit_search_usermodehelper_state',`
 #
 interface(`kernel_search_usermodehelper_state',`
 	gen_require(`
-		type usermodehelper_t;
+		type proc_t, usermodehelper_t;
 	')
 
 	search_dirs_pattern($1, proc_t, usermodehelper_t)
