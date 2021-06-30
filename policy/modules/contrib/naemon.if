@@ -6,9 +6,9 @@
 ##	Execute naemon in the naemon domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`naemon_domtrans',`

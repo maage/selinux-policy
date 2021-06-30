@@ -6,9 +6,9 @@
 ##      mediawiki tmp files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mediawiki_read_tmp_files',`
@@ -26,9 +26,9 @@ interface(`mediawiki_read_tmp_files',`
 ##      Delete mediawiki tmp files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mediawiki_delete_tmp_files',`

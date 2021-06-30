@@ -6,9 +6,9 @@
 ##	Execute pkcs11proxyd_exec_t in the pkcs11proxyd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`pkcs11proxyd_domtrans',`

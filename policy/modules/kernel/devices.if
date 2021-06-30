@@ -450,9 +450,9 @@ interface(`dev_read_generic_files',`
 ##  Read generic files in /dev.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`dev_dontaudit_read_generic_files',`
@@ -2174,9 +2174,9 @@ interface(`dev_rw_dlm_control',`
 ##      Read and write the the dma device
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dev_rw_dma_dev',`
@@ -5459,9 +5459,9 @@ interface(`dev_dontaudit_write_urand',`
 ##      Delete files in the dev/urandom.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dev_delete_urand',`
@@ -6842,7 +6842,7 @@ interface(`dev_read_hfi1',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -6900,7 +6900,7 @@ interface(`dev_filetrans_printer_named_dev',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -7730,7 +7730,7 @@ gen_require(`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

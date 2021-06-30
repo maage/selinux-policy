@@ -46,9 +46,9 @@ interface(`conntrackd_stream_connect',`
 ##  Execute conntrackd services in the conntrackd domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`conntrackd_systemctl',`

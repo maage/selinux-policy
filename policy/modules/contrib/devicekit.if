@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run devicekit.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`devicekit_domtrans',`
@@ -199,9 +199,9 @@ interface(`devicekit_dbus_chat_power',`
 ##  file descriptors.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`devicekit_use_fds_power',`
@@ -217,9 +217,9 @@ interface(`devicekit_use_fds_power',`
 ##  Append inherited devicekit log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`devicekit_append_inherited_log_files',`
@@ -238,9 +238,9 @@ interface(`devicekit_append_inherited_log_files',`
 ##  Allow read devicekit log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`devicekit_read_log_files',`
@@ -258,9 +258,9 @@ interface(`devicekit_read_log_files',`
 ##  log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`devicekit_dontaudit_rw_log',`
@@ -355,9 +355,9 @@ interface(`devicekit_manage_pid_files',`
 ##  Relabel devicekit LOG files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`devicekit_relabel_log_files',`
@@ -438,7 +438,7 @@ interface(`devicekit_admin',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

@@ -165,9 +165,9 @@ interface(`rgmanager_admin',`
 ##  Allow the specified domain to manage rgmanager's lib/run files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rgmanager_manage_files',`
@@ -188,9 +188,9 @@ interface(`rgmanager_manage_files',`
 ##  Allow the specified domain to execute rgmanager's lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rgmanager_execute_lib',`
@@ -208,9 +208,9 @@ interface(`rgmanager_execute_lib',`
 ##  Allow the specified domain to search rgmanager's lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rgmanager_search_lib',`

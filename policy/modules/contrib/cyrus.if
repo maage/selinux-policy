@@ -25,9 +25,9 @@ interface(`cyrus_manage_data',`
 ##  Allow write cyrus data files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cyrus_write_data',`

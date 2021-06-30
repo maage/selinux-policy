@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run ksmtuned.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`ksmtuned_domtrans',`
@@ -43,9 +43,9 @@ interface(`ksmtuned_initrc_domtrans',`
 ##  Execute ksmtuned server in the ksmtunedd domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`ksmtuned_systemctl',`

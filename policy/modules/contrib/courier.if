@@ -68,9 +68,9 @@ interface(`courier_domtrans_authdaemon',`
 ##  Connect to courier-authdaemon over a unix stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`courier_stream_connect_authdaemon',`

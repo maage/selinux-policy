@@ -915,9 +915,9 @@ interface(`seutil_manage_config',`
 ##      the general selinux configuration files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -1041,9 +1041,9 @@ interface(`seutil_rw_login_config_dirs',`
 ##  the general selinux configuration files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`seutil_manage_login_config',`
@@ -1064,9 +1064,9 @@ interface(`seutil_manage_login_config',`
 ## 	manage the login selinux configuration files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`seutil_manage_login_config_files',`
@@ -1127,9 +1127,9 @@ interface(`seutil_read_default_contexts',`
 ##  Read and write the default_contexts files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -1774,9 +1774,9 @@ interface(`seutil_setfiles',`
 ##  File name transition for selinux utility content
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`seutil_filetrans_named_content',`

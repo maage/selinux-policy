@@ -182,9 +182,9 @@ interface(`chronyd_systemctl',`
 ##  domain stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`chronyd_stream_connect',`
@@ -261,9 +261,9 @@ interface(`chronyd_manage_pid_files',`
 ##	with chronyd runtime private file type.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`chronyd_pid_filetrans',`
@@ -335,9 +335,9 @@ interface(`chronyd_admin',`
 ##  Get chronyd service status
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`chronyd_service_status',`
@@ -353,9 +353,9 @@ interface(`chronyd_service_status',`
 ##	Execute chronyc in the chronyc domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`chronyd_domtrans_chronyc',`
@@ -371,9 +371,9 @@ interface(`chronyd_domtrans_chronyc',`
 ##	Execute chronyc in the chronyc domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 ## <param name="role">
 ##	<summary>

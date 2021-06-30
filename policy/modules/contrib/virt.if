@@ -305,6 +305,23 @@ interface(`virt_exec',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
+##	Domain allowed to transition.
+##	</summary>
+## </param>
+interface(`virt_domtrans_bridgehelper',`
+	gen_require(`
+		type virt_bridgehelper_t, virt_bridgehelper_exec_t;
+	')
+
+	domtrans_pattern($1, virt_bridgehelper_exec_t, virt_bridgehelper_t)
+')
+
+########################################
+## <summary>
+##      Allow caller domain to run bpftool.
+## </summary>
+## <param name="domain">
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
@@ -2111,7 +2128,7 @@ interface(`virt_svirt_manage_tmp',`
 ## <param name="domain">
 ##	<summary>
 ##	Domain allowed access.
-##	 </summary>
+##	</summary>
 ## </param>
 #
 interface(`virt_read_qemu_pid_files',`
@@ -2129,9 +2146,9 @@ interface(`virt_read_qemu_pid_files',`
 ##     Write qemu PID files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_write_qemu_pid_files',`
@@ -2148,9 +2165,9 @@ interface(`virt_write_qemu_pid_files',`
 ##     Create qemu PID files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_create_qemu_pid_files',`
@@ -2167,9 +2184,9 @@ interface(`virt_create_qemu_pid_files',`
 ##     Manage qemu PID socket files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_manage_qemu_pid_sock_files',`

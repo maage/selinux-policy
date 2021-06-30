@@ -794,9 +794,9 @@ interface(`selinux_genbool',`
 ##      Allow caller to read security_t files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`selinux_read_security_files',`

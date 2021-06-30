@@ -5,9 +5,9 @@
 ##	Execute wireguard_exec_t in the wireguard domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`wireguard_domtrans',`
@@ -43,9 +43,9 @@ interface(`wireguard_exec',`
 ##      Read wireguard fifo files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain to not audit.
-##      </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`wireguard_read_fifo_files',`

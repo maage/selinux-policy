@@ -24,9 +24,9 @@ interface(`bootloader_domtrans',`
 ##  Execute bootloader in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`bootloader_exec',`

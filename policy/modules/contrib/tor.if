@@ -24,9 +24,9 @@ interface(`tor_domtrans',`
 ##      Execute tor server in the tor domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed to transition.
-##      </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`tor_systemctl',`

@@ -43,9 +43,9 @@ interface(`tuned_exec',`
 ##      Read tuned etc files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`tuned_read_etc_files',`

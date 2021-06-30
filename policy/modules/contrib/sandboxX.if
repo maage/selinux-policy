@@ -370,9 +370,9 @@ interface(`sandbox_use_ptys',`
 ##  Allow domain to execute sandbox_file_t in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sandbox_exec_file',`
@@ -388,9 +388,9 @@ interface(`sandbox_exec_file',`
 ##  Allow domain to execute sandbox_file_t in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sandbox_dontaudit_mounton',`

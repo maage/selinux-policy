@@ -6,9 +6,9 @@
 ##  sblim daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`sblim_domain_template',`
@@ -72,7 +72,7 @@ interface(`sblim_read_pid_files',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -110,9 +110,9 @@ interface(`sblim_stream_connect_sfcbd',`
 ##  Getattr on sblim executable.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`sblim_getattr_exec_sfcbd',`

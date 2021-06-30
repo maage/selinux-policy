@@ -162,9 +162,9 @@ interface(`rpmdb_run_rpmdb',`
 ##	Do not audit to execute a rpm.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain to not audit.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rpm_dontaudit_exec',`
@@ -951,9 +951,9 @@ interface(`rpm_entry_type',`
 ##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rpm_transition_script',`
@@ -979,14 +979,14 @@ interface(`rpm_transition_script',`
 ##  administrate an rpm environment.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -1037,9 +1037,9 @@ interface(`rpm_admin',`
 ##	with a unix domain stream socket.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rpm_script_ioctl_stream_sockets',`
@@ -1056,9 +1056,9 @@ interface(`rpm_script_ioctl_stream_sockets',`
 ##	over a unix domain stream socket.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rpm_script_rw_stream_sockets',`

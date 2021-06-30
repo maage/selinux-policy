@@ -91,9 +91,9 @@ interface(`git_read_generic_sys_content_files',`
 ##      named file transition.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`git_filetrans_user_content',`

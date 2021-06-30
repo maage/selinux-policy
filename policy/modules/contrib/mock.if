@@ -176,9 +176,9 @@ interface(`mock_dontaudit_write_lib_chr_files',`
 ##  Dontaudit read and write an leaked file descriptors
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain to not audit.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`mock_dontaudit_leaks',`

@@ -6,9 +6,9 @@
 ##	Execute TEMPLATE in the snapperd domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`snapper_domtrans',`
@@ -83,9 +83,9 @@ interface(`snapper_relabel_snapshots',`
 ##      Allow domain to create .smapshot
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`snapper_filetrans_named_content',`

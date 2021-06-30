@@ -6,9 +6,9 @@
 ##  thin daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`thin_domain_template',`

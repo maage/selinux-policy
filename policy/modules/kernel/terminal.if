@@ -1536,9 +1536,9 @@ interface(`term_use_usb_ttys',`
 ##  device nodes.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`term_setattr_usb_ttys',`
@@ -1865,9 +1865,9 @@ interface(`term_watch_reads_user_ttys',`
 ##      Getattr on the virtio console.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`term_getattr_virtio_console',`
@@ -1883,9 +1883,9 @@ interface(`term_getattr_virtio_console',`
 ##      Read from and write to the virtio console.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`term_use_virtio_console',`
@@ -1903,7 +1903,7 @@ interface(`term_use_virtio_console',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

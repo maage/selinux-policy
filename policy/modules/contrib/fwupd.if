@@ -6,9 +6,9 @@
 ##	Execute fwupd_exec_t in the fwupd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`fwupd_domtrans',`

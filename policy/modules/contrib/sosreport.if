@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run sosreport.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sosreport_domtrans',`
@@ -152,9 +152,9 @@ interface(`sosreport_signull',`
 ##      sosreport over dbus.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sosreport_dbus_chat',`

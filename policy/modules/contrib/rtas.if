@@ -6,9 +6,9 @@
 ##	Execute rtas_errd in the rtas_errd domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rtas_errd_domtrans',`

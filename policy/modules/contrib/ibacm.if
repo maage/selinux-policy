@@ -6,9 +6,9 @@
 ##	Execute ibacm_exec_t in the ibacm domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`ibacm_domtrans',`

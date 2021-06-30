@@ -6,9 +6,9 @@
 ##	Execute opendnssec_exec_t in the opendnssec domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`opendnssec_domtrans',`
@@ -44,9 +44,9 @@ interface(`opendnssec_exec',`
 ##      Read the opendnssec configuration files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -65,9 +65,9 @@ interface(`opendnssec_read_config',`
 ##      Read the opendnssec configuration files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -87,9 +87,9 @@ interface(`opendnssec_manage_config',`
 ##      read and write opendnssec /var files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`opendnssec_manage_var_files',`
@@ -194,9 +194,9 @@ interface(`opendnssec_admin',`
 ##      Transition to quota named content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`opendnssec_filetrans_etc_content',`

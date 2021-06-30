@@ -63,9 +63,9 @@ interface(`irc_role',`
 ##      Transition to alsa named content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`irc_filetrans_home_content',`

@@ -65,9 +65,9 @@ interface(`acct_exec_data',`
 ##      Search process accounting data.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`acct_search_data',`

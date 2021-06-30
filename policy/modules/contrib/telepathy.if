@@ -91,7 +91,7 @@ template(`telepathy_role',`
 ##	Stream connect to Telepathy Gabble
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
@@ -110,14 +110,14 @@ interface(`telepathy_gabble_stream_connect', `
 ##	Allow Telepathy Gabble to stream connect to a domain.
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`telepathy_gabble_stream_connect_to', `
@@ -134,7 +134,7 @@ interface(`telepathy_gabble_stream_connect_to', `
 ##	Telepathy Gabble.
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
@@ -154,7 +154,7 @@ interface(`telepathy_gabble_dbus_chat', `
 ##	Read telepathy mission control state.
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>

@@ -41,9 +41,9 @@ template(`cfengine_domain_template',`
 ##  Search cfengine lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cfengine_search_lib_files',`
@@ -97,9 +97,9 @@ interface(`cfengine_dontaudit_write_log_files',`
 ##      Allow the specified domain to append cfengine's log files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cfengine_append_inherited_log',`
@@ -116,9 +116,9 @@ interface(`cfengine_append_inherited_log',`
 ##      Dontaudit the specified domain to write cfengine's log files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`cfengine_dontaudit_write_log',`

@@ -6,9 +6,9 @@
 ##	Execute a domain transition to run keyboard setup daemon.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`keyboardd_domtrans',`
@@ -25,9 +25,9 @@ interface(`keyboardd_domtrans',`
 ##  keyboardd unnamed pipes.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`keyboardd_read_pipes',`

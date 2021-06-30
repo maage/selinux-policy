@@ -5,9 +5,9 @@
 ##     Execute kmscon in the kmscon domain.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed to transition.
-##     </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`kmscon_systemctl',`
