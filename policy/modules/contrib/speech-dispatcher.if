@@ -6,9 +6,9 @@
 ##	Execute speech-dispatcher in the speech_dispatcher domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`speech_dispatcher_domtrans',`

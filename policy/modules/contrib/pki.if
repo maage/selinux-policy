@@ -6,9 +6,9 @@
 ##      Allow read and write pki cert files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_rw_tomcat_cert',`
@@ -27,9 +27,9 @@ interface(`pki_rw_tomcat_cert',`
 ##      Allow read and write pki cert files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_tomcat_cert',`
@@ -48,9 +48,9 @@ interface(`pki_manage_tomcat_cert',`
 ##      Allow read and write pki cert files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_tomcat_etc_rw',`
@@ -67,9 +67,9 @@ interface(`pki_manage_tomcat_etc_rw',`
 ##      Allow domain to read pki cert files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_read_tomcat_cert',`
@@ -181,9 +181,9 @@ template(`pki_apache_template',`
 ##  Send a null signal to pki apache domains.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_apache_domain_signal',`
@@ -199,9 +199,9 @@ interface(`pki_apache_domain_signal',`
 ##  Send a null signal to pki apache domains.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_apache_domain_signull',`
@@ -217,9 +217,9 @@ interface(`pki_apache_domain_signull',`
 ##  Allow domain to read pki apache subsystem pid files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_apache_run',`
@@ -236,9 +236,9 @@ interface(`pki_manage_apache_run',`
 ##  Allow domain to manage pki apache subsystem lib files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_apache_lib',`
@@ -256,9 +256,9 @@ interface(`pki_manage_apache_lib',`
 ##  Dontaudit domain to write pki log files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_search_log_dirs',`
@@ -275,9 +275,9 @@ interface(`pki_search_log_dirs',`
 ##  Dontaudit domain to write pki log files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_dontaudit_write_log',`
@@ -293,9 +293,9 @@ interface(`pki_dontaudit_write_log',`
 ##  Allow domain to manage pki apache subsystem log files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_apache_log_files',`
@@ -312,9 +312,9 @@ interface(`pki_manage_apache_log_files',`
 ##  Allow domain to manage pki apache subsystem config files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_apache_config_files',`
@@ -331,9 +331,9 @@ interface(`pki_manage_apache_config_files',`
 ##  Allow domain to read pki tomcat lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_read_tomcat_lib_files',`
@@ -351,9 +351,9 @@ interface(`pki_read_tomcat_lib_files',`
 ##  Allow domain to manage pki tomcat lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_tomcat_lib',`
@@ -371,9 +371,9 @@ interface(`pki_manage_tomcat_lib',`
 ##  Allow domain to manage pki tomcat lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_manage_tomcat_log',`
@@ -390,9 +390,9 @@ interface(`pki_manage_tomcat_log',`
 ##  Allow domain to read pki tomcat lib dirs
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pki_read_tomcat_lib_dirs',`

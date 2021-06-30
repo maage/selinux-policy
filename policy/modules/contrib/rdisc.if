@@ -24,9 +24,9 @@ interface(`rdisc_exec',`
 ##      Execute rdisc server in the rdisc domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed to transition.
-##      </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`rdisc_systemctl',`
@@ -50,9 +50,9 @@ interface(`rdisc_systemctl',`
 ##      an rdisc environment
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

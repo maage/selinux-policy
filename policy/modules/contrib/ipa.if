@@ -5,9 +5,9 @@
 ##	Execute rtas_errd in the rtas_errd domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`ipa_domtrans_otpd',`
@@ -58,9 +58,9 @@ interface(`ipa_stream_connect_ods_exporter',`
 ##	Execute ipa-helper in the ipa_helper domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`ipa_domtrans_helper',`
@@ -76,9 +76,9 @@ interface(`ipa_domtrans_helper',`
 ##	Execute ipa-helper in the ipa_helper domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 ## <param name="role">
 ##	<summary>
@@ -256,9 +256,9 @@ interface(`ipa_named_filetrans_log_dir',`
 ##      Allow domain to create /tmp/ca.p12
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ipa_filetrans_named_content',`
@@ -314,9 +314,9 @@ interface(`ipa_read_tmp',`
 ##	Execute ipa_custodia_exec_t in the ipa_custodia domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`ipa_custodia_domtrans',`

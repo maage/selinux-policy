@@ -84,9 +84,9 @@ interface(`logging_dontaudit_send_audit_msgs',`
 ##      Create netlink audit socket
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`logging_create_syslog_netlink_audit_socket',`
@@ -327,9 +327,9 @@ interface(`logging_stream_connect_auditd',`
 ##	Execute a domain transition to run the audit dispatcher.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`logging_domtrans_dispatcher',`
@@ -345,9 +345,9 @@ interface(`logging_domtrans_dispatcher',`
 ##	Signal the audit dispatcher.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`logging_signal_dispatcher',`
@@ -606,19 +606,19 @@ interface(`logging_log_filetrans',`
 ##  </p>
 ## </desc>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="private type">
-##  <summary>
-##  The type of the object to be created.
-##  </summary>
+##	<summary>
+##	The type of the object to be created.
+##	</summary>
 ## </param>
 ## <param name="object">
-##  <summary>
-##  The object class of the object being created.
-##  </summary>
+##	<summary>
+##	The object class of the object being created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
 ##	<summary>
@@ -1651,7 +1651,7 @@ interface(`logging_admin',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1670,7 +1670,7 @@ interface(`logging_filetrans_named_conf',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

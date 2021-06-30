@@ -170,9 +170,9 @@ interface(`mailman_signal_cgi',`
 ##      Send null signals to the mailman cgi domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mailman_signull_cgi',`

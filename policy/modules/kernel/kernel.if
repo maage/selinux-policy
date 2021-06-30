@@ -3577,9 +3577,9 @@ interface(`kernel_relabelfrom_unlabeled_database',`
 ##      Relabel to unlabeled context .
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kernel_relabelto_unlabeled',`
@@ -3634,9 +3634,9 @@ interface(`kernel_stream_read',`
 ##  the kernel with a unix socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kernel_stream_write',`
@@ -3653,9 +3653,9 @@ interface(`kernel_stream_write',`
 ##  the kernel with a unix stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kernel_rw_stream_socket_perms',`
@@ -4213,9 +4213,9 @@ interface(`kernel_dontaudit_write_usermodehelper_state',`
 ##      Relabel to usermodehelper context .
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kernel_relabelto_usermodehelper',`
@@ -4231,9 +4231,9 @@ interface(`kernel_relabelto_usermodehelper',`
 ##      Relabel from usermodehelper context .
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kernel_relabelfrom_usermodehelper',`
@@ -4249,9 +4249,9 @@ interface(`kernel_relabelfrom_usermodehelper',`
 ##      Read netlink audit socket
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`kernel_read_netlink_audit_socket',`

@@ -418,9 +418,9 @@ interface(`mount_dontaudit_exec_fusermount',`
 ##  Execute a domain transition to run showmount.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`mount_domtrans_showmount',`
@@ -437,14 +437,14 @@ interface(`mount_domtrans_showmount',`
 ##  allow the specified role the showmount domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  The role to be allowed the showmount domain.
-##  </summary>
+##	<summary>
+##	The role to be allowed the showmount domain.
+##	</summary>
 ## </param>
 #
 interface(`mount_run_showmount',`
@@ -461,9 +461,9 @@ interface(`mount_run_showmount',`
 ##      Transition to ecryptmount.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`mount_domtrans_ecryptmount',`
@@ -480,9 +480,9 @@ interface(`mount_domtrans_ecryptmount',`
 ##  Execute mount in the unconfined mount domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`mount_domtrans_unconfined',`
@@ -500,14 +500,14 @@ interface(`mount_domtrans_unconfined',`
 ##  and use the caller's terminal.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

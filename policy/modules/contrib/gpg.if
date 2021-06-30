@@ -114,9 +114,9 @@ interface(`gpg_exec',`
 ##  Transition to a gpg web domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gpg_domtrans_web',`
@@ -133,9 +133,9 @@ interface(`gpg_domtrans_web',`
 ##  the specified domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  The domain for which cifs_t is an entrypoint.
-##  </summary>
+##	<summary>
+##	The domain for which cifs_t is an entrypoint.
+##	</summary>
 ## </param>
 #
 interface(`gpg_entry_type',`
@@ -228,7 +228,7 @@ interface(`gpg_list_user_secrets',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -247,7 +247,7 @@ interface(`gpg_manage_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

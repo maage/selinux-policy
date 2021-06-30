@@ -119,9 +119,9 @@ interface(`networkmanager_domtrans',`
 ##      Execute NetworkManager scripts with an automatic domain transition to initrc.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed to transition.
-##      </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`networkmanager_initrc_domtrans',`
@@ -284,9 +284,9 @@ interface(`networkmanager_read_lib_files',`
 ##  Read NetworkManager conf files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`networkmanager_read_conf',`
@@ -418,9 +418,9 @@ interface(`networkmanager_pid_filetrans',`
 ##	a unix domain stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`networkmanager_stream_connect',`
@@ -506,9 +506,9 @@ interface(`networkmanager_append_log',`
 ##  to Network Manager lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`networkmanager_manage_lib',`
@@ -526,9 +526,9 @@ interface(`networkmanager_manage_lib',`
 ##      Read the process state (/proc/pid) of NetworkManager.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`NetworkManager_read_state',`
@@ -623,7 +623,7 @@ interface(`networkmanager_sigkill',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

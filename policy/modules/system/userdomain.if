@@ -3753,9 +3753,9 @@ interface(`userdom_tmp_filetrans_user_tmp',`
 ##  Getattr user tmpfs files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_getattr_user_tmpfs_files',`
@@ -4035,9 +4035,9 @@ interface(`userdom_use_inherited_user_terminals',`
 ##  a user domain tty and pty.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`userdom_use_user_terminals',`
@@ -4162,9 +4162,9 @@ interface(`userdom_spec_domtrans_unpriv_users',`
 ##  Allow domain dyntrans to unpriv userdomain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_dyntransition_unpriv_users',`
@@ -4180,9 +4180,9 @@ interface(`userdom_dyntransition_unpriv_users',`
 ##  Allow domain dyntrans to admin userdomain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_dyntransition_admin_users',`
@@ -4704,9 +4704,9 @@ interface(`userdom_signal_all_users',`
 ##  Send signull to all user domains.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_signull_all_users',`
@@ -4871,7 +4871,7 @@ interface(`userdom_set_rlimitnh',`
 ##	<summary>
 ##	The prefix of the user domain (e.g., user
 ##	is the prefix for user_t).
-## </summary>
+##	</summary>
 ## </param>
 ## <param name="domain">
 ##	<summary>
@@ -4897,9 +4897,9 @@ template(`userdom_unpriv_usertype',`
 ##  Define this type as a Allow apps to set rlimits on userdomain
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 template(`userdom_unpriv_type',`
@@ -5161,9 +5161,9 @@ interface(`userdom_dgram_send',`
 ##      datagram socket.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_users_dgram_send',`
@@ -5305,9 +5305,9 @@ interface(`userdom_manage_user_home_content',`
 ##  Manage all dirs in the homedir
 ## </summary>
 ## <param name="userdomain">
-##  <summary>
-##  The user domain
-##  </summary>
+##	<summary>
+##	The user domain
+##	</summary>
 ## </param>
 #
 interface(`userdom_manage_all_user_home_type_dirs',`
@@ -5325,9 +5325,9 @@ interface(`userdom_manage_all_user_home_type_dirs',`
 ##  Manage all files in the homedir
 ## </summary>
 ## <param name="userdomain">
-##  <summary>
-##  The user domain
-##  </summary>
+##	<summary>
+##	The user domain
+##	</summary>
 ## </param>
 #
 interface(`userdom_manage_all_user_home_type_files',`
@@ -5671,9 +5671,9 @@ interface(`userdom_inherit_append_user_tmp_files',`
 ##      Read audio files in the users homedir.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -5693,9 +5693,9 @@ interface(`userdom_read_home_audio_files',`
 ##      Manage texlive content in the users homedir.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -5904,9 +5904,9 @@ interface(`userdom_manage_home_certs',`
 ##  Dontaudit Write system SSL certificates in the users homedir.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain to not audit.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`userdom_dontaudit_write_home_certs',`
@@ -6322,9 +6322,9 @@ interface(`userdom_dontaudit_read_all_user_tmp_content_files',`
 ## Read and write unpriviledged user SysV sempaphores.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_rw_unpriv_user_semaphores',`
@@ -6428,19 +6428,19 @@ interface(`userdom_tmpfs_filetrans',`
 ##  the user temporary filesystem type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="object_class">
-##  <summary>
-##  The class of the object to be created.
-##  </summary>
+##	<summary>
+##	The class of the object to be created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
-##  <summary>
-##  The name of the object being created.
-##  </summary>
+##	<summary>
+##	The name of the object being created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
 ##	<summary>
@@ -6461,9 +6461,9 @@ interface(`userdom_tmpfs_filetrans_to',`
 ##  File name transition for generic home content files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`userdom_filetrans_generic_home_content',`

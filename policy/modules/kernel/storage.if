@@ -327,9 +327,9 @@ interface(`storage_dev_filetrans_fixed_disk',`
 ##  via an automatic type transition.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`storage_dev_filetrans_named_fixed_disk',`
@@ -858,9 +858,9 @@ interface(`storage_dontaudit_raw_write_removable_device',`
 ##  Alow read and write inherited removable devices.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`storage_rw_inherited_removable_device',`
@@ -975,7 +975,7 @@ interface(`storage_unconfined',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

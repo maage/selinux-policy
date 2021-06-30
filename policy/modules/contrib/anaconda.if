@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run install.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`anaconda_domtrans_install',`
@@ -57,9 +57,9 @@ interface(`anaconda_run_install',`
 ##	Execute preupgrade in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`anaconda_exec_preupgrade',`
@@ -76,9 +76,9 @@ interface(`anaconda_exec_preupgrade',`
 ##	Execute a domain transition to run preupgrade.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`anaconda_domtrans_preupgrade',`

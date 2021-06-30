@@ -13,9 +13,9 @@
 ##  corecmd stub bin_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`corecmd_stub_bin',`
@@ -1152,9 +1152,9 @@ interface(`corecmd_mmap_all_executables',`
 ##     Read all executable files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

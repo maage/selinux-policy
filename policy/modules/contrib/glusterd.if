@@ -7,9 +7,9 @@
 ##	Transition to glusterd.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`glusterd_domtrans',`
@@ -45,9 +45,9 @@ interface(`glusterd_initrc_domtrans',`
 ##  Connect to glusterd over a unix stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_stream_connect',`
@@ -102,9 +102,9 @@ interface(`glusterd_append_log',`
 ##  Transition content labels to glusterd named content
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##      Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_filetrans_named_pid',`
@@ -160,9 +160,9 @@ interface(`glusterd_manage_log',`
 ##  Allow the specified domain to execute gluster's lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gluster_execute_lib',`
@@ -180,9 +180,9 @@ interface(`gluster_execute_lib',`
 ##  Read glusterd's config files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_read_conf',`
@@ -199,9 +199,9 @@ interface(`glusterd_read_conf',`
 ##  Dontaudit Read  /var/lib/glusterd files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_dontaudit_read_lib_dirs',`
@@ -217,9 +217,9 @@ interface(`glusterd_dontaudit_read_lib_dirs',`
 ##  Read and write /var/lib/glusterd files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_rw_lib',`
@@ -236,9 +236,9 @@ interface(`glusterd_rw_lib',`
 ## Read /var/lib/glusterd files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_read_lib_files',`
@@ -256,9 +256,9 @@ interface(`glusterd_read_lib_files',`
 ## Read and write /var/lib/glusterd files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`glusterd_manage_lib_files',`

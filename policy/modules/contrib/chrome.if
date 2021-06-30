@@ -6,9 +6,9 @@
 ##	Execute a domain transition to run chrome_sandbox.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`chrome_domtrans_sandbox',`

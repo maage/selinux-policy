@@ -24,9 +24,9 @@ interface(`vdagent_domtrans',`
 ##	Get attributes of vdagent executable files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain allowed access.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`vdagent_getattr_exec_files',`
@@ -42,9 +42,9 @@ interface(`vdagent_getattr_exec_files',`
 ##	Get attributes of vdagent log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`vdagent_getattr_log',`
@@ -81,9 +81,9 @@ interface(`vdagent_read_pid_files',`
 ##	domain stream socket.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`vdagent_stream_connect',`

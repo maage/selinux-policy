@@ -6,9 +6,9 @@
 ##	Execute TEMPLATE in the mip6d domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`mip6d_domtrans',`

@@ -332,9 +332,9 @@ interface(`rhsmcertd_rw_lock_files',`
 ##  stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhsmcertd_stream_connect',`
@@ -373,9 +373,9 @@ interface(`rhsmcertd_dbus_chat',`
 ##  rhsmcertd over dbus.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhsmcertd_dontaudit_dbus_chat',`
@@ -399,9 +399,9 @@ interface(`rhsmcertd_dontaudit_dbus_chat',`
 ##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

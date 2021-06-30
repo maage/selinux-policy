@@ -23,9 +23,9 @@ interface(`ipsec_domtrans',`
 ##  Allow read/write ipsec pipes
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ipsec_rw_inherited_pipes',`
@@ -78,9 +78,9 @@ interface(`ipsec_domtrans_mgmt',`
 ##  Allow to create OBJECT in /etc with ipsec_key_file_t.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ipsec_filetrans_key_file',`
@@ -96,9 +96,9 @@ interface(`ipsec_filetrans_key_file',`
 ##  Allow to manage ipsec key files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ipsec_manage_key_file',`
@@ -524,9 +524,9 @@ interface(`ipsec_run_setkey',`
 ##  Execute strongswan in the ipsec_mgmt domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`ipsec_mgmt_systemctl',`

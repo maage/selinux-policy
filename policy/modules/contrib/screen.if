@@ -105,9 +105,9 @@ template(`screen_role_template',`
 ##      in the caller domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`screen_exec',`

@@ -38,9 +38,9 @@ template(`nagios_plugin_template',`
 ## a domain transition.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`nagios_domtrans_unconfined_plugins',`
@@ -251,9 +251,9 @@ interface(`nagios_domtrans_nrpe',`
 ## Do not audit attempts to write nrpe daemon unnamed pipes.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`nagios_dontaudit_write_pipes_nrpe',`
@@ -322,9 +322,9 @@ interface(`nagios_admin',`
 ##      Send a null signal to nagios_unconfined_plugin.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`nagios_unconfined_signull',`

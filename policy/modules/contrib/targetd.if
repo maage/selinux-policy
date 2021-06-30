@@ -6,9 +6,9 @@
 ##	Execute targetd_exec_t in the targetd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`targetd_domtrans',`

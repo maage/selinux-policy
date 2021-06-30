@@ -22,9 +22,9 @@ interface(`abrt_stub',`
 ##  ABRT daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`abrt_basic_types_template',`
@@ -513,9 +513,9 @@ interface(`abrt_admin',`
 ##  Execute abrt-retrace in the abrt-retrace domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`abrt_domtrans_retrace_worker',`
@@ -532,9 +532,9 @@ interface(`abrt_domtrans_retrace_worker',`
 ##  Manage abrt retrace server cache
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`abrt_manage_spool_retrace',`
@@ -553,9 +553,9 @@ interface(`abrt_manage_spool_retrace',`
 ##  Read abrt retrace server cache
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`abrt_read_spool_retrace',`
@@ -574,9 +574,9 @@ interface(`abrt_read_spool_retrace',`
 ##  Read abrt retrace server cache
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`abrt_read_cache_retrace',`
@@ -613,7 +613,7 @@ interface(`abrt_dontaudit_write_sock_file',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

@@ -6,9 +6,9 @@
 ##	Execute TEMPLATE in the authconfig domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`authconfig_domtrans',`

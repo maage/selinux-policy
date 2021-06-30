@@ -126,9 +126,9 @@ interface(`virt_image',`
 ##  Getattr on virt executable.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`virt_getattr_exec',`
@@ -180,9 +180,9 @@ interface(`virt_exec',`
 ##  Transition to virt_bridgehelper.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 interface(`virt_domtrans_bridgehelper',`
 	gen_require(`
@@ -821,9 +821,9 @@ interface(`virt_manage_images',`
 ##  Allow domain to manage virt image files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_manage_default_image_type',`
@@ -1401,9 +1401,9 @@ template(`virt_sandbox_net_domain',`
 ##	Execute a qemu_exec_t in the callers domain
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`virt_exec_qemu',`
@@ -1420,7 +1420,7 @@ interface(`virt_exec_qemu',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1614,9 +1614,9 @@ interface(`virt_admin',`
 ##  Getattr on virt executable.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`virt_default_capabilities',`
@@ -1634,9 +1634,9 @@ interface(`virt_default_capabilities',`
 ##      virt over dbus.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_dbus_chat',`
@@ -1727,9 +1727,9 @@ interface(`virt_dgram_send',`
 ##  Manage svirt tmp files,dirs and sockfiles.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##   </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_svirt_manage_tmp',`
@@ -1747,9 +1747,9 @@ interface(`virt_svirt_manage_tmp',`
 ##     Read qemu PID files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_read_qemu_pid_files',`

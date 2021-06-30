@@ -227,9 +227,9 @@ interface(`mozilla_domtrans_spec',`
 ##	Execute a domain transition to run mozilla_plugin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`mozilla_domtrans_plugin',`
@@ -329,9 +329,9 @@ interface(`mozilla_run_plugin',`
 ##  Execute qemu unconfined programs in the role.
 ## </summary>
 ## <param name="role">
-##  <summary>
-##  The role to allow the mozilla_plugin domain.
-##  </summary>
+##	<summary>
+##	The role to allow the mozilla_plugin domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -388,9 +388,9 @@ interface(`mozilla_rw_tcp_sockets',`
 ##  Read mozilla_plugin tmpfs files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`mozilla_plugin_read_tmpfs_files',`
@@ -406,9 +406,9 @@ interface(`mozilla_plugin_read_tmpfs_files',`
 ##  Read/Write mozilla_plugin tmpfs files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`mozilla_plugin_rw_tmpfs_files',`
@@ -442,9 +442,9 @@ interface(`mozilla_plugin_delete_tmpfs_files',`
 ##      Dontaudit generict ipc read/write to a mozilla_plugin
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain to not audit.
-##      </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`mozilla_plugin_dontaudit_rw_sem',`
@@ -460,9 +460,9 @@ interface(`mozilla_plugin_dontaudit_rw_sem',`
 ##      Allow generict ipc read/write to a mozilla_plugin
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain to not audit.
-##      </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`mozilla_plugin_rw_sem',`
@@ -496,9 +496,9 @@ interface(`mozilla_plugin_dontaudit_leaks',`
 ##  Dontaudit read/write to a mozilla_plugin tmp files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`mozilla_plugin_dontaudit_rw_tmp_files',`
@@ -514,9 +514,9 @@ interface(`mozilla_plugin_dontaudit_rw_tmp_files',`
 ##  Allow read/write to a mozilla_plugin tmp files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain allowed access.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`mozilla_plugin_rw_tmp_files',`

@@ -125,9 +125,9 @@ interface(`samba_systemctl',`
 ##  Get samba services status
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`samba_service_status',`
@@ -627,9 +627,9 @@ interface(`samba_manage_var_sock_files',`
 ##	Execute a domain transition to run smbcontrol.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`samba_domtrans_smbcontrol',`
@@ -796,9 +796,9 @@ interface(`samba_rw_smbmount_tcp_sockets',`
 ##  Allow to getattr on winbind binary.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`samba_getattr_winbind',`

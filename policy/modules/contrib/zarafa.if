@@ -131,9 +131,9 @@ interface(`zarafa_stream_connect_server',`
 ##  zarafa /var/lib files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`zarafa_manage_lib_files',`

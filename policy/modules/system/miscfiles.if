@@ -1101,7 +1101,7 @@ interface(`miscfiles_manage_localization',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1126,7 +1126,7 @@ interface(`miscfiles_filetrans_locale_named_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1162,7 +1162,7 @@ interface(`miscfiles_filetrans_named_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

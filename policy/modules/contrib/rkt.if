@@ -5,9 +5,9 @@
 ##	Execute rkt_exec_t in the rkt domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`rkt_domtrans',`

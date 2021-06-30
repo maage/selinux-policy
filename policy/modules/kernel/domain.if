@@ -1552,9 +1552,9 @@ interface(`domain_entry_file_spec_domtrans',`
 ##	exploiting null deref bugs in the kernel.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`domain_mmap_low',`
@@ -1579,9 +1579,9 @@ interface(`domain_mmap_low',`
 ##	exploiting null deref bugs in the kernel.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`domain_mmap_low_uncond',`
@@ -1655,9 +1655,9 @@ interface(`domain_named_filetrans',`
 ##  named_filetrans_domain stub attribute interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`domain_stub_named_filetrans_domain',`
@@ -1812,9 +1812,9 @@ interface(`domain_noatsecure_all_domains',`
 ##  Allow domain dyntransition to all domains in domain attribute.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`domain_dyntrans',`

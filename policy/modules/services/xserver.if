@@ -528,9 +528,9 @@ interface(`xserver_domtrans_xauth',`
 ##  Allow exec of Xauthority program..
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`xserver_exec_xauth',`
@@ -1042,9 +1042,9 @@ interface(`xserver_map_xdm_pid',`
 ##  Dontaudit Read XDM pid files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain to not audit.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`xserver_dontaudit_read_xdm_pid',`
@@ -1172,9 +1172,9 @@ interface(`xserver_getattr_log',`
 ##  Allow domain to read X server logs.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`xserver_read_log',`
@@ -1666,9 +1666,9 @@ interface(`xserver_stream_connect',`
 ##  over a unix stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`xserver_dontaudit_stream_connect',`
@@ -1814,9 +1814,9 @@ interface(`xserver_append_xdm_home_files',`
 ##  Allow search the xdm_spool files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`xserver_xdm_search_spool',`
@@ -1833,9 +1833,9 @@ interface(`xserver_xdm_search_spool',`
 ##  Allow read the xdm_spool files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`xserver_xdm_read_spool',`
@@ -2224,9 +2224,9 @@ interface(`xserver_manage_home_fonts',`
 ##  Transition to xserver .fontconfig named content
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`xserver_filetrans_fonts_cache_home_content',`

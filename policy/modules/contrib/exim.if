@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run exim.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`exim_domtrans',`
@@ -24,14 +24,14 @@ interface(`exim_domtrans',`
 ##     Execute the mailman program in the mailman domain.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed to transition.
-##     </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 ## <param name="role">
-##     <summary>
-##     The role to allow the mailman domain.
-##     </summary>
+##	<summary>
+##	The role to allow the mailman domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -145,9 +145,9 @@ interface(`exim_read_log',`
 ##	exim log files.
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
-## 	</summary>
+##	</summary>
 ## </param>
 #
 interface(`exim_append_log',`

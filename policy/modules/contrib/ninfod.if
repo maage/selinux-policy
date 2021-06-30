@@ -6,9 +6,9 @@
 ##	Execute ninfod in the ninfod domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`ninfod_domtrans',`

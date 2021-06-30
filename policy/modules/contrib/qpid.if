@@ -178,9 +178,9 @@ interface(`qpidd_rw_semaphores',`
 ##  Read and write to qpidd shared memory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`qpidd_rw_shm',`
@@ -200,14 +200,14 @@ interface(`qpidd_rw_shm',`
 ##  administrate an qpidd environment.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

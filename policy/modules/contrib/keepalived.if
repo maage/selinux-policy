@@ -6,9 +6,9 @@
 ##	Execute keepalived in the keepalived domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`keepalived_domtrans',`

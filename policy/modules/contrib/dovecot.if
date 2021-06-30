@@ -6,9 +6,9 @@
 ##  dovecot daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`dovecot_basic_types_template',`
@@ -27,9 +27,9 @@ template(`dovecot_basic_types_template',`
 ##  Connect to dovecot unix domain stream socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dovecot_stream_connect',`

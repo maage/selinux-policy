@@ -219,9 +219,9 @@ interface(`nscd_dontaudit_search_pid',`
 ##      Do not audit attempts to read the NSCD pid directory.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain to not audit.
-##      </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`nscd_dontaudit_read_pid',`

@@ -6,9 +6,9 @@
 ##  systemd domains.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`systemd_domain_template',`
@@ -33,9 +33,9 @@ template(`systemd_domain_template',`
 ##      exuting systemctl.
 ## </summary>
 ## <param name="domain_prefix">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_stub_unit_file',`
@@ -50,9 +50,9 @@ interface(`systemd_stub_unit_file',`
 ##      exuting systemctl.
 ## </summary>
 ## <param name="domain_prefix">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_systemctl_domain',`
@@ -76,9 +76,9 @@ interface(`systemd_systemctl_domain',`
 ##      Execute systemctl in the caller domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_exec_systemctl',`
@@ -154,9 +154,9 @@ interface(`systemd_domtrans_systemctl',`
 ##      Create a file type used for systemd unit files.
 ## </summary>
 ## <param name="script_file">
-##      <summary>
-##      Type to be used for an unit file.
-##      </summary>
+##	<summary>
+##	Type to be used for an unit file.
+##	</summary>
 ## </param>
 #
 interface(`systemd_unit_file',`
@@ -173,9 +173,9 @@ interface(`systemd_unit_file',`
 ##      Create a file type used for systemd runtime unit files.
 ## </summary>
 ## <param name="script_file">
-##      <summary>
-##      Type to be used for an runtime unit file.
-##      </summary>
+##	<summary>
+##	Type to be used for an runtime unit file.
+##	</summary>
 ## </param>
 #
 interface(`systemd_runtime_unit_file',`
@@ -192,9 +192,9 @@ interface(`systemd_runtime_unit_file',`
 ##      Allow domain to search systemd unit dirs.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_search_unit_dirs',`
@@ -211,9 +211,9 @@ interface(`systemd_search_unit_dirs',`
 ##      Allow domain to list systemd unit dirs.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_list_unit_dirs',`
@@ -230,9 +230,9 @@ interface(`systemd_list_unit_dirs',`
 ##      Allow domain to list systemd unit dirs.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_create_unit_dirs',`
@@ -249,9 +249,9 @@ interface(`systemd_create_unit_dirs',`
 ##      Allow domain to getattr all systemd unit files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_getattr_unit_files',`
@@ -268,9 +268,9 @@ interface(`systemd_getattr_unit_files',`
 ##      Allow domain to getattr all systemd unit directories.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_getattr_unit_dirs',`
@@ -286,9 +286,9 @@ interface(`systemd_getattr_unit_dirs',`
 ##      Allow domain to read all systemd unit files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_read_unit_files',`
@@ -307,9 +307,9 @@ interface(`systemd_read_unit_files',`
 ##      Dontaudit domain to read all systemd unit files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
+##	<summary>
 ##	Domain to not audit.
-##      </summary>
+##	</summary>
 ## </param>
 #
 interface(`systemd_dontaudit_read_unit_files',`
@@ -727,9 +727,9 @@ interface(`systemd_dbus_chat_logind',`
 ##  Execute a domain transition to run systemd-sysctl.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_domtrans_sysctl',`
@@ -745,9 +745,9 @@ interface(`systemd_domtrans_sysctl',`
 ##  Allow a domain to execute systemd-sysctl in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_exec_sysctl',`
@@ -764,9 +764,9 @@ interface(`systemd_exec_sysctl',`
 ##  Allow a domain to execute systemd-sysctl in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_tmpfiles_exec',`
@@ -783,9 +783,9 @@ interface(`systemd_tmpfiles_exec',`
 ##  Execute a domain transition to run systemd-tmpfiles.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_tmpfiles_domtrans',`
@@ -801,9 +801,9 @@ interface(`systemd_tmpfiles_domtrans',`
 ##	Allow caller nnp_transition to systemd_tmpfiles_t
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`systemd_tmpfiles_nnp_domtrans',`
@@ -819,9 +819,9 @@ interface(`systemd_tmpfiles_nnp_domtrans',`
 ##  Execute a domain transition to run systemd-localed.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_localed_domtrans',`
@@ -837,9 +837,9 @@ interface(`systemd_localed_domtrans',`
 ##	Execute a domain transition to run systemd-tty-ask-password-agent.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`systemd_passwd_agent_domtrans',`
@@ -855,9 +855,9 @@ interface(`systemd_passwd_agent_domtrans',`
 ##  Execute systemd-tty-ask-password-agent in the caller domain
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_passwd_agent_exec',`
@@ -874,9 +874,9 @@ interface(`systemd_passwd_agent_exec',`
 ##	Execute a domain transition to run systemd_rfkill.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`systemd_rfkill_domtrans',`
@@ -910,9 +910,9 @@ interface(`systemd_rfkill_mounton_var_lib',`
 ##      Read systemd-rfkill lib files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_rfkill_setattr_lib',`
@@ -983,9 +983,9 @@ interface(`systemd_timedated_mounton_var_lib',`
 ##  Get timedated service status
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`systemd_timedated_status',`
@@ -1020,9 +1020,9 @@ interface(`systemd_timedated_manage_lib_dirs',`
 ##	Execute a domain transition to run systemd_notify.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`systemd_notify_domtrans',`
@@ -1134,9 +1134,9 @@ interface(`systemd_signal_passwd_agent',`
 ##  Allow to domain to read systemd-passwd pipe
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_read_fifo_file_passwd_run',`
@@ -1189,9 +1189,9 @@ interface(`systemd_passwd_watch_pid_dirs',`
 ##      Relabel systemd unit directories
 ## </summary>
 ## <param name="script_file">
-##      <summary>
-##  	Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_relabel_unit_dirs',`
@@ -1207,9 +1207,9 @@ interface(`systemd_relabel_unit_dirs',`
 ##      Relabel systemd unit files
 ## </summary>
 ## <param name="script_file">
-##      <summary>
-##  	Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_relabel_unit_files',`
@@ -1225,9 +1225,9 @@ interface(`systemd_relabel_unit_files',`
 ##      Relabel systemd unit link files
 ## </summary>
 ## <param name="script_file">
-##      <summary>
-##  	Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_relabel_unit_symlinks',`
@@ -1243,9 +1243,9 @@ interface(`systemd_relabel_unit_symlinks',`
 ##  Send generic signals to systemd_passwd_agent processes.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_manage_passwd_run',`
@@ -1269,10 +1269,10 @@ interface(`systemd_manage_passwd_run',`
 ##  which are used by systemd-passwd-agent
 ## </summary>
 ## <param name="userdomain_prefix">
-##  <summary>
-##  The prefix of the domain (e.g., user
-##  is the prefix for user_t).
-##  </summary>
+##	<summary>
+##	The prefix of the domain (e.g., user
+##	is the prefix for user_t).
+##	</summary>
 ## </param>
 #
 interface(`systemd_passwd_agent_dev_template',`
@@ -1447,9 +1447,9 @@ interface(`systemd_start_all_services',`
 ##  Allow the specified domain to reload all systemd services.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_reload_all_services',`
@@ -1465,9 +1465,9 @@ interface(`systemd_reload_all_services',`
 ##  Allow the specified domain to manage runtime systemd services.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_manage_runtime_services',`
@@ -1521,9 +1521,9 @@ interface(`systemd_start_systemd_services',`
 ##  Allow the specified domain to reload all systemd services.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_reload_systemd_services',`
@@ -1640,19 +1640,19 @@ interface(`systemd_hostnamed_delete_config',`
 ##  a specified private type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="private_type">
-##  <summary>
-##  The type of the object to create.
-##  </summary>
+##	<summary>
+##	The type of the object to create.
+##	</summary>
 ## </param>
 ## <param name="object_class">
-##  <summary>
-##  The class of the object to be created.
-##  </summary>
+##	<summary>
+##	The class of the object to be created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
 ##	<summary>
@@ -1674,9 +1674,9 @@ interface(`systemd_unit_file_filetrans',`
 ##  Create a directory in the /usr/lib/systemd/system directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_create_unit_file_dirs',`
@@ -1692,9 +1692,9 @@ interface(`systemd_create_unit_file_dirs',`
 ##  Create a link in the /usr/lib/systemd/system directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_create_unit_file_lnk',`
@@ -1711,7 +1711,7 @@ interface(`systemd_create_unit_file_lnk',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1787,7 +1787,7 @@ interface(`systemd_manage_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -1807,7 +1807,7 @@ interface(`systemd_filetrans_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -2011,9 +2011,9 @@ interface(`systemd_status_power_services',`
 ##  Start power unit files domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`systemd_start_all_unit_files',`
@@ -2030,9 +2030,9 @@ interface(`systemd_start_all_unit_files',`
 ##  Start power unit files domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`systemd_status_all_unit_files',`
@@ -2214,9 +2214,9 @@ interface(`systemd_machined_watch_pid_dirs',`
 ##      Search systemd-machined lib directories.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_machined_search_lib',`
@@ -2233,9 +2233,9 @@ interface(`systemd_machined_search_lib',`
 ##      Read systemd-machined lib files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_machined_read_lib_files',`
@@ -2252,9 +2252,9 @@ interface(`systemd_machined_read_lib_files',`
 ##      Manage systemd-machined lib files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_machined_manage_lib_files',`
@@ -2272,9 +2272,9 @@ interface(`systemd_machined_manage_lib_files',`
 ##      Read and write systemd-machined devpts character nodes.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_machined_rw_devpts_chr_files',`
@@ -2331,9 +2331,9 @@ interface(`systemd_dbus_chat_machined',`
 ##  Execute a domain transition to run systemd-coredump.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`systemd_coredump_domtrans',`

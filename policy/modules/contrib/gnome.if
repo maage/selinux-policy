@@ -5,14 +5,14 @@
 ##  Role access for gnome.  (Deprecated)
 ## </summary>
 ## <param name="role">
-##  <summary>
-##  Role allowed access.
-##  </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <param name="domain">
-##  <summary>
-##  User domain for the role.
-##  </summary>
+##	<summary>
+##	User domain for the role.
+##	</summary>
 ## </param>
 #
 interface(`gnome_role',`
@@ -24,19 +24,19 @@ interface(`gnome_role',`
 ##      The role template for the gnome-keyring-daemon.
 ## </summary>
 ## <param name="user_prefix">
-##      <summary>
-##      The user prefix.
-##      </summary>
+##	<summary>
+##	The user prefix.
+##	</summary>
 ## </param>
 ## <param name="user_role">
-##      <summary>
-##      The user role.
-##      </summary>
+##	<summary>
+##	The user role.
+##	</summary>
 ## </param>
 ## <param name="user_domain">
-##      <summary>
-##      The user domain associated with the role.
-##      </summary>
+##	<summary>
+##	The user domain associated with the role.
+##	</summary>
 ## </param>
 #
 interface(`gnome_role_gkeyringd',`
@@ -48,20 +48,20 @@ interface(`gnome_role_gkeyringd',`
 ##  The role template for gnome.
 ## </summary>
 ## <param name="role_prefix">
-##  <summary>
-##  The prefix of the user domain (e.g., user
-##  is the prefix for user_t).
-##  </summary>
+##	<summary>
+##	The prefix of the user domain (e.g., user
+##	is the prefix for user_t).
+##	</summary>
 ## </param>
 ## <param name="user_role">
-##  <summary>
-##  The role associated with the user domain.
-##  </summary>
+##	<summary>
+##	The role associated with the user domain.
+##	</summary>
 ## </param>
 ## <param name="user_domain">
-##  <summary>
-##  The type of the user domain.
-##  </summary>
+##	<summary>
+##	The type of the user domain.
+##	</summary>
 ## </param>
 #
 template(`gnome_role_template',`
@@ -178,19 +178,19 @@ template(`gnome_role_template',`
 ##  Allow domain to run gkeyring in the $1_gkeyringd_t domain.
 ## </summary>
 ## <param name="user_prefix">
-##      <summary>
-##      The user prefix.
-##      </summary>
+##	<summary>
+##	The user prefix.
+##	</summary>
 ## </param>
 ## <param name="user_role">
-##      <summary>
-##      The user role.
-##      </summary>
+##	<summary>
+##	The user role.
+##	</summary>
 ## </param>
 ## <param name="user_domain">
-##      <summary>
+##	<summary>
 ##	Domain allowed access.
-##      </summary>
+##	</summary>
 ## </param>
 #
 interface(`gnome_run_gkeyringd',`
@@ -774,9 +774,9 @@ allow $1 gconf_home_t:file map;
 ##  Read generic data home dirs.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_read_generic_data_home_dirs',`
@@ -940,9 +940,9 @@ interface(`gnome_read_gconf_config',`
 ##      Manage gconf config files
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_manage_gconf_config',`
@@ -1081,9 +1081,9 @@ interface(`gnome_list_gkeyringd_tmp_dirs',`
 ##  Delete gkeyringd temporary
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_delete_gkeyringd_tmp_content',`
@@ -1102,9 +1102,9 @@ interface(`gnome_delete_gkeyringd_tmp_content',`
 ##  Manage gkeyringd temporary directories.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_manage_gkeyringd_tmp_dirs',`
@@ -1314,9 +1314,9 @@ interface(`gnome_read_home_config',`
 ##  append gnome homedir content (.config)
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_append_home_config',`
@@ -1332,9 +1332,9 @@ interface(`gnome_append_home_config',`
 ##  delete gnome homedir content (.config)
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_delete_home_config',`
@@ -1369,9 +1369,9 @@ interface(`gnome_create_home_config_dirs',`
 ##  setattr gnome homedir content (.config)
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_setattr_home_config_dirs',`
@@ -1406,9 +1406,9 @@ interface(`gnome_manage_home_config',`
 ##  delete gnome homedir content (.config)
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_delete_home_config_dirs',`
@@ -1498,9 +1498,9 @@ interface(`gnome_manage_gstreamer_home_files',`
 ##      Allow to execute gstreamer home content files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_exec_gstreamer_home_files',`
@@ -1516,9 +1516,9 @@ interface(`gnome_exec_gstreamer_home_files',`
 ##      Allow to execute config home content files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_exec_config_home_files',`
@@ -1534,9 +1534,9 @@ interface(`gnome_exec_config_home_files',`
 ##  file name transition gstreamer home content files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_filetrans_gstreamer_home_content',`
@@ -1569,9 +1569,9 @@ interface(`gnome_filetrans_gstreamer_home_content',`
 ##  manage gstreamer home content files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_manage_gstreamer_home_dirs',`
@@ -1740,9 +1740,9 @@ interface(`gnome_access_check_usr_config',`
 ##      Allow read kde config content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_read_usr_config',`
@@ -1761,9 +1761,9 @@ interface(`gnome_read_usr_config',`
 ##      Allow manage kde config content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_manage_usr_config',`
@@ -1868,9 +1868,9 @@ interface(`gnome_filetrans_config_home_content',`
 ##  File name transition for generic home content files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`gnome_filetrans_cert_home_content',`
@@ -1887,9 +1887,9 @@ interface(`gnome_filetrans_cert_home_content',`
 ##	of the user home directory with correct label.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain allowed access.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`gnome_filetrans_fontconfig_home_content',`
@@ -1963,14 +1963,14 @@ gen_require(`
 ##  </p>
 ## </desc>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 ## <param name="target_domain">
-##  <summary>
-##  The type of the new process.
-##  </summary>
+##	<summary>
+##	The type of the new process.
+##	</summary>
 ## </param>
 #
 interface(`gnome_command_domtrans_gkeyringd', `

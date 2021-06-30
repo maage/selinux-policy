@@ -24,9 +24,9 @@
 ##  files stub etc_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_etc',`
@@ -40,9 +40,9 @@ interface(`files_stub_etc',`
 ##  files stub var_lock_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_var_lock',`
@@ -56,9 +56,9 @@ interface(`files_stub_var_lock',`
 ##  files stub var_log_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_var_log',`
@@ -72,9 +72,9 @@ interface(`files_stub_var_log',`
 ##  files stub var_lib_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_var_lib',`
@@ -88,9 +88,9 @@ interface(`files_stub_var_lib',`
 ##  files stub var_run_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_var_run',`
@@ -104,9 +104,9 @@ interface(`files_stub_var_run',`
 ##  files stub var_run_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_var_spool',`
@@ -120,9 +120,9 @@ interface(`files_stub_var_spool',`
 ##  files stub var_run_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_var',`
@@ -137,9 +137,9 @@ interface(`files_stub_var',`
 ##  files stub tmp_t interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`files_stub_tmp',`
@@ -2124,7 +2124,7 @@ interface(`files_manage_config_dirs',`
 ##	Relabel configuration directories
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
@@ -2163,9 +2163,9 @@ interface(`files_read_config_files',`
 ## 	Manage all configuration files on filesystem
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
-## 	</summary>
+##	</summary>
 ## </param>
 ##
 #
@@ -2182,7 +2182,7 @@ interface(`files_manage_config_files',`
 ##	Relabel configuration files
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
@@ -3146,9 +3146,9 @@ interface(`files_read_boot_files',`
 ##  Map files in the /boot.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_map_boot_files',`
@@ -3721,9 +3721,9 @@ interface(`files_rw_etc_dirs',`
 ##      Dontaudit remove dir /etc directories.
 ## </summary>
 ## <param name="domain">
-##      <summary>
+##	<summary>
 ##	Domain to not audit.
-##      </summary>
+##	</summary>
 ## </param>
 #
 interface(`files_dontaudit_remove_etc_dir',`
@@ -4908,7 +4908,7 @@ interface(`files_dontaudit_access_check_home_dir',`
 ## 	Create /home directories
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access
 ##	</summary>
 ## </param>
@@ -5242,9 +5242,9 @@ interface(`files_list_mnt',`
 ##  dontaudit List the contents of /mnt.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain to not audit.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`files_dontaudit_list_mnt',`
@@ -5705,9 +5705,9 @@ interface(`files_read_world_readable_sockets',`
 ##  Read manageable system configuration files in /etc
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_read_system_conf_files',`
@@ -5725,9 +5725,9 @@ interface(`files_read_system_conf_files',`
 ##  Manage manageable system configuration files in /etc.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_manage_system_conf_files',`
@@ -5744,9 +5744,9 @@ interface(`files_manage_system_conf_files',`
 ##  File name transition for system configuration files in /etc.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_filetrans_system_conf_named_files',`
@@ -5782,9 +5782,9 @@ interface(`files_filetrans_system_conf_named_files',`
 ##  Relabel manageable system configuration files in /etc.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_relabelto_system_conf_files',`
@@ -5800,9 +5800,9 @@ interface(`files_relabelto_system_conf_files',`
 ##  Relabel manageable system configuration files in /etc.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_relabelfrom_system_conf_files',`
@@ -5819,9 +5819,9 @@ interface(`files_relabelfrom_system_conf_files',`
 ##  the manageable system config files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  The type of the process performing this action.
-##  </summary>
+##	<summary>
+##	The type of the process performing this action.
+##	</summary>
 ## </param>
 #
 interface(`files_etc_filetrans_system_conf',`
@@ -5837,9 +5837,9 @@ interface(`files_etc_filetrans_system_conf',`
 ##  Manage manageable system db files in /var/lib.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_manage_system_db_files',`
@@ -5874,9 +5874,9 @@ interface(`files_watch_system_db_files',`
 ##  Map manageable system db files in /var/lib.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_map_system_db_files',`
@@ -5891,9 +5891,9 @@ interface(`files_map_system_db_files',`
 ##  File name transition for system db files in /var/lib.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_filetrans_system_db_named_files',`
@@ -5910,9 +5910,9 @@ interface(`files_filetrans_system_db_named_files',`
 ##  File name transition for tmp files in /.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_filetrans_tmp_named_files',`
@@ -6102,9 +6102,9 @@ interface(`files_dontaudit_list_tmp',`
 ##  Allow read and write to the tmp directory (/tmp).
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain not to audit.
-##  </summary>
+##	<summary>
+##	Domain not to audit.
+##	</summary>
 ## </param>
 #
 interface(`files_rw_generic_tmp_dir',`
@@ -8186,7 +8186,7 @@ interface(`files_rw_lock_dirs',`
 ## 	Create lock directories
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access
 ##	</summary>
 ## </param>
@@ -8468,9 +8468,9 @@ interface(`files_search_pids',`
 ## Add and remove entries from pid directories.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_rw_pid_dirs',`
@@ -8486,9 +8486,9 @@ interface(`files_rw_pid_dirs',`
 ##      Create generic pid directory.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_create_var_run_dirs',`
@@ -8562,9 +8562,9 @@ interface(`files_search_all_pids',`
 ##      Watch generic pid directory.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_watch_var_run_dirs',`
@@ -8580,9 +8580,9 @@ interface(`files_watch_var_run_dirs',`
 ##      Watch generic pid directory and its parents.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`files_watch_var_run_path',`
@@ -8738,7 +8738,7 @@ interface(`files_pid_filetrans',`
 ## 	Create a generic lock directory within the run directories
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed access
 ##	</summary>
 ## </param>
@@ -9511,9 +9511,9 @@ interface(`files_manage_root_files',`
 ##     </p>
 ## </desc>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -9758,9 +9758,9 @@ interface(`files_dontaudit_list_security_dirs',`
 ##	</summary>
 ## </param>
 ## <param name="object_type">
-##  <summary>
-##  Object type.
-##  </summary>
+##	<summary>
+##	Object type.
+##	</summary>
 ## </param>
 #
 interface(`files_rw_all_inherited_files',`
@@ -9931,7 +9931,7 @@ interface(`files_delete_all_non_security_dirs',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

@@ -799,9 +799,9 @@ interface(`fs_list_cgroup_dirs',`
 ##  Do not audit attempts to search cgroup directories.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain to not audit.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`fs_dontaudit_search_cgroup_dirs', `
@@ -2333,9 +2333,9 @@ interface(`fs_read_eventpollfs',`
 ##      on a ecrypt filesystem.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`fs_search_ecryptfs',`
@@ -2373,9 +2373,9 @@ interface(`fs_manage_ecryptfs_dirs',`
 ##      on a FUSEFS filesystem.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -2452,9 +2452,9 @@ interface(`fs_read_ecryptfs_symlinks',`
 ##  Dontaudit append files on  ecrypt filesystem.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`fs_dontaudit_append_ecryptfs_files',`
@@ -4564,9 +4564,9 @@ interface(`fs_getattr_nfsd_files',`
 ##  read files on an nfsd filesystem
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`fs_read_nfsd_files',`
@@ -4637,9 +4637,9 @@ interface(`fs_getattr_nsfs_files',`
 ##  Read nsfs inodes (e.g. /proc/pid/ns/uts)
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`fs_read_nsfs_files',`
@@ -6792,7 +6792,7 @@ interface(`fs_dontaudit_leaks',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -6813,9 +6813,9 @@ interface(`fs_tmpfs_filetrans_named_content',`
 ##      - contains Linux Kernel configuration options for UEFI systems
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -6832,9 +6832,9 @@ interface(`fs_read_efivarfs_files',`
 ##      Manage efivarfs files 
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

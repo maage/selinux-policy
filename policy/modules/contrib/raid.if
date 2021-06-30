@@ -121,9 +121,9 @@ interface(`raid_manage_mdadm_pid',`
 ##      Check access to the mdadm executable.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`raid_access_check_mdadm',`
@@ -142,7 +142,7 @@ interface(`raid_access_check_mdadm',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -160,7 +160,7 @@ interface(`raid_read_conf_files',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -178,7 +178,7 @@ interface(`raid_manage_conf_files',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

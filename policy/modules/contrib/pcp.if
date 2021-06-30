@@ -6,9 +6,9 @@
 ##  pcp daemon domain.
 ## </summary>
 ## <param name="prefix">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 template(`pcp_domain_template',`
@@ -35,9 +35,9 @@ template(`pcp_domain_template',`
 ##  Allow domain to read pcp lib files
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Prefix for the domain.
-##  </summary>
+##	<summary>
+##	Prefix for the domain.
+##	</summary>
 ## </param>
 #
 interface(`pcp_read_lib_files',`
@@ -54,9 +54,9 @@ interface(`pcp_read_lib_files',`
 ##  an pcp environment
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -98,9 +98,9 @@ interface(`pcp_admin',`
 ##  in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`pcp_pmie_exec',`
@@ -118,9 +118,9 @@ interface(`pcp_pmie_exec',`
 ##  in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##  Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`pcp_pmlogger_exec',`
@@ -137,9 +137,9 @@ interface(`pcp_pmlogger_exec',`
 ##      Transition to pcp named content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`pcp_filetrans_named_content',`

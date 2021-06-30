@@ -58,9 +58,9 @@ interface(`dbus_exec_system_dbusd',`
 ##      Send a null signal to system_dbusd processes.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`system_dbusd_signull',`
@@ -880,9 +880,9 @@ interface(`dbus_chat_system_bus',`
 ##      Transition to dbus named content
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dbus_filetrans_named_content_system',`
@@ -935,9 +935,9 @@ interface(`dbus_signal',`
 ##      Manage session_dbusd tmp dirs.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`dbus_manage_session_tmp_dirs',`

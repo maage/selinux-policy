@@ -907,9 +907,9 @@ interface(`apache_append_log',`
 #       apache's log directories.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access
-##      </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`apache_create_log_dirs',`
@@ -928,9 +928,9 @@ interface(`apache_create_log_dirs',`
 ##  to apache log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`apache_write_log',`
@@ -1108,9 +1108,9 @@ interface(`apache_domtrans_rotatelogs',`
 ##  Execute httpd_rotatelogs in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`apache_exec_rotatelogs',`
@@ -1126,9 +1126,9 @@ interface(`apache_exec_rotatelogs',`
 ##  Execute httpd system scripts in the caller domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`apache_exec_sys_script',`
@@ -1925,9 +1925,9 @@ interface(`apache_manage_pid_files',`
 ##      httpd over dbus.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`apache_dbus_chat',`
@@ -1983,9 +1983,9 @@ interface(`apache_noatsecure',`
 ##  httpd with a unix domain stream sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`apache_ioctl_stream_sockets',`
