@@ -191,7 +191,7 @@ interface(`unconfined_run_to',`
 ## <summary>
 ##      Stub unconfined role.
 ## </summary>
-## <param name="domain_prefix">
+## <param name="domain">
 ##	<summary>
 ##	Domain allowed access.
 ##	</summary>
