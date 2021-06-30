@@ -3937,7 +3937,7 @@ interface(`kernel_dontaudit_search_security_state',`
 #
 interface(`kernel_search_security_state',`
 	gen_require(`
-		type proc_security_t;
+		type proc_t, proc_security_t;
 	')
 
 	search_dirs_pattern($1, proc_t, proc_security_t)
