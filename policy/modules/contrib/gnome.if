@@ -23,7 +23,7 @@ interface(`gnome_role',`
 ## <summary>
 ##      The role template for the gnome-keyring-daemon.
 ## </summary>
-## <param name="user_prefix">
+## <param name="userdomain_prefix">
 ##	<summary>
 ##	The user prefix.
 ##	</summary>
@@ -177,7 +177,7 @@ template(`gnome_role_template',`
 ## <summary>
 ##  Allow domain to run gkeyring in the $1_gkeyringd_t domain.
 ## </summary>
-## <param name="user_prefix">
+## <param name="userdomain_prefix">
 ##	<summary>
 ##	The user prefix.
 ##	</summary>
