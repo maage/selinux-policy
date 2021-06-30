@@ -6432,14 +6432,14 @@ interface(`userdom_tmpfs_filetrans',`
 ##	Domain allowed access.
 ##	</summary>
 ## </param>
+## <param name="private_type">
+##	<summary>
+##	The type of the object to create.
+##	</summary>
+## </param>
 ## <param name="object_class">
 ##	<summary>
 ##	The class of the object to be created.
-##	</summary>
-## </param>
-## <param name="name" optional="true">
-##	<summary>
-##	The name of the object being created.
 ##	</summary>
 ## </param>
 ## <param name="name" optional="true">
