@@ -7431,7 +7431,7 @@ gen_require(`
 interface(`dev_filetrans_xserver_named_dev',`
 
 	gen_require(`
-		type xserver_misc_device_t;
+		type device_t, xserver_misc_device_t;
 	')
 
 	filetrans_pattern($1, device_t, xserver_misc_device_t, chr_file, "3dfx")
