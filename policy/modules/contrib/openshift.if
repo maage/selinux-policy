@@ -25,14 +25,14 @@ interface(`openshift_initrc_domtrans',`
 ##  Execute openshift server in the openshift domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  The type of the process performing this action.
-##  </summary>
+##	<summary>
+##	The type of the process performing this action.
+##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  Role access to this domain.
-##  </summary>
+##	<summary>
+##	Role access to this domain.
+##	</summary>
 ## </param>
 #
 interface(`openshift_initrc_run',`
@@ -68,9 +68,9 @@ interface(`openshift_initrc_signull',`
 ##  Send a signal to openshift init scripts.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`openshift_initrc_signal',`
@@ -469,10 +469,10 @@ interface(`openshift_admin',`
 ##	Make the specified type usable as a openshift domain.
 ## </summary>
 ## <param name="openshiftdomain_prefix">
-##  <summary>
-##  The prefix of the domain (e.g., openshift
-##  is the prefix for openshift_t).
-##  </summary>
+##	<summary>
+##	The prefix of the domain (e.g., openshift
+##	is the prefix for openshift_t).
+##	</summary>
 ## </param>
 #
 template(`openshift_service_domain_template',`

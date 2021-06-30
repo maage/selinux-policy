@@ -6,9 +6,9 @@
 ##	Execute blkmapd_exec_t in the blkmapd domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`blkmapd_domtrans',`

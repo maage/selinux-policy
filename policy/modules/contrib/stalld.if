@@ -6,9 +6,9 @@
 ##      Execute stalld_exec_t in the stalld domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed to transition.
-## </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`stalld_domtrans',`
@@ -25,9 +25,9 @@ interface(`stalld_domtrans',`
 ##      Execute stalld in the caller domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`stalld_exec',`
@@ -44,9 +44,9 @@ interface(`stalld_exec',`
 ##      Read stalld PID files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`stalld_read_pid_files',`
@@ -64,14 +64,14 @@ interface(`stalld_read_pid_files',`
 ##      an stalld environment
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="role">
-##      <summary>
-##      Role allowed access.
-##      </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

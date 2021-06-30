@@ -221,9 +221,9 @@ interface(`postfix_rw_local_pipes',`
 ##  TCP sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`postfix_rw_public_pipes',`
@@ -498,9 +498,9 @@ interface(`postfix_domtrans_postqueue',`
 ##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  The role to be allowed the iptables domain.
-##  </summary>
+##	<summary>
+##	The role to be allowed the iptables domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -735,9 +735,9 @@ interface(`postfix_manage_spool_files',`
 ##  Read, write, and delete postfix maildrop spool files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`postfix_rw_spool_maildrop_files',`
@@ -754,9 +754,9 @@ interface(`postfix_rw_spool_maildrop_files',`
 ##  Create, read, write, and delete postfix maildrop spool files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`postfix_manage_spool_maildrop_files',`
@@ -887,9 +887,9 @@ interface(`postfix_admin',`
 ##	</summary>
 ## </param>
 ## <param name="role">
-##  <summary>
-##  The role to be allowed the iptables domain.
-##  </summary>
+##	<summary>
+##	The role to be allowed the iptables domain.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -911,7 +911,7 @@ interface(`postfix_run_postdrop',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -929,7 +929,7 @@ interface(`postfix_exec',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

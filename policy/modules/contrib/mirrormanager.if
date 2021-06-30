@@ -6,9 +6,9 @@
 ##	Execute mirrormanager in the mirrormanager domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`mirrormanager_domtrans',`
@@ -200,9 +200,9 @@ interface(`mirrormanager_manage_pid_files',`
 ##     Manage mirrormanager PID sock files.
 ## </summary>
 ## <param name="domain">
-##     <summary>
-##     Domain allowed access.
-##     </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`mirrormanager_manage_pid_sock_files',`

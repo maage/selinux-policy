@@ -71,9 +71,9 @@ ifndef(`mysql_signal',`
 ##  Send a null signal to mysql.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 ifndef(`mysql_signull',`
@@ -635,7 +635,7 @@ ifndef(`mysql_read_home_content',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

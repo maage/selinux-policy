@@ -6,9 +6,9 @@
 ##	Execute stapserver in the stapserver domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`stapserver_domtrans',`
@@ -102,9 +102,9 @@ interface(`stapserver_read_pid_files',`
 ##      Manage stapserver lib files
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`stapserver_manage_lib',`

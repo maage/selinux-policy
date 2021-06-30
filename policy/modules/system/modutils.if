@@ -464,9 +464,9 @@ interface(`modutils_exec_update_mods',`
 ## Don't audit execute insmod in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`modutils_dontaudit_exec_kmod',`
@@ -482,9 +482,9 @@ interface(`modutils_dontaudit_exec_kmod',`
 ## Don't audit execute insmod in the caller domain.
 ## </summary>
 ## <param name="domain">
-## <summary>
-## Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`modutils_dontaudit_exec_insmod',`
@@ -497,7 +497,7 @@ interface(`modutils_dontaudit_exec_insmod',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

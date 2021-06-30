@@ -374,9 +374,9 @@ interface(`storage_dev_filetrans_fixed_disk',`
 ##  via an automatic type transition.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`storage_dev_filetrans_named_fixed_disk',`
@@ -1041,7 +1041,7 @@ interface(`storage_unconfined',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #

@@ -5,9 +5,9 @@
 ##	Execute redis server in the redis domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`redis_domtrans',`

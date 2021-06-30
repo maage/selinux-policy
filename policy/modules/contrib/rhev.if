@@ -5,9 +5,9 @@
 ##  Execute rhev-agentd in the rhev_agentd domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhev_domtrans_agentd',`
@@ -23,9 +23,9 @@ interface(`rhev_domtrans_agentd',`
 ##  Read rhev-agentd PID files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhev_read_pid_files_agentd',`
@@ -43,9 +43,9 @@ interface(`rhev_read_pid_files_agentd',`
 ##      stream socket.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`rhev_stream_connect_agentd',`
@@ -62,9 +62,9 @@ interface(`rhev_stream_connect_agentd',`
 ##  Send sigchld to rhev-agentd
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`rhev_sigchld_agentd',`

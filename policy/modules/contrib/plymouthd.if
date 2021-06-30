@@ -5,9 +5,9 @@
 ##	Execute a domain transition to run plymouthd.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`plymouthd_domtrans', `
@@ -23,9 +23,9 @@ interface(`plymouthd_domtrans', `
 ##	Execute the plymoth daemon in the current domain
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`plymouthd_exec', `
@@ -60,9 +60,9 @@ interface(`plymouthd_stream_connect', `
 ##	Execute the plymoth command in the current domain
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`plymouthd_exec_plymouth', `
@@ -78,9 +78,9 @@ interface(`plymouthd_exec_plymouth', `
 ##	Execute a domain transition to run plymouthd.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`plymouthd_domtrans_plymouth', `
@@ -251,9 +251,9 @@ interface(`plymouthd_read_log',`
 ##  Allow the specified domain to create plymouthd's log files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`plymouthd_create_log',`
@@ -292,9 +292,9 @@ interface(`plymouthd_manage_log',`
 ##      Allow domain to create boot.log
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`plymouthd_filetrans_named_content',`

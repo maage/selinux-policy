@@ -43,9 +43,9 @@ interface(`watchdog_admin',`
 ##  Allow read watchdog_unconfined_t lnk files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`watchdog_unconfined_exec_read_lnk_files',`

@@ -6,9 +6,9 @@
 ##  ppp home files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ppp_manage_home_files',`
@@ -25,9 +25,9 @@ interface(`ppp_manage_home_files',`
 ##  Read ppp user home content files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ppp_read_home_files',`
@@ -45,9 +45,9 @@ interface(`ppp_read_home_files',`
 ##  Relabel ppp home files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`ppp_relabel_home_files',`
@@ -65,19 +65,19 @@ interface(`ppp_relabel_home_files',`
 ##  directories with the ppp home type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="object_class">
-##  <summary>
-##  Class of the object being created.
-##  </summary>
+##	<summary>
+##	Class of the object being created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
-##  <summary>
-##  The name of the object being created.
-##  </summary>
+##	<summary>
+##	The name of the object being created.
+##	</summary>
 ## </param>
 #
 interface(`ppp_home_filetrans_ppp_home',`
@@ -204,7 +204,7 @@ interface(`ppp_signull',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##	 Domain allowed to transition.
+##	Domain allowed to transition.
 ##	</summary>
 ## </param>
 #
@@ -223,7 +223,7 @@ interface(`ppp_domtrans',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##	 Domain allowed to transition.
+##	Domain allowed to transition.
 ##	</summary>
 ## </param>
 ## <param name="role">
@@ -251,7 +251,7 @@ interface(`ppp_run_cond',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##	 Domain allowed to transition.
+##	Domain allowed to transition.
 ##	</summary>
 ## </param>
 ## <param name="role">
@@ -276,7 +276,7 @@ interface(`ppp_run',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##	 Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -453,7 +453,7 @@ interface(`ppp_systemctl',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -476,9 +476,9 @@ interface(`ppp_filetrans_named_content',`
 ##	</summary>
 ## </param>
 ## <param name="role">
-##      <summary>
-##      Role allowed access.
-##      </summary>
+##	<summary>
+##	Role allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #

@@ -5,9 +5,9 @@
 ##  initrc stub interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`init_stub_initrc',`
@@ -294,9 +294,9 @@ interface(`init_daemon_domain',`
 ##      Create initrc domain.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##       Type to be used as a initrc daemon domain.
-##      </summary>
+##	<summary>
+##	Type to be used as a initrc daemon domain.
+##	</summary>
 ## </param>
 #
 interface(`init_initrc_domain',`
@@ -523,9 +523,9 @@ interface(`init_explicit_domain',`
 ##  Allow domain dyntransition to init_t domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`init_dyntrans',`
@@ -630,9 +630,9 @@ interface(`init_exec',`
 ##  Check access to the init/systemd executable.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_access_check',`
@@ -649,9 +649,9 @@ interface(`init_access_check',`
 ##  Dontaudit getattr on the init program.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <rolecap/>
 #
@@ -896,9 +896,9 @@ interface(`init_stream_connectto',`
 ##  Dontaudit Connect to init with a unix socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
+##	<summary>
 ##	Domain to not audit.
-##  </summary>
+##	</summary>
 ## </param>
 #
 interface(`init_dontaudit_stream_connect',`
@@ -914,9 +914,9 @@ interface(`init_dontaudit_stream_connect',`
 ##  Dontaudit getattr to init with a unix socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`init_dontaudit_getattr_stream_socket',`
@@ -932,9 +932,9 @@ interface(`init_dontaudit_getattr_stream_socket',`
 ##  Dontaudit read and write to init with a unix socket.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain to not audit.
-##  </summary>
+##	<summary>
+##	Domain to not audit.
+##	</summary>
 ## </param>
 #
 interface(`init_dontaudit_rw_stream_socket',`
@@ -1365,7 +1365,7 @@ interface(`init_labeled_script_domtrans',`
 ## 	for all labeled init script types
 ## </summary>
 ## <param name="domain">
-## 	<summary>
+##	<summary>
 ##	Domain allowed to transition.
 ##	</summary>
 ## </param>
@@ -2625,9 +2625,9 @@ interface(`init_pid_filetrans_utmp',`
 ##  Allow search  directory in the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_search_pid_dirs',`
@@ -2643,9 +2643,9 @@ interface(`init_search_pid_dirs',`
 ##  Allow listing of the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_list_pid_dirs',`
@@ -2661,9 +2661,9 @@ interface(`init_list_pid_dirs',`
 ##  Create a directory in the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_create_pid_dirs',`
@@ -2680,9 +2680,9 @@ interface(`init_create_pid_dirs',`
 ##  Remove entries from the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_delete_pid_dir_entry',`
@@ -2698,9 +2698,9 @@ interface(`init_delete_pid_dir_entry',`
 ##  Watch the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_watch_pid_dir',`
@@ -2716,9 +2716,9 @@ interface(`init_watch_pid_dir',`
 ##      Get the attributes of block nodes in the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_getattr_pid_blk_file',`
@@ -2734,9 +2734,9 @@ interface(`init_getattr_pid_blk_file',`
 ##      Get the attributes of character device nodes in the /run/systemd directory.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_getattr_pid_chr_file',`
@@ -2754,19 +2754,19 @@ interface(`init_getattr_pid_chr_file',`
 ##  a specified private type.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 ## <param name="private_type">
-##  <summary>
-##  The type of the object to create.
-##  </summary>
+##	<summary>
+##	The type of the object to create.
+##	</summary>
 ## </param>
 ## <param name="object_class">
-##  <summary>
-##  The class of the object to be created.
-##  </summary>
+##	<summary>
+##	The class of the object to be created.
+##	</summary>
 ## </param>
 ## <param name="name" optional="true">
 ##	<summary>
@@ -2909,9 +2909,9 @@ interface(`init_dontaudit_script_leaks',`
 ##  init with a unix domain stream sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_ioctl_stream_sockets',`
@@ -2966,9 +2966,9 @@ interface(`init_append_stream_sockets',`
 ##  init sock file.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_write_pid_socket',`
@@ -3175,9 +3175,9 @@ interface(`init_rw_pipes',`
 ##  Read and write init TCP sockets.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`init_rw_tcp_sockets',`
@@ -3506,7 +3506,7 @@ interface(`init_manage_transient_unit',`
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-##      Domain allowed access.
+##	Domain allowed access.
 ##	</summary>
 ## </param>
 #
@@ -3648,9 +3648,9 @@ interface(`init_prog_run_bpf',`
 ##     Intended for systemd path units - see systemd.path(5). (Deprecated)
 ## </summary>
 ## <param name="type">
-##     <summary>
-##     Type allowed to watch.
-##     </summary>
+##	<summary>
+##	Type allowed to watch.
+##	</summary>
 ## </param>
 #
 interface(`init_watch_dir',`

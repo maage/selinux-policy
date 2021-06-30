@@ -123,9 +123,9 @@ interface(`corosync_stream_connect',`
 ##  Allow the specified domain to read/write corosync's tmpfs files.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`corosync_rw_tmpfs',`

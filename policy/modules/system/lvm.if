@@ -6,9 +6,9 @@
 ##  lvm stub domain interface.  No access allowed.
 ## </summary>
 ## <param name="domain" unused="true">
-##  <summary>
-##  Domain allowed access
-##  </summary>
+##	<summary>
+##	Domain allowed access
+##	</summary>
 ## </param>
 #
 interface(`lvm_stub',`
@@ -249,9 +249,9 @@ interface(`lvm_stream_connect',`
 ##	Execute a domain transition to run clvmd.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`lvm_domtrans_clvmd',`
@@ -532,9 +532,9 @@ interface(`lvm_rw_var_run',`
 ##      lvm var run files.
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`lvm_manage_var_run',`
@@ -551,9 +551,9 @@ interface(`lvm_manage_var_run',`
 ##      Create directory cryptsetup in the /var/run
 ## </summary>
 ## <param name="domain">
-##      <summary>
-##      Domain allowed access.
-##      </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`lvm_var_run_filetrans',`

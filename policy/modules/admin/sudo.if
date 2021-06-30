@@ -157,9 +157,9 @@ interface(`sudo_sigchld',`
 ##  This interfaces is added for nova-stack policy.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sudo_exec',`
@@ -175,9 +175,9 @@ interface(`sudo_exec',`
 ##  Allow to manage sudo database in called domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed access.
-##  </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`sudo_manage_db',`
@@ -194,9 +194,9 @@ interface(`sudo_manage_db',`
 ## 	Transition to sudo log named content
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed access.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`sudo_filetrans_named_content_log',`

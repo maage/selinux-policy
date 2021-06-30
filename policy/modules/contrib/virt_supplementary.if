@@ -5,7 +5,7 @@
 ## </summary>
 ## <param name="domain">
 ##	<summary>
-## 	Domain allowed to transition.
+##	Domain allowed to transition.
 ##	</summary>
 ## </param>
 interface(`virt_domtrans_bridgehelper',`
@@ -21,9 +21,9 @@ interface(`virt_domtrans_bridgehelper',`
 ##      Execute a qemu_exec_t in the callers domain
 ## </summary>
 ## <param name="domain">
-## <summary>
-##      Domain allowed access.
-## </summary>
+##	<summary>
+##	Domain allowed access.
+##	</summary>
 ## </param>
 #
 interface(`virt_exec_qemu',`
@@ -39,9 +39,9 @@ interface(`virt_exec_qemu',`
 ##      Role access for virt_bridgehelper
 ## </summary>
 ## <param name="role">
-##      <summary>
-##      Role allowed access
-##      </summary>
+##	<summary>
+##	Role allowed access
+##	</summary>
 ## </param>
 #
 interface(`virt_bridgehelper_role',`

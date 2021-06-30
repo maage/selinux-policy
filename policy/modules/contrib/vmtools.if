@@ -5,9 +5,9 @@
 ##	Execute vmtools in the vmtools domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`vmtools_domtrans',`
@@ -24,9 +24,9 @@ interface(`vmtools_domtrans',`
 ##	Execute vmtools in the vmtools domin.
 ## </summary>
 ## <param name="domain">
-## <summary>
+##	<summary>
 ##	Domain allowed to transition.
-## </summary>
+##	</summary>
 ## </param>
 #
 interface(`vmtools_domtrans_helper',`

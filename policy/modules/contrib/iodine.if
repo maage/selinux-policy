@@ -24,9 +24,9 @@ interface(`iodined_domtrans',`
 ##  Execute iodined server in the iodined domain.
 ## </summary>
 ## <param name="domain">
-##  <summary>
-##  Domain allowed to transition.
-##  </summary>
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
 ## </param>
 #
 interface(`iodined_systemctl',`
