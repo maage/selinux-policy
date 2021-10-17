@@ -61,7 +61,7 @@ template(`systemd_generator_template',`
 
 ######################################
 ## <summary>
-##      Create a domain for processes which are started 
+##      Create a domain for processes which are started
 ##      exuting systemctl.
 ## </summary>
 ## <param name="domain_prefix">
@@ -103,7 +103,7 @@ interface(`systemd_systemctl_common',`
 
 #######################################
 ## <summary>
-##      Create a domain for processes which are started 
+##      Create a domain for processes which are started
 ##      exuting systemctl.
 ## </summary>
 ## <param name="domain_prefix">
@@ -121,7 +121,7 @@ template(`systemd_systemctl_domain',`
 
 	type $1_systemctl_t, systemctl_domain;
 	domain_type($1_systemctl_t)
-	domain_entry_file($1_systemctl_t, systemd_systemctl_exec_t)	
+	domain_entry_file($1_systemctl_t, systemd_systemctl_exec_t)
 
 	role system_r types $1_systemctl_t;
 
@@ -270,7 +270,7 @@ interface(`systemd_list_unit_dirs',`
         gen_require(`
                 attribute systemd_unit_file_type;
         ')
-	
+
 	files_search_var_lib($1)
 	allow $1 systemd_unit_file_type:dir list_dir_perms;
 ')
@@ -289,7 +289,7 @@ interface(`systemd_create_unit_dirs',`
         gen_require(`
                 attribute systemd_unit_file_type;
         ')
-	
+
 	files_search_var_lib($1)
 	allow $1 systemd_unit_file_type:dir create;
 ')
@@ -345,7 +345,7 @@ interface(`systemd_read_unit_files',`
         gen_require(`
                 attribute systemd_unit_file_type;
         ')
-	
+
 	files_search_var_lib($1)
 	allow $1 systemd_unit_file_type:file read_file_perms;
 	allow $1 systemd_unit_file_type:lnk_file read_lnk_file_perms;
@@ -1318,7 +1318,7 @@ interface(`systemd_relabel_unit_symlinks',`
 #
 interface(`systemd_manage_passwd_run',`
 	gen_require(`
-		type systemd_passwd_agent_t;	
+		type systemd_passwd_agent_t;
 		type systemd_passwd_var_run_t;
 	')
 
@@ -1493,7 +1493,7 @@ interface(`systemd_reload_all_services',`
 
 ########################################
 ## <summary>
-##	Allow the specified domain to modify the systemd configuration of 
+##	Allow the specified domain to modify the systemd configuration of
 ##	all systemd services
 ## </summary>
 ## <param name="domain">
@@ -1585,7 +1585,7 @@ interface(`systemd_reload_systemd_services',`
 
 ########################################
 ## <summary>
-##	Allow the specified domain to modify the systemd configuration of 
+##	Allow the specified domain to modify the systemd configuration of
 ##	all systemd services
 ## </summary>
 ## <param name="domain">
