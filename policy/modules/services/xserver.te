@@ -1003,10 +1003,6 @@ optional_policy(`
     dbus_connect_session_bus(xdm_t)    
 
     optional_policy(`
-        accountsd_dbus_chat(xdm_t)
-    ')
-
-    optional_policy(`
 	    avahi_dbus_chat(xdm_t)
     ')
 
