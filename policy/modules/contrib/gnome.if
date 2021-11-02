@@ -17,7 +17,7 @@
 #
 interface(`gnome_role',`
     refpolicywarn(`$0($*) has been deprecated')
-    ')
+')
 
 ######################################
 ## <summary>
