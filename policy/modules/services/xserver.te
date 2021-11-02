@@ -1880,7 +1880,9 @@ optional_policy(`
 optional_policy(`
 	gen_require(`
 		type pulseaudio_var_run_t;
+		type tmp_t;
 		type user_tmp_t;
 	')
 	manage_dirs_pattern(xdm_t, user_tmp_t, pulseaudio_var_run_t)
+	allow xdm_t tmp_t:dir create;
 ')
