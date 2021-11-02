@@ -101,7 +101,7 @@ interface(`hypervkvp_systemctl',`
     allow $1 hypervkvp_unit_file_t:service manage_service_perms;
 
     ps_process_pattern($1, hypervkvp_t)
-    ')
+')
 
 ########################################
 ## <summary>
