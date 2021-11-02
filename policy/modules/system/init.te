@@ -1972,3 +1972,8 @@ optional_policy(`
         ccs_read_config(daemon)
     ')
  ')
+
+fs_relabelfrom_tmpfs(init_t)
+sysnet_create_config(init_t)
+allow init_t ld_so_cache_t:file create;
+allow init_t bin_t:file { create write };
