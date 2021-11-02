@@ -225,6 +225,9 @@ allow systemd_logind_t self:process getcap;
 allow systemd_logind_t self:netlink_kobject_uevent_socket create_socket_perms;
 allow systemd_logind_t self:unix_dgram_socket create_socket_perms;
 
+domain_subj_id_change_exemption(systemd_logind_t)
+domain_obj_id_change_exemption(systemd_logind_t)
+
 mls_file_read_all_levels(systemd_logind_t)
 mls_file_write_all_levels(systemd_logind_t)
 mls_dbus_send_all_levels(systemd_logind_t)
