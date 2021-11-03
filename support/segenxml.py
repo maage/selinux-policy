@@ -15,10 +15,11 @@
     by the user.
 """
 
-import sys
+import argparse
 import os
 import re
-import getopt
+import sys
+import textwrap
 
 # GLOBALS
 
@@ -257,6 +258,7 @@ def warning(description):
     Warns the user of a non-critical error.
     """
 
+    global warn
     if warn:
         print(f"{sys.argv[0]}: warning: {description}", file=sys.stderr)
 
@@ -270,52 +272,58 @@ def error(description):
     sys.exit(1)
 
 
-# MAIN PROGRAM
-
-# Defaults
-warn = False
-module = False
-tunable = False
-boolean = False
-
-# Check that there are command line arguments.
-if len(sys.argv) <= 1:
-    usage()
-    sys.exit(1)
-
-# Parse command line args
-try:
-    opts, args = getopt.getopt(
-        sys.argv[1:], "whm:t:b:", ["warn", "help", "module=", "tunable=", "boolean="]
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate SELinux XML documentation.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=textwrap.dedent(
+            """\
+            examples:
+            > %(prog)s -w -m policy/modules/apache
+            > %(prog)s -t policy/global_tunables
+            """
+        ),
     )
-except getopt.GetoptError:
-    usage()
-    sys.exit(2)
-for o, a in opts:
-    if o in ("-w", "--warn"):
-        warn = True
-    elif o in ("-h", "--help"):
-        usage()
-        sys.exit(0)
-    elif o in ("-m", "--module"):
-        module = a
-        break
-    elif o in ("-t", "--tunable"):
-        tunable = a
-        break
-    elif o in ("-b", "--boolean"):
-        boolean = a
-        break
-    else:
-        usage()
-        sys.exit(2)
+    parser.add_argument(
+        "-w", "--warn", dest="warn", action="store_true", help="show warnings"
+    )
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "-m",
+        "--module",
+        dest="module",
+        metavar="<module-base-name>",
+        help="basename of module to process (without suffix .te)",
+    )
+    group.add_argument(
+        "-t",
+        "--tunable",
+        dest="tunable",
+        metavar="<file>",
+        help="name of global tunable file to process",
+    )
+    group.add_argument(
+        "-b",
+        "--boolean",
+        dest="boolean",
+        metavar="<file>",
+        help="name of global boolean file to process",
+    )
+    args = parser.parse_args()
 
-if module:
-    sys.stdout.writelines(getModuleXML(module))
-elif tunable:
-    sys.stdout.writelines(getTunableXML(tunable, "tunable"))
-elif boolean:
-    sys.stdout.writelines(getTunableXML(boolean, "bool"))
-else:
-    usage()
-    sys.exit(2)
+    global warn
+    warn = args.warn
+
+    if args.module:
+        sys.stdout.writelines(getModuleXML(args.module))
+    elif args.tunable:
+        sys.stdout.writelines(getTunableXML(args.tunable, "tunable"))
+    elif args.boolean:
+        sys.stdout.writelines(getTunableXML(args.boolean, "bool"))
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
