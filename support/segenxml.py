@@ -25,14 +25,6 @@ import textwrap
 
 # Default values of command line arguments:
 warn = False
-meta = "metadata"
-third_party = "third-party"
-layers = {}
-tunable_files = []
-bool_files = []
-xml_tunable_files = []
-xml_bool_files = []
-output_dir = ""
 
 # Pre compiled regular expressions:
 
@@ -243,70 +235,7 @@ def getTunableXML(file_name, kind):
     if temp_buf:
         warning("orphan XML comments at bottom of file %s\n%s" % (file_name, temp_buf))
 
-    # If the caller requested a the global_tunables and global_booleans to be
-    # output to a file output them now
-    if len(output_dir) > 0:
-        xmlfile = os.path.split(file_name)[1] + ".xml"
-
-        try:
-            with open(output_dir + "/" + xmlfile, "w") as xml_outfile:
-                for tunable_line in tunable_buf:
-                    xml_outfile.write(tunable_line)
-        except IOError:
-            warning("cannot write to file %s, skipping creation" % xmlfile)
-
     return tunable_buf
-
-
-def getXMLFileContents(file_name):
-    '''
-    Return all the XML in the file specified.
-    '''
-
-    tunable_buf = []
-    # Try to open the xml file for this type of file
-    # append the contents to the buffer.
-    try:
-        with open(file_name, "r") as tunable_xml:
-            tunable_buf += tunable_xml.readlines()
-    except IOError:
-        warning("cannot open file %s for read, assuming no data" % file_name)
-
-    return tunable_buf
-
-
-def getPolicyXML():
-    '''
-    Return the compelete reference policy XML documentation through a list,
-    one line per item.
-    '''
-
-    policy_buf = []
-    policy_buf.append("<policy>\n")
-
-    # Add to the XML each layer specified by the user.
-    for layer in layers.keys():
-        policy_buf += getLayerXML(layer, layers[layer])
-
-    # Add to the XML each tunable file specified by the user.
-    for tunable_file in tunable_files:
-        policy_buf += getTunableXML(tunable_file, "tunable")
-
-    # Add to the XML each XML tunable file specified by the user.
-    for tunable_file in xml_tunable_files:
-        policy_buf += getXMLFileContents(tunable_file)
-
-    # Add to the XML each bool file specified by the user.
-    for bool_file in bool_files:
-        policy_buf += getTunableXML(bool_file, "bool")
-
-    # Add to the XML each XML bool file specified by the user.
-    for bool_file in xml_bool_files:
-        policy_buf += getXMLFileContents(bool_file)
-
-    policy_buf.append("</policy>\n")
-
-    return policy_buf
 
 
 def warning(description):
