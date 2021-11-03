@@ -80,10 +80,9 @@ def getModuleXML(file_name):
 
     # Try to open the file, if it cant, just ignore it.
     try:
-        module_file = open(module_if, "r")
-        module_code = module_file.readlines()
-        module_file.close()
-    except:
+        with open(module_if, "r") as module_file:
+            module_code = module_file.readlines()
+    except IOError:
         warning("cannot open file %s for read, skipping" % file_name)
         return []
 
@@ -203,10 +202,9 @@ def getTunableXML(file_name, kind):
 
     # Try to open the file, if it cant, just ignore it.
     try:
-        tunable_file = open(file_name, "r")
-        tunable_code = tunable_file.readlines()
-        tunable_file.close()
-    except:
+        with open(file_name, "r") as tunable_file:
+            tunable_code = tunable_file.readlines()
+    except IOError:
         warning("cannot open file %s for read, skipping" % file_name)
         return []
 
@@ -251,11 +249,10 @@ def getTunableXML(file_name, kind):
         xmlfile = os.path.split(file_name)[1] + ".xml"
 
         try:
-            xml_outfile = open(output_dir + "/" + xmlfile, "w")
-            for tunable_line in tunable_buf:
-                xml_outfile.write(tunable_line)
-            xml_outfile.close()
-        except:
+            with open(output_dir + "/" + xmlfile, "w") as xml_outfile:
+                for tunable_line in tunable_buf:
+                    xml_outfile.write(tunable_line)
+        except IOError:
             warning("cannot write to file %s, skipping creation" % xmlfile)
 
     return tunable_buf
@@ -270,10 +267,9 @@ def getXMLFileContents(file_name):
     # Try to open the xml file for this type of file
     # append the contents to the buffer.
     try:
-        tunable_xml = open(file_name, "r")
-        tunable_buf += tunable_xml.readlines()
-        tunable_xml.close()
-    except:
+        with open(file_name, "r") as tunable_xml:
+            tunable_buf += tunable_xml.readlines()
+    except IOError:
         warning("cannot open file %s for read, assuming no data" % file_name)
 
     return tunable_buf
