@@ -71,10 +71,9 @@ def getModuleXML(file_name):
 
     # Try to open the file, if it cant, just ignore it.
     try:
-        module_file = open(module_if)
-        module_code = module_file.readlines()
-        module_file.close()
-    except:
+        with open(module_if) as module_file:
+            module_code = module_file.readlines()
+    except OSError:
         warning(f"cannot open file {file_name} for read, skipping")
         return []
 
@@ -190,10 +189,9 @@ def getTunableXML(file_name, kind):
 
     # Try to open the file, if it cant, just ignore it.
     try:
-        tunable_file = open(file_name)
-        tunable_code = tunable_file.readlines()
-        tunable_file.close()
-    except:
+        with open(file_name) as tunable_file:
+            tunable_code = tunable_file.readlines()
+    except OSError:
         warning(f"cannot open file {file_name} for read, skipping")
         return []
 
