@@ -120,7 +120,7 @@ def getModuleXML(file_name):
             #  either put the XML out to module buffer as the
             #  module's documentation, or attribute it to an
             #  interface/template.
-            elif temp_buf:
+            if temp_buf:
                 finding_header = False
                 interface = INTERFACE.match(line)
                 if not interface:
