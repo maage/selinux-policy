@@ -75,34 +75,32 @@ def get_av_db(file_name):
     #   if a token is expected but EOF is reached.
     # Now the list of Class objects is returned.
 
-    av_file = open(file_name, "r")
-    av_data = []
-    # Read the file and strip out comments on the way.
-    # At the end of the loop, av_data will contain a list of individual
-    #  words. i.e. ['common', 'file', '{', ...]. All comments and whitespace
-    #  will be gone.
-    while True:
-        av_line = av_file.readline()
+    with open(file_name, "r") as av_file:
+        av_data = []
+        # Read the file and strip out comments on the way.
+        # At the end of the loop, av_data will contain a list of individual
+        #  words. i.e. ['common', 'file', '{', ...]. All comments and whitespace
+        #  will be gone.
+        while True:
+            av_line = av_file.readline()
 
-        # If EOF has been reached:
-        if not av_line:
-            break
+            # If EOF has been reached:
+            if not av_line:
+                break
 
-        # Check if there is a comment, and if there is, remove it.
-        comment_index = av_line.find("#")
-        if comment_index != -1:
-            av_line = av_line[:comment_index]
+            # Check if there is a comment, and if there is, remove it.
+            comment_index = av_line.find("#")
+            if comment_index != -1:
+                av_line = av_line[:comment_index]
 
-        # Pad the braces with whitespace so that they are split into
-        #  their own word. It doesn't matter if there will be extra
-        #  white space, it'll get thrown away when the string is split.
-        av_line.replace("{", " { ")
-        av_line.replace("}", " } ")
+            # Pad the braces with whitespace so that they are split into
+            #  their own word. It doesn't matter if there will be extra
+            #  white space, it'll get thrown away when the string is split.
+            av_line.replace("{", " { ")
+            av_line.replace("}", " } ")
 
-        # Split up the words on the line and add it to av_data.
-        av_data += av_line.split()
-
-    av_file.close()
+            # Split up the words on the line and add it to av_data.
+            av_data += av_line.split()
 
     # Parsing the file:
     # The implementation of this parse is a queue. We use the list of words
@@ -142,7 +140,7 @@ def get_av_db(file_name):
         perms = []
         # If the object we are working with is a class, since only
         #  classes inherit:
-        if common == False:
+        if not common:
             if len(av_data) == 0:
                 error("Missing token in file " + file_name + ".")
 
@@ -152,15 +150,7 @@ def get_av_db(file_name):
                 av_data = av_data[1:]
 
                 if len(av_data) == 0:
-                    error(
-                        "Missing token in file "
-                        + file_name
-                        + " for "
-                        + keyword
-                        + " "
-                        + name
-                        + "."
-                    )
+                    error("Missing token in file " + file_name + " " + name + ".")
 
                 # av_data[0] is the name of the parent.
                 # Append the permissions of the parent to
@@ -205,9 +195,8 @@ def get_sc_db(file_name):
     """
 
     # Read the file then close it.
-    sc_file = open(file_name)
-    sc_data = sc_file.readlines()
-    sc_file.close()
+    with open(file_name) as sc_file:
+        sc_data = sc_file.readlines()
 
     # For each line in the security classes file, add the name of the class
     #  and whether it is a userspace class or not to the security class
@@ -222,10 +211,9 @@ def get_sc_db(file_name):
         # Check if the comment to the right of the permission matches
         #  USERSPACE_CLASS.
         comment_index = line.find("#")
-        if comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS:
-            userspace = True
-        else:
-            userspace = False
+        userspace = bool(
+            comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS
+        )
 
         # All lines should be in the format "class NAME", meaning
         #  it should have two tokens and the first token should be
@@ -257,7 +245,7 @@ def gen_class_perms(av_db, sc_db):
     class_perms = ""
     for obj in av_db:
         # Don't output commons
-        if obj.common == True:
+        if obj.common:
             continue
 
         # Get the list of permissions from the specified class.
@@ -291,34 +279,32 @@ def gen_class_perms(av_db, sc_db):
     return class_perms + kernel_class_perms + userspace_class_perms
 
 
-def error(error):
+def error(msg):
     """
     Print an error message and exit.
     """
 
     sys.stderr.write("%s exiting for: " % sys.argv[0])
-    sys.stderr.write("%s\n" % error)
+    sys.stderr.write("%s\n" % msg)
     sys.stderr.flush()
     sys.exit(1)
 
 
 # MAIN PROGRAM
 def main():
-    app_name = sys.argv[0]
-
     if len(sys.argv) != 3:
         error(
-            "Incorrect input.\nUsage: " + sys.argv[0] + " access_vectors security_classes"
+            "Incorrect input.\nUsage: "
+            + sys.argv[0]
+            + " access_vectors security_classes"
         )
 
-    # argv[1] is the access vector file.
-    av_file = sys.argv[1]
-
-    # argv[2] is the security class file.
-    sc_file = sys.argv[2]
+    access_vector_file, security_class_file = sys.argv[1], sys.argv[2]
 
     # Output the class permissions document.
-    sys.stdout.write(gen_class_perms(get_av_db(av_file), get_sc_db(sc_file)))
+    sys.stdout.write(
+        gen_class_perms(get_av_db(access_vector_file), get_sc_db(security_class_file))
+    )
 
 
 if __name__ == '__main__':

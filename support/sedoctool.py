@@ -9,16 +9,15 @@
 #      the Free Software Foundation, version 2.
 
 """
-    This module generates configuration files and documentation from the 
-    SELinux reference policy XML format. 
+    This module generates configuration files and documentation from the
+    SELinux reference policy XML format.
 """
 
 import sys
 import getopt
 import pyplate
 import os
-import string
-from xml.dom.minidom import parse, parseString
+from xml.dom.minidom import parseString
 
 # modules enabled and disabled values
 MOD_BASE = "base"
@@ -40,17 +39,14 @@ def read_policy_xml(filename):
     """
 
     try:
-        xml_fh = open(filename)
-    except:
+        with open(filename, "r") as f:
+            try:
+                doc = parseString(f.read())
+            except (TypeError, AttributeError):
+                error("Error while parsing xml")
+    except IOError:
         error("error opening " + filename)
 
-    try:
-        doc = parseString(xml_fh.read())
-    except:
-        xml_fh.close()
-        error("Error while parsing xml")
-
-    xml_fh.close()
     return doc
 
 
@@ -193,31 +189,28 @@ def get_conf(conf):
     conf_lines = conf.readlines()
 
     namevalue_list = []
-    for i in range(0, len(conf_lines)):
-        line = conf_lines[i]
-        if line.strip() != '' and line.strip()[0] != "#":
-            namevalue = line.strip().split("=")
-            if len(namevalue) != 2:
-                warning(
-                    "line %d: \"%s\" is not a valid line, skipping" % (i, line.strip())
-                )
-                continue
+    for i, line in enumerate(conf_lines):
+        line = line.strip()
 
-            namevalue[0] = namevalue[0].strip()
-            if len(namevalue[0].split()) > 1:
-                warning(
-                    "line %d: \"%s\" is not a valid line, skipping" % (i, line.strip())
-                )
-                continue
+        if not line or line.startswith('#'):
+            continue
 
-            namevalue[1] = namevalue[1].strip()
-            if len(namevalue[1].split()) > 1:
-                warning(
-                    "line %d: \"%s\" is not a valid line, skipping" % (i, line.strip())
-                )
-                continue
+        namevalue = line.split("=")
+        if len(namevalue) != 2:
+            warning("line %d: \"%s\" is not a valid line, skipping" % (i, line))
+            continue
 
-            namevalue_list.append(namevalue)
+        namevalue[0] = namevalue[0].strip()
+        if len(namevalue[0].split()) > 1:
+            warning("line %d: \"%s\" is not a valid line, skipping" % (i, line))
+            continue
+
+        namevalue[1] = namevalue[1].strip()
+        if len(namevalue[1].split()) > 1:
+            warning("line %d: \"%s\" is not a valid line, skipping" % (i, line))
+            continue
+
+        namevalue_list.append(namevalue)
 
     return namevalue_list
 
@@ -271,7 +264,7 @@ def gen_doc_menu(mod_layer, module_list):
     for layer, value in module_list.items():
         cur_menu = (layer, [])
         menu.append(cur_menu)
-        if layer != mod_layer and mod_layer != None:
+        if layer != mod_layer and mod_layer is not None:
             continue
         # we are in our layer so fill in the other modules or we want them all
         for mod, desc in value.items():
@@ -337,54 +330,40 @@ def gen_docs(doc, working_dir, templatedir):
 
     try:
         # get the template data ahead of time so we don't reopen them over and over
-        bodyfile = open(templatedir + "/header.html", "r")
-        bodydata = bodyfile.read()
-        bodyfile.close()
-        intfile = open(templatedir + "/interface.html", "r")
-        intdata = intfile.read()
-        intfile.close()
-        templatefile = open(templatedir + "/template.html", "r")
-        templatedata = templatefile.read()
-        templatefile.close()
-        tunfile = open(templatedir + "/tunable.html", "r")
-        tundata = tunfile.read()
-        tunfile.close()
-        boolfile = open(templatedir + "/boolean.html", "r")
-        booldata = boolfile.read()
-        boolfile.close()
-        menufile = open(templatedir + "/menu.html", "r")
-        menudata = menufile.read()
-        menufile.close()
-        indexfile = open(templatedir + "/module_list.html", "r")
-        indexdata = indexfile.read()
-        indexfile.close()
-        modulefile = open(templatedir + "/module.html", "r")
-        moduledata = modulefile.read()
-        modulefile.close()
-        intlistfile = open(templatedir + "/int_list.html", "r")
-        intlistdata = intlistfile.read()
-        intlistfile.close()
-        templistfile = open(templatedir + "/temp_list.html", "r")
-        templistdata = templistfile.read()
-        templistfile.close()
-        tunlistfile = open(templatedir + "/tun_list.html", "r")
-        tunlistdata = tunlistfile.read()
-        tunlistfile.close()
-        boollistfile = open(templatedir + "/bool_list.html", "r")
-        boollistdata = boollistfile.read()
-        boollistfile.close()
-        gboollistfile = open(templatedir + "/global_bool_list.html", "r")
-        gboollistdata = gboollistfile.read()
-        gboollistfile.close()
-        gtunlistfile = open(templatedir + "/global_tun_list.html", "r")
-        gtunlistdata = gtunlistfile.read()
-        gtunlistfile.close()
-    except:
+        with open(templatedir + "/header.html", "r") as f:
+            bodydata = f.read()
+        with open(templatedir + "/interface.html", "r") as f:
+            intdata = f.read()
+        with open(templatedir + "/template.html", "r") as f:
+            templatedata = f.read()
+        with open(templatedir + "/tunable.html", "r") as f:
+            tundata = f.read()
+        with open(templatedir + "/boolean.html", "r") as f:
+            booldata = f.read()
+        with open(templatedir + "/menu.html", "r") as f:
+            menudata = f.read()
+        with open(templatedir + "/module_list.html", "r") as f:
+            indexdata = f.read()
+        with open(templatedir + "/module.html", "r") as f:
+            moduledata = f.read()
+        with open(templatedir + "/int_list.html", "r") as f:
+            intlistdata = f.read()
+        with open(templatedir + "/temp_list.html", "r") as f:
+            templistdata = f.read()
+        with open(templatedir + "/tun_list.html", "r") as f:
+            tunlistdata = f.read()
+        with open(templatedir + "/bool_list.html", "r") as f:
+            boollistdata = f.read()
+        with open(templatedir + "/global_bool_list.html", "r") as f:
+            gboollistdata = f.read()
+        with open(templatedir + "/global_tun_list.html", "r") as f:
+            gtunlistdata = f.read()
+    except IOError:
         error("Could not open templates")
 
     try:
         os.chdir(working_dir)
-    except:
+    except IOError:
         error("Could not chdir to target directory")
 
     # arg, i have to go through this dom tree ahead of time to build up the menus
@@ -398,14 +377,14 @@ def gen_docs(doc, working_dir, templatedir):
         for desc in node.getElementsByTagName("summary"):
             if desc.parentNode == node and desc:
                 mod_summary = format_html_desc(desc)
-        if not mod_layer in module_list:
+        if mod_layer not in module_list:
             module_list[mod_layer] = {}
 
         module_list[mod_layer][mod_name] = mod_summary
 
     # generate index pages
     main_content_buf = ''
-    for mod_layer, modules in module_list.items():
+    for mod_layer, _ in module_list.items():
         menu = gen_doc_menu(mod_layer, module_list)
 
         layer_summary = None
@@ -429,10 +408,9 @@ def gen_docs(doc, working_dir, templatedir):
         body_args = {"menu": menu_buf, "content": content_buf}
 
         index_file = mod_layer + ".html"
-        index_fh = open(index_file, "w")
-        body_tpl = pyplate.Template(bodydata)
-        body_tpl.execute(index_fh, body_args)
-        index_fh.close()
+        with open(index_file, "w") as index_fh:
+            body_tpl = pyplate.Template(bodydata)
+            body_tpl.execute(index_fh, body_args)
 
     menu = gen_doc_menu(None, module_list)
     menu_args = {"menulist": menu, "mod_layer": None}
@@ -442,12 +420,11 @@ def gen_docs(doc, working_dir, templatedir):
     body_args = {"menu": menu_buf, "content": main_content_buf}
 
     index_file = "index.html"
-    index_fh = open(index_file, "w")
-    body_tpl = pyplate.Template(bodydata)
-    body_tpl.execute(index_fh, body_args)
-    index_fh.close()
-    # now generate the individual module pages
+    with open(index_file, "w") as index_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_tpl.execute(index_fh, body_args)
 
+    # now generate the individual module pages
     all_interfaces = []
     all_templates = []
     all_tunables = []
@@ -486,14 +463,8 @@ def gen_docs(doc, working_dir, templatedir):
                 for desc in args.getElementsByTagName("summary"):
                     paramdesc = format_html_desc(desc)
                 paramname = args.getAttribute("name")
-                if args.getAttribute("optional") == "true":
-                    paramopt = "Yes"
-                else:
-                    paramopt = "No"
-                if args.getAttribute("unused") == "true":
-                    paramunused = "Yes"
-                else:
-                    paramunused = "No"
+                paramopt = "Yes" if args.getAttribute("optional") == "true" else "No"
+                paramunused = "Yes" if args.getAttribute("unused") == "true" else "No"
                 parameter = {
                     "name": paramname,
                     "desc": paramdesc,
@@ -504,6 +475,7 @@ def gen_docs(doc, working_dir, templatedir):
             interfaces.append(
                 {
                     "interface_name": interface_name,
+                    "interface_line": interface_line,
                     "interface_summary": interface_summary,
                     "interface_desc": interface_desc,
                     "interface_parameters": interface_parameters,
@@ -513,6 +485,7 @@ def gen_docs(doc, working_dir, templatedir):
             all_interfaces.append(
                 {
                     "interface_name": interface_name,
+                    "interface_line": interface_line,
                     "interface_summary": interface_summary,
                     "interface_desc": interface_desc,
                     "interface_parameters": interface_parameters,
@@ -541,14 +514,8 @@ def gen_docs(doc, working_dir, templatedir):
                 for desc in args.getElementsByTagName("summary"):
                     paramdesc = format_html_desc(desc)
                 paramname = args.getAttribute("name")
-                if args.getAttribute("optional") == "true":
-                    paramopt = "Yes"
-                else:
-                    paramopt = "No"
-                if args.getAttribute("unused") == "true":
-                    paramunused = "Yes"
-                else:
-                    paramunused = "No"
+                paramopt = "Yes" if args.getAttribute("optional") == "true" else "No"
+                paramunused = "Yes" if args.getAttribute("unused") == "true" else "No"
                 parameter = {
                     "name": paramname,
                     "desc": paramdesc,
@@ -559,6 +526,7 @@ def gen_docs(doc, working_dir, templatedir):
             templates.append(
                 {
                     "template_name": template_name,
+                    "template_line": template_line,
                     "template_summary": template_summary,
                     "template_desc": template_desc,
                     "template_parameters": template_parameters,
@@ -568,6 +536,7 @@ def gen_docs(doc, working_dir, templatedir):
             all_templates.append(
                 {
                     "template_name": template_name,
+                    "template_line": template_line,
                     "template_summary": template_summary,
                     "template_desc": template_desc,
                     "template_parameters": template_parameters,
@@ -583,7 +552,6 @@ def gen_docs(doc, working_dir, templatedir):
         # generate 'boolean' pages
         booleans = []
         for boolean in node.getElementsByTagName("bool"):
-            boolean_parameters = []
             boolean_desc = None
             boolean_name = boolean.getAttribute("name")
             boolean_dftval = boolean.getAttribute("dftval")
@@ -615,7 +583,6 @@ def gen_docs(doc, working_dir, templatedir):
         # generate 'tunable' pages
         tunables = []
         for tunable in node.getElementsByTagName("tunable"):
-            tunable_parameters = []
             tunable_desc = None
             tunable_name = tunable.getAttribute("name")
             tunable_dftval = tunable.getAttribute("dftval")
@@ -685,10 +652,9 @@ def gen_docs(doc, working_dir, templatedir):
         body_args = {"menu": menu_buf, "content": module_buf}
 
         module_file = mod_layer + "_" + mod_name + ".html"
-        module_fh = open(module_file, "w")
-        body_tpl = pyplate.Template(bodydata)
-        body_tpl.execute(module_fh, body_args)
-        module_fh.close()
+        with open(module_file, "w") as module_fh:
+            body_tpl = pyplate.Template(bodydata)
+            body_tpl.execute(module_fh, body_args)
 
     menu = gen_doc_menu(None, module_list)
     menu_args = {"menulist": menu, "mod_layer": None}
@@ -700,26 +666,21 @@ def gen_docs(doc, working_dir, templatedir):
     interface_tpl = pyplate.Template(intlistdata)
     interface_buf = interface_tpl.execute_string({"interfaces": all_interfaces})
     int_file = "interfaces.html"
-    int_fh = open(int_file, "w")
-    body_tpl = pyplate.Template(bodydata)
 
-    body_args = {"menu": menu_buf, "content": interface_buf}
-
-    body_tpl.execute(int_fh, body_args)
-    int_fh.close()
+    with open(int_file, "w") as int_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_args = {"menu": menu_buf, "content": interface_buf}
+        body_tpl.execute(int_fh, body_args)
 
     # build the template index
     all_templates.sort(key=temp_cmp_func)
     template_tpl = pyplate.Template(templistdata)
     template_buf = template_tpl.execute_string({"templates": all_templates})
     temp_file = "templates.html"
-    temp_fh = open(temp_file, "w")
-    body_tpl = pyplate.Template(bodydata)
-
-    body_args = {"menu": menu_buf, "content": template_buf}
-
-    body_tpl.execute(temp_fh, body_args)
-    temp_fh.close()
+    with open(temp_file, "w") as temp_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_args = {"menu": menu_buf, "content": template_buf}
+        body_tpl.execute(temp_fh, body_args)
 
     # build the global tunable index
     global_tun = []
@@ -740,13 +701,10 @@ def gen_docs(doc, working_dir, templatedir):
     global_tun_tpl = pyplate.Template(gtunlistdata)
     global_tun_buf = global_tun_tpl.execute_string({"tunables": global_tun})
     global_tun_file = "global_tunables.html"
-    global_tun_fh = open(global_tun_file, "w")
-    body_tpl = pyplate.Template(bodydata)
-
-    body_args = {"menu": menu_buf, "content": global_tun_buf}
-
-    body_tpl.execute(global_tun_fh, body_args)
-    global_tun_fh.close()
+    with open(global_tun_file, "w") as global_tun_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_args = {"menu": menu_buf, "content": global_tun_buf}
+        body_tpl.execute(global_tun_fh, body_args)
 
     # build the tunable index
     all_tunables = all_tunables + global_tun
@@ -754,13 +712,10 @@ def gen_docs(doc, working_dir, templatedir):
     tunable_tpl = pyplate.Template(tunlistdata)
     tunable_buf = tunable_tpl.execute_string({"tunables": all_tunables})
     temp_file = "tunables.html"
-    temp_fh = open(temp_file, "w")
-    body_tpl = pyplate.Template(bodydata)
-
-    body_args = {"menu": menu_buf, "content": tunable_buf}
-
-    body_tpl.execute(temp_fh, body_args)
-    temp_fh.close()
+    with open(temp_file, "w") as temp_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_args = {"menu": menu_buf, "content": tunable_buf}
+        body_tpl.execute(temp_fh, body_args)
 
     # build the global boolean index
     global_bool = []
@@ -777,13 +732,10 @@ def gen_docs(doc, working_dir, templatedir):
     global_bool_tpl = pyplate.Template(gboollistdata)
     global_bool_buf = global_bool_tpl.execute_string({"booleans": global_bool})
     global_bool_file = "global_booleans.html"
-    global_bool_fh = open(global_bool_file, "w")
-    body_tpl = pyplate.Template(bodydata)
-
-    body_args = {"menu": menu_buf, "content": global_bool_buf}
-
-    body_tpl.execute(global_bool_fh, body_args)
-    global_bool_fh.close()
+    with open(global_bool_file, "w") as global_bool_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_args = {"menu": menu_buf, "content": global_bool_buf}
+        body_tpl.execute(global_bool_fh, body_args)
 
     # build the boolean index
     all_booleans = all_booleans + global_bool
@@ -791,22 +743,19 @@ def gen_docs(doc, working_dir, templatedir):
     boolean_tpl = pyplate.Template(boollistdata)
     boolean_buf = boolean_tpl.execute_string({"booleans": all_booleans})
     temp_file = "booleans.html"
-    temp_fh = open(temp_file, "w")
-    body_tpl = pyplate.Template(bodydata)
-
-    body_args = {"menu": menu_buf, "content": boolean_buf}
-
-    body_tpl.execute(temp_fh, body_args)
-    temp_fh.close()
+    with open(temp_file, "w") as temp_fh:
+        body_tpl = pyplate.Template(bodydata)
+        body_args = {"menu": menu_buf, "content": boolean_buf}
+        body_tpl.execute(temp_fh, body_args)
 
 
-def error(error):
+def error(msg):
     """
     Print an error message and exit.
     """
 
     sys.stderr.write("%s exiting for: " % sys.argv[0])
-    sys.stderr.write("%s\n" % error)
+    sys.stderr.write("%s\n" % msg)
     sys.stderr.flush()
     sys.exit(1)
 
@@ -837,8 +786,10 @@ def usage():
 # MAIN PROGRAM
 def main():
     try:
-        opts, args = getopt.getopt(
-            sys.argv[1:], "b:m:d:x:T:", ["booleans", "modules", "docs", "xml", "templates"]
+        opts, _ = getopt.getopt(
+            sys.argv[1:],
+            "b:m:d:x:T:",
+            ["booleans", "modules", "docs", "xml", "templates"],
         )
     except getopt.GetoptError:
         usage()
@@ -866,39 +817,31 @@ def main():
         namevalue_list = []
         if os.path.exists(booleans):
             try:
-                conf = open(booleans, 'r')
-            except:
+                with open(booleans, 'r') as conf:
+                    namevalue_list = get_conf(conf)
+            except IOError:
                 error("Could not open booleans file for reading")
 
-            namevalue_list = get_conf(conf)
-
-            conf.close()
-
         try:
-            conf = open(booleans, 'w')
-        except:
+            with open(booleans, 'w') as conf:
+                gen_booleans_conf(doc, conf, namevalue_list)
+        except IOError:
             error("Could not open booleans file for writing")
-
-        gen_booleans_conf(doc, conf, namevalue_list)
-        conf.close()
-
 
     if modules:
         namevalue_list = []
         if os.path.exists(modules):
             try:
-                conf = open(modules, 'r')
-            except:
+                with open(modules, 'r') as conf:
+                    namevalue_list = get_conf(conf)
+            except IOError:
                 error("Could not open modules file for reading")
-            namevalue_list = get_conf(conf)
-            conf.close()
 
         try:
-            conf = open(modules, 'w')
-        except:
+            with open(modules, 'w') as conf:
+                gen_module_conf(doc, conf, namevalue_list)
+        except IOError:
             error("Could not open modules file for writing")
-        gen_module_conf(doc, conf, namevalue_list)
-        conf.close()
 
     if docsdir:
         gen_docs(doc, docsdir, templatedir)

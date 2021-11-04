@@ -7,10 +7,12 @@
 #      it under the terms of the GNU General Public License as published by
 #      the Free Software Foundation, version 2.
 
-import sys, string, getopt, re
+import getopt
+import re
+import sys
 
 NETPORT = re.compile(
-    "^network_port\(\s*\w+\s*(\s*,\s*\w+\s*,\s*\w+\s*,\s*\w+\s*)+\s*\)\s*(#|$)"
+    r"^network_port\(\s*\w+\s*(\s*,\s*\w+\s*,\s*\w+\s*,\s*\w+\s*)+\s*\)\s*(#|$)"
 )
 
 DEFAULT_INPUT_PACKET = "server_packet_t"
@@ -57,7 +59,7 @@ def print_input_rules(packets, mls, mcs):
     elif mcs:
         line += ":" + DEFAULT_MCS
 
-    print line
+    print(line)
 
     for i in packets:
         for j in i.ports:
@@ -74,10 +76,10 @@ def print_input_rules(packets, mls, mcs):
                 line += ":" + j.mls_sens
             elif mcs:
                 line += ":" + j.mcs_cats
-            print line
+            print(line)
 
-    print "post -A selinux_new_input -j CONNSECMARK --save"
-    print "post -A selinux_new_input -j RETURN"
+    print("post -A selinux_new_input -j CONNSECMARK --save")
+    print("post -A selinux_new_input -j RETURN")
 
 
 def print_output_rules(packets, mls, mcs):
@@ -89,7 +91,7 @@ def print_output_rules(packets, mls, mcs):
         line += ":" + DEFAULT_MLS
     elif mcs:
         line += ":" + DEFAULT_MCS
-    print line
+    print(line)
 
     for i in packets:
         for j in i.ports:
@@ -106,10 +108,10 @@ def print_output_rules(packets, mls, mcs):
                 line += ":" + j.mls_sens
             elif mcs:
                 line += ":" + j.mcs_cats
-            print line
+            print(line)
 
-    print "post -A selinux_new_output -j CONNSECMARK --save"
-    print "post -A selinux_new_output -j RETURN"
+    print("post -A selinux_new_output -j CONNSECMARK --save")
+    print("post -A selinux_new_output -j RETURN")
 
 
 def parse_corenet(file_name):
@@ -128,9 +130,9 @@ def parse_corenet(file_name):
             corenet_line = corenet_line.strip()
 
             # parse out the parameters
-            openparen = string.find(corenet_line, '(') + 1
-            closeparen = string.find(corenet_line, ')', openparen)
-            parms = re.split('\W+', corenet_line[openparen:closeparen])
+            openparen = corenet_line.find('(') + 1
+            closeparen = corenet_line.find(')', openparen)
+            parms = re.split(r'\W+', corenet_line[openparen:closeparen])
             name = parms[0]
             del parms[0]
 
@@ -148,25 +150,29 @@ def parse_corenet(file_name):
 
 
 def print_netfilter_config(packets, mls, mcs):
-    print "pre *mangle"
-    print "pre :PREROUTING ACCEPT [0:0]"
-    print "pre :INPUT ACCEPT [0:0]"
-    print "pre :FORWARD ACCEPT [0:0]"
-    print "pre :OUTPUT ACCEPT [0:0]"
-    print "pre :POSTROUTING ACCEPT [0:0]"
-    print "pre :selinux_input - [0:0]"
-    print "pre :selinux_output - [0:0]"
-    print "pre :selinux_new_input - [0:0]"
-    print "pre :selinux_new_output - [0:0]"
-    print "pre -A INPUT -j selinux_input"
-    print "pre -A OUTPUT -j selinux_output"
-    print "pre -A selinux_input -m state --state NEW -j selinux_new_input"
-    print "pre -A selinux_input -m state --state RELATED,ESTABLISHED -j CONNSECMARK --restore"
-    print "pre -A selinux_output -m state --state NEW -j selinux_new_output"
-    print "pre -A selinux_output -m state --state RELATED,ESTABLISHED -j CONNSECMARK --restore"
+    print("pre *mangle")
+    print("pre :PREROUTING ACCEPT [0:0]")
+    print("pre :INPUT ACCEPT [0:0]")
+    print("pre :FORWARD ACCEPT [0:0]")
+    print("pre :OUTPUT ACCEPT [0:0]")
+    print("pre :POSTROUTING ACCEPT [0:0]")
+    print("pre :selinux_input - [0:0]")
+    print("pre :selinux_output - [0:0]")
+    print("pre :selinux_new_input - [0:0]")
+    print("pre :selinux_new_output - [0:0]")
+    print("pre -A INPUT -j selinux_input")
+    print("pre -A OUTPUT -j selinux_output")
+    print("pre -A selinux_input -m state --state NEW -j selinux_new_input")
+    print(
+        "pre -A selinux_input -m state --state RELATED,ESTABLISHED -j CONNSECMARK --restore"
+    )
+    print("pre -A selinux_output -m state --state NEW -j selinux_new_output")
+    print(
+        "pre -A selinux_output -m state --state RELATED,ESTABLISHED -j CONNSECMARK --restore"
+    )
     print_input_rules(packets, mls, mcs)
     print_output_rules(packets, mls, mcs)
-    print "post COMMIT"
+    print("post COMMIT")
 
 
 def main():
@@ -175,11 +181,11 @@ def main():
 
     try:
         opts, paths = getopt.getopt(sys.argv[1:], 'mc', ['mls', 'mcs'])
-    except getopt.GetoptError, error:
-        print "Invalid options."
+    except getopt.GetoptError:
+        print("Invalid options.")
         sys.exit(1)
 
-    for o, a in opts:
+    for o, _ in opts:
         if o in ("-c", "--mcs"):
             mcs = True
         if o in ("-m", "--mls"):

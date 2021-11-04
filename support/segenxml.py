@@ -98,9 +98,7 @@ def getModuleXML(file_name):
         module_code = module_code[1:]
 
     # Go line by line and figure out what to do with it.
-    line_num = 0
-    for line in module_code:
-        line_num += 1
+    for line_num, line in enumerate(module_code, start=1):
         if finding_header:
             # If there is a XML comment, add it to the temp buffer.
             comment = XML_COMMENT.match(line)

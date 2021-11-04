@@ -125,8 +125,7 @@ class FileContext:
     def __str__(self):
         if self.file_type:
             return '{}\t\t{}\t{}'.format(self.path, self.file_type, self.context)
-        else:
-            return '{}\t\t{}'.format(self.path, self.context)
+        return '{}\t\t{}'.format(self.path, self.context)
 
 
 def main():
@@ -166,7 +165,7 @@ def main():
                         args.infile, lineno, line
                     )
                 )
-                exit(1)
+                sys.exit(1)
 
     # Sort
     file_context_definitions.sort()
