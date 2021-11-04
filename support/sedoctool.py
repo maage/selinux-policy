@@ -835,69 +835,74 @@ def usage():
 
 
 # MAIN PROGRAM
-try:
-    opts, args = getopt.getopt(
-        sys.argv[1:], "b:m:d:x:T:", ["booleans", "modules", "docs", "xml", "templates"]
-    )
-except getopt.GetoptError:
-    usage()
-    sys.exit(1)
+def main():
+    try:
+        opts, args = getopt.getopt(
+            sys.argv[1:], "b:m:d:x:T:", ["booleans", "modules", "docs", "xml", "templates"]
+        )
+    except getopt.GetoptError:
+        usage()
+        sys.exit(1)
 
-booleans = modules = docsdir = None
-templatedir = "templates/"
-xmlfile = "policy.xml"
+    booleans = modules = docsdir = None
+    templatedir = "templates/"
+    xmlfile = "policy.xml"
 
-for opt, val in opts:
-    if opt in ("-b", "--booleans"):
-        booleans = val
-    if opt in ("-m", "--modules"):
-        modules = val
-    if opt in ("-d", "--docs"):
-        docsdir = val
-    if opt in ("-x", "--xml"):
-        xmlfile = val
-    if opt in ("-T", "--templates"):
-        templatedir = val
+    for opt, val in opts:
+        if opt in ("-b", "--booleans"):
+            booleans = val
+        if opt in ("-m", "--modules"):
+            modules = val
+        if opt in ("-d", "--docs"):
+            docsdir = val
+        if opt in ("-x", "--xml"):
+            xmlfile = val
+        if opt in ("-T", "--templates"):
+            templatedir = val
 
-doc = read_policy_xml(xmlfile)
+    doc = read_policy_xml(xmlfile)
 
-if booleans:
-    namevalue_list = []
-    if os.path.exists(booleans):
+    if booleans:
+        namevalue_list = []
+        if os.path.exists(booleans):
+            try:
+                conf = open(booleans, 'r')
+            except:
+                error("Could not open booleans file for reading")
+
+            namevalue_list = get_conf(conf)
+
+            conf.close()
+
         try:
-            conf = open(booleans, 'r')
+            conf = open(booleans, 'w')
         except:
-            error("Could not open booleans file for reading")
+            error("Could not open booleans file for writing")
 
-        namevalue_list = get_conf(conf)
-
+        gen_booleans_conf(doc, conf, namevalue_list)
         conf.close()
 
-    try:
-        conf = open(booleans, 'w')
-    except:
-        error("Could not open booleans file for writing")
 
-    gen_booleans_conf(doc, conf, namevalue_list)
-    conf.close()
+    if modules:
+        namevalue_list = []
+        if os.path.exists(modules):
+            try:
+                conf = open(modules, 'r')
+            except:
+                error("Could not open modules file for reading")
+            namevalue_list = get_conf(conf)
+            conf.close()
 
-
-if modules:
-    namevalue_list = []
-    if os.path.exists(modules):
         try:
-            conf = open(modules, 'r')
+            conf = open(modules, 'w')
         except:
-            error("Could not open modules file for reading")
-        namevalue_list = get_conf(conf)
+            error("Could not open modules file for writing")
+        gen_module_conf(doc, conf, namevalue_list)
         conf.close()
 
-    try:
-        conf = open(modules, 'w')
-    except:
-        error("Could not open modules file for writing")
-    gen_module_conf(doc, conf, namevalue_list)
-    conf.close()
+    if docsdir:
+        gen_docs(doc, docsdir, templatedir)
 
-if docsdir:
-    gen_docs(doc, docsdir, templatedir)
+
+if __name__ == '__main__':
+    main()

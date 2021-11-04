@@ -129,8 +129,7 @@ class FileContext:
             return '{}\t\t{}'.format(self.path, self.context)
 
 
-if __name__ == '__main__':
-
+def main():
     parser = argparse.ArgumentParser(description='Sort file context definitions')
     parser.add_argument(
         'infile',
@@ -177,3 +176,7 @@ if __name__ == '__main__':
     with args.outfile.open('w') if args.outfile else sys.stdout as fd:
         for fcd in file_context_definitions:
             print(fcd, file=fd)
+
+
+if __name__ == '__main__':
+    main()
