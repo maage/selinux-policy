@@ -50,7 +50,7 @@ def read_policy_xml(filename):
         xml_fh.close()
         error("Error while parsing xml")
 
-    xml_fh.close()	
+    xml_fh.close()
     return doc
 
 def gen_booleans_conf(doc, file_name, namevalue_list):
@@ -141,7 +141,7 @@ def gen_module_conf(doc, file_name, namevalue_list):
 
             mod_name = mod_layer = None
 
-            mod_name = node.getAttribute("name")	
+            mod_name = node.getAttribute("name")
             mod_layer = node.parentNode.getAttribute("name")
 
             if mod_name and mod_layer:
@@ -359,7 +359,7 @@ def gen_docs(doc, working_dir, templatedir):
     try:
         os.chdir(working_dir)
     except:
-        error("Could not chdir to target directory")	
+        error("Could not chdir to target directory")
 
 
 #arg, i have to go through this dom tree ahead of time to build up the menus
@@ -406,7 +406,7 @@ def gen_docs(doc, working_dir, templatedir):
         index_fh = open(index_file, "w")
         body_tpl = pyplate.Template(bodydata)
         body_tpl.execute(index_fh, body_args)
-        index_fh.close()	
+        index_fh.close()
 
     menu = gen_doc_menu(None, module_list)
     menu_args = { "menulist" : menu,
@@ -486,7 +486,7 @@ def gen_docs(doc, working_dir, templatedir):
                        "interface_parameters" : interface_parameters,
                        "mod_name": mod_name,
                        "mod_layer" : mod_layer })
-        interfaces.sort(key=int_cmp_func)	
+        interfaces.sort(key=int_cmp_func)
         interface_tpl = pyplate.Template(intdata)
         interface_buf = interface_tpl.execute_string({"interfaces" : interfaces})
     
@@ -533,7 +533,7 @@ def gen_docs(doc, working_dir, templatedir):
                        "mod_name": mod_name,
                        "mod_layer" : mod_layer })
 
-        templates.sort(key=temp_cmp_func)	
+        templates.sort(key=temp_cmp_func)
         template_tpl = pyplate.Template(templatedata)
         template_buf = template_tpl.execute_string({"templates" : templates})
 
@@ -611,7 +611,7 @@ def gen_docs(doc, working_dir, templatedir):
             boolean_buf = None
 
         module_args = { "mod_layer" : mod_layer,
-                  "mod_name" : mod_name,	
+                  "mod_name" : mod_name,
                   "mod_summary" : mod_summary,
                   "mod_desc" : mod_desc,
                   "mod_req" : mod_req,
@@ -834,7 +834,7 @@ if modules:
             conf = open(modules, 'r')
         except:
             error("Could not open modules file for reading")
-        namevalue_list = get_conf(conf)	
+        namevalue_list = get_conf(conf)
         conf.close()
 
     try:
