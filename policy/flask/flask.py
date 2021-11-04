@@ -1,6 +1,6 @@
 #!/usr/bin/python -E
 #
-# Author(s):	Caleb Case <ccase@tresys.com>
+# Author(s): Caleb Case <ccase@tresys.com>
 #
 # Adapted from the bash/awk scripts mkflask.sh and mkaccess_vector.sh
 #
