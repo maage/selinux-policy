@@ -27,22 +27,12 @@
 # include the configuration of the root directory.
 include build.conf
 
-ifdef LOCAL_ROOT
-	-include $(LOCAL_ROOT)/build.conf
-endif
-
 # refpolicy version
 version = $(shell cat VERSION)
 
-ifdef LOCAL_ROOT
-builddir := $(LOCAL_ROOT)/
-tmpdir := $(LOCAL_ROOT)/tmp
-tags := $(LOCAL_ROOT)/tags
-else
 builddir ?=
 tmpdir := tmp
 tags := tags
-endif
 
 # executable paths
 BINDIR ?= /usr/bin
@@ -87,10 +77,6 @@ isids := $(flaskdir)/initial_sids
 avs := $(flaskdir)/access_vectors
 
 # local source layout
-ifdef LOCAL_ROOT
-local_poldir := $(LOCAL_ROOT)/policy
-local_moddir := $(local_poldir)/modules
-endif
 
 # policy building support tools
 support := support
@@ -117,17 +103,10 @@ metaxml = metadata.xml
 doctemplate = $(docs)/templates
 docfiles = $(docs)/Makefile.example $(addprefix $(docs)/,example.te example.if example.fc)
 
-ifndef LOCAL_ROOT
 polxml = $(docs)/policy.xml
 tunxml = $(docs)/global_tunables.xml
 boolxml = $(docs)/global_booleans.xml
 htmldir = $(docs)/html
-else
-polxml = $(LOCAL_ROOT)/doc/policy.xml
-tunxml = $(LOCAL_ROOT)/doc/global_tunables.xml
-boolxml = $(LOCAL_ROOT)/doc/global_booleans.xml
-htmldir = $(LOCAL_ROOT)/doc/html
-endif
 polxmldir := $(dir $(polxml))
 
 # config file paths
@@ -137,15 +116,9 @@ user_files := $(poldir)/users
 policycaps := $(poldir)/policy_capabilities
 
 # local config file paths
-ifndef LOCAL_ROOT
 mod_conf = $(poldir)/modules.conf
 booleans = $(poldir)/booleans.conf
 tunables = $(poldir)/tunables.conf
-else
-mod_conf = $(local_poldir)/modules.conf
-booleans = $(local_poldir)/booleans.conf
-tunables = $(local_poldir)/tunables.conf
-endif
 
 # install paths
 PKGNAME ?= refpolicy-$(version)
@@ -245,9 +218,6 @@ endif
 CTAGS ?= ctags
 
 m4support := $(m4divert) $(wildcard $(poldir)/support/*.spt)
-ifdef LOCAL_ROOT
-m4support += $(wildcard $(local_poldir)/support/*.spt)
-endif
 m4support += $(m4undivert)
 
 appconf := config/appconfig-$(TYPE)
@@ -259,9 +229,6 @@ appfiles := $(addprefix $(appdir)/,default_contexts default_type initrc_context 
 net_contexts := $(builddir)net_contexts
 
 all_layers := $(shell find $(moddir)/* -maxdepth 0 -type d)
-ifdef LOCAL_ROOT
-all_layers += $(shell find $(local_moddir)/* -maxdepth 0 -type d)
-endif
 
 generated_te := $(basename $(foreach dir,$(all_layers),$(wildcard $(dir)/*.te.in)))
 generated_if := $(basename $(foreach dir,$(all_layers),$(wildcard $(dir)/*.if.in)))
@@ -328,27 +295,9 @@ fs_names := "btrfs ext2 ext3 ext4 xfs jfs"
 #
 
 # detect-metaxml layer_names
-ifdef LOCAL_ROOT
-define detect-metaxml
-	$(shell for i in $1; do \
-		if [ -d $(moddir)/$$i -a -d $(local_moddir)/$$i ]; then \
-			if [ -f $(local_moddir)/$$i/$(metaxml) ]; then \
-				echo $(local_moddir)/$$i/$(metaxml) ;\
-			else \
-				echo $(moddir)/$$i/$(metaxml) ;\
-			fi \
-		elif [ -d $(local_moddir)/$$i ]; then
-			echo $(local_moddir)/$$i/$(metaxml) ;\
-		else \
-			echo $(moddir)/$$i/$(metaxml) ;\
-		fi \
-	done )
-endef
-else
 define detect-metaxml
 	$(shell for i in $1; do echo $(moddir)/$$i/$(metaxml); done)
 endef
-endif
 
 ########################################
 #
@@ -429,9 +378,6 @@ $(layerxml): | $(tmpdir)
 $(layerxml): %.xml: $(all_metaxml) $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods)) $(subst .te,.if, $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods)))
 	$(verbose) cat $(filter %$(notdir $*)/$(metaxml), $(all_metaxml)) > $@
 	$(verbose) for i in $(basename $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods))); do $(genxml) -w -m $$i >> $@; done
-ifdef LOCAL_ROOT
-	$(verbose) for i in $(basename $(filter $(addprefix $(local_moddir)/, $(notdir $*))%, $(detected_mods))); do $(genxml) -w -m $$i >> $@; done
-endif	
 
 $(tunxml): $(globaltun)
 	$(verbose) $(genxml) -w -t $< > $@
@@ -637,8 +583,6 @@ bare: clean
 	#rm -f $(booleans)
 	#rm -fR $(htmldir)
 	#rm -f $(tags)
-# don't remove these files if we're given a local root
-ifndef LOCAL_ROOT
 	rm -f $(support)/*.pyc
 ifneq ($(generated_te),)
 	rm -f $(generated_te)
@@ -648,7 +592,6 @@ ifneq ($(generated_if),)
 endif
 ifneq ($(generated_fc),)
 	rm -f $(generated_fc)
-endif
 endif
 
 .PHONY: install-src install-appconfig install-headers generate xml conf html bare tags
