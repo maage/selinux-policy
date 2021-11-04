@@ -173,26 +173,31 @@ def print_netfilter_config(packets, mls, mcs):
     print("post COMMIT")
 
 
-mls = False
-mcs = False
+def main():
+    mls = False
+    mcs = False
 
-try:
-    opts, paths = getopt.getopt(sys.argv[1:], "mc", ["mls", "mcs"])
-except getopt.GetoptError:
-    print("Invalid options.")
-    sys.exit(1)
+    try:
+        opts, paths = getopt.getopt(sys.argv[1:], "mc", ["mls", "mcs"])
+    except getopt.GetoptError:
+        print("Invalid options.")
+        sys.exit(1)
 
-for o, a in opts:
-    if o in ("-c", "--mcs"):
-        mcs = True
-    if o in ("-m", "--mls"):
-        mls = True
+    for o, a in opts:
+        if o in ("-c", "--mcs"):
+            mcs = True
+        if o in ("-m", "--mls"):
+            mls = True
 
-if len(paths) == 0:
-    print("Need a path for corenetwork.te.in!", file=sys.stderr)
-    sys.exit(1)
-elif len(paths) > 1:
-    print("Ignoring extra specified paths", file=sys.stderr)
+    if len(paths) == 0:
+        print("Need a path for corenetwork.te.in!", file=sys.stderr)
+        sys.exit(1)
+    elif len(paths) > 1:
+        print("Ignoring extra specified paths", file=sys.stderr)
 
-packets = parse_corenet(paths[0])
-print_netfilter_config(packets, mls, mcs)
+    packets = parse_corenet(paths[0])
+    print_netfilter_config(packets, mls, mcs)
+
+
+if __name__ == "__main__":
+    main()

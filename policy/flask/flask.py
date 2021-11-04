@@ -529,8 +529,7 @@ def usage():
     return usage
 
 
-########## MAIN ##########
-if __name__ == "__main__":
+def main():
     # Parse command line args
     try:
         opts, args = getopt.getopt(
@@ -598,3 +597,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(e)
         sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()
