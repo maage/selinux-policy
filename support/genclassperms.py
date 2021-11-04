@@ -293,16 +293,19 @@ def error(error):
 
 
 # MAIN PROGRAM
-app_name = sys.argv[0]
+def main():
+    if len(sys.argv) != 3:
+        error(f"Incorrect input.\nUsage: {sys.argv[0]} access_vectors security_classes")
 
-if len(sys.argv) != 3:
-    error(f"Incorrect input.\nUsage: {sys.argv[0]} access_vectors security_classes")
+    # argv[1] is the access vector file.
+    av_file = sys.argv[1]
 
-# argv[1] is the access vector file.
-av_file = sys.argv[1]
+    # argv[2] is the security class file.
+    sc_file = sys.argv[2]
 
-# argv[2] is the security class file.
-sc_file = sys.argv[2]
+    # Output the class permissions document.
+    sys.stdout.write(gen_class_perms(get_av_db(av_file), get_sc_db(sc_file)))
 
-# Output the class permissions document.
-sys.stdout.write(gen_class_perms(get_av_db(av_file), get_sc_db(sc_file)))
+
+if __name__ == "__main__":
+    main()
