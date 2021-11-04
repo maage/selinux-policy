@@ -7,9 +7,11 @@
 #      it under the terms of the GNU General Public License as published by
 #      the Free Software Foundation, version 2.
 
-import sys,string,getopt,re
+import sys, string, getopt, re
 
-NETPORT = re.compile("^network_port\(\s*\w+\s*(\s*,\s*\w+\s*,\s*\w+\s*,\s*\w+\s*)+\s*\)\s*(#|$)")
+NETPORT = re.compile(
+    "^network_port\(\s*\w+\s*(\s*,\s*\w+\s*,\s*\w+\s*,\s*\w+\s*)+\s*\)\s*(#|$)"
+)
 
 DEFAULT_INPUT_PACKET = "server_packet_t"
 DEFAULT_OUTPUT_PACKET = "client_packet_t"
@@ -18,6 +20,7 @@ DEFAULT_MLS = "s0"
 
 PACKET_INPUT = "_server_packet_t"
 PACKET_OUTPUT = "_client_packet_t"
+
 
 class Port:
     def __init__(self, proto, num, mls_sens, mcs_cats=""):
@@ -34,6 +37,7 @@ class Port:
         # not currently supported, so we always get s0
         self.mcs_cats = DEFAULT_MCS
 
+
 class Packet:
     def __init__(self, prefix, ports):
         # prefix
@@ -42,46 +46,71 @@ class Packet:
         # A list of Ports
         self.ports = ports
 
-def print_input_rules(packets,mls,mcs):
-    line = "base -A selinux_new_input -j SECMARK --selctx system_u:object_r:"+DEFAULT_INPUT_PACKET
+
+def print_input_rules(packets, mls, mcs):
+    line = (
+        "base -A selinux_new_input -j SECMARK --selctx system_u:object_r:"
+        + DEFAULT_INPUT_PACKET
+    )
     if mls:
-        line += ":"+DEFAULT_MLS
+        line += ":" + DEFAULT_MLS
     elif mcs:
-        line += ":"+DEFAULT_MCS
+        line += ":" + DEFAULT_MCS
 
     print line
 
     for i in packets:
         for j in i.ports:
-            line="base -A selinux_new_input -p "+j.proto+" --dport "+j.num+" -j SECMARK --selctx system_u:object_r:"+i.prefix+PACKET_INPUT
+            line = (
+                "base -A selinux_new_input -p "
+                + j.proto
+                + " --dport "
+                + j.num
+                + " -j SECMARK --selctx system_u:object_r:"
+                + i.prefix
+                + PACKET_INPUT
+            )
             if mls:
-                line += ":"+j.mls_sens
+                line += ":" + j.mls_sens
             elif mcs:
-                line += ":"+j.mcs_cats
+                line += ":" + j.mcs_cats
             print line
 
     print "post -A selinux_new_input -j CONNSECMARK --save"
     print "post -A selinux_new_input -j RETURN"
 
-def print_output_rules(packets,mls,mcs):
-    line = "base -A selinux_new_output -j SECMARK --selctx system_u:object_r:"+DEFAULT_OUTPUT_PACKET
+
+def print_output_rules(packets, mls, mcs):
+    line = (
+        "base -A selinux_new_output -j SECMARK --selctx system_u:object_r:"
+        + DEFAULT_OUTPUT_PACKET
+    )
     if mls:
-        line += ":"+DEFAULT_MLS
+        line += ":" + DEFAULT_MLS
     elif mcs:
-        line += ":"+DEFAULT_MCS
+        line += ":" + DEFAULT_MCS
     print line
 
     for i in packets:
         for j in i.ports:
-            line = "base -A selinux_new_output -p "+j.proto+" --dport "+j.num+" -j SECMARK --selctx system_u:object_r:"+i.prefix+PACKET_OUTPUT
+            line = (
+                "base -A selinux_new_output -p "
+                + j.proto
+                + " --dport "
+                + j.num
+                + " -j SECMARK --selctx system_u:object_r:"
+                + i.prefix
+                + PACKET_OUTPUT
+            )
             if mls:
-                line += ":"+j.mls_sens
+                line += ":" + j.mls_sens
             elif mcs:
-                line += ":"+j.mcs_cats
+                line += ":" + j.mcs_cats
             print line
 
     print "post -A selinux_new_output -j CONNSECMARK --save"
     print "post -A selinux_new_output -j RETURN"
+
 
 def parse_corenet(file_name):
     packets = []
@@ -96,28 +125,29 @@ def parse_corenet(file_name):
             break
 
         if NETPORT.match(corenet_line):
-            corenet_line = corenet_line.strip();
+            corenet_line = corenet_line.strip()
 
             # parse out the parameters
-            openparen = string.find(corenet_line,'(')+1
-            closeparen = string.find(corenet_line,')',openparen)
-            parms = re.split('\W+',corenet_line[openparen:closeparen])
+            openparen = string.find(corenet_line, '(') + 1
+            closeparen = string.find(corenet_line, ')', openparen)
+            parms = re.split('\W+', corenet_line[openparen:closeparen])
             name = parms[0]
-            del parms[0];
+            del parms[0]
 
             ports = []
             while len(parms) > 0:
                 # add a port combination.
-                ports.append(Port(parms[0],parms[1],parms[2]))
+                ports.append(Port(parms[0], parms[1], parms[2]))
                 del parms[:3]
 
-            packets.append(Packet(name,ports))
-        
+            packets.append(Packet(name, ports))
+
     corenet_te_in.close()
 
     return packets
 
-def print_netfilter_config(packets,mls,mcs):
+
+def print_netfilter_config(packets, mls, mcs):
     print "pre *mangle"
     print "pre :PREROUTING ACCEPT [0:0]"
     print "pre :INPUT ACCEPT [0:0]"
@@ -134,23 +164,24 @@ def print_netfilter_config(packets,mls,mcs):
     print "pre -A selinux_input -m state --state RELATED,ESTABLISHED -j CONNSECMARK --restore"
     print "pre -A selinux_output -m state --state NEW -j selinux_new_output"
     print "pre -A selinux_output -m state --state RELATED,ESTABLISHED -j CONNSECMARK --restore"
-    print_input_rules(packets,mls,mcs)
-    print_output_rules(packets,mls,mcs)
+    print_input_rules(packets, mls, mcs)
+    print_output_rules(packets, mls, mcs)
     print "post COMMIT"
+
 
 mls = False
 mcs = False
 
 try:
-    opts, paths = getopt.getopt(sys.argv[1:],'mc',['mls','mcs'])
+    opts, paths = getopt.getopt(sys.argv[1:], 'mc', ['mls', 'mcs'])
 except getopt.GetoptError, error:
     print "Invalid options."
     sys.exit(1)
 
 for o, a in opts:
-    if o in ("-c","--mcs"):
+    if o in ("-c", "--mcs"):
         mcs = True
-    if o in ("-m","--mls"):
+    if o in ("-m", "--mls"):
         mls = True
 
 if len(paths) == 0:
@@ -159,5 +190,5 @@ if len(paths) == 0:
 elif len(paths) > 1:
     sys.stderr.write("Ignoring extra specified paths\n")
 
-packets=parse_corenet(paths[0])
-print_netfilter_config(packets,mls,mcs)
+packets = parse_corenet(paths[0])
+print_netfilter_config(packets, mls, mcs)

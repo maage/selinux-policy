@@ -19,25 +19,26 @@ from pathlib import Path
 import re
 
 
-class FileContext():
-    """ Container class for file context defintions
-    """
+class FileContext:
+    """Container class for file context defintions"""
 
     def __init__(self, context_line):
-        """ Constructor
-        """
+        """Constructor"""
 
-        matches = re.match(r'^(?P<path>\S+)\s+(?P<type>-.)?\s*(?P<context>.+)$', context_line)
+        matches = re.match(
+            r'^(?P<path>\S+)\s+(?P<type>-.)?\s*(?P<context>.+)$', context_line
+        )
         if matches is None:
             raise ValueError
 
-        self.path, self.file_type, self.context = matches.group('path', 'type', 'context')
+        self.path, self.file_type, self.context = matches.group(
+            'path', 'type', 'context'
+        )
 
         self.compute_diffdata()
 
     def compute_diffdata(self):
-        """ Compute the interal values needed for comparing two file context definitions
-        """
+        """Compute the interal values needed for comparing two file context definitions"""
 
         self.meta = False
         self.stem_len = 0
@@ -50,7 +51,18 @@ class FileContext():
                 skip_escaped = False
                 continue
 
-            if char in ('.', '^', '$', '?', '*', '+', '|', '[', '(', '{',):
+            if char in (
+                '.',
+                '^',
+                '$',
+                '?',
+                '*',
+                '+',
+                '|',
+                '[',
+                '(',
+                '{',
+            ):
                 self.meta = True
             if char == '\\':
                 skip_escaped = True
@@ -62,7 +74,7 @@ class FileContext():
 
     @staticmethod
     def _compare(a, b):
-        """ Compare two file context definitions
+        """Compare two file context definitions
 
         Returns:
           -1 if a is less specific than b
@@ -120,10 +132,20 @@ class FileContext():
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Sort file context definitions')
-    parser.add_argument('infile', metavar='INFILE', type=Path,
-                        help='input file of the original file context definitions')
-    parser.add_argument('outfile', metavar='OUTFILE', nargs='?', type=Path, default=None,
-                        help='output file for the sorted file context definitions')
+    parser.add_argument(
+        'infile',
+        metavar='INFILE',
+        type=Path,
+        help='input file of the original file context definitions',
+    )
+    parser.add_argument(
+        'outfile',
+        metavar='OUTFILE',
+        nargs='?',
+        type=Path,
+        default=None,
+        help='output file for the sorted file context definitions',
+    )
     args = parser.parse_args()
 
     file_context_definitions = []
@@ -140,7 +162,11 @@ if __name__ == '__main__':
             try:
                 file_context_definitions.append(FileContext(line))
             except ValueError:
-                print('{}:{}: unable to parse a file context line: {}'.format(args.infile, lineno, line))
+                print(
+                    '{}:{}: unable to parse a file context line: {}'.format(
+                        args.infile, lineno, line
+                    )
+                )
                 exit(1)
 
     # Sort

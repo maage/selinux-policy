@@ -90,8 +90,10 @@ def getModuleXML(file_name):
     module_buf = []
 
     # Infer the module name, which is the base of the file name.
-    module_buf.append("<module name=\"%s\" filename=\"%s\">\n" 
-        % (os.path.splitext(os.path.split(file_name)[-1])[0], module_if))
+    module_buf.append(
+        "<module name=\"%s\" filename=\"%s\">\n"
+        % (os.path.splitext(os.path.split(file_name)[-1])[0], module_if)
+    )
 
     temp_buf = []
     interface = None
@@ -101,7 +103,7 @@ def getModuleXML(file_name):
     finding_header = True
 
     # Get rid of whitespace at top of file
-    while(module_code and module_code[0].isspace()):
+    while module_code and module_code[0].isspace():
         module_code = module_code[1:]
 
     # Go line by line and figure out what to do with it.
@@ -146,7 +148,9 @@ def getModuleXML(file_name):
         if interface:
             # Add the opening tag for the interface/template
             groups = interface.groups()
-            module_buf.append("<%s name=\"%s\" lineno=\"%s\">\n" % (groups[0], groups[1], line_num))
+            module_buf.append(
+                "<%s name=\"%s\" lineno=\"%s\">\n" % (groups[0], groups[1], line_num)
+            )
 
             # Add all the comments attributed to this interface to
             #  the module buffer.
@@ -157,7 +161,10 @@ def getModuleXML(file_name):
             # Add default summaries and parameters so that the
             #  DTD is happy.
             else:
-                warning ("%s:%s: unable to find XML for %s %s()" % (file_name, line_num, groups[0], groups[1]))
+                warning(
+                    "%s:%s: unable to find XML for %s %s()"
+                    % (file_name, line_num, groups[0], groups[1])
+                )
                 module_buf.append("<summary>\n")
                 module_buf.append("Summary is missing!\n")
                 module_buf.append("</summary>\n")
@@ -173,8 +180,6 @@ def getModuleXML(file_name):
             interface = None
             continue
 
-
-
     # If the file just had a header, add the comments to the module buffer.
     if finding_header:
         module_buf += temp_buf
@@ -189,6 +194,7 @@ def getModuleXML(file_name):
     module_buf.append("</module>\n")
 
     return module_buf
+
 
 def getTunableXML(file_name, kind):
     '''
@@ -239,7 +245,6 @@ def getTunableXML(file_name, kind):
     if temp_buf:
         warning("orphan XML comments at bottom of file %s\n%s" % (file_name, temp_buf))
 
-
     # If the caller requested a the global_tunables and global_booleans to be
     # output to a file output them now
     if len(output_dir) > 0:
@@ -248,14 +253,15 @@ def getTunableXML(file_name, kind):
         try:
             xml_outfile = open(output_dir + "/" + xmlfile, "w")
             for tunable_line in tunable_buf:
-                xml_outfile.write (tunable_line)
+                xml_outfile.write(tunable_line)
             xml_outfile.close()
         except:
-            warning ("cannot write to file %s, skipping creation" % xmlfile)
+            warning("cannot write to file %s, skipping creation" % xmlfile)
 
     return tunable_buf
 
-def getXMLFileContents (file_name):
+
+def getXMLFileContents(file_name):
     '''
     Return all the XML in the file specified.
     '''
@@ -272,6 +278,7 @@ def getXMLFileContents (file_name):
 
     return tunable_buf
 
+
 def getPolicyXML():
     '''
     Return the compelete reference policy XML documentation through a list,
@@ -282,7 +289,7 @@ def getPolicyXML():
     policy_buf.append("<policy>\n")
 
     # Add to the XML each layer specified by the user.
-    for layer in layers.keys ():
+    for layer in layers.keys():
         policy_buf += getLayerXML(layer, layers[layer])
 
     # Add to the XML each tunable file specified by the user.
@@ -291,7 +298,7 @@ def getPolicyXML():
 
     # Add to the XML each XML tunable file specified by the user.
     for tunable_file in xml_tunable_files:
-        policy_buf += getXMLFileContents (tunable_file)
+        policy_buf += getXMLFileContents(tunable_file)
 
     # Add to the XML each bool file specified by the user.
     for bool_file in bool_files:
@@ -299,11 +306,12 @@ def getPolicyXML():
 
     # Add to the XML each XML bool file specified by the user.
     for bool_file in xml_bool_files:
-        policy_buf += getXMLFileContents (bool_file)
+        policy_buf += getXMLFileContents(bool_file)
 
     policy_buf.append("</policy>\n")
 
     return policy_buf
+
 
 def usage():
     """
@@ -311,14 +319,17 @@ def usage():
     """
 
     sys.stdout.write("usage: %s [-w] [-mtb] <file>\n\n" % sys.argv[0])
-    sys.stdout.write("-w --warn\t\t\tshow warnings\n"+\
-    "-m --module <file>\t\tname of module to process\n"+\
-    "-t --tunable <file>\t\tname of global tunable file to process\n"+\
-    "-b --boolean <file>\t\tname of global boolean file to process\n\n")
+    sys.stdout.write(
+        "-w --warn\t\t\tshow warnings\n"
+        + "-m --module <file>\t\tname of module to process\n"
+        + "-t --tunable <file>\t\tname of global tunable file to process\n"
+        + "-b --boolean <file>\t\tname of global boolean file to process\n\n"
+    )
 
     sys.stdout.write("examples:\n")
     sys.stdout.write("> %s -w -m policy/modules/apache\n" % sys.argv[0])
     sys.stdout.write("> %s -t policy/global_tunables\n" % sys.argv[0])
+
 
 def warning(description):
     '''
@@ -326,19 +337,19 @@ def warning(description):
     '''
 
     if warn:
-        sys.stderr.write("%s: " % sys.argv[0] )
+        sys.stderr.write("%s: " % sys.argv[0])
         sys.stderr.write("warning: " + description + "\n")
+
 
 def error(description):
     '''
     Describes an error and exists the program.
     '''
 
-    sys.stderr.write("%s: " % sys.argv[0] )
+    sys.stderr.write("%s: " % sys.argv[0])
     sys.stderr.write("error: " + description + "\n")
     sys.stderr.flush()
     sys.exit(1)
-
 
 
 # MAIN PROGRAM
@@ -356,7 +367,9 @@ if len(sys.argv) <= 1:
 
 # Parse command line args
 try:
-    opts, args = getopt.getopt(sys.argv[1:], 'whm:t:b:', ['warn', 'help', 'module=', 'tunable=', 'boolean='])
+    opts, args = getopt.getopt(
+        sys.argv[1:], 'whm:t:b:', ['warn', 'help', 'module=', 'tunable=', 'boolean=']
+    )
 except getopt.GetoptError:
     usage()
     sys.exit(2)
@@ -388,4 +401,3 @@ elif boolean:
 else:
     usage()
     sys.exit(2)
-

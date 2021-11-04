@@ -16,6 +16,7 @@ import sys
 
 USERSPACE_CLASS = "userspace"
 
+
 class Class:
     """
     This object stores an access vector class.
@@ -30,6 +31,7 @@ class Class:
 
         # True if the class is declared as common, False if not.
         self.common = common
+
 
 def get_perms(name, av_db, common):
     """
@@ -49,6 +51,7 @@ def get_perms(name, av_db, common):
             return obj.perms
 
     return []
+
 
 def get_av_db(file_name):
     """
@@ -93,8 +96,8 @@ def get_av_db(file_name):
         # Pad the braces with whitespace so that they are split into
         #  their own word. It doesn't matter if there will be extra
         #  white space, it'll get thrown away when the string is split.
-        av_line.replace("{"," { ")
-        av_line.replace("}"," } ")
+        av_line.replace("{", " { ")
+        av_line.replace("}", " } ")
 
         # Split up the words on the line and add it to av_data.
         av_data += av_line.split()
@@ -123,8 +126,7 @@ def get_av_db(file_name):
         elif av_data[0] == "common":
             common = True
         else:
-            error("Unexpected token in file " + file_name + ": "\
-                + av_data[0] + ".")
+            error("Unexpected token in file " + file_name + ": " + av_data[0] + ".")
 
         # Dequeue the "class" or "common" key word.
         av_data = av_data[1:]
@@ -150,9 +152,15 @@ def get_av_db(file_name):
                 av_data = av_data[1:]
 
                 if len(av_data) == 0:
-                    error("Missing token in file "\
-                        + file_name + " for " +\
-                        keyword + " " + name + ".")
+                    error(
+                        "Missing token in file "
+                        + file_name
+                        + " for "
+                        + keyword
+                        + " "
+                        + name
+                        + "."
+                    )
 
                 # av_data[0] is the name of the parent.
                 # Append the permissions of the parent to
@@ -171,8 +179,7 @@ def get_av_db(file_name):
             #  found.
             while av_data[0] != "}":
                 if av_data[0] == "{":
-                    error("Extra '{' in file " +\
-                         file_name + ".")
+                    error("Extra '{' in file " + file_name + ".")
 
                 # Add the permission name.
                 perms.append(av_data[0])
@@ -181,8 +188,7 @@ def get_av_db(file_name):
                 av_data = av_data[1:]
 
                 if len(av_data) == 0:
-                    error("Missing token '}' in file "\
-                        + file_name + ".")
+                    error("Missing token '}' in file " + file_name + ".")
 
             # Dequeue the "}"
             av_data = av_data[1:]
@@ -191,6 +197,7 @@ def get_av_db(file_name):
         database.append(Class(name, perms, common))
 
     return database
+
 
 def get_sc_db(file_name):
     """
@@ -215,7 +222,7 @@ def get_sc_db(file_name):
         # Check if the comment to the right of the permission matches
         #  USERSPACE_CLASS.
         comment_index = line.find("#")
-        if comment_index != -1 and line[comment_index+1:].strip() == USERSPACE_CLASS:
+        if comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS:
             userspace = True
         else:
             userspace = False
@@ -236,6 +243,7 @@ def get_sc_db(file_name):
         database.append((split_line[1], userspace))
 
     return database
+
 
 def gen_class_perms(av_db, sc_db):
     """
@@ -282,6 +290,7 @@ def gen_class_perms(av_db, sc_db):
     # Throw all the strings together and return the string.
     return class_perms + kernel_class_perms + userspace_class_perms
 
+
 def error(error):
     """
     Print an error message and exit.
@@ -292,11 +301,14 @@ def error(error):
     sys.stderr.flush()
     sys.exit(1)
 
+
 # MAIN PROGRAM
 app_name = sys.argv[0]
 
 if len(sys.argv) != 3:
-    error("Incorrect input.\nUsage: " + sys.argv[0] + " access_vectors security_classes" )
+    error(
+        "Incorrect input.\nUsage: " + sys.argv[0] + " access_vectors security_classes"
+    )
 
 # argv[1] is the access vector file.
 av_file = sys.argv[1]
