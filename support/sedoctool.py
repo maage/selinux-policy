@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #  Author: Joshua Brindle <jbrindle@tresys.com>
-#	  Caleb Case <ccase@tresys.com>
+#  Caleb Case <ccase@tresys.com>
 #
 # Copyright (C) 2005 - 2006 Tresys Technology, LLC
 #      This program is free software; you can redistribute it and/or modify

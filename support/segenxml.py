@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 #  Author(s): Donald Miner <dminer@tresys.com>
-#	     Dave Sugar <dsugar@tresys.com>
-#	     Brian Williams <bwilliams@tresys.com>
-#	     Caleb Case <ccase@tresys.com>
+#      Dave Sugar <dsugar@tresys.com>
+#      Brian Williams <bwilliams@tresys.com>
+#      Caleb Case <ccase@tresys.com>
 #
 # Copyright (C) 2005 - 2006 Tresys Technology, LLC
 #      This program is free software; you can redistribute it and/or modify
@@ -37,32 +37,32 @@ output_dir = ""
 # Pre compiled regular expressions:
 
 # Matches either an interface or a template declaration. Will give the tuple:
-#	("interface" or "template", name)
+#     ("interface" or "template", name)
 # Some examples:
-#	"interface(`kernel_read_system_state',`"
-#	 -> ("interface", "kernel_read_system_state")
-#	"template(`base_user_template',`"
-#	 -> ("template", "base_user_template")
+#     "interface(`kernel_read_system_state',`"
+#      -> ("interface", "kernel_read_system_state")
+#     "template(`base_user_template',`"
+#      -> ("template", "base_user_template")
 INTERFACE = re.compile("^\s*(interface|template)\(`(\w*)'")
 
 # Matches either a gen_bool or a gen_tunable statement. Will give the tuple:
-#	("tunable" or "bool", name, "true" or "false")
+#     ("tunable" or "bool", name, "true" or "false")
 # Some examples:
-#	"gen_bool(secure_mode, false)"
-#	 -> ("bool", "secure_mode", "false")
-#	"gen_tunable(allow_kerberos, false)"
-#	 -> ("tunable", "allow_kerberos", "false")
+#     "gen_bool(secure_mode, false)"
+#      -> ("bool", "secure_mode", "false")
+#     "gen_tunable(allow_kerberos, false)"
+#      -> ("tunable", "allow_kerberos", "false")
 BOOLEAN = re.compile("^\s*gen_(tunable|bool)\(\s*(\w*)\s*,\s*(true|false)\s*\)")
 
 # Matches a XML comment in the policy, which is defined as any line starting
 #  with two # and at least one character of white space. Will give the single
 #  valued tuple:
-#	("comment")
+#     ("comment")
 # Some Examples:
-#	"## <summary>"
-#	 -> ("<summary>")
-#	"##		The domain allowed access.	"
-#	 -> ("The domain allowed access.")
+#     "## <summary>"
+#      -> ("<summary>")
+#     "##        The domain allowed access."
+#      -> ("The domain allowed access.")
 XML_COMMENT = re.compile("^##\s+(.*?)\s*$")
 
 
