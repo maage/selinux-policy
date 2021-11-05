@@ -209,11 +209,20 @@ $(appdir)/customizable_types: $(base_conf)
 #
 # Validate linking and expanding of modules
 #
-validate: $(base_pkg) $(mod_pkgs)
+validate-pre:
 	@echo "Validating policy linking."
-	$(verbose) $(SEMOD_LNK) -o $(tmpdir)/test.lnk $^
-	$(verbose) $(SEMOD_EXP) $(tmpdir)/test.lnk $(tmpdir)/policy.bin
-	$(verbose) $(SEPOLGEN) -p $(tmpdir)/policy.bin -i $(poldir) -o $(tmpdir)/output
+.PHONY: validate-pre
+
+$(tmpdir)/validate.lnk: $(base_pkg) $(mod_pkgs) | validate-pre
+	$(verbose) $(SEMOD_LNK) -o $@ $^
+
+$(tmpdir)/validate.bin: $(tmpdir)/validate.lnk | validate-pre
+	$(verbose) $(SEMOD_EXP) $^ $@
+
+$(tmpdir)/validate.output: $(tmpdir)/validate.bin | validate-pre
+	$(verbose) $(SEPOLGEN) -p $^ -i $(poldir) -o $@
+
+validate: $(tmpdir)/validate.output | validate-pre
 	@echo "Success."
 
 ########################################
