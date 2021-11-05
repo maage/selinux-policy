@@ -580,10 +580,10 @@ bare: clean
 	#rm -f $(tunxml)
 	#rm -f $(boolxml)
 	#rm -f $(mod_conf)
-	#rm -f $(booleans)
-	#rm -fR $(htmldir)
+	rm -f $(booleans)
+	rm -fR $(htmldir) $(tmpdir)/html
 	#rm -f $(tags)
-	rm -f $(support)/*.pyc
+	rm -rf $(support)/*.pyc $(support)/__pycache__
 ifneq ($(generated_te),)
 	rm -f $(generated_te)
 endif
