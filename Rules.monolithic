@@ -206,15 +206,6 @@ $(fcpath): $(fc) $(loadpath) $(userpath)/system.users
 
 ########################################
 #
-# Intall netfilter_contexts
-#
-$(ncpath): $(net_contexts)
-	@echo "Installing $(NAME) netfilter_contexts."
-	@$(INSTALL) -d -m 0755 $(@D)
-	$(verbose) $(INSTALL) -m 0644 $^ $@
-
-########################################
-#
 # Run policy source checks
 #
 check: $(builddir)check.res
