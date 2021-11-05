@@ -314,17 +314,8 @@ endif
 #
 # Directories
 #
-$(builddir):
-	@mkdir -p $(builddir)
-
-$(htmldir):
-	@mkdir -p $(htmldir)
-
-$(polxmldir):
-	@mkdir -p $(polxmldir)
-
-$(tmpdir):
-	@mkdir -p $(tmpdir)
+$(builddir) $(htmldir) $(polxmldir) $(tmpdir):
+	@mkdir -p $@
 
 ########################################
 #
