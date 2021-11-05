@@ -357,6 +357,17 @@ $(net_contexts): $(moddir)/kernel/corenetwork.te.in
 
 ########################################
 #
+# Install netfilter_contexts
+#
+$(ncpath): $(net_contexts)
+	@echo "Installing $(NAME) netfilter_contexts."
+	$(verbose) $(INSTALL) -Dm 0644 $^ $@
+
+install-net-contexts: $(ncpath)
+.PHONY: install-net-contexts
+
+########################################
+#
 # Create config files
 #
 conf: $(mod_conf) $(booleans) $(generated_te) $(generated_if) $(generated_fc)
