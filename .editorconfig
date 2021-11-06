@@ -1,0 +1,36 @@
+root = true
+
+[*.fc]
+charset = utf-8
+indent_style = tab
+indent_size = 8
+insert_final_newline = true
+end_of_line = lf
+
+[*.if]
+charset = utf-8
+indent_style = tab
+indent_size = 8
+insert_final_newline = true
+end_of_line = lf
+
+[*.te]
+charset = utf-8
+indent_style = tab
+indent_size = 8
+insert_final_newline = true
+end_of_line = lf
+
+[Makefile]
+charset = utf-8
+indent_style = tab
+indent_size = 8
+insert_final_newline = true
+end_of_line = lf
+
+[Rules.*]
+charset = utf-8
+indent_style = tab
+indent_size = 8
+insert_final_newline = true
+end_of_line = lf
