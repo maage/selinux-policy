@@ -327,22 +327,24 @@ $(builddir) $(htmldir) $(polxmldir) $(tmpdir):
 generate: $(generated_te) $(generated_if) $(generated_fc)
 
 $(moddir)/kernel/corenetwork.if: $(moddir)/kernel/corenetwork.te.in $(moddir)/kernel/corenetwork.if.m4 $(moddir)/kernel/corenetwork.if.in
-	@echo "#" > $@
-	@echo "# This is a generated file!  Instead of modifying this file, the" >> $@
-	@echo "# $(notdir $@).in or $(notdir $@).m4 file should be modified." >> $@
-	@echo "#" >> $@
-	$(verbose) cat $@.in >> $@
+	@echo "#" > $@.tmp
+	@echo "# This is a generated file!  Instead of modifying this file, the" >> $@.tmp
+	@echo "# $(notdir $@).in or $(notdir $@).m4 file should be modified." >> $@.tmp
+	@echo "#" >> $@.tmp
+	$(verbose) cat $@.in >> $@.tmp
 	$(verbose) $(GREP) "^[[:blank:]]*(network_(interface|node|port|packet)(_controlled)?)|ib_(pkey|endport)\(.*\)" $< \
 		| $(M4) -D self_contained_policy $(M4PARAM) $(m4divert) $@.m4 $(m4undivert) - \
-		| $(SED) -e 's/dollarsone/\$$1/g' -e 's/dollarszero/\$$0/g' >> $@
+		| $(SED) -e 's/dollarsone/\$$1/g' -e 's/dollarszero/\$$0/g' >> $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 $(moddir)/kernel/corenetwork.te: $(m4divert) $(moddir)/kernel/corenetwork.te.m4 $(m4undivert) $(moddir)/kernel/corenetwork.te.in
-	@echo "#" > $@
-	@echo "# This is a generated file!  Instead of modifying this file, the" >> $@
-	@echo "# $(notdir $@).in or $(notdir $@).m4 file should be modified." >> $@
-	@echo "#" >> $@
+	@echo "#" > $@.tmp
+	@echo "# This is a generated file!  Instead of modifying this file, the" >> $@.tmp
+	@echo "# $(notdir $@).in or $(notdir $@).m4 file should be modified." >> $@.tmp
+	@echo "#" >> $@.tmp
 	$(verbose) $(M4) -D self_contained_policy $(M4PARAM) $^ \
-		| $(SED) -e 's/dollarsone/\$$1/g' -e 's/dollarszero/\$$0/g' >> $@
+		| $(SED) -e 's/dollarsone/\$$1/g' -e 's/dollarszero/\$$0/g' >> $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 ########################################
 #
@@ -350,7 +352,8 @@ $(moddir)/kernel/corenetwork.te: $(m4divert) $(moddir)/kernel/corenetwork.te.m4 
 #
 $(net_contexts): $(moddir)/kernel/corenetwork.te.in
 	@echo "Creating netfilter network labeling rules"
-	$(verbose) $(gennetfilter) $^ > $@
+	$(verbose) $(gennetfilter) $^ > $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 ########################################
 #
@@ -368,24 +371,28 @@ $(mod_conf) $(booleans): $(polxml)
 #
 $(layerxml): | $(tmpdir)
 $(layerxml): %.xml: $(all_metaxml) $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods)) $(subst .te,.if, $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods)))
-	$(verbose) cat $(filter %$(notdir $*)/$(metaxml), $(all_metaxml)) > $@
-	$(verbose) for i in $(basename $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods))); do $(genxml) -w -m $$i >> $@; done
+	$(verbose) cat $(filter %$(notdir $*)/$(metaxml), $(all_metaxml)) > $@.tmp
+	$(verbose) for i in $(basename $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods))); do $(genxml) -w -m $$i >> $@.tmp; done
+	$(verbose) mv -- $@.tmp $@
 
 $(tunxml): $(globaltun)
-	$(verbose) $(genxml) -w -t $< > $@
+	$(verbose) $(genxml) -w -t $< > $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 $(boolxml): $(globalbool)
-	$(verbose) $(genxml) -w -b $< > $@
+	$(verbose) $(genxml) -w -b $< > $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 $(polxml): | $(tmpdir) $(polxmldir)
 $(polxml): $(layerxml) $(tunxml) $(boolxml)
 	@echo "Creating $(@F)"
-	$(verbose) echo '<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>' > $@
-	$(verbose) echo '<!DOCTYPE policy SYSTEM "$(notdir $(xmldtd))">' >> $@
-	$(verbose) echo '<policy>' >> $@
-	$(verbose) for i in $(basename $(notdir $(layerxml))); do echo "<layer name=\"$$i\">" >> $@; cat $(tmpdir)/$$i.xml >> $@; echo "</layer>" >> $@; done
-	$(verbose) cat $(tunxml) $(boolxml) >> $@
-	$(verbose) echo '</policy>' >> $@
+	$(verbose) echo '<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>' > $@.tmp
+	$(verbose) echo '<!DOCTYPE policy SYSTEM "$(notdir $(xmldtd))">' >> $@.tmp
+	$(verbose) echo '<policy>' >> $@.tmp
+	$(verbose) for i in $(basename $(notdir $(layerxml))); do echo "<layer name=\"$$i\">" >> $@.tmp; cat $(tmpdir)/$$i.xml >> $@.tmp; echo "</layer>" >> $@.tmp; done
+	$(verbose) cat $(tunxml) $(boolxml) >> $@.tmp
+	$(verbose) echo '</policy>' >> $@.tmp
+	$(verbose) mv -- $@.tmp $@
 	$(verbose) if test -x $(XMLLINT) && test -f $(xmldtd); then \
 		$(XMLLINT) --noout --path $(dir $(xmldtd)) --dtdvalid $(xmldtd) $@ ;\
 	fi
@@ -428,7 +435,8 @@ $(userpath)/local.users: config/local.users
 #
 $(tmpdir)/initrc_context: | $(tmpdir)
 $(tmpdir)/initrc_context: $(appconf)/initrc_context
-	$(verbose) $(M4) $(M4PARAM) $(m4support) $^ | $(GREP) '^[a-z]' > $@
+	$(verbose) $(M4) $(M4PARAM) $(m4support) $^ | $(GREP) '^[a-z]' > $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 ########################################
 #
