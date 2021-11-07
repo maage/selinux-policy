@@ -107,7 +107,8 @@ docfiles = $(docs)/Makefile.example $(addprefix $(docs)/,example.te example.if e
 polxml = $(docs)/policy.xml
 tunxml = $(docs)/global_tunables.xml
 boolxml = $(docs)/global_booleans.xml
-htmldir = $(docs)/html
+htmldir = $(tmpdir)/html
+html_generated_flag := $(tmpdir)/html_generated.flag
 
 # config file paths
 globaltun = $(poldir)/global_tunables
@@ -410,13 +411,14 @@ $(polxml): $(xmldtd) $(layerxml) $(tunxml) $(boolxml)
 
 xml: $(polxml)
 
-
-html $(tmpdir)/html: | $(htmldir) $(tmpdir)
-html $(tmpdir)/html: $(polxml)
+$(html_generated_flag): | $(htmldir) $(tmpdir)
+$(html_generated_flag): $(polxml)
 	@echo "Building html interface reference documentation in $(htmldir)"
 	$(verbose) $(gendoc) -d $(htmldir) -T $(doctemplate) -x $^
 	$(verbose) cp $(doctemplate)/*.css $(htmldir)
-	@touch $(tmpdir)/html
+	@touch -- $@
+
+html: $(html_generated_flag)
 
 ########################################
 #
@@ -511,11 +513,10 @@ endif
 #
 # Install policy documentation
 #
-install-docs: $(tmpdir)/html
-	@mkdir -p $(docsdir)/html
+install-docs: html
 	@echo "Installing policy documentation"
-	$(verbose) $(INSTALL) -m 644 $(docfiles) $(docsdir)
-	$(verbose) $(INSTALL) -m 644 $(wildcard $(htmldir)/*) $(docsdir)/html
+	$(verbose) $(INSTALL) -Dm 644 -t $(docsdir) $(docfiles)
+	$(verbose) $(INSTALL) -Dm 644 -t $(docsdir)/html $(wildcard $(htmldir)/*)
 
 ########################################
 #
@@ -590,7 +591,6 @@ bare: clean
 	rm -f $(boolxml)
 	#rm -f $(mod_conf)
 	rm -f $(booleans)
-	rm -fR $(htmldir) $(tmpdir)/html
 	#rm -f $(tags)
 	rm -rf $(support)/*.pyc $(support)/__pycache__
 ifneq ($(generated_te),)
