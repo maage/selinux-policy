@@ -386,12 +386,12 @@ $(layerxml): %.xml: $(all_metaxml) $(filter $(addprefix $(moddir)/, $(notdir $*)
 
 $(tunxml): | $(docs)
 $(tunxml): $(globaltun)
-	$(verbose) $(genxml) -w -t $< > $@.tmp
+	$(verbose) $(genxml) -w -t $^ > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
 $(boolxml): | $(docs)
 $(boolxml): $(globalbool)
-	$(verbose) $(genxml) -w -b $< > $@.tmp
+	$(verbose) $(genxml) -w -b $^ > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
 $(polxml): | $(docs)
@@ -438,7 +438,7 @@ $(userpath)/system.users: $(m4support) $(tmpdir)/generated_definitions.conf $(us
 $(userpath)/local.users: config/local.users
 	@echo "Installing local.users"
 	@$(INSTALL) -d -m 0755 $(@D)
-	$(verbose) $(INSTALL) -b -m 0644 $< $@
+	$(verbose) $(INSTALL) -b -m 0644 $^ $@
 
 ########################################
 #
@@ -464,18 +464,18 @@ $(installdir)/booleans: $(booleans)
 
 $(contextpath)/files/media: $(appconf)/media
 	@$(INSTALL) -d -m 0755 $(@D)
-	$(verbose) $(INSTALL) -m 0644 $< $@
+	$(verbose) $(INSTALL) -m 0644 $^ $@
 
 $(fcsubspath): config/file_contexts.subs_dist
 	@$(INSTALL) -d -m 0755 $(@D)
-	$(verbose) $(INSTALL) -m 0644 $< $@
+	$(verbose) $(INSTALL) -m 0644 $^ $@
 
 $(contextpath)/users/%: $(appconf)/%_default_contexts
 	@$(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
 $(appdir)/%: $(appconf)/%
-	$(verbose) $(M4) $(M4PARAM) $(m4support) $< > $(tmpdir)/$(@F)
+	$(verbose) $(M4) $(M4PARAM) $(m4support) $^ > $(tmpdir)/$(@F)
 	@$(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/$(@F) $@
 
