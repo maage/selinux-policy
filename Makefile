@@ -39,6 +39,7 @@ builddir := $(LOCAL_ROOT)/
 tmpdir := $(LOCAL_ROOT)/tmp
 tags := $(LOCAL_ROOT)/tags
 else
+builddir ?=
 tmpdir := tmp
 tags := tags
 endif
@@ -193,6 +194,8 @@ ifeq "$(DISTRO)" "ubuntu"
 	M4PARAM += -D distro_debian
 endif
 
+OUTPUT_POLICY ?=
+
 ifneq ($(OUTPUT_POLICY),)
 	CHECKPOLICY += -c $(OUTPUT_POLICY)
 endif
@@ -222,6 +225,8 @@ MCS_CATS ?= 1024
 
 ifeq ($(QUIET),y)
 	verbose = @
+else
+	verbose =
 endif
 
 M4PARAM += -D mls_num_sens=$(MLS_SENS) -D mls_num_cats=$(MLS_CATS) -D mcs_num_cats=$(MCS_CATS) -D hide_broken_symptoms
@@ -280,6 +285,11 @@ configmod := module
 configoff := off
 
 # test for module overrides from command line
+
+APPS_OFF ?=
+APPS_BASE ?=
+APPS_MODS ?=
+
 mod_test = $(filter $(APPS_OFF), $(APPS_BASE) $(APPS_MODS))
 mod_test += $(filter $(APPS_MODS), $(APPS_BASE))
 ifneq "$(strip $(mod_test))" ""
