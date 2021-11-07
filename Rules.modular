@@ -49,11 +49,15 @@ modules: $(mod_pkgs)
 
 install: install-policy-packages install-appconfig
 
+install-all: install
+
 ########################################
 #
 # Load all configured modules
 #
 load: $(load_flag) install-appconfig
+
+install-all: load
 
 # make sure two directories exist since they are not
 # created by semanage
@@ -248,4 +252,4 @@ clean:
 	rm -f $(net_contexts)
 	rm -fR $(tmpdir)
 
-.PHONY: default all policy base modules install install-policy-packages load clean validate
+.PHONY: all base clean default install install-all install-policy-packages load modules policy validate
