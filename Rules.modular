@@ -25,6 +25,9 @@ mod_pkgs := $(addprefix $(builddir),$(notdir $(mod_mods:.te=.pp)))
 # policy packages to install
 instpkg := $(addprefix $(modpkgdir)/,$(notdir $(base_pkg) $(mod_pkgs)))
 
+# Flagfile for load operation
+load_flag := $(tmpdir)/load.flag
+
 # search layer dirs for source files
 vpath %.te $(all_layers)
 vpath %.if $(all_layers)
@@ -44,23 +47,31 @@ base: $(base_pkg)
 
 modules: $(mod_pkgs)
 
-install: $(instpkg) $(appfiles)
+install: install-policy-packages install-appconfig
 
 ########################################
 #
 # Load all configured modules
 #
-load: $(instpkg) $(appfiles)
+load: $(load_flag) install-appconfig
+
 # make sure two directories exist since they are not
 # created by semanage
+$(modpkgdir) $(policypath):
+	$(verbose) $(INSTALL) -d -m 0755 $@
+
+$(load_flag): | $(tmpdir) $(modpkgdir) $(policypath)
+$(load_flag): $(instpkg)
 	@echo "Loading configured modules."
-	$(verbose) $(INSTALL) -d -m 0755 $(policypath) $(dir $(fcpath))
-	$(verbose) $(SEMODULE) -s $(NAME) $(foreach mod,$(instpkg),-i $(mod))
+	$(verbose) $(SEMODULE) -s $(NAME) $(foreach mod,$?,-i $(mod))
+	$(verbose) touch -- $@
 
 ########################################
 #
 # Install policy packages
 #
+install-policy-packages: $(instpkg)
+
 $(modpkgdir)/%.pp: $(builddir)%.pp
 	@echo "Installing $(NAME) $(@F) policy package."
 	$(verbose) $(INSTALL) -Dm 0644 $^ $@
@@ -236,4 +247,4 @@ clean:
 	rm -f $(net_contexts)
 	rm -fR $(tmpdir)
 
-.PHONY: default all policy base modules install load clean validate
+.PHONY: default all policy base modules install install-policy-packages load clean validate
