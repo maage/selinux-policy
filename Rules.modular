@@ -54,7 +54,7 @@ load: $(instpkg) $(appfiles)
 # make sure two directories exist since they are not
 # created by semanage
 	@echo "Loading configured modules."
-	@$(INSTALL) -d -m 0755 $(policypath) $(dir $(fcpath))
+	$(verbose) $(INSTALL) -d -m 0755 $(policypath) $(dir $(fcpath))
 	$(verbose) $(SEMODULE) -s $(NAME) $(foreach mod,$(instpkg),-i $(mod))
 
 ########################################
@@ -123,7 +123,7 @@ $(users_extra): $(tmpdir)/m4support.m4f $(user_files)
 #
 $(base_conf): $(base_sections)
 	@echo "Creating $(NAME) base module $(@F)"
-	@test -d $(@D) || mkdir -p $(@D)
+	$(verbose) mkdir -p $(@D)
 	$(verbose) cat $^ > $@
 
 $(tmpdir)/pre_te_files.conf: | $(tmpdir)
