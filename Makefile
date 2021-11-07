@@ -315,7 +315,7 @@ endif
 # Directories
 #
 $(builddir) $(docs) $(htmldir) $(tmpdir):
-	@mkdir -p $@
+	$(verbose) mkdir -p $@
 
 ########################################
 #
@@ -416,7 +416,7 @@ $(html_generated_flag): $(polxml)
 	@echo "Building html interface reference documentation in $(htmldir)"
 	$(verbose) $(gendoc) -d $(htmldir) -T $(doctemplate) -x $^
 	$(verbose) cp $(doctemplate)/*.css $(htmldir)
-	@touch -- $@
+	$(verbose) touch -- $@
 
 html: $(html_generated_flag)
 
@@ -434,12 +434,12 @@ $(userpath)/system.users: $(m4support) $(tmpdir)/generated_definitions.conf $(us
 	@echo "#" >> $(tmpdir)/system.users
 	$(verbose) $(M4) -D self_contained_policy $(M4PARAM) $^ | $(SED) -r -e 's/^[[:blank:]]+//' \
 		-e '/^[[:blank:]]*($$|#)/d' >> $(tmpdir)/system.users
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/system.users $@
 
 $(userpath)/local.users: config/local.users
 	@echo "Installing local.users"
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -b -m 0644 $^ $@
 
 ########################################
@@ -461,24 +461,24 @@ $(installdir)/booleans: | $(tmpdir)
 $(installdir)/booleans: $(booleans)
 	$(verbose) $(SED) -r -e 's/false/0/g' -e 's/true/1/g' \
 		-e '/^[[:blank:]]*($$|#)/d' $(booleans) | $(SORT) > $(tmpdir)/booleans
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/booleans $@
 
 $(contextpath)/files/media: $(appconf)/media
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
 $(fcsubspath): config/file_contexts.subs_dist
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
 $(contextpath)/users/%: $(appconf)/%_default_contexts
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
 $(appdir)/%: $(appconf)/%
 	$(verbose) $(M4) $(M4PARAM) $(m4support) $^ > $(tmpdir)/$(@F)
-	@$(INSTALL) -d -m 0755 $(@D)
+	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/$(@F) $@
 
 ########################################
@@ -486,7 +486,7 @@ $(appdir)/%: $(appconf)/%
 # Install policy headers
 #
 install-headers: $(layerxml) $(tunxml) $(boolxml)
-	@mkdir -p $(headerdir)
+	$(verbose) mkdir -p $(headerdir)
 	@echo "Installing $(NAME) policy headers."
 	$(verbose) $(INSTALL) -m 644 $^ $(headerdir)
 	$(verbose) mkdir -p $(headerdir)/support
