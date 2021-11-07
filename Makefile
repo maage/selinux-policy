@@ -80,7 +80,8 @@ avs := $(flaskdir)/access_vectors
 
 # policy building support tools
 support := support
-genxml := $(PYTHON) -E $(support)/segenxml.py
+segenxml_py := $(support)/segenxml.py
+genxml := $(PYTHON) -E $(segenxml_py)
 gendoc := $(PYTHON) -E $(support)/sedoctool.py
 genperm := $(PYTHON) -E $(support)/genclassperms.py
 policyvers := $(PYTHON) -E $(support)/policyvers.py
@@ -468,7 +469,7 @@ install-headers: $(layerxml) $(tunxml) $(boolxml)
 	@echo "Installing $(NAME) policy headers."
 	$(verbose) $(INSTALL) -m 644 $^ $(headerdir)
 	$(verbose) mkdir -p $(headerdir)/support
-	$(verbose) $(INSTALL) -m 644 $(m4support) $(word $(words $(genxml)),$(genxml)) $(xmldtd) $(headerdir)/support
+	$(verbose) $(INSTALL) -m 644 $(m4support) $(segenxml_py) $(xmldtd) $(headerdir)/support
 	$(verbose) $(genperm) $(avs) $(secclass) > $(headerdir)/support/all_perms.spt
 	$(verbose) for i in $(notdir $(all_layers)); do \
 		mkdir -p $(headerdir)/$$i ;\
