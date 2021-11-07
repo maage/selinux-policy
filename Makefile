@@ -132,7 +132,6 @@ policypath = $(installdir)/policy
 contextpath = $(installdir)/contexts
 homedirpath = $(contextpath)/files/homedir_template
 fcpath = $(contextpath)/files/file_contexts
-fcsubspath = $(contextpath)/files/file_contexts.subs_dist
 ncpath = $(contextpath)/netfilter_contexts
 sharedir = $(prefix)/share/selinux
 modpkgdir = $(sharedir)/$(strip $(NAME))
@@ -451,9 +450,17 @@ install-users: $(userpath)/system.users $(userpath)/local.users
 #
 # Build Appconfig files
 #
-$(tmpdir)/initrc_context: | $(tmpdir)
-$(tmpdir)/initrc_context: $(appconf)/initrc_context
+$(tmpdir)/booleans: $(booleans) | $(tmpdir)
+	$(verbose) $(SED) -r -e 's/false/0/g' -e 's/true/1/g' \
+		-e '/^[[:blank:]]*($$|#)/d' $^ | $(SORT) > $@.tmp
+	$(verbose) mv -- $@.tmp $@
+
+$(tmpdir)/initrc_context: $(appconf)/initrc_context | $(tmpdir)
 	$(verbose) $(M4) $(M4PARAM) $(m4support) $^ | $(GREP) '^[a-z]' > $@.tmp
+	$(verbose) mv -- $@.tmp $@
+
+$(tmpdir)/%: $(appconf)/% | $(tmpdir)
+	$(verbose) $(M4) $(M4PARAM) $(m4support) $< > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
 ########################################
@@ -462,60 +469,91 @@ $(tmpdir)/initrc_context: $(appconf)/initrc_context
 #
 install-appconfig: $(appfiles)
 
-$(installdir)/booleans: | $(tmpdir)
-$(installdir)/booleans: $(booleans)
-	$(verbose) $(SED) -r -e 's/false/0/g' -e 's/true/1/g' \
-		-e '/^[[:blank:]]*($$|#)/d' $(booleans) | $(SORT) > $(tmpdir)/booleans
-	$(verbose) $(INSTALL) -d -m 0755 $(@D)
-	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/booleans $@
+$(installdir) $(contextpath) $(contextpath)/files $(contextpath)/users:
+	$(verbose) $(INSTALL) -d -m 0755 $@
 
-$(contextpath)/customizable_types: $(tmpdir)/customizable_types
-	$(verbose) $(INSTALL) -Dm 0644 $^ $@
-
-$(contextpath)/files/media: $(appconf)/media
-	$(verbose) $(INSTALL) -d -m 0755 $(@D)
+$(installdir)/booleans: $(tmpdir)/booleans | $(installdir)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
-$(fcsubspath): config/file_contexts.subs_dist
-	$(verbose) $(INSTALL) -d -m 0755 $(@D)
+$(contextpath)/customizable_types: $(tmpdir)/customizable_types | $(contextpath)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
-$(contextpath)/users/%: $(appconf)/%_default_contexts
-	$(verbose) $(INSTALL) -d -m 0755 $(@D)
+$(contextpath)/files/file_contexts.subs_dist: config/file_contexts.subs_dist | $(contextpath)/files
 	$(verbose) $(INSTALL) -m 0644 $^ $@
 
-$(contextpath)/%: $(appconf)/%
-	$(verbose) $(M4) $(M4PARAM) $(m4support) $^ > $(tmpdir)/$(@F)
-	$(verbose) $(INSTALL) -d -m 0755 $(@D)
-	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/$(@F) $@
+$(contextpath)/files/media: $(appconf)/media | $(contextpath)/files
+	$(verbose) $(INSTALL) -m 0644 $^ $@
+
+$(contextpath)/users/%: $(appconf)/%_default_contexts | $(contextpath)/users
+	$(verbose) $(INSTALL) -m 0644 $^ $@
+
+$(contextpath)/%: $(tmpdir)/% | $(contextpath)
+	$(verbose) $(INSTALL) -m 0644 $^ $@
+
+########################################
+#
+# Build policy headers
+#
+$(tmpdir)/build.conf: | $(tmpdir)
+	$(verbose) echo "TYPE ?= $(TYPE)" > $@.tmp
+	$(verbose) echo "NAME ?= $(NAME)" >> $@.tmp
+ifneq "$(DISTRO)" ""
+	$(verbose) echo "DISTRO ?= $(DISTRO)" >> $@.tmp
+endif
+	$(verbose) echo "MONOLITHIC ?= n" >> $@.tmp
+	$(verbose) echo "DIRECT_INITRC ?= $(DIRECT_INITRC)" >> $@.tmp
+	$(verbose) echo "override UBAC := $(UBAC)" >> $@.tmp
+	$(verbose) echo "override MLS_SENS := $(MLS_SENS)" >> $@.tmp
+	$(verbose) echo "override MLS_CATS := $(MLS_CATS)" >> $@.tmp
+	$(verbose) echo "override MCS_CATS := $(MCS_CATS)" >> $@.tmp
+	$(verbose) mv -- $@.tmp $@
+
+$(tmpdir)/all_perms.spt: $(avs) $(secclass)
+	$(verbose) $(genperm) $^ > $@.tmp
+	$(verbose) mv -- $@.tmp $@
 
 ########################################
 #
 # Install policy headers
 #
-install-headers: $(layerxml) $(tunxml) $(boolxml)
-	$(verbose) mkdir -p $(headerdir)
+$(headerdir) $(headerdir)/support: | install-headers-pre
+	$(verbose) $(INSTALL) -d -m 0755 $@
+
+define install_headers_support
+$(headerdir)/support/$(notdir $(1)): $(1) | $(headerdir)/support install-headers-pre
+	$$(verbose) $(INSTALL) -m 644 $$^ $$@
+install-headers: $(headerdir)/support/$(notdir $(1))
+endef
+
+define install_headers
+$(headerdir)/$(notdir $(1)): $(1) | $(headerdir) install-headers-pre
+	$$(verbose) $(INSTALL) -m 644 $$^ $$@
+install-headers: $(headerdir)/$(notdir $(1))
+endef
+
+define install_headers_layers
+$(headerdir)/$(1): $(moddir)/$(1) | $(headerdir) install-headers-pre
+	$$(verbose) $(INSTALL) -Dm 644 $$^ $$@
+install-headers: $(headerdir)/$(1)
+endef
+
+$(foreach f,$(m4support) $(segenxml_py) $(xmldtd) $(tmpdir)/all_perms.spt,\
+	$(eval $(call install_headers_support,$(f))))
+$(foreach f,$(layerxml) $(tunxml) $(boolxml) $(tmpdir)/build.conf,\
+	$(eval $(call install_headers,$(f))))
+$(foreach layer,$(notdir $(all_layers)),\
+	$(foreach mod,$(notdir $(call per_layer_modules,$(layer))),\
+		$(eval $(call install_headers_layers,$(layer)/$(mod).if))))
+
+$(headerdir)/Makefile: $(support)/Makefile.devel | $(headerdir) install-headers-pre
+	$(verbose) $(INSTALL) -m 644 $^ $@
+install-headers: $(headerdir)/Makefile
+
+install-headers-pre:
 	@echo "Installing $(NAME) policy headers."
-	$(verbose) $(INSTALL) -m 644 $^ $(headerdir)
-	$(verbose) mkdir -p $(headerdir)/support
-	$(verbose) $(INSTALL) -m 644 $(m4support) $(segenxml_py) $(xmldtd) $(headerdir)/support
-	$(verbose) $(genperm) $(avs) $(secclass) > $(headerdir)/support/all_perms.spt
-	$(verbose) for i in $(notdir $(all_layers)); do \
-		mkdir -p $(headerdir)/$$i ;\
-		$(INSTALL) -m 644 $(moddir)/$$i/*.if $(headerdir)/$$i ;\
-	done
-	$(verbose) echo "TYPE ?= $(TYPE)" > $(headerdir)/build.conf
-	$(verbose) echo "NAME ?= $(NAME)" >> $(headerdir)/build.conf
-ifneq "$(DISTRO)" ""
-	$(verbose) echo "DISTRO ?= $(DISTRO)" >> $(headerdir)/build.conf
-endif
-	$(verbose) echo "MONOLITHIC ?= n" >> $(headerdir)/build.conf
-	$(verbose) echo "DIRECT_INITRC ?= $(DIRECT_INITRC)" >> $(headerdir)/build.conf
-	$(verbose) echo "override UBAC := $(UBAC)" >> $(headerdir)/build.conf
-	$(verbose) echo "override MLS_SENS := $(MLS_SENS)" >> $(headerdir)/build.conf
-	$(verbose) echo "override MLS_CATS := $(MLS_CATS)" >> $(headerdir)/build.conf
-	$(verbose) echo "override MCS_CATS := $(MCS_CATS)" >> $(headerdir)/build.conf
-	$(verbose) $(INSTALL) -m 644 $(support)/Makefile.devel $(headerdir)/Makefile
+.PHONY: install-headers-pre
+
+install-headers: | install-headers-pre
 
 ########################################
 #
