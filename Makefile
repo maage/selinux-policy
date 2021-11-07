@@ -465,6 +465,9 @@ $(installdir)/booleans: $(booleans)
 	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $(tmpdir)/booleans $@
 
+$(contextpath)/customizable_types: $(tmpdir)/customizable_types
+	$(verbose) $(INSTALL) -Dm 0644 $^ $@
+
 $(contextpath)/files/media: $(appconf)/media
 	$(verbose) $(INSTALL) -d -m 0755 $(@D)
 	$(verbose) $(INSTALL) -m 0644 $^ $@
