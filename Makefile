@@ -108,7 +108,6 @@ polxml = $(docs)/policy.xml
 tunxml = $(docs)/global_tunables.xml
 boolxml = $(docs)/global_booleans.xml
 htmldir = $(docs)/html
-polxmldir := $(dir $(polxml))
 
 # config file paths
 globaltun = $(poldir)/global_tunables
@@ -239,7 +238,6 @@ generated_fc := $(basename $(foreach dir,$(all_layers),$(wildcard $(dir)/*.fc.in
 # when a generated file is already generated
 detected_mods := $(sort $(foreach dir,$(all_layers),$(wildcard $(dir)/*.te)) $(generated_te))
 
-modxml := $(addprefix $(tmpdir)/, $(detected_mods:.te=.xml))
 layerxml := $(sort $(addprefix $(tmpdir)/, $(notdir $(addsuffix .xml,$(all_layers)))))
 layer_names := $(sort $(notdir $(all_layers)))
 all_metaxml = $(call detect-metaxml, $(layer_names))
@@ -315,7 +313,7 @@ endif
 #
 # Directories
 #
-$(builddir) $(htmldir) $(polxmldir) $(tmpdir):
+$(builddir) $(docs) $(htmldir) $(tmpdir):
 	@mkdir -p $@
 
 ########################################
@@ -374,7 +372,7 @@ conf: $(mod_conf) $(booleans) $(generated_te) $(generated_if) $(generated_fc)
 
 $(mod_conf) $(booleans): $(polxml)
 	@echo "Updating $(mod_conf) and $(booleans)"
-	$(verbose) $(gendoc) -b $(booleans) -m $(mod_conf) -x $(polxml)
+	$(verbose) $(gendoc) -b $(booleans) -m $(mod_conf) -x $^
 
 ########################################
 #
@@ -386,16 +384,18 @@ $(layerxml): %.xml: $(all_metaxml) $(filter $(addprefix $(moddir)/, $(notdir $*)
 	$(verbose) for i in $(basename $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods))); do $(genxml) -w -m $$i >> $@.tmp; done
 	$(verbose) mv -- $@.tmp $@
 
+$(tunxml): | $(docs)
 $(tunxml): $(globaltun)
 	$(verbose) $(genxml) -w -t $< > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
+$(boolxml): | $(docs)
 $(boolxml): $(globalbool)
 	$(verbose) $(genxml) -w -b $< > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
-$(polxml): | $(tmpdir) $(polxmldir)
-$(polxml): $(layerxml) $(tunxml) $(boolxml)
+$(polxml): | $(docs)
+$(polxml): $(xmldtd) $(layerxml) $(tunxml) $(boolxml)
 	@echo "Creating $(@F)"
 	$(verbose) echo '<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>' > $@.tmp
 	$(verbose) echo '<!DOCTYPE policy SYSTEM "$(notdir $(xmldtd))">' >> $@.tmp
@@ -414,7 +414,7 @@ xml: $(polxml)
 html $(tmpdir)/html: | $(htmldir) $(tmpdir)
 html $(tmpdir)/html: $(polxml)
 	@echo "Building html interface reference documentation in $(htmldir)"
-	$(verbose) $(gendoc) -d $(htmldir) -T $(doctemplate) -x $(polxml)
+	$(verbose) $(gendoc) -d $(htmldir) -T $(doctemplate) -x $^
 	$(verbose) cp $(doctemplate)/*.css $(htmldir)
 	@touch $(tmpdir)/html
 
@@ -585,11 +585,9 @@ resetlabels:
 #
 bare: clean
 	pwd
-	#rm -f $(polxml)
-	#rm -f $(layerxml)
-	#rm -f $(modxml)
-	#rm -f $(tunxml)
-	#rm -f $(boolxml)
+	rm -f $(polxml)
+	rm -f $(tunxml)
+	rm -f $(boolxml)
 	#rm -f $(mod_conf)
 	rm -f $(booleans)
 	rm -fR $(htmldir) $(tmpdir)/html
