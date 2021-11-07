@@ -359,6 +359,8 @@ $(ncpath): $(net_contexts)
 install-net-contexts: $(ncpath)
 .PHONY: install-net-contexts
 
+install-all: install-net-contexts
+
 ########################################
 #
 # Create config files
@@ -446,6 +448,8 @@ $(userpath)/local.users: config/local.users
 
 install-users: $(userpath)/system.users $(userpath)/local.users
 
+install-all: install-users
+
 ########################################
 #
 # Build Appconfig files
@@ -468,6 +472,8 @@ $(tmpdir)/%: $(appconf)/% | $(tmpdir)
 # Install Appconfig files
 #
 install-appconfig: $(appfiles)
+
+install-all: install-appconfig
 
 $(installdir) $(contextpath) $(contextpath)/files $(contextpath)/users:
 	$(verbose) $(INSTALL) -d -m 0755 $@
@@ -555,6 +561,8 @@ install-headers-pre:
 
 install-headers: | install-headers-pre
 
+install-all: install-headers
+
 ########################################
 #
 # Install policy documentation
@@ -563,6 +571,8 @@ install-docs: html
 	@echo "Installing policy documentation"
 	$(verbose) $(INSTALL) -Dm 644 -t $(docsdir) $(docfiles)
 	$(verbose) $(INSTALL) -Dm 644 -t $(docsdir)/html $(wildcard $(htmldir)/*)
+
+install-all: install-docs
 
 ########################################
 #
@@ -649,6 +659,6 @@ ifneq ($(generated_fc),)
 	rm -f $(generated_fc)
 endif
 
-.PHONY: install-src install-appconfig install-headers install-users generate xml conf html bare tags
+.PHONY: bare conf generate html install-all install-appconfig install-headers install-src install-users tags xml
 .SUFFIXES:
 .SUFFIXES: .c
