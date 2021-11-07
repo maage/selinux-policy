@@ -212,7 +212,7 @@ endif
 #
 # Appconfig files
 #
-$(appdir)/customizable_types: $(base_conf)
+$(contextpath)/customizable_types: $(base_conf)
 	$(verbose) $(GREP) '^[[:blank:]]*type .*customizable' $^ | cut -d';' -f1 | cut -d',' -f1 | cut -d' ' -f2 | $(SORT) -u > $(tmpdir)/customizable_types
 	$(verbose) $(INSTALL) -Dm 0644 $(tmpdir)/customizable_types $@
 
