@@ -187,7 +187,7 @@ $(tmpdir)/only_te_rules.conf: $(tmpdir)/all_te_files.conf
 # Construct a base.fc
 #
 $(base_fc): $(tmpdir)/$(notdir $(base_fc)).tmp
-	$(verbose) $(fcsort) $< $@
+	$(verbose) $(fcsort) $^ $@
 
 $(tmpdir)/$(notdir $(base_fc)).tmp: | $(tmpdir)
 $(tmpdir)/$(notdir $(base_fc)).tmp: $(tmpdir)/m4support.m4f $(tmpdir)/generated_definitions.conf $(base_fc_files)
@@ -202,7 +202,7 @@ endif
 # Appconfig files
 #
 $(appdir)/customizable_types: $(base_conf)
-	$(verbose) $(GREP) '^[[:blank:]]*type .*customizable' $< | cut -d';' -f1 | cut -d',' -f1 | cut -d' ' -f2 | $(SORT) -u > $(tmpdir)/customizable_types
+	$(verbose) $(GREP) '^[[:blank:]]*type .*customizable' $^ | cut -d';' -f1 | cut -d',' -f1 | cut -d' ' -f2 | $(SORT) -u > $(tmpdir)/customizable_types
 	$(verbose) $(INSTALL) -Dm 0644 $(tmpdir)/customizable_types $@
 
 ########################################
