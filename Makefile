@@ -119,6 +119,7 @@ booleans = $(poldir)/booleans.conf
 tunables = $(poldir)/tunables.conf
 
 # install paths
+DESTDIR ?=
 PKGNAME ?= refpolicy-$(version)
 prefix = $(DESTDIR)/usr
 topdir = $(DESTDIR)/etc/selinux
@@ -174,7 +175,7 @@ endif
 NAME ?= $(TYPE)
 
 # default unknown permissions setting
-#UNK_PERMS ?= deny
+UNK_PERMS ?=
 
 ifeq ($(DIRECT_INITRC),y)
 	M4PARAM += -D direct_sysadm_daemon
