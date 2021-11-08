@@ -138,6 +138,7 @@ sharedir = $(prefix)/share/selinux
 modpkgdir = $(sharedir)/$(strip $(NAME))
 headerdir = $(modpkgdir)/include
 docsdir = $(prefix)/share/doc/$(PKGNAME)
+storerootdir = $(DESTDIR)/var/lib/selinux/$(strip $(NAME))
 
 # enable MLS if requested.
 ifeq "$(TYPE)" "mls"
