@@ -659,7 +659,6 @@ bare: clean
 	rm -f $(polxml)
 	rm -f $(tunxml)
 	rm -f $(boolxml)
-	#rm -f $(mod_conf)
 	rm -f $(booleans)
 	#rm -f $(tags)
 	rm -rf $(support)/*.pyc $(support)/__pycache__
