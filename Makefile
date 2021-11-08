@@ -350,6 +350,8 @@ $(net_contexts): $(moddir)/kernel/corenetwork.te.in
 	$(verbose) $(gennetfilter) $^ > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
+all: $(net_contexts)
+
 ########################################
 #
 # Install netfilter_contexts
@@ -417,6 +419,8 @@ $(polxml): $(xmldtd) $(layerxml) $(tunxml) $(boolxml)
 
 xml: $(polxml)
 
+all: xml
+
 $(html_generated_flag): | $(htmldir) $(tmpdir)
 $(html_generated_flag): $(polxml)
 	@echo "Building html interface reference documentation in $(htmldir)"
@@ -425,6 +429,8 @@ $(html_generated_flag): $(polxml)
 	$(verbose) touch -- $@
 
 html: $(html_generated_flag)
+
+all: html
 
 ########################################
 #
@@ -439,6 +445,8 @@ $(tmpdir)/system.users: $(m4support) $(tmpdir)/generated_definitions.conf $(user
 	$(verbose) $(M4) -D self_contained_policy $(M4PARAM) $^ | $(SED) -r -e 's/^[[:blank:]]+//' \
 		-e '/^[[:blank:]]*($$|#)/d' >> $@.tmp
 	$(verbose) mv -- $@.tmp $@
+
+all: $(tmpdir)/system.users
 
 $(userpath)/system.users: $(tmpdir)/system.users
 	@echo "Installing system.users"
@@ -468,6 +476,8 @@ $(tmpdir)/initrc_context: $(appconf)/initrc_context | $(tmpdir)
 $(tmpdir)/%: $(appconf)/% | $(tmpdir)
 	$(verbose) $(M4) $(M4PARAM) $(m4support) $< > $@.tmp
 	$(verbose) mv -- $@.tmp $@
+
+all: $(tmpdir)/booleans $(tmpdir)/initrc_context $(addprefix $(tmpdir)/,$(notdir $(filter-out $(contextpath)/users/%,$(appfiles))))
 
 ########################################
 #
@@ -519,6 +529,8 @@ endif
 $(tmpdir)/all_perms.spt: $(avs) $(secclass)
 	$(verbose) $(genperm) $^ > $@.tmp
 	$(verbose) mv -- $@.tmp $@
+
+all: $(tmpdir)/build.conf $(tmpdir)/all_perms.spt
 
 ########################################
 #
