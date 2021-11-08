@@ -61,10 +61,10 @@ install-all: load
 
 # make sure two directories exist since they are not
 # created by semanage
-$(modpkgdir) $(policypath):
+$(modpkgdir) $(policypath) $(storerootdir):
 	$(verbose) $(INSTALL) -d -m 0755 $@
 
-$(load_flag): | $(tmpdir) $(modpkgdir) $(policypath)
+$(load_flag): | $(tmpdir) $(modpkgdir) $(policypath) $(storerootdir)
 $(load_flag): $(instpkg)
 	@echo "Loading configured modules."
 	$(verbose) $(SEMODULE) -s $(NAME) $(foreach mod,$?,-i $(mod))
