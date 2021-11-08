@@ -150,7 +150,6 @@ $(tmpdir)/generated_definitions.conf: | $(tmpdir)
 $(tmpdir)/generated_definitions.conf:
 # define all available object classes
 	$(verbose) $(genperm) $(avs) $(secclass) > $@
-	$(verbose) $(call create-base-per-role-tmpl,$(patsubst %.te,%,$(base_mods)),$@)
 	$(verbose) test -f $(booleans) && $(setbools) $(booleans) >> $@ || true
 
 $(tmpdir)/global_bools.conf: | $(tmpdir)
