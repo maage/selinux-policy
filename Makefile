@@ -238,9 +238,7 @@ generated_fc := $(basename $(foreach dir,$(all_layers),$(wildcard $(dir)/*.fc.in
 # when a generated file is already generated
 detected_mods := $(sort $(foreach dir,$(all_layers),$(wildcard $(dir)/*.te)) $(generated_te))
 
-layerxml := $(sort $(addprefix $(tmpdir)/, $(notdir $(addsuffix .xml,$(all_layers)))))
-layer_names := $(sort $(notdir $(all_layers)))
-all_metaxml = $(call detect-metaxml, $(layer_names))
+layerxml := $(foreach layer,$(notdir $(all_layers)),$(tmpdir)/$(layer).xml)
 
 # modules.conf setting for base module
 configbase := base
@@ -292,10 +290,8 @@ fs_names := "btrfs ext2 ext3 ext4 xfs jfs"
 #
 # Functions
 #
-
-# detect-metaxml layer_names
-define detect-metaxml
-	$(shell for i in $1; do echo $(moddir)/$$i/$(metaxml); done)
+define per_layer_modules
+$(sort $(basename $(filter $(moddir)/$(1)/%, $(detected_mods))))
 endef
 
 ########################################
@@ -378,11 +374,19 @@ $(mod_conf) $(booleans): $(polxml)
 #
 # Documentation generation
 #
-$(layerxml): | $(tmpdir)
-$(layerxml): %.xml: $(all_metaxml) $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods)) $(subst .te,.if, $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods)))
-	$(verbose) cat $(filter %$(notdir $*)/$(metaxml), $(all_metaxml)) > $@.tmp
-	$(verbose) for i in $(basename $(filter $(addprefix $(moddir)/, $(notdir $*))%, $(detected_mods))); do $(genxml) -w -m $$i >> $@.tmp; done
-	$(verbose) mv -- $@.tmp $@
+define layerxml_template
+$(1): | $(tmpdir)
+$(1): $(2) $(foreach mod,$(3),$(mod).te $(mod).if)
+	$$(verbose) cat$(2) > $$@.tmp
+	$$(verbose) for i in$(3); do $(genxml) -w -m $$$$i >> $$@.tmp; done
+	$$(verbose) mv -- $$@.tmp $$@
+endef
+$(foreach layer,\
+	$(notdir $(all_layers)),\
+	$(eval $(call layerxml_template,\
+		$(tmpdir)/$(layer).xml,\
+		$(moddir)/$(layer)/$(metaxml),\
+		$(call per_layer_modules,$(layer)))))
 
 $(tunxml): | $(docs)
 $(tunxml): $(globaltun)
