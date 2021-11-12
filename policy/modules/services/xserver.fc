@@ -189,7 +189,7 @@ ifndef(`distro_debian',`
 /var/run/xdmctl(/.*)?		gen_context(system_u:object_r:xdm_var_run_t,s0)
 /var/run/sddm(/.*)?		gen_context(system_u:object_r:xdm_var_run_t,s0)
 
-/var/run/video.rom	--	gen_context(system_u:object_r:xserver_var_run_t,s0)
+/var/run/video\.rom	--	gen_context(system_u:object_r:xserver_var_run_t,s0)
 /var/run/xorg(/.*)?		gen_context(system_u:object_r:xserver_var_run_t,s0)
 /var/run/systemd/multi-session-x(/.*)?	gen_context(system_u:object_r:xdm_var_run_t,s0)
 

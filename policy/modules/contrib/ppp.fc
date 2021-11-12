@@ -13,7 +13,7 @@
 
 /usr/lib/systemd/system/ppp.*	--	gen_context(system_u:object_r:iptables_unit_file_t,s0)
 
-/root/.ppprc			--	gen_context(system_u:object_r:pppd_etc_t,s0)
+/root/\.ppprc			--	gen_context(system_u:object_r:pppd_etc_t,s0)
 
 #
 # /sbin

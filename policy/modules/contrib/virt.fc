@@ -14,7 +14,7 @@ HOME_DIR/\.local/share/libvirt/images(/.*)? gen_context(system_u:object_r:svirt_
 HOME_DIR/\.local/share/libvirt/boot(/.*)?   gen_context(system_u:object_r:svirt_home_t,s0)
 
 /etc/libvirt		-d	gen_context(system_u:object_r:virt_etc_t,s0)
-/etc/libvirt/virtlogd.conf --   gen_context(system_u:object_r:virtlogd_etc_t,s0)
+/etc/libvirt/virtlogd\.conf --   gen_context(system_u:object_r:virtlogd_etc_t,s0)
 /etc/libvirt/[^/]*	--	gen_context(system_u:object_r:virt_etc_t,s0)
 /etc/libvirt/[^/]*	-d	gen_context(system_u:object_r:virt_etc_rw_t,s0)
 /etc/libvirt/.*/.*		gen_context(system_u:object_r:virt_etc_rw_t,s0)
@@ -106,13 +106,13 @@ HOME_DIR/\.local/share/libvirt/boot(/.*)?   gen_context(system_u:object_r:svirt_
 /usr/bin/qemu-kvm	--	gen_context(system_u:object_r:qemu_exec_t,s0)
 /usr/libexec/qemu.*	--	gen_context(system_u:object_r:qemu_exec_t,s0)
 
-/etc/qemu-ga/fsfreeze-hook.d(/.*)?      gen_context(system_u:object_r:virt_qemu_ga_unconfined_exec_t,s0)
-/usr/libexec/qemu-ga/fsfreeze-hook.d(/.*)?  gen_context(system_u:object_r:virt_qemu_ga_unconfined_exec_t,s0)
-/var/run/qemu-ga/fsfreeze-hook.d(/.*)?      gen_context(system_u:object_r:virt_qemu_ga_unconfined_exec_t,s0)
+/etc/qemu-ga/fsfreeze-hook\.d(/.*)?      gen_context(system_u:object_r:virt_qemu_ga_unconfined_exec_t,s0)
+/usr/libexec/qemu-ga/fsfreeze-hook\.d(/.*)?  gen_context(system_u:object_r:virt_qemu_ga_unconfined_exec_t,s0)
+/var/run/qemu-ga/fsfreeze-hook\.d(/.*)?      gen_context(system_u:object_r:virt_qemu_ga_unconfined_exec_t,s0)
 
 /usr/libexec/qemu-ga(/.*)?	gen_context(system_u:object_r:virt_qemu_ga_exec_t,s0)
 
-/usr/lib/virt-sysprep/firstboot.sh --  gen_context(system_u:object_r:virtd_exec_t,s0)
+/usr/lib/virt-sysprep/firstboot\.sh --  gen_context(system_u:object_r:virtd_exec_t,s0)
 
 /usr/lib/systemd/system/*virtlogd.*	gen_context(system_u:object_r:virtlogd_unit_file_t,s0)
 

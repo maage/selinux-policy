@@ -66,7 +66,7 @@ ifdef(`distro_gentoo',`
 # despite the extensions, they are actually libs
 /opt/Acrobat[5-9]/Reader/intellinux/plugins/.*\.api -- gen_context(system_u:object_r:lib_t,s0)
 
-/opt/Komodo-Edit-5/lib/python/lib/python2.6/lib-dynload/.*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
+/opt/Komodo-Edit-5/lib/python/lib/python2\.6/lib-dynload/.*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 ifdef(`distro_gentoo',`
 # despite the extensions, they are actually libs
@@ -202,11 +202,11 @@ ifdef(`distro_redhat',`
 HOME_DIR/.*/plugins/nppdf\.so.* 	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/(.*/)?nprhapengine\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/allegro/(.*/)?alleg-vga\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/firefox-[^/]*/extensions(/.*)?/libqfaservices.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/firefox-[^/]*/plugins/nppdf.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/firefox-[^/]*/extensions(/.*)?/libqfaservices\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/firefox-[^/]*/plugins/nppdf\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/firefox/plugins/libractrl\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/libFLAC\.so.*			--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/dri/fglrx_dri.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/dri/fglrx_dri\.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/libfglrx_gamma\.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/mozilla/plugins/nppdf\.so 	-- 	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/mozilla/plugins/libvlcplugin\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
@@ -274,7 +274,7 @@ HOME_DIR/.*/plugins/nppdf\.so.* 	--	gen_context(system_u:object_r:textrel_shlib_
 
 /usr/lib/libdvdcss\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
-/usr/lib/python2.4/site-packages/M2Crypto/__m2crypto\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/python2\.4/site-packages/M2Crypto/__m2crypto\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 # vmware
 /usr/lib/vmware/lib(/.*)?/libgdk-x11-.*\.so.* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
@@ -386,7 +386,7 @@ ifdef(`distro_suse',`
 
 /usr/lib/xine/plugins/.+\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
-/usr/lib/yafaray/libDarkSky.so 	   --	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/yafaray/libDarkSky\.so 	   --	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 /usr/lib/libpostproc\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 

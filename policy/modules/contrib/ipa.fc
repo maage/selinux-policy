@@ -1,4 +1,4 @@
-/etc/httpd/alias/ipasession.key     --     gen_context(system_u:object_r:ipa_cert_t,s0)
+/etc/httpd/alias/ipasession\.key     --     gen_context(system_u:object_r:ipa_cert_t,s0)
 
 /usr/lib/systemd/system/ipa-otpd.*		--	gen_context(system_u:object_r:ipa_otpd_unit_file_t,s0)
 
@@ -23,7 +23,7 @@
 
 /var/log/ipa(/.*)?              gen_context(system_u:object_r:ipa_log_t,s0)
 
-/var/log/ipareplica-conncheck.log.*	--	gen_context(system_u:object_r:ipa_log_t,s0)
+/var/log/ipareplica-conncheck\.log.*	--	gen_context(system_u:object_r:ipa_log_t,s0)
 
 /var/run/ipa(/.*)?              gen_context(system_u:object_r:ipa_var_run_t,s0)
 

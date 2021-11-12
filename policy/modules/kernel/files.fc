@@ -67,7 +67,7 @@ ifdef(`distro_suse',`
 /etc/sysconfig/ipvsadm.*                --      gen_context(system_u:object_r:system_conf_t,s0)
 /etc/sysconfig/system-config-firewall.* --      gen_context(system_u:object_r:system_conf_t,s0)
 /etc/yum\.repos\.d(/.*)?                        gen_context(system_u:object_r:system_conf_t,s0)
-/etc/ostree/remotes.d(/.*)?                      gen_context(system_u:object_r:system_conf_t,s0)
+/etc/ostree/remotes\.d(/.*)?                      gen_context(system_u:object_r:system_conf_t,s0)
 
 /ostree/repo(/.*)?                      gen_context(system_u:object_r:system_conf_t,s0)
 /ostree/deploy/rhel-atomic-host/deploy(/.*)?                      gen_context(system_u:object_r:system_conf_t,s0)
@@ -234,7 +234,7 @@ ifdef(`distro_redhat',`
 # https://github.com/projectatomic/rpm-ostree/pull/959#issuecomment-325780234
 /usr/lib/ostree-boot(/.*)?                gen_context(system_u:object_r:usr_t,s0)
 /usr/lib/modules(/.*)/vmlinuz         -- 	gen_context(system_u:object_r:usr_t,s0)
-/usr/lib/modules(/.*)/initramfs.img   --	gen_context(system_u:object_r:usr_t,s0)
+/usr/lib/modules(/.*)/initramfs\.img   --	gen_context(system_u:object_r:usr_t,s0)
 
 /usr/doc(/.*)?/lib(/.*)?	gen_context(system_u:object_r:usr_t,s0)
 
@@ -280,12 +280,12 @@ ifndef(`distro_redhat',`
 
 /var/lib/nfs/rpc_pipefs(/.*)?	<<none>>
 
-/var/lib/stickshift/.stickshift-proxy.d(/.*)?   gen_context(system_u:object_r:etc_t,s0)
-/var/lib/stickshift/.limits.d(/.*)?        gen_context(system_u:object_r:etc_t,s0)
+/var/lib/stickshift/\.stickshift-proxy\.d(/.*)?   gen_context(system_u:object_r:etc_t,s0)
+/var/lib/stickshift/\.limits\.d(/.*)?        gen_context(system_u:object_r:etc_t,s0)
 
-/var/lib/openshift/.openshift-proxy.d(/.*)?   gen_context(system_u:object_r:etc_t,s0)
-/var/lib/openshift/.stickshift-proxy.d(/.*)?   gen_context(system_u:object_r:etc_t,s0)
-/var/lib/openshift/.limits.d(/.*)?        gen_context(system_u:object_r:etc_t,s0)
+/var/lib/openshift/\.openshift-proxy\.d(/.*)?   gen_context(system_u:object_r:etc_t,s0)
+/var/lib/openshift/\.stickshift-proxy\.d(/.*)?   gen_context(system_u:object_r:etc_t,s0)
+/var/lib/openshift/\.limits\.d(/.*)?        gen_context(system_u:object_r:etc_t,s0)
 
 /var/lib/servicelog/servicelog\.db    --  gen_context(system_u:object_r:system_db_t,s0)
 /var/lib/servicelog/servicelog\.db-journal  --  gen_context(system_u:object_r:system_db_t,s0)
