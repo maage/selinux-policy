@@ -31,7 +31,7 @@ systemd_unit_file(opendnssec_unit_file_t)
 allow opendnssec_t self:capability { chown setgid setuid sys_chroot };
 allow opendnssec_t self:process { fork signal_perms };
 allow opendnssec_t self:fifo_file rw_fifo_file_perms;
-allow opendnssec_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow opendnssec_t self:unix_stream_socket { connectto create_stream_socket_perms };
 
 # allow daemon to execute ods-signer (RHBZ#1537971)
 allow opendnssec_t opendnssec_exec_t:file { execute execute_no_trans };

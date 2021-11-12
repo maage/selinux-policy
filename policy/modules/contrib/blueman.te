@@ -24,7 +24,7 @@ files_tmp_file(blueman_tmp_t)
 #
 
 allow blueman_t self:capability { net_admin sys_nice };
-allow blueman_t self:process { execmem signal_perms setsched };
+allow blueman_t self:process { execmem setsched signal_perms };
 
 allow blueman_t self:fifo_file rw_fifo_file_perms;
 

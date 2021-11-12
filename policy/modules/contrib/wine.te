@@ -42,7 +42,7 @@ optional_policy(`
 # Common wine domain policy
 #
 
-allow wine_domain self:process { execstack execmem execheap };
+allow wine_domain self:process { execheap execmem execstack };
 allow wine_domain self:fifo_file manage_fifo_file_perms;
 
 can_exec(wine_domain, wine_exec_t)

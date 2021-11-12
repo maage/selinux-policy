@@ -228,7 +228,7 @@ optional_policy(`
 allow gkeyringd_domain self:capability ipc_lock;
 allow gkeyringd_domain self:process { getcap getsched setcap signal };
 allow gkeyringd_domain self:fifo_file rw_fifo_file_perms;
-allow gkeyringd_domain self:unix_stream_socket { connectto accept listen };
+allow gkeyringd_domain self:unix_stream_socket { accept connectto listen };
 
 manage_files_pattern(gkeyringd_domain, config_home_t, config_home_t)
 

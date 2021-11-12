@@ -25,7 +25,7 @@ files_pid_file(imazesrv_var_run_t)
 #
 
 dontaudit imazesrv_t self:capability sys_tty_config;
-allow imazesrv_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow imazesrv_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow imazesrv_t self:fifo_file rw_fifo_file_perms;
 allow imazesrv_t self:tcp_socket { accept listen };
 allow imazesrv_t self:unix_dgram_socket sendto;

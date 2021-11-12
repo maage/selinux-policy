@@ -70,7 +70,7 @@ optional_policy(`
 # tomcat domain local policy
 #
 
-allow tomcat_t self:capability { setuid kill };
+allow tomcat_t self:capability { kill setuid };
 
 allow tomcat_t self:process { execmem setcap setsched signal signull };
 

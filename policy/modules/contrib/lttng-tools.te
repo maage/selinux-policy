@@ -23,12 +23,12 @@ systemd_unit_file(lttng_sessiond_unit_file_t)
 # lttng_sessiond local policy
 #
 
-allow lttng_sessiond_t self:capability { chown setgid setuid fsetid net_admin sys_resource };
+allow lttng_sessiond_t self:capability { chown fsetid net_admin setgid setuid sys_resource };
 allow lttng_sessiond_t self:capability2 block_suspend;
 allow lttng_sessiond_t self:process { setrlimit signal_perms };
 allow lttng_sessiond_t self:fifo_file rw_fifo_file_perms;
 allow lttng_sessiond_t self:tcp_socket listen;
-allow lttng_sessiond_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow lttng_sessiond_t self:unix_stream_socket { connectto create_stream_socket_perms };
 
 manage_dirs_pattern(lttng_sessiond_t, lttng_sessiond_var_run_t, lttng_sessiond_var_run_t)
 manage_files_pattern(lttng_sessiond_t, lttng_sessiond_var_run_t, lttng_sessiond_var_run_t)

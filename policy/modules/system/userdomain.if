@@ -48,29 +48,29 @@ template(`userdom_base_user_template',`
 	term_user_tty($1_t, user_tty_device_t)
 	term_dontaudit_getattr_generic_ptys($1_t)
 
-	allow $1_usertype $1_usertype:process { signal_perms getsched setsched share getpgid setpgid getcap setcap getsession getattr };
+	allow $1_usertype $1_usertype:process { getattr getcap getpgid getsched getsession setcap setpgid setsched share signal_perms };
 	tunable_policy(`deny_ptrace',`',`
 		allow $1_usertype $1_usertype:process ptrace;
 	')
 	allow $1_usertype $1_usertype:fd use;
-	allow $1_usertype $1_t:key { create view read write search link setattr };
+	allow $1_usertype $1_t:key { create link read search setattr view write };
 
 	allow $1_usertype $1_usertype:fifo_file rw_fifo_file_perms;
 	allow $1_usertype $1_usertype:unix_dgram_socket { create_socket_perms sendto };
-	allow $1_usertype $1_usertype:unix_stream_socket { create_stream_socket_perms connectto };
+	allow $1_usertype $1_usertype:unix_stream_socket { connectto create_stream_socket_perms };
 	allow $1_usertype $1_usertype:shm create_shm_perms;
 	allow $1_usertype $1_usertype:sem create_sem_perms;
 	allow $1_usertype $1_usertype:msgq create_msgq_perms;
-	allow $1_usertype $1_usertype:msg { send receive };
+	allow $1_usertype $1_usertype:msg { receive send };
 	allow $1_usertype $1_usertype:context contains;
 	dontaudit $1_usertype $1_usertype:socket create;
 
-	allow $1_usertype user_devpts_t:chr_file { setattr rw_chr_file_perms };
+	allow $1_usertype user_devpts_t:chr_file { rw_chr_file_perms setattr };
 	term_create_pty($1_usertype, user_devpts_t)
 	# avoid annoying messages on terminal hangup on role change
 	dontaudit $1_usertype user_devpts_t:chr_file ioctl;
 
-	allow $1_usertype user_tty_device_t:chr_file { setattr rw_chr_file_perms };
+	allow $1_usertype user_tty_device_t:chr_file { rw_chr_file_perms setattr };
 	# avoid annoying messages on terminal hangup on role change
 	dontaudit $1_usertype user_tty_device_t:chr_file ioctl;
 
@@ -271,7 +271,7 @@ interface(`userdom_manage_home_role',`
 	allow $2 user_home_t:dir mounton;
 	allow $2 user_home_t:file entrypoint;
 
-	allow $2 user_home_type:dir_file_class_set { relabelto relabelfrom };
+	allow $2 user_home_type:dir_file_class_set { relabelfrom relabelto };
 	allow $2 user_home_dir_t:lnk_file read_lnk_file_perms;
 	manage_dirs_pattern($2, { user_home_dir_t user_home_type }, user_home_type)
 	manage_files_pattern($2, { user_home_dir_t user_home_type }, user_home_type)
@@ -753,8 +753,8 @@ template(`userdom_common_user_template',`
 	allow $1_t self:packet_socket create_socket_perms;
 
 	# evolution and gnome-session try to create a netlink socket
-	dontaudit $1_t self:netlink_socket { create ioctl read getattr write setattr append bind connect getopt setopt shutdown };
-	dontaudit $1_t self:netlink_route_socket { create ioctl read getattr write setattr append bind connect getopt setopt shutdown nlmsg_read nlmsg_write };
+	dontaudit $1_t self:netlink_socket { append bind connect create getattr getopt ioctl read setattr setopt shutdown write };
+	dontaudit $1_t self:netlink_route_socket { append bind connect create getattr getopt ioctl nlmsg_read nlmsg_write read setattr setopt shutdown write };
     allow $1_t self:netlink_selinux_socket create_socket_perms;
 	allow $1_t self:netlink_kobject_uevent_socket create_socket_perms;
 	allow $1_t self:socket create_socket_perms;
@@ -1095,15 +1095,15 @@ template(`userdom_login_user_template', `
 	#
 	# User domain Local policy
 	#
-	dontaudit $1_t self:capability { sys_nice fsetid };
-	allow $1_t self:process ~{ ptrace execmem execstack execheap };
+	dontaudit $1_t self:capability { fsetid sys_nice };
+	allow $1_t self:process ~{ execheap execmem execstack ptrace };
 
 	tunable_policy(`selinuxuser_use_ssh_chroot',`
-		allow $1_t self:capability { setuid setgid sys_chroot };
+		allow $1_t self:capability { setgid setuid sys_chroot };
 	')
 
 	dontaudit $1_t self:process setrlimit;
-	dontaudit $1_t self:netlink_route_socket { create ioctl read getattr write setattr append bind connect getopt setopt shutdown nlmsg_read nlmsg_write };
+	dontaudit $1_t self:netlink_route_socket { append bind connect create getattr getopt ioctl nlmsg_read nlmsg_write read setattr setopt shutdown write };
 	domain_dyntrans_type($1_t)
 
 	allow $1_t self:context contains;
@@ -1471,7 +1471,7 @@ template(`userdom_unpriv_user_template', `
 	#
 	# Local policy
 	#
-	allow $1_t self:capability { setgid chown fowner };
+	allow $1_t self:capability { chown fowner setgid };
     allow $1_t self:alg_socket create_socket_perms;
     allow $1_t self:dccp_socket create_socket_perms;
     allow $1_t self:netlink_tcpdiag_socket create_netlink_socket_perms;
@@ -1627,7 +1627,7 @@ template(`userdom_admin_user_template',`
 		attribute admindomain;
 		attribute confined_admindomain;
 
-		class passwd { passwd chfn chsh rootok crontab };
+		class passwd { chfn chsh crontab passwd rootok };
 	')
 
 	##############################
@@ -1846,7 +1846,7 @@ template(`userdom_admin_user_template',`
 template(`userdom_security_admin',`
 	allow $1 self:capability { audit_control dac_read_search  };
 
-    allow $1 self:netlink_audit_socket { nlmsg_write create_netlink_socket_perms };
+    allow $1 self:netlink_audit_socket { create_netlink_socket_perms nlmsg_write };
 
 	corecmd_exec_shell($1)
 
@@ -5269,7 +5269,7 @@ interface(`userdom_inherit_append_admin_home_files',`
 		type admin_home_t;
 	')
 
-	allow $1 admin_home_t:file { getattr append };
+	allow $1 admin_home_t:file { append getattr };
 ')
 
 
@@ -5644,7 +5644,7 @@ interface(`userdom_inherit_append_user_home_content_files',`
 		type user_home_t;
 	')
 
-	allow $1 user_home_t:file { getattr append };
+	allow $1 user_home_t:file { append getattr };
 ')
 
 ########################################
@@ -5663,7 +5663,7 @@ interface(`userdom_inherit_append_user_tmp_files',`
 		type user_tmp_t;
 	')
 
-	allow $1 user_tmp_t:file { getattr append };
+	allow $1 user_tmp_t:file { append getattr };
 ')
 
 ######################################
@@ -6699,7 +6699,7 @@ template(`userdom_confined_admin_template',`
 template(`userdom_security_admin_template',`
 	allow $1 self:capability { audit_control dac_read_search  };
 
-    allow $1 self:netlink_audit_socket { nlmsg_write create_netlink_socket_perms };
+    allow $1 self:netlink_audit_socket { create_netlink_socket_perms nlmsg_write };
 
 	corecmd_exec_shell($1)
 

@@ -33,7 +33,7 @@ allow kmscon_t self:capability {sys_admin sys_tty_config};
 dontaudit kmscon_t self:capability2 block_suspend;
 
 # Create an udev monitor
-allow kmscon_t self:netlink_kobject_uevent_socket { bind create setopt getattr };
+allow kmscon_t self:netlink_kobject_uevent_socket { bind create getattr setopt };
 
 allow kmscon_t kmscon_devpts_t:chr_file { rw_chr_file_perms setattr_chr_file_perms };
 term_create_pty(kmscon_t, kmscon_devpts_t)

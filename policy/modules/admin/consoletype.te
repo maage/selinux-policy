@@ -16,7 +16,7 @@ role system_r types consoletype_t;
 #
 
 allow consoletype_t self:capability { sys_admin sys_tty_config };
-allow consoletype_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow consoletype_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow consoletype_t self:fd use;
 allow consoletype_t self:fifo_file rw_fifo_file_perms;
 allow consoletype_t self:sock_file read_sock_file_perms;
@@ -27,7 +27,7 @@ allow consoletype_t self:unix_stream_socket connectto;
 allow consoletype_t self:shm create_shm_perms;
 allow consoletype_t self:sem create_sem_perms;
 allow consoletype_t self:msgq create_msgq_perms;
-allow consoletype_t self:msg { send receive };
+allow consoletype_t self:msg { receive send };
 
 kernel_use_fds(consoletype_t)
 kernel_dontaudit_read_system_state(consoletype_t)

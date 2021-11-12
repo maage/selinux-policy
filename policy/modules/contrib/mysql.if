@@ -407,7 +407,7 @@ interface(`mysql_write_log',`
 	')
 
 	logging_search_logs($1)
-	allow $1 mysqld_log_t:file { write_file_perms setattr_file_perms };
+	allow $1 mysqld_log_t:file { setattr_file_perms write_file_perms };
 ')
 
 ########################################
@@ -426,7 +426,7 @@ interface(`mysql_dontaudit_write_log',`
 		type mysqld_log_t;
 	')
 
-	dontaudit $1 mysqld_log_t:file { write_file_perms setattr_file_perms };
+	dontaudit $1 mysqld_log_t:file { setattr_file_perms write_file_perms };
 ')
 
 ########################################

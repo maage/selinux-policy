@@ -18,8 +18,8 @@ role certwatch_roles types certwatch_t;
 # Local policy
 #
 
-allow certwatch_t self:capability { dac_read_search dac_override sys_nice };
-allow certwatch_t self:process { setsched getsched };
+allow certwatch_t self:capability { dac_override dac_read_search sys_nice };
+allow certwatch_t self:process { getsched setsched };
 allow certwatch_t self:tcp_socket create_stream_socket_perms;
 
 kernel_read_system_state(certwatch_t)

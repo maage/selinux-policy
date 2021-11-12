@@ -212,7 +212,7 @@ systemd_domain_template(systemd_sleep)
 #
 
 #  is for /run/user/$USER ($USER ownership is $USER:$USER)
-allow systemd_logind_t self:capability { chown kill dac_read_search dac_override fowner sys_tty_config sys_admin };
+allow systemd_logind_t self:capability { chown dac_override dac_read_search fowner kill sys_admin sys_tty_config };
 allow systemd_logind_t self:capability2 block_suspend;
 
 # systemd-logind reads state from /sys/power, which changes output based on
@@ -419,8 +419,8 @@ optional_policy(`
 # systemd_machined local policy
 #
 
-allow systemd_machined_t self:capability { dac_read_search dac_override setgid sys_admin sys_chroot sys_ptrace kill };
-allow systemd_machined_t systemd_unit_file_t:service { status start stop };
+allow systemd_machined_t self:capability { dac_override dac_read_search kill setgid sys_admin sys_chroot sys_ptrace };
+allow systemd_machined_t systemd_unit_file_t:service { start status stop };
 allow systemd_machined_t self:unix_dgram_socket create_socket_perms;
 allow systemd_machined_t self:cap_userns { sys_chroot };
 
@@ -491,7 +491,7 @@ optional_policy(`
 # systemd-networkd local policy
 #
 
-allow systemd_networkd_t self:capability { dac_read_search dac_override net_admin net_raw setuid fowner chown setgid setpcap };
+allow systemd_networkd_t self:capability { chown dac_override dac_read_search fowner net_admin net_raw setgid setpcap setuid };
 allow systemd_networkd_t self:process { getcap setcap };
 
 allow systemd_networkd_t self:netlink_kobject_uevent_socket create_socket_perms;
@@ -501,7 +501,7 @@ allow systemd_networkd_t self:unix_dgram_socket create_socket_perms;
 allow systemd_networkd_t self:packet_socket create_socket_perms;
 allow systemd_networkd_t self:udp_socket create_socket_perms;
 allow systemd_networkd_t self:rawip_socket create_socket_perms;
-allow systemd_networkd_t self:tun_socket { relabelfrom relabelto create_socket_perms };
+allow systemd_networkd_t self:tun_socket { create_socket_perms relabelfrom relabelto };
 
 allow init_t systemd_networkd_t:netlink_route_socket create_netlink_socket_perms;
 
@@ -563,7 +563,7 @@ optional_policy(`
 # Local policy
 #
 
-allow systemd_passwd_agent_t self:capability { chown sys_tty_config sys_resource dac_read_search dac_override };
+allow systemd_passwd_agent_t self:capability { chown dac_override dac_read_search sys_resource sys_tty_config };
 allow systemd_passwd_agent_t self:process { setsockcreate };
 allow systemd_passwd_agent_t self:unix_dgram_socket create_socket_perms;
 
@@ -617,8 +617,8 @@ optional_policy(`
 # Local policy
 #
 
-allow systemd_tmpfiles_t self:capability { chown dac_read_search dac_override fsetid fowner mknod sys_admin };
-allow systemd_tmpfiles_t self:process { setrlimit setfscreate };
+allow systemd_tmpfiles_t self:capability { chown dac_override dac_read_search fowner fsetid mknod sys_admin };
+allow systemd_tmpfiles_t self:process { setfscreate setrlimit };
 
 allow systemd_tmpfiles_t self:unix_dgram_socket create_socket_perms;
 
@@ -762,7 +762,7 @@ optional_policy(`
 # systemd_logger local policy
 #
 
-allow systemd_logger_t self:capability { sys_admin chown kill };
+allow systemd_logger_t self:capability { chown kill sys_admin };
 allow systemd_logger_t self:process { fork setfscreate setsockcreate };
 
 allow systemd_logger_t self:fifo_file rw_fifo_file_perms;
@@ -914,7 +914,7 @@ optional_policy(`
 # Timedated policy
 #
 
-allow systemd_timedated_t self:capability { sys_nice sys_time dac_read_search  };
+allow systemd_timedated_t self:capability { dac_read_search sys_nice sys_time };
 allow systemd_timedated_t self:process { getattr getsched setfscreate };
 allow systemd_timedated_t self:fifo_file rw_fifo_file_perms;
 allow systemd_timedated_t self:unix_stream_socket create_stream_socket_perms;

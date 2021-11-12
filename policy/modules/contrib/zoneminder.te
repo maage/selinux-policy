@@ -56,10 +56,10 @@ files_pid_file(zoneminder_var_run_t)
 # zoneminder local policy
 #
 allow zoneminder_t self:capability { chown dac_read_search  };
-allow zoneminder_t self:process { signal_perms setpgid };
+allow zoneminder_t self:process { setpgid signal_perms };
 allow zoneminder_t self:shm create_shm_perms;
 allow zoneminder_t self:fifo_file rw_fifo_file_perms;
-allow zoneminder_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow zoneminder_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow zoneminder_t self:netlink_selinux_socket create_socket_perms;
 
 manage_dirs_pattern(zoneminder_t, zoneminder_log_t, zoneminder_log_t)
@@ -121,7 +121,7 @@ tunable_policy(`zoneminder_anon_write',`
 ')
 
 tunable_policy(`zoneminder_run_sudo',`
-    allow zoneminder_t self:capability { setuid setgid sys_resource };
+    allow zoneminder_t self:capability { setgid setuid sys_resource };
     allow zoneminder_t self:process { setrlimit setsched };
     allow zoneminder_t self:key write;
     allow zoneminder_t self:passwd { passwd rootok };

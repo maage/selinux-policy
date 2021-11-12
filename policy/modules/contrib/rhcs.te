@@ -119,7 +119,7 @@ systemd_unit_file(cluster_unit_file_t)
 #
 
 allow cluster_domain self:capability sys_nice;
-allow cluster_domain self:process { signal setsched };
+allow cluster_domain self:process { setsched signal };
 allow cluster_domain self:sem create_sem_perms;
 allow cluster_domain self:fifo_file rw_fifo_file_perms;
 allow cluster_domain self:unix_stream_socket create_stream_socket_perms;
@@ -146,9 +146,9 @@ optional_policy(`
 # cluster domain local policy
 #
 
-allow cluster_t self:capability { dac_read_search  fowner setuid setgid sys_nice sys_admin sys_resource ipc_lock ipc_owner };
+allow cluster_t self:capability { dac_read_search  fowner ipc_lock ipc_owner setgid setuid sys_admin sys_nice sys_resource };
 # for hearbeat
-allow cluster_t self:capability { net_raw chown };
+allow cluster_t self:capability { chown net_raw };
 allow cluster_t self:capability2 block_suspend;
 allow cluster_t self:process { setpgid setrlimit setsched signull };
 
@@ -371,7 +371,7 @@ optional_policy(`
 # dlm_controld local policy
 #
 
-allow dlm_controld_t self:capability { dac_read_search net_admin sys_admin setgid sys_resource };
+allow dlm_controld_t self:capability { dac_read_search net_admin setgid sys_admin sys_resource };
 allow dlm_controld_t self:netlink_kobject_uevent_socket create_socket_perms;
 
 files_pid_filetrans(dlm_controld_t, dlm_controld_var_run_t, dir)
@@ -411,7 +411,7 @@ optional_policy(`
 # fenced local policy
 #
 
-allow fenced_t self:capability { net_admin sys_boot sys_rawio sys_resource sys_admin };
+allow fenced_t self:capability { net_admin sys_admin sys_boot sys_rawio sys_resource };
 allow fenced_t self:process { getsched setcap setpgid signal_perms };
 
 allow fenced_t self:tcp_socket create_stream_socket_perms;
@@ -482,7 +482,7 @@ tunable_policy(`fenced_can_network_connect',`
 
 optional_policy(`
 	tunable_policy(`fenced_can_ssh',`
-		allow fenced_t self:capability { setuid setgid };
+		allow fenced_t self:capability { setgid setuid };
 
 		corenet_sendrecv_ssh_client_packets(fenced_t)
 		corenet_tcp_connect_ssh_port(fenced_t)
@@ -630,11 +630,11 @@ logging_send_syslog_msg(groupd_t)
 # bug in haproxy and process vs pid owner
 allow haproxy_t self:capability { dac_read_search  kill };
 
-allow haproxy_t self:capability { chown fowner setgid setuid sys_chroot sys_resource net_admin net_raw };
+allow haproxy_t self:capability { chown fowner net_admin net_raw setgid setuid sys_chroot sys_resource };
 allow haproxy_t self:capability2 block_suspend;
 allow haproxy_t self:process { fork setrlimit signal_perms };
 allow haproxy_t self:fifo_file rw_fifo_file_perms;
-allow haproxy_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow haproxy_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow haproxy_t self:tcp_socket create_stream_socket_perms;
 allow haproxy_t self: udp_socket create_socket_perms;
 

@@ -71,7 +71,7 @@ interface(`cockpit_manage_unix_stream_sockets',`
 		type cockpit_ws_t;
 	')
 
-	allow $1 cockpit_ws_t:unix_stream_socket { create_stream_socket_perms connectto };
+	allow $1 cockpit_ws_t:unix_stream_socket { connectto create_stream_socket_perms };
 ')
 
 ########################################

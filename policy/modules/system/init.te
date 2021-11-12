@@ -175,7 +175,7 @@ ifdef(`enable_mls',`
 allow init_t self:capability ~{ audit_control audit_write sys_module };
 allow init_t self:capability2 ~{ mac_admin mac_override };
 allow init_t self:cap_userns all_cap_userns_perms;
-allow init_t self:tcp_socket { listen accept };
+allow init_t self:tcp_socket { accept listen };
 allow init_t self:packet_socket create_socket_perms;
 allow init_t self:key manage_key_perms;
 allow init_t self:bpf { map_create map_read map_write prog_load prog_run };
@@ -573,14 +573,14 @@ tunable_policy(`init_audit_control',`
 allow init_t self:system all_system_perms;
 allow init_t self:system module_load;
 allow init_t self:unix_dgram_socket { create_socket_perms sendto };
-allow init_t self:process { setkeycreate setsockcreate setfscreate setrlimit setexec };
+allow init_t self:process { setexec setfscreate setkeycreate setrlimit setsockcreate };
 allow init_t self:process { getcap setcap };
-allow init_t self:unix_stream_socket { create_stream_socket_perms connectto recvfrom };
+allow init_t self:unix_stream_socket { connectto create_stream_socket_perms recvfrom };
 allow init_t self:netlink_kobject_uevent_socket create_socket_perms; 
 allow init_t self:netlink_selinux_socket create_socket_perms;
 allow init_t self:unix_dgram_socket lock;
 # Until systemd is fixed
-allow daemon init_t:socket_class_set { getopt read getattr ioctl setopt write };
+allow daemon init_t:socket_class_set { getattr getopt ioctl read setopt write };
 allow init_t self:udp_socket create_socket_perms;
 allow init_t self:netlink_route_socket create_netlink_socket_perms;
 
@@ -887,16 +887,16 @@ optional_policy(`
 # Init script local policy
 #
 
-allow initrc_t self:process { getpgid setsched setpgid setrlimit getsched };
-allow initrc_t self:capability ~{ sys_ptrace audit_control audit_write sys_admin sys_module };
+allow initrc_t self:process { getpgid getsched setpgid setrlimit setsched };
+allow initrc_t self:capability ~{ audit_control audit_write sys_admin sys_module sys_ptrace };
 allow initrc_t self:capability2 block_suspend;
-dontaudit initrc_t self:capability { sys_ptrace sys_module }; # sysctl is triggering this
+dontaudit initrc_t self:capability { sys_module sys_ptrace }; # sysctl is triggering this
 allow initrc_t self:passwd rootok;
 allow initrc_t self:key manage_key_perms;
 
 # Allow IPC with self
 allow initrc_t self:unix_dgram_socket create_socket_perms;
-allow initrc_t self:unix_stream_socket { create listen accept ioctl read getattr write setattr append bind connect getopt setopt shutdown connectto };
+allow initrc_t self:unix_stream_socket { accept append bind connect connectto create getattr getopt ioctl listen read setattr setopt shutdown write };
 allow initrc_t self:tcp_socket create_stream_socket_perms;
 allow initrc_t self:udp_socket create_socket_perms;
 allow initrc_t self:fifo_file rw_file_perms;
@@ -1818,7 +1818,7 @@ allow init_t daemon:udp_socket create_socket_perms;
 allow daemon init_t:unix_dgram_socket sendto;
 # need write to /var/run/systemd/notify
 init_write_pid_socket(daemon)
-allow daemon init_t:unix_stream_socket { append write read getattr ioctl };
+allow daemon init_t:unix_stream_socket { append getattr ioctl read write };
 
 # daemons started from init will
 # inherit fds from init for the console
@@ -1849,7 +1849,7 @@ optional_policy(`
 	puppet_rw_tmp(daemon)
 ')
 
-allow direct_run_init daemon:process { noatsecure siginh rlimitinh };
+allow direct_run_init daemon:process { noatsecure rlimitinh siginh };
 
 allow initrc_t systemprocess:process siginh;
 allow systemprocess initrc_transition_domain:fifo_file rw_inherited_fifo_file_perms;
@@ -1865,7 +1865,7 @@ allow init_t systemprocess:process { dyntransition siginh };
 allow init_t systemprocess:unix_stream_socket create_stream_socket_perms;
 allow init_t systemprocess:unix_dgram_socket create_socket_perms;
 allow systemprocess init_t:unix_dgram_socket sendto;
-allow systemprocess init_t:unix_stream_socket { append write read getattr ioctl };
+allow systemprocess init_t:unix_stream_socket { append getattr ioctl read write };
 
 files_dontaudit_rw_inherited_locks(systemprocess)
 files_dontaudit_tmp_file_leaks(systemprocess)
@@ -1927,12 +1927,12 @@ allow initrc_domain daemon:process transition;
 allow daemon initrc_domain:fd use;
 allow daemon initrc_domain:fifo_file rw_inherited_fifo_file_perms;
 allow daemon initrc_domain:process sigchld;
-allow initrc_domain direct_init_entry:file { getattr open read map execute };
+allow initrc_domain direct_init_entry:file { execute getattr map open read };
 
 allow systemprocess initrc_domain:fd use;
 allow systemprocess initrc_domain:fifo_file rw_inherited_fifo_file_perms;
 allow systemprocess initrc_domain:process sigchld;
-allow initrc_domain systemprocess_entry:file { getattr open read execute map };
+allow initrc_domain systemprocess_entry:file { execute getattr map open read };
 allow initrc_domain systemprocess:process transition;
 
 optional_policy(`
@@ -1948,7 +1948,7 @@ ifdef(`direct_sysadm_daemon',`
     allow daemon direct_run_init:fd use;
     allow daemon direct_run_init:fifo_file rw_inherited_fifo_file_perms;
     allow daemon direct_run_init:process sigchld;
-    allow direct_run_init direct_init_entry:file { getattr open read execute };
+    allow direct_run_init direct_init_entry:file { execute getattr open read };
 ')
 
 optional_policy(`

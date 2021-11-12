@@ -150,7 +150,7 @@ miscfiles_read_generic_certs(sblim_reposd_t)
 # Sfcbd local policy
 #
 
-allow sblim_sfcbd_t self:capability { sys_ptrace setgid setuid };
+allow sblim_sfcbd_t self:capability { setgid setuid sys_ptrace };
 dontaudit sblim_sfcbd_t self:cap_userns sys_ptrace;
 allow sblim_sfcbd_t self:process signal;
 allow sblim_sfcbd_t self:unix_stream_socket connectto;

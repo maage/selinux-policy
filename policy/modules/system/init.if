@@ -566,7 +566,7 @@ interface(`init_access_check',`
     ')
 
     corecmd_search_bin($1)
-    allow $1 init_exec_t:file { getattr_file_perms execute };
+    allow $1 init_exec_t:file { execute getattr_file_perms };
 ')
 
 #######################################
@@ -867,7 +867,7 @@ interface(`init_dontaudit_rw_stream_socket',`
         type init_t;
     ')
 
-    dontaudit $1 init_t:unix_stream_socket { getattr read write ioctl };
+    dontaudit $1 init_t:unix_stream_socket { getattr ioctl read write };
 ')
 
 ########################################
@@ -2025,7 +2025,7 @@ interface(`init_use_script_ptys',`
 	')
 
 	term_list_ptys($1)
-	allow $1 initrc_devpts_t:chr_file { rw_term_perms lock append };
+	allow $1 initrc_devpts_t:chr_file { append lock rw_term_perms };
 ')
 
 ########################################
@@ -2044,7 +2044,7 @@ interface(`init_use_inherited_script_ptys',`
 	')
 
 	term_list_ptys($1)
-	allow $1 initrc_devpts_t:chr_file { getattr read write ioctl };
+	allow $1 initrc_devpts_t:chr_file { getattr ioctl read write };
 
 	init_use_fds($1)
 ')
@@ -2065,7 +2065,7 @@ interface(`init_dontaudit_use_script_ptys',`
 		type initrc_devpts_t;
 	')
 
-	dontaudit $1 initrc_devpts_t:chr_file { rw_term_perms lock append };
+	dontaudit $1 initrc_devpts_t:chr_file { append lock rw_term_perms };
 ')
 
 ########################################
@@ -2364,7 +2364,7 @@ interface(`init_dontaudit_write_utmp',`
 		type initrc_var_run_t;
 	')
 
-	dontaudit $1 initrc_var_run_t:file { write lock };
+	dontaudit $1 initrc_var_run_t:file { lock write };
 ')
 
 ########################################
@@ -2973,7 +2973,7 @@ interface(`init_rw_tcp_sockets',`
         type init_t;
     ')
 
-    allow $1 init_t:tcp_socket { read write getattr };
+    allow $1 init_t:tcp_socket { getattr read write };
 ')
 
 ########################################

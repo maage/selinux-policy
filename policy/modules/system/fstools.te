@@ -32,9 +32,9 @@ files_type(swapfile_t)
 #
 
 # ipc_lock is for losetup
-allow fsadm_t self:capability { ipc_lock sys_rawio sys_admin sys_resource sys_tty_config  dac_read_search };
+allow fsadm_t self:capability { dac_read_search ipc_lock sys_admin sys_rawio sys_resource sys_tty_config };
 dontaudit fsadm_t self:capability net_admin;
-allow fsadm_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execmem execheap execstack };
+allow fsadm_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow fsadm_t self:fd use;
 allow fsadm_t self:fifo_file rw_fifo_file_perms;
 allow fsadm_t self:sock_file read_sock_file_perms;
@@ -45,7 +45,7 @@ allow fsadm_t self:unix_stream_socket connectto;
 allow fsadm_t self:shm create_shm_perms;
 allow fsadm_t self:sem create_sem_perms;
 allow fsadm_t self:msgq create_msgq_perms;
-allow fsadm_t self:msg { send receive };
+allow fsadm_t self:msg { receive send };
 
 can_exec(fsadm_t, fsadm_exec_t)
 

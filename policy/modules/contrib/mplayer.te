@@ -126,7 +126,7 @@ tunable_policy(`use_samba_home_dirs',`
 # Mplayer local policy
 #
 
-allow mplayer_t self:process { signal_perms getsched };
+allow mplayer_t self:process { getsched signal_perms };
 allow mplayer_t self:fifo_file rw_fifo_file_perms;
 allow mplayer_t self:sem create_sem_perms;
 allow mplayer_t self:udp_socket create_socket_perms;

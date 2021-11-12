@@ -35,8 +35,8 @@ files_pid_file(ccs_var_run_t)
 # Local policy
 #
 
-allow ccs_t self:capability { ipc_owner ipc_lock sys_nice sys_resource sys_admin };
-allow ccs_t self:process { signal setrlimit setsched };
+allow ccs_t self:capability { ipc_lock ipc_owner sys_admin sys_nice sys_resource };
+allow ccs_t self:process { setrlimit setsched signal };
 
 allow ccs_t self:fifo_file rw_fifo_file_perms;
 allow ccs_t self:unix_stream_socket { accept connectto listen };

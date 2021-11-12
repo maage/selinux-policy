@@ -39,13 +39,13 @@ logging_log_file(mdadm_log_t)
 # Local policy
 #
 
-allow mdadm_t self:capability { dac_read_search dac_override sys_admin ipc_lock };
-dontaudit mdadm_t self:capability { sys_tty_config sys_ptrace };
+allow mdadm_t self:capability { dac_override dac_read_search ipc_lock sys_admin };
+dontaudit mdadm_t self:capability { sys_ptrace sys_tty_config };
 dontaudit mdadm_t self:cap_userns { sys_ptrace };
-allow mdadm_t self:process { getsched setsched sigchld sigkill sigstop signull signal };
+allow mdadm_t self:process { getsched setsched sigchld sigkill signal signull sigstop };
 allow mdadm_t self:fifo_file rw_fifo_file_perms;
 allow mdadm_t self:netlink_kobject_uevent_socket create_socket_perms;
-allow mdadm_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow mdadm_t self:unix_stream_socket { connectto create_stream_socket_perms };
 
 manage_files_pattern(mdadm_t, mdadm_conf_t, mdadm_conf_t)
 files_etc_filetrans(mdadm_t, mdadm_conf_t, file, "mdadm.conf")

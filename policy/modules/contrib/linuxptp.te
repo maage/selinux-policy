@@ -38,9 +38,9 @@ systemd_unit_file(ptp4l_unit_file_t)
 # timemaster local policy
 #
 
-allow timemaster_t self:process { signal_perms setcap};
+allow timemaster_t self:process { setcap signal_perms };
 allow timemaster_t self:fifo_file rw_fifo_file_perms;
-allow timemaster_t self:capability { setuid sys_time kill setgid };
+allow timemaster_t self:capability { kill setgid setuid sys_time };
 allow timemaster_t self:unix_stream_socket create_stream_socket_perms;
 allow timemaster_t self:shm create_shm_perms;
 allow timemaster_t self:udp_socket create_socket_perms;

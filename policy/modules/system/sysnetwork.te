@@ -60,11 +60,11 @@ ifdef(`distro_debian',`
 #
 # DHCP client local policy
 #
-allow dhcpc_t self:capability { dac_read_search fsetid net_admin net_raw net_bind_service setgid setpcap setuid sys_chroot sys_nice sys_resource sys_tty_config };
+allow dhcpc_t self:capability { dac_read_search fsetid net_admin net_bind_service net_raw setgid setpcap setuid sys_chroot sys_nice sys_resource sys_tty_config };
 dontaudit dhcpc_t self:capability sys_admin;
 # for access("/etc/bashrc", X_OK) on Red Hat
 dontaudit dhcpc_t self:capability { dac_read_search sys_module };
-allow dhcpc_t self:process { getsched setsched getcap setcap setfscreate setrlimit signal_perms };
+allow dhcpc_t self:process { getcap getsched setcap setfscreate setrlimit setsched signal_perms };
 allow dhcpc_t self:cap_userns { net_bind_service };
 
 allow dhcpc_t self:fifo_file rw_fifo_file_perms;
@@ -307,8 +307,8 @@ optional_policy(`
 # Ifconfig local policy
 #
 
-allow ifconfig_t self:capability { net_raw net_admin sys_admin sys_tty_config };
-allow ifconfig_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execheap execstack };
+allow ifconfig_t self:capability { net_admin net_raw sys_admin sys_tty_config };
+allow ifconfig_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow ifconfig_t self:fd use;
 allow ifconfig_t self:fifo_file rw_fifo_file_perms;
 allow ifconfig_t self:sock_file read_sock_file_perms;
@@ -320,7 +320,7 @@ allow ifconfig_t self:unix_stream_socket connectto;
 allow ifconfig_t self:shm create_shm_perms;
 allow ifconfig_t self:sem create_sem_perms;
 allow ifconfig_t self:msgq create_msgq_perms;
-allow ifconfig_t self:msg { send receive };
+allow ifconfig_t self:msg { receive send };
 # Create UDP sockets, necessary when called from dhcpc
 allow ifconfig_t self:udp_socket create_socket_perms;
 allow ifconfig_t self:appletalk_socket create_socket_perms;
@@ -330,7 +330,7 @@ allow ifconfig_t self:netlink_socket create_socket_perms;
 allow ifconfig_t self:netlink_generic_socket create_socket_perms;
 allow ifconfig_t self:netlink_route_socket create_netlink_socket_perms;
 allow ifconfig_t self:netlink_xfrm_socket { create_netlink_socket_perms nlmsg_read };
-allow ifconfig_t self:tun_socket { relabelfrom relabelto create_socket_perms };
+allow ifconfig_t self:tun_socket { create_socket_perms relabelfrom relabelto };
 
 allow ifconfig_t self:tcp_socket { create ioctl };
 

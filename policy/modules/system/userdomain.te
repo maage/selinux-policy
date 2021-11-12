@@ -549,10 +549,10 @@ optional_policy(`
 #
 gen_require(`
 	class context contains;
-    class passwd { passwd chfn chsh rootok };
+    class passwd { chfn chsh passwd rootok };
 ')
 
-allow confined_admindomain self:capability ~{ sys_module audit_control audit_write };
+allow confined_admindomain self:capability ~{ audit_control audit_write sys_module };
 allow confined_admindomain self:capability2 { block_suspend syslog };
 allow confined_admindomain self:cap_userns { setpcap };
 allow confined_admindomain self:process { setexec setfscreate };
@@ -561,7 +561,7 @@ allow confined_admindomain self:tun_socket create_socket_perms;
 allow confined_admindomain self:packet_socket create_socket_perms;
 
 # Set password information for other users.
-allow confined_admindomain self:passwd { passwd chfn chsh };
+allow confined_admindomain self:passwd { chfn chsh passwd };
 # Skip authentication when pam_rootok is specified.
 allow confined_admindomain self:passwd rootok;
 
@@ -572,7 +572,7 @@ term_user_pty(confined_admindomain, user_devpts_t)
 term_user_tty(confined_admindomain, user_tty_device_t)
 term_dontaudit_getattr_generic_ptys(confined_admindomain)
 
-allow confined_admindomain self:process { signal_perms getsched setsched share getpgid setpgid getcap setcap getsession getattr };
+allow confined_admindomain self:process { getattr getcap getpgid getsched getsession setcap setpgid setsched share signal_perms };
 tunable_policy(`deny_ptrace',`',`
 	allow confined_admindomain self:process ptrace;
 ')
@@ -581,21 +581,21 @@ allow confined_admindomain self:key manage_key_perms;
 
 allow confined_admindomain self:fifo_file rw_fifo_file_perms;
 allow confined_admindomain self:unix_dgram_socket { create_socket_perms sendto };
-allow confined_admindomain self:unix_stream_socket { create_stream_socket_perms connectto };
+allow confined_admindomain self:unix_stream_socket { connectto create_stream_socket_perms };
 allow confined_admindomain self:shm create_shm_perms;
 allow confined_admindomain self:sem create_sem_perms;
 allow confined_admindomain self:msgq create_msgq_perms;
-allow confined_admindomain self:msg { send receive };
+allow confined_admindomain self:msg { receive send };
 allow confined_admindomain self:context contains;
 dontaudit confined_admindomain self:socket create;
 
-allow confined_admindomain user_devpts_t:chr_file { setattr rw_chr_file_perms };
+allow confined_admindomain user_devpts_t:chr_file { rw_chr_file_perms setattr };
 term_create_pty(confined_admindomain, user_devpts_t)
 term_use_generic_ptys(confined_admindomain)
 # avoid annoying messages on terminal hangup on role change
 dontaudit confined_admindomain user_devpts_t:chr_file ioctl;
 
-allow confined_admindomain user_tty_device_t:chr_file { setattr rw_chr_file_perms };
+allow confined_admindomain user_tty_device_t:chr_file { rw_chr_file_perms setattr };
 # avoid annoying messages on terminal hangup on role change
 dontaudit confined_admindomain user_tty_device_t:chr_file ioctl;
 

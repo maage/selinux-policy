@@ -60,7 +60,7 @@ template(`apache_user_content_template',`
 
 	can_exec($1_script_t, $1_script_exec_t)
 	allow $1_script_t $1_script_exec_t:dir list_dir_perms;
-	allow $1_script_t $1_ra_content_t:dir { list_dir_perms add_entry_dir_perms };
+	allow $1_script_t $1_ra_content_t:dir { add_entry_dir_perms list_dir_perms };
 	read_files_pattern($1_script_t, $1_ra_content_t, $1_ra_content_t)
 	append_files_pattern($1_script_t, $1_ra_content_t, $1_ra_content_t)
 	create_files_pattern($1_script_t, $1_ra_content_t, $1_ra_content_t)
@@ -77,7 +77,7 @@ template(`apache_user_content_template',`
 	manage_sock_files_pattern($1_script_t, $1_rw_content_t, $1_rw_content_t)
 	allow $1_script_t $1_rw_content_t:file map;
 
-	allow $1_script_t httpd_t:unix_stream_socket { ioctl accept getattr read write };
+	allow $1_script_t httpd_t:unix_stream_socket { accept getattr ioctl read write };
 
 	# Allow the web server to run scripts and serve pages
 	tunable_policy(`httpd_builtin_scripting',`
@@ -167,7 +167,7 @@ template(`apache_content_template',`
 
 	can_exec($1_script_t, $1_script_exec_t)
 	allow $1_script_t $1_script_exec_t:dir list_dir_perms;
-	allow $1_script_t $1_ra_content_t:dir { list_dir_perms add_entry_dir_perms };
+	allow $1_script_t $1_ra_content_t:dir { add_entry_dir_perms list_dir_perms };
 	read_files_pattern($1_script_t, $1_ra_content_t, $1_ra_content_t)
 	append_files_pattern($1_script_t, $1_ra_content_t, $1_ra_content_t)
 	create_files_pattern($1_script_t, $1_ra_content_t, $1_ra_content_t)
@@ -183,7 +183,7 @@ template(`apache_content_template',`
 	manage_fifo_files_pattern($1_script_t, $1_rw_content_t, $1_rw_content_t)
 	manage_sock_files_pattern($1_script_t, $1_rw_content_t, $1_rw_content_t)
 
-	allow $1_script_t httpd_t:unix_stream_socket { ioctl accept getattr read write shutdown };
+	allow $1_script_t httpd_t:unix_stream_socket { accept getattr ioctl read shutdown write };
 
 	# Allow the web server to run scripts and serve pages
 	tunable_policy(`httpd_builtin_scripting',`
@@ -270,7 +270,7 @@ interface(`apache_role',`
 
 	role $1 types httpd_user_script_t;
 
-	allow $2 httpd_user_htaccess_t:file { manage_file_perms relabelto relabelfrom };
+	allow $2 httpd_user_htaccess_t:file { manage_file_perms relabelfrom relabelto };
 
 	manage_dirs_pattern($2, httpd_user_content_t, httpd_user_content_t)
 	manage_files_pattern($2, httpd_user_content_t, httpd_user_content_t)

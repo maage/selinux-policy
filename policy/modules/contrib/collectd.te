@@ -43,12 +43,12 @@ files_tmp_file(collectd_script_tmp_t)
 # Local policy
 #
 
-allow collectd_t self:capability { ipc_lock net_raw net_admin sys_nice sys_ptrace dac_read_search  setuid setgid };
+allow collectd_t self:capability { dac_read_search ipc_lock net_admin net_raw setgid setuid sys_nice sys_ptrace };
 allow collectd_t self:process { getsched setsched signal };
 allow collectd_t self:fifo_file rw_fifo_file_perms;
 allow collectd_t self:packet_socket { create_socket_perms map };
 allow collectd_t self:rawip_socket create_socket_perms;
-allow collectd_t self:unix_stream_socket { accept listen connectto };
+allow collectd_t self:unix_stream_socket { accept connectto listen };
 allow collectd_t self:netlink_tcpdiag_socket create_netlink_socket_perms;
 allow collectd_t self:netlink_generic_socket create_socket_perms;
 allow collectd_t self:netlink_rdma_socket create_socket_perms;

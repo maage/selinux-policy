@@ -97,8 +97,8 @@ userdom_user_tmp_file(evolution_webcal_tmpfs_t)
 # Local policy
 #
 
-allow evolution_t self:capability { setuid setgid sys_nice };
-allow evolution_t self:process { signal getsched setsched };
+allow evolution_t self:capability { setgid setuid sys_nice };
+allow evolution_t self:process { getsched setsched signal };
 allow evolution_t self:fifo_file rw_file_perms;
 
 allow evolution_t evolution_home_t:dir manage_dir_perms;
@@ -262,7 +262,7 @@ optional_policy(`
 # Alarm local policy
 #
 
-allow evolution_alarm_t self:process { signal getsched };
+allow evolution_alarm_t self:process { getsched signal };
 allow evolution_alarm_t self:fifo_file rw_fifo_file_perms;
 
 allow evolution_alarm_t evolution_alarm_tmpfs_t:dir rw_dir_perms;

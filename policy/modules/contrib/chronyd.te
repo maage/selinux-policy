@@ -48,9 +48,9 @@ role chronyc_roles types chronyc_t;
 # Local policy
 #
 
-allow chronyd_t self:capability { dac_read_search dac_override ipc_lock fsetid setuid setgid sys_nice sys_resource sys_time chown net_admin };
+allow chronyd_t self:capability { chown dac_override dac_read_search fsetid ipc_lock net_admin setgid setuid sys_nice sys_resource sys_time };
 allow chronyd_t self:capability2 block_suspend;
-allow chronyd_t self:process { getsched setsched getcap setcap setrlimit signal };
+allow chronyd_t self:process { getcap getsched setcap setrlimit setsched signal };
 allow chronyd_t self:shm create_shm_perms;
 allow chronyd_t self:udp_socket create_socket_perms;
 allow chronyd_t self:tcp_socket { accept listen };
@@ -180,7 +180,7 @@ optional_policy(`
 # Local policy
 #
 
-allow chronyc_t self:capability { dac_read_search dac_override };
+allow chronyc_t self:capability { dac_override dac_read_search };
 allow chronyc_t self:udp_socket create_socket_perms;
 allow chronyc_t self:unix_dgram_socket create_socket_perms;
 allow chronyc_t self:netlink_route_socket create_netlink_socket_perms;

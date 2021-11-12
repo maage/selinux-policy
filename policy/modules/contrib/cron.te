@@ -154,7 +154,7 @@ ifdef(`enable_mcs',`
 #
 
 # Allow our crontab domain to unlink a user cron spool file.
-allow admin_crontab_t user_cron_spool_t:file { read_file_perms delete_file_perms };
+allow admin_crontab_t user_cron_spool_t:file { delete_file_perms read_file_perms };
 
 manage_dirs_pattern(admin_crontab_t, admin_crontab_tmp_t, admin_crontab_tmp_t)
 manage_files_pattern(admin_crontab_t, admin_crontab_tmp_t, admin_crontab_tmp_t)
@@ -179,9 +179,9 @@ tunable_policy(`fcron_crond',`
 # Cron daemon local policy
 #
 
-allow crond_t self:capability {  chown fowner setgid setuid sys_nice dac_read_search dac_override };
+allow crond_t self:capability {  chown dac_override dac_read_search fowner setgid setuid sys_nice };
 dontaudit crond_t self:capability { net_admin sys_resource sys_tty_config };
-allow crond_t self:process ~{ ptrace setcurrent setexec setfscreate execmem execstack execheap };
+allow crond_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate };
 allow crond_t self:process { setexec setfscreate };
 allow crond_t self:fd use;
 allow crond_t self:fifo_file rw_fifo_file_perms;
@@ -192,8 +192,8 @@ allow crond_t self:unix_stream_socket connectto;
 allow crond_t self:shm create_shm_perms;
 allow crond_t self:sem create_sem_perms;
 allow crond_t self:msgq create_msgq_perms;
-allow crond_t self:msg { send receive };
-allow crond_t self:key { search write link };
+allow crond_t self:msg { receive send };
+allow crond_t self:key { link search write };
 allow crond_t self:netlink_selinux_socket create_socket_perms;
 dontaudit crond_t self:netlink_audit_socket nlmsg_tty_audit;
 
@@ -392,9 +392,9 @@ optional_policy(`
 # System cron process domain
 #
 
-allow system_cronjob_t self:capability {  dac_read_search chown setgid setuid fowner net_bind_service fsetid sys_nice };
+allow system_cronjob_t self:capability { chown dac_read_search fowner fsetid net_bind_service setgid setuid sys_nice };
 
-allow system_cronjob_t self:process { signal_perms getsched setsched };
+allow system_cronjob_t self:process { getsched setsched signal_perms };
 allow system_cronjob_t self:fd use;
 allow system_cronjob_t self:fifo_file rw_fifo_file_perms;
 allow system_cronjob_t self:passwd rootok;
@@ -437,7 +437,7 @@ tunable_policy(`cron_system_cronjob_use_shares',`
 # via setexeccon.  There is no way to set up an automatic
 # transition, since crontabs are configuration files, not executables.
 allow crond_t system_cronjob_t:process transition;
-dontaudit crond_t system_cronjob_t:process { noatsecure siginh rlimitinh };
+dontaudit crond_t system_cronjob_t:process { noatsecure rlimitinh siginh };
 allow crond_t system_cronjob_t:fd use;
 allow system_cronjob_t crond_t:fd use;
 allow system_cronjob_t crond_t:fifo_file rw_file_perms;
@@ -708,7 +708,7 @@ optional_policy(`
 # User cronjobs local policy
 #
 
-allow cronjob_t self:process { signal_perms setsched };
+allow cronjob_t self:process { setsched signal_perms };
 allow cronjob_t self:fifo_file rw_fifo_file_perms;
 allow cronjob_t self:unix_stream_socket create_stream_socket_perms;
 allow cronjob_t self:unix_dgram_socket create_socket_perms;
@@ -727,7 +727,7 @@ allow cronjob_t user_cron_spool_t:file entrypoint;
 # via setexeccon.  There is no way to set up an automatic
 # transition, since crontabs are configuration files, not executables.
 allow crond_t cronjob_t:process transition;
-dontaudit crond_t cronjob_t:process { noatsecure siginh rlimitinh };
+dontaudit crond_t cronjob_t:process { noatsecure rlimitinh siginh };
 allow crond_t cronjob_t:fd use;
 allow cronjob_t crond_t:fd use;
 allow cronjob_t crond_t:fifo_file rw_file_perms;
@@ -813,7 +813,7 @@ optional_policy(`
 #
 
 #  is to create the file in the directory under /tmp
-allow crontab_domain self:capability { fowner setuid setgid chown dac_read_search dac_override };
+allow crontab_domain self:capability { chown dac_override dac_read_search fowner setgid setuid };
 allow crontab_domain self:process { getcap setsched signal_perms };
 allow crontab_domain self:fifo_file rw_fifo_file_perms;
 
@@ -891,7 +891,7 @@ type unconfined_cronjob_t;
 domain_type(unconfined_cronjob_t)
 domain_cron_exemption_target(unconfined_cronjob_t)
 
-dontaudit crond_t unconfined_cronjob_t:process { noatsecure siginh rlimitinh };
+dontaudit crond_t unconfined_cronjob_t:process { noatsecure rlimitinh siginh };
 
 tunable_policy(`cron_userdomain_transition',`
 	dontaudit crond_t unconfined_cronjob_t:process transition;

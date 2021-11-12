@@ -41,7 +41,7 @@ allow iptables_t self:cap_userns { dac_read_search  net_admin net_raw };
 dontaudit iptables_t self:capability { sys_admin sys_tty_config };
 dontaudit iptables_t self:capability2 block_suspend;
 allow iptables_t self:fifo_file rw_fifo_file_perms;
-allow iptables_t self:process { sigchld sigkill sigstop signull signal };
+allow iptables_t self:process { sigchld sigkill signal signull sigstop };
 allow iptables_t self:netlink_socket create_socket_perms;
 allow iptables_t self:netlink_generic_socket create_socket_perms;
 allow iptables_t self:netlink_netfilter_socket create_socket_perms;

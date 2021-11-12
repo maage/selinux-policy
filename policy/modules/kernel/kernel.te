@@ -249,10 +249,10 @@ sid tcp_socket		gen_context(system_u:object_r:unlabeled_t,mls_systemhigh)
 
 allow kernel_t self:capability2 mac_admin;
 allow kernel_t self:capability ~sys_module;
-allow kernel_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow kernel_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow kernel_t self:shm create_shm_perms;
 allow kernel_t self:sem create_sem_perms;
-allow kernel_t self:msg { send receive };
+allow kernel_t self:msg { receive send };
 allow kernel_t self:msgq create_msgq_perms;
 allow kernel_t self:unix_dgram_socket create_socket_perms;
 allow kernel_t self:unix_stream_socket create_stream_socket_perms;
@@ -534,7 +534,7 @@ allow kern_unconfined unlabeled_t:file ~entrypoint;
 allow kern_unconfined unlabeled_t:filesystem *;
 allow kern_unconfined unlabeled_t:association *;
 allow kern_unconfined unlabeled_t:packet *;
-allow kern_unconfined unlabeled_t:process ~{ ptrace transition dyntransition execmem execstack execheap };
+allow kern_unconfined unlabeled_t:process ~{ dyntransition execheap execmem execstack ptrace transition };
 
 #######################################
 #

@@ -30,7 +30,7 @@ interface(`pulseaudio_role',`
 	ps_process_pattern($2, pulseaudio_t)
 
 	allow pulseaudio_t $2:process { signal signull };
-	allow $2 pulseaudio_t:process { signal signull sigkill };
+	allow $2 pulseaudio_t:process { sigkill signal signull };
 	allow $2 pulseaudio_t:process2 nnp_transition;
 	ps_process_pattern(pulseaudio_t, $2)
 

@@ -114,9 +114,9 @@ ifdef(`enable_mcs',`
 # abrt local policy
 #
 
-allow abrt_t self:capability { chown dac_read_search dac_override fowner fsetid ipc_lock kill setgid setuid sys_nice sys_ptrace };
-dontaudit abrt_t self:capability { net_admin sys_rawio sys_ptrace };
-allow abrt_t self:process { setpgid sigkill signal signull setsched getsched };
+allow abrt_t self:capability { chown dac_override dac_read_search fowner fsetid ipc_lock kill setgid setuid sys_nice sys_ptrace };
+dontaudit abrt_t self:capability { net_admin sys_ptrace sys_rawio };
+allow abrt_t self:process { getsched setpgid setsched sigkill signal signull };
 
 allow abrt_t self:fifo_file rw_fifo_file_perms;
 allow abrt_t self:tcp_socket create_stream_socket_perms;
@@ -518,9 +518,9 @@ optional_policy(`
 # abrt_dump_oops local policy
 #
 
-allow abrt_dump_oops_t self:capability { kill net_admin sys_ptrace ipc_lock fowner chown fsetid dac_read_search dac_override setuid setgid };
+allow abrt_dump_oops_t self:capability { chown dac_override dac_read_search fowner fsetid ipc_lock kill net_admin setgid setuid sys_ptrace };
 allow abrt_dump_oops_t self:cap_userns { kill sys_ptrace };
-allow abrt_dump_oops_t self:process {setfscreate setcap};
+allow abrt_dump_oops_t self:process { setcap setfscreate };
 allow abrt_dump_oops_t self:fifo_file rw_fifo_file_perms;
 allow abrt_dump_oops_t self:unix_stream_socket create_stream_socket_perms;
 allow abrt_dump_oops_t self:udp_socket create_socket_perms;
@@ -627,7 +627,7 @@ tunable_policy(`abrt_upload_watch_anon_write',`
 # Upload watch local policy
 #
 
-allow abrt_upload_watch_t self:capability { dac_read_search  chown fsetid };
+allow abrt_upload_watch_t self:capability { chown dac_read_search fsetid };
 allow abrt_upload_watch_t self:unix_dgram_socket create_socket_perms;
 allow abrt_upload_watch_t self:udp_socket create_socket_perms;
 

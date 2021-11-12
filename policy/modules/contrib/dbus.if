@@ -94,7 +94,7 @@ interface(`system_dbusd_signull',`
 #
 template(`dbus_role_template',`
 	gen_require(`
-		class dbus { send_msg acquire_svc };
+		class dbus { acquire_svc send_msg };
 		attribute dbusd_unconfined, session_bus_type, systemd_unit_file_type;
 		type system_dbusd_t, session_dbusd_tmp_t, dbusd_exec_t;
 		type $1_t;
@@ -122,19 +122,19 @@ template(`dbus_role_template',`
 	#
 
 	# For connecting to the bus
-	allow $3 $1_dbusd_t:unix_stream_socket { accept connectto listen rw_socket_perms create };
+	allow $3 $1_dbusd_t:unix_stream_socket { accept connectto create listen rw_socket_perms };
 	allow $1_dbusd_t $3:unix_stream_socket { accept getattr getopt  read write };
     allow $1_dbusd_t $3:unix_dgram_socket sendto;
 
 	# SE-DBus specific permissions
-	allow { dbusd_unconfined $3 } $1_dbusd_t:dbus { send_msg acquire_svc };
-	allow $3 system_dbusd_t:dbus { send_msg acquire_svc };
+	allow { dbusd_unconfined $3 } $1_dbusd_t:dbus { acquire_svc send_msg };
+	allow $3 system_dbusd_t:dbus { acquire_svc send_msg };
 
     # Permissions for dbus-broker running with systemd user sessions
     allow $3 $1_dbusd_t:process { noatsecure rlimitinh siginh };
     allow $1_dbusd_t $3:dbus send_msg;
     allow $3 $1_dbusd_t:dbus send_msg;
-    allow $1_dbusd_t $3:system { start reload };
+    allow $1_dbusd_t $3:system { reload start };
     allow $1_dbusd_t session_dbusd_tmp_t:service { start stop };
 	allow $1_dbusd_t systemd_unit_file_type:service { start stop };
 	dbus_session_tmp_manage($3)

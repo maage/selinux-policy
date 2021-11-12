@@ -66,7 +66,7 @@ files_pid_file(nova_var_run_t)
 #
 
 allow nova_domain self:capability { dac_read_search  net_admin net_bind_service };
-allow nova_domain self:process {  getcap setcap signal_perms setfscreate };
+allow nova_domain self:process {  getcap setcap setfscreate signal_perms };
 allow nova_domain self:fifo_file rw_fifo_file_perms;
 allow nova_domain self:tcp_socket create_stream_socket_perms;
 allow nova_domain self:unix_stream_socket create_stream_socket_perms;
@@ -196,8 +196,8 @@ optional_policy(`
 ifdef(`hide_broken_symptoms',`
 	optional_policy(`
 		sudo_exec(nova_sudo_domain)
-        allow nova_sudo_domain self:capability { setuid sys_resource setgid audit_write };
-		allow nova_sudo_domain self:process { setsched setrlimit };
+        allow nova_sudo_domain self:capability { audit_write setgid setuid sys_resource };
+		allow nova_sudo_domain self:process { setrlimit setsched };
 		logging_send_audit_msgs(nova_sudo_domain)
 	')
 ')

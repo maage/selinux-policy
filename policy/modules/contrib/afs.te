@@ -164,7 +164,7 @@ optional_policy(`
 # fileserver local policy
 #
 
-allow afs_fsserver_t self:capability { kill dac_read_search  chown fowner sys_nice };
+allow afs_fsserver_t self:capability { chown dac_read_search fowner kill sys_nice };
 dontaudit afs_fsserver_t self:capability fsetid;
 allow afs_fsserver_t self:process { setsched signal_perms };
 allow afs_fsserver_t self:fifo_file rw_fifo_file_perms;

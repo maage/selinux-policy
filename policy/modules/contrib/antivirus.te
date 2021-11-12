@@ -65,13 +65,13 @@ files_tmp_file(antivirus_tmp_t)
 # antivirus domain local policy
 #
 
-allow antivirus_domain self:capability { dac_read_search dac_override chown kill fsetid setgid setuid sys_admin };
+allow antivirus_domain self:capability { chown dac_override dac_read_search fsetid kill setgid setuid sys_admin };
 dontaudit antivirus_domain self:capability sys_tty_config;
 allow antivirus_domain self:process signal_perms;
 
 allow antivirus_domain self:fifo_file rw_fifo_file_perms;
 allow antivirus_domain self:unix_stream_socket { accept connectto listen };
-allow antivirus_domain self:tcp_socket { listen accept };
+allow antivirus_domain self:tcp_socket { accept listen };
 
 allow antivirus_domain antivirus_conf_t:dir list_dir_perms;
 read_files_pattern(antivirus_domain, antivirus_conf_t, antivirus_conf_t)

@@ -65,8 +65,8 @@ files_tmp_file(puppetmaster_tmp_t)
 # Puppet personal policy
 #
 
-allow puppetagent_t self:capability { fowner fsetid setuid setgid dac_read_search  sys_nice sys_tty_config };
-allow puppetagent_t self:process { signal signull getsched setsched };
+allow puppetagent_t self:capability { dac_read_search fowner fsetid setgid setuid sys_nice sys_tty_config };
+allow puppetagent_t self:process { getsched setsched signal signull };
 allow puppetagent_t self:fifo_file rw_fifo_file_perms;
 allow puppetagent_t self:netlink_route_socket create_netlink_socket_perms;
 allow puppetagent_t self:tcp_socket create_stream_socket_perms;
@@ -277,8 +277,8 @@ optional_policy(`
 # Pupper master personal policy
 #
 
-allow puppetmaster_t self:capability { dac_read_search  setuid setgid fowner chown fsetid sys_tty_config };
-allow puppetmaster_t self:process { signal_perms getsched setsched };
+allow puppetmaster_t self:capability { chown dac_read_search fowner fsetid setgid setuid sys_tty_config };
+allow puppetmaster_t self:process { getsched setsched signal_perms };
 allow puppetmaster_t self:fifo_file rw_fifo_file_perms;
 allow puppetmaster_t self:netlink_route_socket create_netlink_socket_perms;
 allow puppetmaster_t self:socket create;
@@ -292,7 +292,7 @@ read_files_pattern(puppetmaster_t, puppet_etc_t, puppet_etc_t)
 read_lnk_files_pattern(puppetmaster_t, puppet_etc_t, puppet_etc_t)
 
 allow puppetmaster_t puppet_log_t:dir { rw_dir_perms setattr_dir_perms };
-allow puppetmaster_t puppet_log_t:file { rw_file_perms create_file_perms setattr_file_perms };
+allow puppetmaster_t puppet_log_t:file { create_file_perms rw_file_perms setattr_file_perms };
 logging_log_filetrans(puppetmaster_t, puppet_log_t, { file dir })
 allow puppetmaster_t puppet_log_t:file relabel_file_perms;
 

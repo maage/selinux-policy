@@ -33,11 +33,11 @@ ubac_constrained(pulseaudio_var_run_t)
 # pulseaudio local policy
 #
 
-allow pulseaudio_t self:capability { fowner fsetid chown setgid setuid sys_nice sys_resource sys_tty_config };
-allow pulseaudio_t self:process { getcap setcap setrlimit setsched getsched signal signull };
+allow pulseaudio_t self:capability { chown fowner fsetid setgid setuid sys_nice sys_resource sys_tty_config };
+allow pulseaudio_t self:process { getcap getsched setcap setrlimit setsched signal signull };
 allow pulseaudio_t self:fifo_file rw_file_perms;
-allow pulseaudio_t self:unix_stream_socket { create_stream_socket_perms connectto };
-allow pulseaudio_t self:unix_dgram_socket { sendto create_socket_perms };
+allow pulseaudio_t self:unix_stream_socket { connectto create_stream_socket_perms };
+allow pulseaudio_t self:unix_dgram_socket { create_socket_perms sendto };
 allow pulseaudio_t self:tcp_socket create_stream_socket_perms;
 allow pulseaudio_t self:udp_socket create_socket_perms;
 allow pulseaudio_t self:netlink_kobject_uevent_socket create_socket_perms;

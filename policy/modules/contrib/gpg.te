@@ -94,7 +94,7 @@ files_tmpfs_file(gpg_tmpfs_t)
 allow gpgdomain self:capability { ipc_lock setuid };
 allow gpgdomain self:process { getsched setsched };
 #at setrlimit is for ulimit -c 0
-allow gpgdomain self:process { signal signull setrlimit getcap setcap setpgid };
+allow gpgdomain self:process { getcap setcap setpgid setrlimit signal signull };
 dontaudit gpgdomain self:netlink_audit_socket { create_netlink_socket_perms nlmsg_relay };
 allow gpgdomain self:netlink_kobject_uevent_socket create_socket_perms;
 allow gpgdomain self:netlink_audit_socket { create_socket_perms nlmsg_relay };
@@ -256,7 +256,7 @@ domtrans_pattern(gpg_t, gpg_agent_exec_t, gpg_agent_t)
 # rlimit: gpg-agent wants to prevent coredumps
 allow gpg_agent_t self:process { setrlimit signal_perms };
 
-allow gpg_agent_t self:unix_stream_socket { create_stream_socket_perms connectto } ;
+allow gpg_agent_t self:unix_stream_socket { connectto create_stream_socket_perms } ;
 allow gpg_agent_t self:fifo_file rw_fifo_file_perms;
 allow gpg_agent_t self:netlink_kobject_uevent_socket create_socket_perms;
 
@@ -360,7 +360,7 @@ can_exec(gpg_pinentry_t, pinentry_exec_t)
 
 # we need to allow gpg-agent to call pinentry so it can get the passphrase
 # from the user.
-allow gpg_agent_t gpg_pinentry_t:process { siginh noatsecure rlimitinh };
+allow gpg_agent_t gpg_pinentry_t:process { noatsecure rlimitinh siginh };
 domtrans_pattern(gpg_agent_t, pinentry_exec_t, gpg_pinentry_t)
 
 ps_process_pattern(gpg_pinentry_t, gpg_t)

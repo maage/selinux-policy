@@ -39,7 +39,7 @@ files_type(sandbox_devpts_t)
 #
 # sandbox xserver policy
 #
-allow sandbox_xserver_t self:process { signal_perms execstack };
+allow sandbox_xserver_t self:process { execstack signal_perms };
 
 allow sandbox_web_t sandbox_xserver_t:process2 nnp_transition;
 
@@ -141,7 +141,7 @@ userdom_manage_user_tmp_files(sandbox_x_t)
 #
 # sandbox_x_domain local policy
 #
-allow sandbox_x_domain self:process { getattr signal_perms getsched setsched setpgid execstack getcap setcap };
+allow sandbox_x_domain self:process { execstack getattr getcap getsched setcap setpgid setsched signal_perms };
 tunable_policy(`deny_execmem',`',`
 	allow sandbox_x_domain self:process execmem;
 ')
@@ -151,7 +151,7 @@ allow sandbox_x_domain self:sem create_sem_perms;
 allow sandbox_x_domain self:shm create_shm_perms;
 allow sandbox_x_domain self:msgq create_msgq_perms;
 allow sandbox_x_domain self:netlink_selinux_socket create_socket_perms;
-allow sandbox_x_domain self:unix_dgram_socket { sendto create_socket_perms };
+allow sandbox_x_domain self:unix_dgram_socket { create_socket_perms sendto };
 allow sandbox_x_domain self:unix_stream_socket { connectto create_stream_socket_perms };
 
 dontaudit sandbox_x_domain sandbox_x_domain:process signal;
@@ -366,8 +366,8 @@ logging_send_syslog_msg(sandbox_web_client_t)
 
 miscfiles_map_generic_certs(sandbox_web_client_t)
 
-allow sandbox_web_type self:capability { setuid setgid };
-allow sandbox_web_type self:cap_userns { sys_admin sys_ptrace sys_chroot };
+allow sandbox_web_type self:capability { setgid setuid };
+allow sandbox_web_type self:cap_userns { sys_admin sys_chroot sys_ptrace };
 allow sandbox_web_type self:netlink_audit_socket nlmsg_relay;
 dontaudit sandbox_web_type self:process setrlimit;
 

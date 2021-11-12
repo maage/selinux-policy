@@ -39,8 +39,8 @@ ifdef(`enable_mls',`
 # Local login local policy
 #
 
-allow local_login_t self:capability { dac_read_search dac_override chown fowner fsetid kill setgid setuid sys_admin sys_nice sys_resource sys_tty_config };
-allow local_login_t self:process ~{ ptrace setcurrent setfscreate execmem execstack execheap };
+allow local_login_t self:capability { chown dac_override dac_read_search fowner fsetid kill setgid setuid sys_admin sys_nice sys_resource sys_tty_config };
+allow local_login_t self:process ~{ execheap execmem execstack ptrace setcurrent setfscreate };
 allow local_login_t self:fd use;
 allow local_login_t self:fifo_file rw_fifo_file_perms;
 allow local_login_t self:sock_file read_sock_file_perms;
@@ -51,8 +51,8 @@ allow local_login_t self:unix_stream_socket connectto;
 allow local_login_t self:shm create_shm_perms;
 allow local_login_t self:sem create_sem_perms;
 allow local_login_t self:msgq create_msgq_perms;
-allow local_login_t self:msg { send receive };
-allow local_login_t self:key { search write link };
+allow local_login_t self:msg { receive send };
+allow local_login_t self:key { link search write };
 
 allow local_login_t local_login_lock_t:file manage_file_perms;
 files_lock_filetrans(local_login_t, local_login_lock_t, file)
@@ -211,7 +211,7 @@ optional_policy(`
 #
 
 allow sulogin_t self:capability { dac_read_search  sys_admin };
-allow sulogin_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow sulogin_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow sulogin_t self:fd use;
 allow sulogin_t self:fifo_file rw_fifo_file_perms;
 allow sulogin_t self:unix_dgram_socket create_socket_perms;
@@ -221,7 +221,7 @@ allow sulogin_t self:unix_stream_socket connectto;
 allow sulogin_t self:shm create_shm_perms;
 allow sulogin_t self:sem create_sem_perms;
 allow sulogin_t self:msgq create_msgq_perms;
-allow sulogin_t self:msg { send receive };
+allow sulogin_t self:msg { receive send };
 
 kernel_getattr_core_if(sulogin_t)
 kernel_read_crypto_sysctls(sulogin_t)

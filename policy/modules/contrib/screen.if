@@ -47,7 +47,7 @@ template(`screen_role_template',`
 	userdom_home_reader($1_screen_t)
 
 	domtrans_pattern($3, screen_exec_t, $1_screen_t)
-	allow $3 $1_screen_t:process { signal sigchld };
+	allow $3 $1_screen_t:process { sigchld signal };
 	dontaudit $3 $1_screen_t:unix_stream_socket { ioctl read write };
 	allow $1_screen_t $3:unix_stream_socket { connectto };
 	allow $1_screen_t $3:process signal;

@@ -21,7 +21,7 @@ files_pid_file(memcached_var_run_t)
 # Local policy
 #
 
-allow memcached_t self:capability { setuid setgid sys_resource };
+allow memcached_t self:capability { setgid setuid sys_resource };
 dontaudit memcached_t self:capability sys_tty_config;
 allow memcached_t self:process { setrlimit signal_perms };
 allow memcached_t self:tcp_socket { accept listen };

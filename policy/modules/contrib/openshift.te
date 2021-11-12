@@ -133,7 +133,7 @@ manage_dirs_pattern(openshift_initrc_t, openshift_log_t, openshift_log_t)
 manage_files_pattern(openshift_initrc_t, openshift_log_t, openshift_log_t)
 logging_log_filetrans(openshift_initrc_t, openshift_log_t, { file dir })
 
-allow openshift_initrc_t openshift_domain:process { getattr getsched setsched transition signal signull sigkill };
+allow openshift_initrc_t openshift_domain:process { getattr getsched setsched sigkill signal signull transition };
 allow openshift_domain openshift_initrc_t:fd use;
 allow openshift_domain openshift_initrc_t:fifo_file rw_inherited_fifo_file_perms;
 allow openshift_domain openshift_initrc_t:process sigchld;
@@ -169,7 +169,7 @@ dontaudit openshift_domain self:netlink_tcpdiag_socket create;
 dontaudit openshift_domain self:netlink_route_socket nlmsg_write;
 allow openshift_domain self:tcp_socket  create_stream_socket_perms;
 allow openshift_domain self:fifo_file manage_fifo_file_perms;
-allow openshift_domain self:unix_stream_socket { create_stream_socket_perms connectto };
+allow openshift_domain self:unix_stream_socket { connectto create_stream_socket_perms };
 allow openshift_domain self:unix_dgram_socket { create_socket_perms sendto };
 dontaudit openshift_domain self:netlink_audit_socket { create_socket_perms nlmsg_relay };
 
@@ -211,7 +211,7 @@ manage_sock_files_pattern(openshift_domain, openshift_tmp_t, openshift_tmp_t)
 files_tmp_filetrans(openshift_domain, openshift_tmp_t, { lnk_file file dir sock_file fifo_file })
 allow openshift_domain openshift_tmp_t:dir_file_class_set { relabelfrom relabelto };
 
-allow openshift_domain openshift_log_t:file { getattr append lock ioctl };
+allow openshift_domain openshift_log_t:file { append getattr ioctl lock };
 
 #lsof
 allow openshift_domain openshift_initrc_t:tcp_socket getattr;
@@ -382,7 +382,7 @@ optional_policy(`
 #
 # Rules specific to openshift_net_domains
 #
-allow openshift_net_domain openshift_port_t:tcp_socket { name_connect name_bind };
+allow openshift_net_domain openshift_port_t:tcp_socket { name_bind name_connect };
 allow openshift_net_domain openshift_port_t:udp_socket name_bind;
 
 corenet_tcp_connect_mssql_port(openshift_net_domain)
@@ -488,7 +488,7 @@ miscfiles_read_generic_certs(openshift_cgroup_read_t)
 domtrans_pattern(openshift_domain, openshift_cgroup_read_exec_t, openshift_cgroup_read_t)
 role system_r types openshift_cgroup_read_t;
 
-allow openshift_domain openshift_cgroup_read_t:process { getattr signal signull sigkill };
+allow openshift_domain openshift_cgroup_read_t:process { getattr sigkill signal signull };
 
 fs_list_cgroup_dirs(openshift_cgroup_read_t)
 fs_read_cgroup_files(openshift_cgroup_read_t)
@@ -535,7 +535,7 @@ optional_policy(`
 domtrans_pattern(openshift_domain, openshift_net_read_exec_t, openshift_net_read_t)
 role system_r types openshift_net_read_t;
 
-allow openshift_domain openshift_net_read_t:process { getattr signal signull sigkill };
+allow openshift_domain openshift_net_read_t:process { getattr sigkill signal signull };
 
 allow openshift_net_read_t openshift_var_lib_t:dir list_dir_perms;
 manage_files_pattern(openshift_net_read_t, openshift_var_lib_t, openshift_var_lib_t)

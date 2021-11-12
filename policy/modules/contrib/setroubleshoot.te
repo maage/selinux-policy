@@ -45,11 +45,11 @@ files_tmpfs_file(setroubleshoot_fixit_tmpfs_t)
 allow setroubleshootd_t self:capability { sys_nice sys_ptrace sys_tty_config };
 dontaudit setroubleshootd_t self:capability net_admin;
 
-allow setroubleshootd_t self:process { getattr getsched setsched sigkill signull signal };
+allow setroubleshootd_t self:process { getattr getsched setsched sigkill signal signull };
 # if bad library causes setroubleshoot to require these, we want to give it so setroubleshoot can continue to run
 allow setroubleshootd_t self:fifo_file rw_fifo_file_perms;
 allow setroubleshootd_t self:tcp_socket create_stream_socket_perms;
-allow setroubleshootd_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow setroubleshootd_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow setroubleshootd_t self:unix_dgram_socket create_socket_perms;
 
 
@@ -199,7 +199,7 @@ optional_policy(`
 #
 
 allow setroubleshoot_fixit_t self:capability sys_nice;
-allow setroubleshoot_fixit_t self:process { setsched getsched };
+allow setroubleshoot_fixit_t self:process { getsched setsched };
 dontaudit setroubleshoot_fixit_t self:process execmem;
 allow setroubleshoot_fixit_t self:fifo_file rw_fifo_file_perms;
 allow setroubleshoot_fixit_t self:unix_dgram_socket create_socket_perms;

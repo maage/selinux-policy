@@ -67,9 +67,9 @@ files_pid_file(mysqlmanagerd_var_run_t)
 # Local policy
 #
 
-allow mysqld_t self:capability { dac_read_search  ipc_lock sys_nice sys_resource net_bind_service };
+allow mysqld_t self:capability { dac_read_search  ipc_lock net_bind_service sys_nice sys_resource };
 dontaudit mysqld_t self:capability sys_tty_config;
-allow mysqld_t self:process { setsched getsched setrlimit signal_perms rlimitinh };
+allow mysqld_t self:process { getsched rlimitinh setrlimit setsched signal_perms };
 allow mysqld_t self:fifo_file rw_fifo_file_perms;
 allow mysqld_t self:shm create_shm_perms;
 allow mysqld_t self:unix_stream_socket create_stream_socket_perms;
@@ -197,12 +197,12 @@ optional_policy(`
 #
 
 # setuig/setgid may be used in mysqld_safe and mysqld_safe_helper
-allow mysqld_safe_t self:capability { chown dac_read_search setgid setuid fowner kill sys_nice sys_resource };
+allow mysqld_safe_t self:capability { chown dac_read_search fowner kill setgid setuid sys_nice sys_resource };
 dontaudit mysqld_safe_t self:capability sys_ptrace;
-allow mysqld_safe_t self:process { setsched getsched setrlimit };
+allow mysqld_safe_t self:process { getsched setrlimit setsched };
 allow mysqld_safe_t self:fifo_file rw_fifo_file_perms;
 
-allow mysqld_safe_t mysqld_t:process { rlimitinh noatsecure };
+allow mysqld_safe_t mysqld_t:process { noatsecure rlimitinh };
 
 read_lnk_files_pattern(mysqld_safe_t, mysqld_db_t, mysqld_db_t)
 delete_sock_files_pattern(mysqld_safe_t, mysqld_db_t, mysqld_db_t)

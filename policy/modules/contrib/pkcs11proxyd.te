@@ -23,7 +23,7 @@ files_pid_file(pkcs11proxyd_var_run_t)
 # pkcs11proxyd local policy
 #
 
-allow pkcs11proxyd_t self:capability { kill setuid setgid };
+allow pkcs11proxyd_t self:capability { kill setgid setuid };
 allow pkcs11proxyd_t self:process { getpgid setpgid  };
 
 manage_dirs_pattern(pkcs11proxyd_t, pkcs11proxyd_var_lib_t, pkcs11proxyd_var_lib_t)

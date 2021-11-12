@@ -73,7 +73,7 @@ optional_policy(`
 # thin local policy
 #
 
-allow thin_t self:capability { setuid kill setgid dac_read_search   };
+allow thin_t self:capability { dac_read_search kill setgid setuid };
 allow thin_t self:capability2 block_suspend;
 
 allow thin_t self:netlink_route_socket r_netlink_socket_perms;
@@ -98,7 +98,7 @@ corenet_tcp_connect_postgresql_port(thin_t)
 # thin aeolus configserver local policy
 #
 
-allow thin_aeolus_configserver_t self:capability { setuid setgid };
+allow thin_aeolus_configserver_t self:capability { setgid setuid };
 
 corenet_tcp_bind_tram_port(thin_aeolus_configserver_t)
 

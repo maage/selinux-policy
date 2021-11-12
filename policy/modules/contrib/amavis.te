@@ -47,12 +47,12 @@ files_spool_file(amavis_spool_t)
 # Local policy
 #
 
-allow amavis_t self:capability { kill chown dac_read_search   setgid setuid };
+allow amavis_t self:capability { chown dac_read_search kill setgid setuid };
 dontaudit amavis_t self:capability sys_tty_config;
 allow amavis_t self:process signal_perms;
 allow amavis_t self:fifo_file rw_fifo_file_perms;
 allow amavis_t self:unix_stream_socket { accept connectto listen };
-allow amavis_t self:tcp_socket { listen accept };
+allow amavis_t self:tcp_socket { accept listen };
 
 allow amavis_t amavis_etc_t:dir list_dir_perms;
 read_files_pattern(amavis_t, amavis_etc_t, amavis_etc_t)

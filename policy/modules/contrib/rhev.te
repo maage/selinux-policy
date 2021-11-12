@@ -26,7 +26,7 @@ logging_log_file(rhev_agentd_log_t)
 # rhev_agentd_t local policy
 #
 
-allow rhev_agentd_t self:capability { setuid setgid sys_nice };
+allow rhev_agentd_t self:capability { setgid setuid sys_nice };
 allow rhev_agentd_t self:process setsched;
 
 allow rhev_agentd_t self:fifo_file rw_fifo_file_perms;

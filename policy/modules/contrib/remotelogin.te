@@ -15,9 +15,9 @@ auth_login_entry_type(remote_login_t)
 # Remote login remote policy
 #
 
-allow remote_login_t self:capability { dac_override dac_read_search chown fowner fsetid kill setgid setuid net_bind_service sys_nice sys_resource sys_tty_config };
-allow remote_login_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
-allow remote_login_t self:process { setrlimit setexec };
+allow remote_login_t self:capability { chown dac_override dac_read_search fowner fsetid kill net_bind_service setgid setuid sys_nice sys_resource sys_tty_config };
+allow remote_login_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
+allow remote_login_t self:process { setexec setrlimit };
 allow remote_login_t self:fd use;
 allow remote_login_t self:fifo_file rw_fifo_file_perms;
 allow remote_login_t self:sock_file read_sock_file_perms;
@@ -28,7 +28,7 @@ allow remote_login_t self:unix_stream_socket connectto;
 allow remote_login_t self:shm create_shm_perms;
 allow remote_login_t self:sem create_sem_perms;
 allow remote_login_t self:msgq create_msgq_perms;
-allow remote_login_t self:msg { send receive };
+allow remote_login_t self:msg { receive send };
 allow remote_login_t self:key write;
 
 kernel_read_system_state(remote_login_t)

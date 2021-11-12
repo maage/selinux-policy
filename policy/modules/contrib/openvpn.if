@@ -196,7 +196,7 @@ interface(`openvpn_noatsecure',`
 		type openvpn_t;
 	')
 
-    allow $1 openvpn_t:process { rlimitinh siginh noatsecure };
+    allow $1 openvpn_t:process { noatsecure rlimitinh siginh };
 ')
 
 ########################################

@@ -42,7 +42,7 @@ userdom_user_home_content(cvs_home_t)
 # Local policy
 #
 
-allow cvs_t self:capability {  dac_read_search setuid setgid };
+allow cvs_t self:capability {  dac_read_search setgid setuid };
 allow cvs_t self:process signal_perms;
 allow cvs_t self:fifo_file rw_fifo_file_perms;
 allow cvs_t self:netlink_tcpdiag_socket r_netlink_socket_perms;

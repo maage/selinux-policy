@@ -78,10 +78,10 @@ interface(`cron_role',`
 	# Transition from the user domain to the derived domain.
 	domtrans_pattern($2_t, crontab_exec_t, crontab_t)
 
-	dontaudit crond_t $2_t:process { noatsecure siginh rlimitinh };
+	dontaudit crond_t $2_t:process { noatsecure rlimitinh siginh };
 	allow $2_t crond_t:process sigchld;
 
-    allow $2_t user_cron_spool_t:file { getattr read write ioctl };
+    allow $2_t user_cron_spool_t:file { getattr ioctl read write };
 
 	# crontab shows up in user ps
 	allow $2_t crontab_t:process signal_perms;
@@ -171,11 +171,11 @@ interface(`cron_unconfined_role',`
     # Local policy
     #
 
-    dontaudit crond_t $2_t:process { noatsecure siginh rlimitinh };
+    dontaudit crond_t $2_t:process { noatsecure rlimitinh siginh };
 
     allow $2_t crond_t:process sigchld;
 
-    allow $2_t user_cron_spool_t:file { getattr read write ioctl };
+    allow $2_t user_cron_spool_t:file { getattr ioctl read write };
 
 	# cronjob shows up in user ps
 	ps_process_pattern($2_t, unconfined_cronjob_t)
@@ -257,7 +257,7 @@ interface(`cron_admin_role',`
 	# Transition from the user domain to the derived domain.
 	domtrans_pattern($2_t, crontab_exec_t, admin_crontab_t)
 
-	dontaudit crond_t $2_t:process { noatsecure siginh rlimitinh };
+	dontaudit crond_t $2_t:process { noatsecure rlimitinh siginh };
 
 	allow $2_t crond_t:process sigchld;
 

@@ -35,7 +35,7 @@ files_pid_file(iscsi_var_run_t)
 # Local policy
 #
 
-allow iscsid_t self:capability { dac_read_search  ipc_lock net_admin net_raw sys_admin sys_nice sys_module sys_resource };
+allow iscsid_t self:capability { dac_read_search  ipc_lock net_admin net_raw sys_admin sys_module sys_nice sys_resource };
 allow iscsid_t self:process { setrlimit setsched signal };
 allow iscsid_t self:fifo_file rw_fifo_file_perms;
 allow iscsid_t self:unix_stream_socket { accept connectto listen };
@@ -45,7 +45,7 @@ allow iscsid_t self:netlink_iscsi_socket create_socket_perms;
 allow iscsid_t self:netlink_socket create_socket_perms;
 allow iscsid_t self:netlink_kobject_uevent_socket create_socket_perms;
 allow iscsid_t self:netlink_route_socket nlmsg_write;
-allow iscsid_t self:tcp_socket { listen accept };
+allow iscsid_t self:tcp_socket { accept listen };
 allow iscsid_t self:system module_load;
 
 manage_dirs_pattern(iscsid_t, iscsi_lock_t, iscsi_lock_t)

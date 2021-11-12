@@ -25,7 +25,7 @@ files_type(motion_data_t)
 #
 # motion local policy
 #
-allow motion_t self:udp_socket { create connect getattr };
+allow motion_t self:udp_socket { connect create getattr };
 allow motion_t self:tcp_socket create_stream_socket_perms;
 allow motion_t self:netlink_route_socket r_netlink_socket_perms;
 

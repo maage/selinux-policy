@@ -66,7 +66,7 @@ template(`postfix_server_domain_template',`
 	type postfix_$1_tmp_t;
 	files_tmp_file(postfix_$1_tmp_t)
 
-	allow postfix_$1_t self:capability { setuid setgid sys_chroot dac_read_search  };
+	allow postfix_$1_t self:capability { dac_read_search setgid setuid sys_chroot };
 	allow postfix_$1_t postfix_master_t:unix_stream_socket { connectto rw_stream_socket_perms };
 	allow postfix_$1_t self:tcp_socket create_socket_perms;
 	allow postfix_$1_t self:udp_socket create_socket_perms;
@@ -511,7 +511,7 @@ interface(`postfix_run_postqueue',`
 
 	postfix_domtrans_postqueue($1)
 	role $2 types postfix_postqueue_t;
-	allow postfix_postqueue_t $1:unix_stream_socket { read write getattr };
+	allow postfix_postqueue_t $1:unix_stream_socket { getattr read write };
 ')
 
 ########################################
@@ -900,7 +900,7 @@ interface(`postfix_run_postdrop',`
 	postfix_domtrans_postdrop($1)
 	role $2 types postfix_postdrop_t;
 	allow $1 postfix_postdrop_t:process signal;
-	allow postfix_postdrop_t $1:unix_stream_socket { read write getattr };
+	allow postfix_postdrop_t $1:unix_stream_socket { getattr read write };
 ')
 
 

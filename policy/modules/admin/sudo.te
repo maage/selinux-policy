@@ -32,16 +32,16 @@ logging_log_filetrans(sudodomain, sudo_log_t, dir, "sudo-io")
 #
 
 # Use capabilities.
-allow sudodomain self:capability { chown fowner setuid setgid dac_read_search dac_override sys_nice sys_resource };
+allow sudodomain self:capability { chown dac_override dac_read_search fowner setgid setuid sys_nice sys_resource };
 dontaudit sudodomain self:capability net_admin;
-allow sudodomain self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow sudodomain self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow sudodomain self:process { setexec setrlimit };
 allow sudodomain self:fd use;
 allow sudodomain self:fifo_file rw_fifo_file_perms;
 allow sudodomain self:shm create_shm_perms;
 allow sudodomain self:sem create_sem_perms;
 allow sudodomain self:msgq create_msgq_perms;
-allow sudodomain self:msg { send receive };
+allow sudodomain self:msg { receive send };
 allow sudodomain self:unix_dgram_socket create_socket_perms;
 allow sudodomain self:unix_stream_socket create_stream_socket_perms;
 allow sudodomain self:unix_dgram_socket sendto;

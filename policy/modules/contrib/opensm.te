@@ -22,7 +22,7 @@ systemd_unit_file(opensm_unit_file_t)
 #
 # opensm local policy
 #
-allow opensm_t self:process { signal fork };
+allow opensm_t self:process { fork signal };
 allow opensm_t self:fifo_file rw_fifo_file_perms;
 allow opensm_t self:unix_stream_socket create_stream_socket_perms;
 

@@ -48,8 +48,8 @@ dev_node(bootloader_tmp_t)
 # bootloader local policy
 #
 
-allow bootloader_t self:capability {  dac_read_search fsetid sys_rawio sys_admin sys_chroot mknod chown };
-allow bootloader_t self:process { signal_perms execmem };
+allow bootloader_t self:capability { chown dac_read_search fsetid mknod sys_admin sys_chroot sys_rawio };
+allow bootloader_t self:process { execmem signal_perms };
 allow bootloader_t self:fifo_file rw_fifo_file_perms;
 
 allow bootloader_t bootloader_etc_t:file read_file_perms;
@@ -182,7 +182,7 @@ ifdef(`distro_redhat',`
 	allow bootloader_t self:capability ipc_lock;
 
 	# new file system defaults to file_t, granting file_t access is still bad.
-	allow bootloader_t boot_runtime_t:file { read_file_perms delete_file_perms };
+	allow bootloader_t boot_runtime_t:file { delete_file_perms read_file_perms };
 
 	# new file system defaults to file_t, granting file_t access is still bad.
 	files_manage_isid_type_dirs(bootloader_t)

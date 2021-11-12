@@ -20,7 +20,7 @@ systemd_unit_file(iodined_unit_file_t)
 # Local policy
 #
 
-allow iodined_t self:capability { net_admin net_raw sys_chroot setgid setuid };
+allow iodined_t self:capability { net_admin net_raw setgid setuid sys_chroot };
 allow iodined_t self:rawip_socket create_socket_perms;
 allow iodined_t self:tun_socket create_socket_perms;
 allow iodined_t self:udp_socket connected_socket_perms;

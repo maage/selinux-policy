@@ -147,7 +147,7 @@ ifdef(`distro_redhat',`
 # Standalone program local policy
 #
 
-allow spamassassin_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow spamassassin_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow spamassassin_t self:fd use;
 allow spamassassin_t self:fifo_file rw_fifo_file_perms;
 allow spamassassin_t self:sock_file read_sock_file_perms;
@@ -158,7 +158,7 @@ allow spamassassin_t self:unix_stream_socket connectto;
 allow spamassassin_t self:shm create_shm_perms;
 allow spamassassin_t self:sem create_sem_perms;
 allow spamassassin_t self:msgq create_msgq_perms;
-allow spamassassin_t self:msg { send receive };
+allow spamassassin_t self:msg { receive send };
 
 manage_dirs_pattern(spamassassin_t, spamassassin_home_t, spamassassin_home_t)
 manage_files_pattern(spamassassin_t, spamassassin_home_t, spamassassin_home_t)
@@ -254,14 +254,14 @@ optional_policy(`
 # Client local policy
 #
 
-allow spamc_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow spamc_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow spamc_t self:fd use;
 allow spamc_t self:fifo_file rw_fifo_file_perms;
 allow spamc_t self:sock_file read_sock_file_perms;
 allow spamc_t self:shm create_shm_perms;
 allow spamc_t self:sem create_sem_perms;
 allow spamc_t self:msgq create_msgq_perms;
-allow spamc_t self:msg { send receive };
+allow spamc_t self:msg { receive send };
 allow spamc_t self:unix_dgram_socket create_socket_perms;
 allow spamc_t self:unix_stream_socket create_stream_socket_perms;
 allow spamc_t self:unix_dgram_socket sendto;
@@ -284,7 +284,7 @@ userdom_append_user_home_content_files(spamc_t)
 spamassassin_filetrans_home_content(spamc_t)
 spamassassin_filetrans_admin_home_content(spamc_t)
 # for /root/.pyzor
-allow spamc_t self:capability { dac_read_search dac_override };
+allow spamc_t self:capability { dac_override dac_read_search };
 
 list_dirs_pattern(spamc_t, spamd_var_lib_t, spamd_var_lib_t)
 read_files_pattern(spamc_t, spamd_var_lib_t, spamd_var_lib_t)
@@ -398,16 +398,16 @@ optional_policy(`
 # setuids to the user running spamc.  Comment this if you are not
 # using this ability.
 
-allow spamd_t self:capability { kill setuid setgid dac_read_search dac_override sys_tty_config };
+allow spamd_t self:capability { dac_override dac_read_search kill setgid setuid sys_tty_config };
 dontaudit spamd_t self:capability sys_tty_config;
-allow spamd_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow spamd_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow spamd_t self:fd use;
 allow spamd_t self:fifo_file rw_fifo_file_perms;
 allow spamd_t self:sock_file read_sock_file_perms;
 allow spamd_t self:shm create_shm_perms;
 allow spamd_t self:sem create_sem_perms;
 allow spamd_t self:msgq create_msgq_perms;
-allow spamd_t self:msg { send receive };
+allow spamd_t self:msg { receive send };
 allow spamd_t self:unix_dgram_socket create_socket_perms;
 allow spamd_t self:unix_stream_socket create_stream_socket_perms;
 allow spamd_t self:unix_dgram_socket sendto;
@@ -601,7 +601,7 @@ optional_policy(`
 allow spamd_update_t self:fifo_file manage_fifo_file_perms;
 allow spamd_update_t self:unix_dgram_socket create_socket_perms;
 allow spamd_update_t self:unix_stream_socket create_stream_socket_perms;
-allow spamd_update_t self:capability { dac_read_search dac_override };
+allow spamd_update_t self:capability { dac_override dac_read_search };
 
 manage_dirs_pattern(spamd_update_t, spamd_tmp_t, spamd_tmp_t)
 manage_files_pattern(spamd_update_t, spamd_tmp_t, spamd_tmp_t)

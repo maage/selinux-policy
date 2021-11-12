@@ -17,7 +17,7 @@ files_tmp_file(smoltclient_tmp_t)
 # Local policy
 #
 
-allow smoltclient_t self:process { setsched getsched };
+allow smoltclient_t self:process { getsched setsched };
 allow smoltclient_t self:fifo_file rw_fifo_file_perms;
 
 manage_dirs_pattern(smoltclient_t, smoltclient_tmp_t, smoltclient_tmp_t)

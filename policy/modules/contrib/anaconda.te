@@ -5,7 +5,7 @@ gen_require(`
 ')
 
 gen_require(`
-	class passwd { passwd chfn chsh rootok crontab };
+	class passwd { chfn chsh crontab passwd rootok };
 ')
 
 ########################################
@@ -42,7 +42,7 @@ files_type(preupgrade_data_t)
 #
 
 allow anaconda_t self:process execmem;
-allow anaconda_t self:passwd { rootok passwd chfn chsh };
+allow anaconda_t self:passwd { chfn chsh passwd rootok };
 
 kernel_domtrans_to(anaconda_t, anaconda_exec_t)
 

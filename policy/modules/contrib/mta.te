@@ -53,8 +53,8 @@ userdom_user_tmp_file(user_mail_tmp_t)
 # Common base mail policy
 #
 
-allow user_mail_domain self:capability { setuid setgid chown };
-allow user_mail_domain self:process { signal_perms setrlimit };
+allow user_mail_domain self:capability { chown setgid setuid };
+allow user_mail_domain self:process { setrlimit signal_perms };
 allow user_mail_domain self:fifo_file rw_fifo_file_perms;
 
 allow user_mail_domain mta_exec_type:file entrypoint;
@@ -181,7 +181,7 @@ mta_filetrans_home_content(user_mail_domain)
 #
 
 # newalias required this, not sure if it is needed in 'if' file
-allow system_mail_t self:capability { dac_read_search dac_override fowner };
+allow system_mail_t self:capability { dac_override dac_read_search fowner };
 dontaudit system_mail_t self:capability net_admin;
 
 allow system_mail_t mail_home_t:file manage_file_perms;

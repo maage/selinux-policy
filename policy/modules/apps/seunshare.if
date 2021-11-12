@@ -105,7 +105,7 @@ interface(`seunshare_role_template',`
 	allow $3 $1_seunshare_t:fd use;
 
 	allow $1_seunshare_t $3:process transition;
-	dontaudit $1_seunshare_t $3:process { noatsecure siginh rlimitinh };
+	dontaudit $1_seunshare_t $3:process { noatsecure rlimitinh siginh };
 
 	corecmd_bin_domtrans($1_seunshare_t, $1_t)
 	corecmd_shell_domtrans($1_seunshare_t, $1_t)

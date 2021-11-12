@@ -491,18 +491,18 @@ role system_r types httpd_passwd_t;
 # Apache server local policy
 #
 
-allow httpd_t self:capability { chown dac_read_search dac_override kill setgid setuid sys_nice sys_tty_config sys_chroot };
+allow httpd_t self:capability { chown dac_override dac_read_search kill setgid setuid sys_chroot sys_nice sys_tty_config };
 dontaudit httpd_t self:capability { net_admin sys_tty_config };
-allow httpd_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow httpd_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow httpd_t self:fd use;
 allow httpd_t self:sock_file read_sock_file_perms;
 allow httpd_t self:fifo_file rw_fifo_file_perms;
 allow httpd_t self:shm create_shm_perms;
 allow httpd_t self:sem create_sem_perms;
 allow httpd_t self:msgq create_msgq_perms;
-allow httpd_t self:msg { send receive };
+allow httpd_t self:msg { receive send };
 allow httpd_t self:unix_dgram_socket { create_socket_perms sendto };
-allow httpd_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow httpd_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow httpd_t self:tcp_socket create_stream_socket_perms;
 allow httpd_t self:udp_socket create_socket_perms;
 dontaudit httpd_t self:netlink_audit_socket create_socket_perms;
@@ -1283,7 +1283,7 @@ tunable_policy(`httpd_tty_comm',`
 # Apache PHP script local policy
 #
 
-allow httpd_php_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+allow httpd_php_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow httpd_php_t self:fd use;
 allow httpd_php_t self:fifo_file rw_fifo_file_perms;
 allow httpd_php_t self:sock_file read_sock_file_perms;
@@ -1294,12 +1294,12 @@ allow httpd_php_t self:unix_stream_socket connectto;
 allow httpd_php_t self:shm create_shm_perms;
 allow httpd_php_t self:sem create_sem_perms;
 allow httpd_php_t self:msgq create_msgq_perms;
-allow httpd_php_t self:msg { send receive };
+allow httpd_php_t self:msg { receive send };
 
 domtrans_pattern(httpd_t, httpd_php_exec_t, httpd_php_t)
 
 # allow php to read and append to apache logfiles
-allow httpd_php_t httpd_log_t:file { read_file_perms append_file_perms };
+allow httpd_php_t httpd_log_t:file { append_file_perms read_file_perms };
 
 manage_dirs_pattern(httpd_php_t, httpd_php_tmp_t, httpd_php_tmp_t)
 manage_files_pattern(httpd_php_t, httpd_php_tmp_t, httpd_php_tmp_t)
@@ -1345,7 +1345,7 @@ optional_policy(`
 # Apache suexec local policy
 #
 
-allow httpd_suexec_t self:capability { setuid setgid };
+allow httpd_suexec_t self:capability { setgid setuid };
 allow httpd_suexec_t self:process signal_perms;
 allow httpd_suexec_t self:fifo_file rw_fifo_file_perms;
 allow httpd_suexec_t self:unix_stream_socket create_stream_socket_perms;
@@ -1783,7 +1783,7 @@ allow httpd_t httpd_script_type:unix_stream_socket connectto;
 
 allow httpd_t httpd_script_exec_type:file read_file_perms;
 allow httpd_t httpd_script_exec_type:lnk_file read_lnk_file_perms;
-allow httpd_t httpd_script_type:process { signal sigkill sigstop signull };
+allow httpd_t httpd_script_type:process { sigkill signal signull sigstop };
 allow httpd_t httpd_script_exec_type:dir list_dir_perms;
 
 allow httpd_script_type self:process { setsched signal_perms };

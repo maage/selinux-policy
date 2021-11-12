@@ -5,7 +5,7 @@ gen_require(`
 ')
 
 gen_require(`
-	class passwd { passwd chfn chsh rootok crontab };
+	class passwd { chfn chsh crontab passwd rootok };
 ')
 
 ########################################
@@ -29,10 +29,10 @@ systemd_unit_file(accountsd_unit_file_t)
 # Local policy
 #
 
-allow accountsd_t self:capability { chown dac_read_search dac_override setuid setgid sys_ptrace };
+allow accountsd_t self:capability { chown dac_override dac_read_search setgid setuid sys_ptrace };
 allow accountsd_t self:process signal;
 allow accountsd_t self:fifo_file rw_fifo_file_perms;
-allow accountsd_t self:passwd { rootok passwd chfn chsh };
+allow accountsd_t self:passwd { chfn chsh passwd rootok };
 
 manage_dirs_pattern(accountsd_t, accountsd_var_lib_t, accountsd_var_lib_t)
 manage_files_pattern(accountsd_t, accountsd_var_lib_t, accountsd_var_lib_t)

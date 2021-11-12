@@ -34,7 +34,7 @@ application_executable_file(vmtools_unconfined_exec_t)
 # vmtools local policy
 #
 
-allow vmtools_t self:capability { sys_time sys_rawio };
+allow vmtools_t self:capability { sys_rawio sys_time };
 allow vmtools_t self:fifo_file rw_fifo_file_perms;
 allow vmtools_t self:unix_stream_socket create_stream_socket_perms;
 allow vmtools_t self:unix_dgram_socket create_socket_perms;

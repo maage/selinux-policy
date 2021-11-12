@@ -32,7 +32,7 @@ files_tmpfs_file(rtas_errd_tmpfs_t)
 # rtas_errd local policy
 #
 
-allow rtas_errd_t self:capability { net_admin chown sys_admin };
+allow rtas_errd_t self:capability { chown net_admin sys_admin };
 allow rtas_errd_t self:process { fork signull };
 allow rtas_errd_t self:fifo_file rw_fifo_file_perms;
 allow rtas_errd_t self:unix_stream_socket create_stream_socket_perms;

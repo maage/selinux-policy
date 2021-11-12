@@ -111,7 +111,7 @@ mta_mailserver_delivery(postfix_virtual_t)
 
 dontaudit postfix_master_t self:capability { net_admin };
 # chown is to set the correct ownership of queue dirs
-allow postfix_master_t self:capability { chown dac_read_search kill setgid setuid net_bind_service sys_tty_config };
+allow postfix_master_t self:capability { chown dac_read_search kill net_bind_service setgid setuid sys_tty_config };
 allow postfix_master_t self:capability2 block_suspend;
 
 allow postfix_master_t self:process setrlimit;
@@ -129,7 +129,7 @@ allow postfix_master_t postfix_data_t:file manage_file_perms;
 
 allow postfix_master_t postfix_keytab_t:file read_file_perms;
 
-allow postfix_master_t postfix_map_exec_t:file { mmap_file_perms ioctl lock };
+allow postfix_master_t postfix_map_exec_t:file { ioctl lock mmap_file_perms };
 
 allow postfix_master_t postfix_postqueue_exec_t:file getattr_file_perms;
 
@@ -310,9 +310,9 @@ optional_policy(`
 # Postfix local local policy
 #
 
-allow postfix_local_t self:capability { dac_read_search dac_override };
+allow postfix_local_t self:capability { dac_override dac_read_search };
 
-allow postfix_local_t self:process { setsched setrlimit };
+allow postfix_local_t self:process { setrlimit setsched };
 
 # connect to master process
 stream_connect_pattern(postfix_local_t, postfix_public_t, postfix_public_t, postfix_master_t)
@@ -644,7 +644,7 @@ corecmd_exec_bin(postfix_qmgr_t)
 # Postfix showq local policy
 #
 
-allow postfix_showq_t self:capability { setuid setgid };
+allow postfix_showq_t self:capability { setgid setuid };
 allow postfix_showq_t self:tcp_socket create_socket_perms;
 
 allow postfix_showq_t postfix_master_t:unix_stream_socket { accept rw_socket_perms };
@@ -759,7 +759,7 @@ optional_policy(`
 # Postfix virtual local policy
 #
 
-allow postfix_virtual_t self:process { setsched setrlimit };
+allow postfix_virtual_t self:process { setrlimit setsched };
 
 manage_files_pattern(postfix_virtual_t, postfix_spool_t, postfix_spool_t)
 
@@ -780,9 +780,9 @@ userdom_filetrans_home_content(postfix_virtual_t)
 #
 # postfix_domain common policy
 #
-allow postfix_domain self:capability { sys_nice sys_chroot };
+allow postfix_domain self:capability { sys_chroot sys_nice };
 dontaudit postfix_domain self:capability sys_tty_config;
-allow postfix_domain self:process { signal_perms setpgid setsched };
+allow postfix_domain self:process { setpgid setsched signal_perms };
 allow postfix_domain self:unix_dgram_socket create_socket_perms;
 allow postfix_domain self:unix_stream_socket create_stream_socket_perms;
 allow postfix_domain self:unix_stream_socket connectto;
@@ -797,7 +797,7 @@ allow postfix_domain postfix_etc_t:dir list_dir_perms;
 read_files_pattern(postfix_domain, postfix_etc_t, postfix_etc_t)
 read_lnk_files_pattern(postfix_domain, postfix_etc_t, postfix_etc_t)
 
-allow postfix_domain postfix_exec_t:file { mmap_file_perms lock };
+allow postfix_domain postfix_exec_t:file { lock mmap_file_perms };
 
 allow postfix_domain postfix_master_t:process sigchld;
 

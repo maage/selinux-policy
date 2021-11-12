@@ -24,7 +24,7 @@ interface(`sandbox_transition',`
 
     sandbox_dyntransition($1) #885288
     allow $1 sandbox_domain:process transition;
-    dontaudit $1 sandbox_domain:process { noatsecure siginh rlimitinh };
+    dontaudit $1 sandbox_domain:process { noatsecure rlimitinh siginh };
 
     role $2 types sandbox_domain;
 

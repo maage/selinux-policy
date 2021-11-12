@@ -34,7 +34,7 @@ allow openwsman_t self:capability setuid;
 allow openwsman_t self:process { fork };
 allow openwsman_t self:fifo_file rw_fifo_file_perms;
 allow openwsman_t self:unix_stream_socket create_stream_socket_perms;
-allow openwsman_t self:tcp_socket { create_socket_perms accept listen };
+allow openwsman_t self:tcp_socket { accept create_socket_perms listen };
 
 manage_files_pattern(openwsman_t, openwsman_tmp_t, openwsman_tmp_t)
 manage_dirs_pattern(openwsman_t, openwsman_tmp_t, openwsman_tmp_t)

@@ -39,11 +39,11 @@ systemd_unit_file(pacemaker_unit_file_t)
 # Local policy
 #
 
-allow pacemaker_t self:capability { fowner fsetid kill chown dac_read_search  setuid };
+allow pacemaker_t self:capability { chown dac_read_search fowner fsetid kill setuid };
 allow pacemaker_t self:capability2 block_suspend;
-allow pacemaker_t self:process { setrlimit signal setpgid };
+allow pacemaker_t self:process { setpgid setrlimit signal };
 allow pacemaker_t self:fifo_file rw_fifo_file_perms;
-allow pacemaker_t self:unix_stream_socket { connectto accept listen };
+allow pacemaker_t self:unix_stream_socket { accept connectto listen };
 
 manage_dirs_pattern(pacemaker_t, pacemaker_tmp_t, pacemaker_tmp_t)
 manage_files_pattern(pacemaker_t, pacemaker_tmp_t, pacemaker_tmp_t)

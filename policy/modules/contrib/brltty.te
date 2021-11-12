@@ -25,7 +25,7 @@ systemd_unit_file(brltty_unit_file_t)
 #
 # brltty local policy
 #
-allow brltty_t self:capability { setgid setuid sys_admin sys_tty_config mknod };
+allow brltty_t self:capability { mknod setgid setuid sys_admin sys_tty_config };
 allow brltty_t self:process { fork signal_perms };
 
 allow brltty_t self:fifo_file rw_fifo_file_perms;

@@ -80,9 +80,9 @@ files_type(ipsec_mgmt_devpts_t)
 # ipsec Local policy
 #
 
-allow ipsec_t self:capability { chown net_admin dac_read_search dac_override setpcap sys_admin sys_nice net_raw setuid setgid };
+allow ipsec_t self:capability { chown dac_override dac_read_search net_admin net_raw setgid setpcap setuid sys_admin sys_nice };
 dontaudit ipsec_t self:capability sys_tty_config;
-allow ipsec_t self:process { getcap setcap getsched signal signull setsched sigkill };
+allow ipsec_t self:process { getcap getsched setcap setsched sigkill signal signull };
 allow ipsec_t self:tcp_socket create_stream_socket_perms;
 allow ipsec_t self:udp_socket create_socket_perms;
 allow ipsec_t self:packet_socket create_socket_perms;
@@ -90,7 +90,7 @@ allow ipsec_t self:key_socket create_socket_perms;
 allow ipsec_t self:fifo_file read_fifo_file_perms;
 allow ipsec_t self:netlink_xfrm_socket { create_netlink_socket_perms nlmsg_write };
 allow ipsec_t self:netlink_selinux_socket create_socket_perms;
-allow ipsec_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow ipsec_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow ipsec_t self:netlink_route_socket { create_netlink_socket_perms write };
 allow ipsec_t self:tun_socket create_socket_perms;
 
@@ -261,10 +261,10 @@ optional_policy(`
 # ipsec_mgmt Local policy
 #
 
-allow ipsec_mgmt_t self:capability { dac_read_search dac_override net_admin net_raw setpcap sys_nice sys_ptrace };
+allow ipsec_mgmt_t self:capability { dac_override dac_read_search net_admin net_raw setpcap sys_nice sys_ptrace };
 dontaudit ipsec_mgmt_t self:capability sys_tty_config;
 allow ipsec_mgmt_t self:process { getsched setrlimit setsched signal };
-allow ipsec_mgmt_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow ipsec_mgmt_t self:unix_stream_socket { connectto create_stream_socket_perms };
 allow ipsec_mgmt_t self:tcp_socket create_stream_socket_perms;
 allow ipsec_mgmt_t self:udp_socket create_socket_perms;
 allow ipsec_mgmt_t self:key_socket create_socket_perms;
@@ -283,7 +283,7 @@ files_tmp_filetrans(ipsec_mgmt_t, ipsec_tmp_t, { dir file })
 manage_files_pattern(ipsec_mgmt_t, ipsec_log_t, ipsec_log_t)
 logging_log_filetrans(ipsec_mgmt_t, ipsec_log_t, file)
 
-allow ipsec_mgmt_t ipsec_mgmt_var_run_t:file { map manage_file_perms };
+allow ipsec_mgmt_t ipsec_mgmt_var_run_t:file { manage_file_perms map };
 files_pid_filetrans(ipsec_mgmt_t, ipsec_mgmt_var_run_t, file)
 filetrans_pattern(ipsec_mgmt_t, ipsec_var_run_t, ipsec_mgmt_var_run_t, file)
 
@@ -300,8 +300,8 @@ read_files_pattern(ipsec_mgmt_t, ipsec_t, ipsec_t)
 read_lnk_files_pattern(ipsec_mgmt_t, ipsec_t, ipsec_t)
 
 # logger, running in ipsec_mgmt_t needs to use sockets
-allow ipsec_mgmt_t self:unix_dgram_socket { create connect write };
-allow ipsec_mgmt_t ipsec_t:unix_dgram_socket { create connect write };
+allow ipsec_mgmt_t self:unix_dgram_socket { connect create write };
+allow ipsec_mgmt_t ipsec_t:unix_dgram_socket { connect create write };
 
 allow ipsec_mgmt_t ipsec_t:process { signal };
 

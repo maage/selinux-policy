@@ -38,7 +38,7 @@ init_system_domain(pdns_control_t, pdns_control_exec_t)
 # pdns_t local policy
 #
 
-allow pdns_t self:capability { setuid setgid chown };
+allow pdns_t self:capability { chown setgid setuid };
 allow pdns_t self:tcp_socket create_stream_socket_perms;
 allow pdns_t self:udp_socket create_socket_perms;
 allow pdns_t self:unix_dgram_socket create_socket_perms;

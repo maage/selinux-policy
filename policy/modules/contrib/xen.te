@@ -204,8 +204,8 @@ tunable_policy(`xend_run_qemu',`
 # xend local policy
 #
 
-allow xend_t self:capability { dac_read_search  ipc_lock net_admin setuid sys_admin sys_nice sys_tty_config net_raw sys_rawio };
-allow xend_t self:process { signal sigkill };
+allow xend_t self:capability { dac_read_search  ipc_lock net_admin net_raw setuid sys_admin sys_nice sys_rawio sys_tty_config };
+allow xend_t self:process { sigkill signal };
 
 # needed by qemu_dm
 allow xend_t self:capability sys_resource;

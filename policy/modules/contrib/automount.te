@@ -33,10 +33,10 @@ files_pid_file(automount_var_run_t)
 # Local policy
 #
 
-allow automount_t self:capability {  setgid setuid sys_nice sys_resource dac_read_search dac_override sys_admin };
+allow automount_t self:capability { dac_override dac_read_search setgid setuid sys_admin sys_nice sys_resource };
 allow automount_t self:capability2 block_suspend;
 dontaudit automount_t self:capability sys_tty_config;
-allow automount_t self:process { signal_perms getpgid setpgid setsched setrlimit };
+allow automount_t self:process { getpgid setpgid setrlimit setsched signal_perms };
 allow automount_t self:fifo_file rw_fifo_file_perms;
 allow automount_t self:tcp_socket { accept listen };
 allow automount_t self:rawip_socket create_socket_perms;

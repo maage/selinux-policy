@@ -35,7 +35,7 @@ interface(`gpg_role',`
 
 	# allow ps to show gpg
 	ps_process_pattern($2, gpg_t)
-	allow $2 gpg_t:process { signull sigstop signal sigkill };
+	allow $2 gpg_t:process { sigkill signal signull sigstop };
 
 	# communicate with the user
 	allow gpg_helper_t $2:fd use;
@@ -45,7 +45,7 @@ interface(`gpg_role',`
 	ps_process_pattern($2, gpg_agent_t)
 
 	# Allow the user shell to signal the gpg-agent program.
-	allow $2 gpg_agent_t:process { signal sigkill };
+	allow $2 gpg_agent_t:process { sigkill signal };
 
 	manage_dirs_pattern($2, gpg_agent_tmp_t, gpg_agent_tmp_t)
 	manage_files_pattern($2, gpg_agent_tmp_t, gpg_agent_tmp_t)
@@ -64,7 +64,7 @@ interface(`gpg_role',`
 		gpg_pinentry_dbus_chat($2)
 	')
 
-	allow $2 gpg_agent_t:unix_stream_socket { rw_socket_perms connectto };
+	allow $2 gpg_agent_t:unix_stream_socket { connectto rw_socket_perms };
 	ifdef(`hide_broken_symptoms',`
 		#Leaked File Descriptors
 		dontaudit gpg_t $2:fifo_file rw_fifo_file_perms;

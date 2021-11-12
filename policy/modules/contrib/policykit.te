@@ -53,7 +53,7 @@ dev_read_sysfs(policykit_domain)
 allow policykit_t self:capability {  dac_read_search setgid setuid sys_nice sys_ptrace };
 allow policykit_t self:process { getsched setsched signal };
 allow policykit_t self:unix_dgram_socket create_socket_perms;
-allow policykit_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow policykit_t self:unix_stream_socket { connectto create_stream_socket_perms };
 
 policykit_domtrans_auth(policykit_t)
 allow policykit_t policykit_auth_exec_t:file map;
@@ -152,9 +152,9 @@ optional_policy(`
 # polkit_auth local policy
 #
 
-allow policykit_auth_t self:capability { sys_nice ipc_lock setgid setuid };
+allow policykit_auth_t self:capability { ipc_lock setgid setuid sys_nice };
 dontaudit policykit_auth_t self:capability sys_tty_config;
-allow policykit_auth_t self:process { setsched getsched signal };
+allow policykit_auth_t self:process { getsched setsched signal };
 
 allow policykit_auth_t self:unix_dgram_socket create_socket_perms;
 allow policykit_auth_t self:unix_stream_socket create_stream_socket_perms;

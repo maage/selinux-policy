@@ -44,9 +44,9 @@ ifdef(`enable_mls',`
 #
 
 # Use capabilities.
-allow getty_t self:capability { dac_read_search  dac_override chown setgid sys_resource sys_tty_config fowner fsetid };
+allow getty_t self:capability { chown dac_override dac_read_search fowner fsetid setgid sys_resource sys_tty_config };
 dontaudit getty_t self:capability sys_tty_config;
-allow getty_t self:process { getpgid setpgid getsession signal_perms };
+allow getty_t self:process { getpgid getsession setpgid signal_perms };
 allow getty_t self:fifo_file rw_fifo_file_perms;
 
 read_files_pattern(getty_t, getty_etc_t, getty_etc_t)

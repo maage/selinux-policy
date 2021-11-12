@@ -72,15 +72,15 @@ optional_policy(`
 # pki-tomcat local policy
 #
 
-allow pki_tomcat_t self:capability { setuid chown setgid fowner audit_write dac_read_search  sys_nice fsetid };
+allow pki_tomcat_t self:capability { audit_write chown dac_read_search fowner fsetid setgid setuid sys_nice };
 dontaudit  pki_tomcat_t self:capability net_admin;
-allow pki_tomcat_t self:process { signal setsched signull execmem setfscreate };
+allow pki_tomcat_t self:process { execmem setfscreate setsched signal signull };
 
-allow pki_tomcat_t self:netlink_audit_socket { nlmsg_relay create };
+allow pki_tomcat_t self:netlink_audit_socket { create nlmsg_relay };
 allow pki_tomcat_t self:tcp_socket { accept listen };
 
 # allow writing to the kernel keyring
-allow pki_tomcat_t self:key { write read };
+allow pki_tomcat_t self:key { read write };
 
 manage_dirs_pattern(pki_tomcat_t, pki_tomcat_etc_rw_t, pki_tomcat_etc_rw_t)
 manage_files_pattern(pki_tomcat_t, pki_tomcat_etc_rw_t, pki_tomcat_etc_rw_t)
@@ -135,7 +135,7 @@ userdom_manage_user_tmp_dirs(pki_tomcat_t)
 userdom_manage_user_tmp_files(pki_tomcat_t)
 
 # for crl publishing
-allow pki_tomcat_t pki_tomcat_var_lib_t:lnk_file { rename create unlink };
+allow pki_tomcat_t pki_tomcat_var_lib_t:lnk_file { create rename unlink };
 
 # for ECC
 auth_getattr_shadow(pki_tomcat_t)
@@ -180,8 +180,8 @@ files_exec_usr_files(pki_tps_t)
 #
 
 #  RA specific? talking to mysql?
-allow pki_ra_t self:udp_socket { write read create connect };
-allow pki_ra_t self:unix_dgram_socket { write create connect };
+allow pki_ra_t self:udp_socket { connect create read write };
+allow pki_ra_t self:unix_dgram_socket { connect create write };
 
 corenet_tcp_bind_pki_ra_port(pki_ra_t)
 # talk to other subsystems
@@ -207,15 +207,15 @@ optional_policy(`
 #
 
 
-allow pki_apache_domain self:capability { setuid sys_nice setgid dac_read_search  fowner fsetid kill chown};
-allow pki_apache_domain self:process { setsched signal getsched  signull execstack execmem sigkill};
+allow pki_apache_domain self:capability { chown dac_read_search fowner fsetid kill setgid setuid sys_nice };
+allow pki_apache_domain self:process { execmem execstack getsched setsched sigkill signal signull };
 
 allow pki_apache_domain self:sem all_sem_perms;
 allow pki_apache_domain self:tcp_socket create_stream_socket_perms;
-allow pki_apache_domain self:netlink_route_socket { write getattr read bind create nlmsg_read };
+allow pki_apache_domain self:netlink_route_socket { bind create getattr nlmsg_read read write };
 
 # allow writing to the kernel keyring
-allow pki_apache_domain self:key { write read };
+allow pki_apache_domain self:key { read write };
 
 # internal communication is often done using fifo and unix sockets.
 allow pki_apache_domain self:fifo_file rw_file_perms;

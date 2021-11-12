@@ -44,17 +44,17 @@ files_config_file(mock_etc_t)
 # mock local policy
 #
 
-allow mock_t self:capability { sys_admin sys_ptrace setfcap setuid sys_chroot chown audit_write dac_read_search   sys_nice mknod fsetid setgid fowner };
+allow mock_t self:capability { audit_write chown dac_read_search fowner fsetid mknod setfcap setgid setuid sys_admin sys_chroot sys_nice sys_ptrace };
 allow mock_t self:capability2 block_suspend;
-allow mock_t self:process { siginh noatsecure signal_perms transition rlimitinh setsched setpgid };
+allow mock_t self:process { noatsecure rlimitinh setpgid setsched siginh signal_perms transition };
 # Needed because mock can run java and mono withing build environment
 allow mock_t self:process { execmem execstack };
-dontaudit mock_t self:process { siginh noatsecure rlimitinh };
+dontaudit mock_t self:process { noatsecure rlimitinh siginh };
 allow mock_t self:fifo_file manage_fifo_file_perms;
 allow mock_t self:unix_stream_socket create_stream_socket_perms;
 allow mock_t self:unix_dgram_socket create_socket_perms;
 
-allow mock_t mock_build_t:process { siginh noatsecure rlimitinh };
+allow mock_t mock_build_t:process { noatsecure rlimitinh siginh };
 
 manage_dirs_pattern(mock_t, mock_cache_t, mock_cache_t)
 manage_files_pattern(mock_t, mock_cache_t, mock_cache_t)
@@ -202,13 +202,13 @@ optional_policy(`
 #
 # mock_build local policy
 #
-allow mock_build_t self:capability { sys_admin setfcap setuid sys_chroot chown dac_read_search  sys_nice mknod fsetid setgid fowner sys_ptrace };
+allow mock_build_t self:capability { chown dac_read_search fowner fsetid mknod setfcap setgid setuid sys_admin sys_chroot sys_nice sys_ptrace };
 dontaudit mock_build_t self:capability audit_write;
-allow mock_build_t self:process { fork setsched setpgid signal_perms };
+allow mock_build_t self:process { fork setpgid setsched signal_perms };
 allow mock_build_t self:netlink_audit_socket { create_socket_perms nlmsg_relay };
 # Needed because mock can run java and mono withing build environment
 allow mock_build_t self:process { execmem execstack };
-dontaudit mock_build_t self:process { siginh noatsecure rlimitinh };
+dontaudit mock_build_t self:process { noatsecure rlimitinh siginh };
 allow mock_build_t self:fifo_file manage_fifo_file_perms;
 allow mock_build_t self:unix_stream_socket create_stream_socket_perms;
 allow mock_build_t self:unix_dgram_socket create_socket_perms;

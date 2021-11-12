@@ -113,12 +113,12 @@ template(`gnome_role_template',`
 
 	domtrans_pattern($3, gkeyringd_exec_t, $1_gkeyringd_t)
 
-	allow $3 { gnome_home_type gkeyringd_tmp_t gconf_tmp_t }:dir { relabel_dir_perms manage_dir_perms };
-	allow $3 { gnome_home_type gkeyringd_tmp_t gconf_tmp_t }:file { relabel_file_perms manage_file_perms };
+	allow $3 { gnome_home_type gkeyringd_tmp_t gconf_tmp_t }:dir { manage_dir_perms relabel_dir_perms };
+	allow $3 { gnome_home_type gkeyringd_tmp_t gconf_tmp_t }:file { manage_file_perms relabel_file_perms };
 
 	userdom_home_manager($1_gkeyringd_t)
 
-	allow $3 gkeyringd_tmp_t:sock_file { relabel_sock_file_perms manage_sock_file_perms };
+	allow $3 gkeyringd_tmp_t:sock_file { manage_sock_file_perms relabel_sock_file_perms };
 
 	ps_process_pattern($3, $1_gkeyringd_t)
 	allow $3 $1_gkeyringd_t:process signal_perms;
@@ -1793,7 +1793,7 @@ interface(`gnome_transition_gkeyringd',`
 	')
 
 	allow $1 gkeyringd_domain:process transition;
-	dontaudit $1 gkeyringd_domain:process { noatsecure siginh rlimitinh };
+	dontaudit $1 gkeyringd_domain:process { noatsecure rlimitinh siginh };
 	allow gkeyringd_domain $1:process { sigchld signull };
 	allow gkeyringd_domain $1:fifo_file rw_inherited_fifo_file_perms;
 ')

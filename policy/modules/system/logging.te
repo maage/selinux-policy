@@ -144,7 +144,7 @@ ifdef(`enable_mls',`
 # Auditctl local policy
 #
 
-allow auditctl_t self:capability { fsetid dac_read_search  };
+allow auditctl_t self:capability { dac_read_search fsetid };
 allow auditctl_t self:netlink_audit_socket nlmsg_readpriv;
 
 allow auditctl_t self:process getcap;
@@ -185,14 +185,14 @@ logging_send_syslog_msg(auditctl_t)
 
 allow auditd_t self:capability { chown fsetid setpcap sys_nice sys_resource };
 dontaudit auditd_t self:capability { sys_admin sys_tty_config };
-allow auditd_t self:process { getcap signal_perms setcap setpgid setsched };
+allow auditd_t self:process { getcap setcap setpgid setsched signal_perms };
 allow auditd_t self:file rw_file_perms;
 allow auditd_t self:unix_dgram_socket create_socket_perms;
 allow auditd_t self:fifo_file rw_fifo_file_perms;
 allow auditd_t self:tcp_socket create_stream_socket_perms;
 
 allow auditd_t auditd_etc_t:dir list_dir_perms;
-allow auditd_t auditd_etc_t:file { read_file_perms map };
+allow auditd_t auditd_etc_t:file { map read_file_perms };
 
 allow auditd_t audisp_remote_t:process signal;
 
@@ -299,7 +299,7 @@ optional_policy(`
 #
 
 allow audisp_t self:capability { dac_read_search  setpcap sys_nice };
-allow audisp_t self:process { getcap signal_perms setcap setsched };
+allow audisp_t self:process { getcap setcap setsched signal_perms };
 allow audisp_t self:fifo_file rw_fifo_file_perms;
 allow audisp_t self:unix_stream_socket create_stream_socket_perms;
 allow audisp_t self:unix_dgram_socket create_socket_perms;
@@ -348,7 +348,7 @@ optional_policy(`
 # Audit remote logger local policy
 #
 
-allow audisp_remote_t self:capability { setuid setpcap };
+allow audisp_remote_t self:capability { setpcap setuid };
 allow audisp_remote_t self:process { getcap setcap };
 allow audisp_remote_t self:tcp_socket create_socket_perms;
 allow audisp_remote_t var_log_t:dir search_dir_perms;
@@ -471,13 +471,13 @@ optional_policy(`
 # sys_admin for the integrated klog of syslog-ng and metalog
 # sys_nice for rsyslog
 # cjp: why net_admin!
-allow syslogd_t self:capability { sys_ptrace dac_read_search dac_override sys_resource sys_tty_config ipc_lock net_admin setgid setuid sys_admin sys_nice chown fsetid setuid setgid net_raw };
+allow syslogd_t self:capability { chown dac_override dac_read_search fsetid ipc_lock net_admin net_raw setgid setuid sys_admin sys_nice sys_ptrace sys_resource sys_tty_config };
 dontaudit syslogd_t self:capability sys_tty_config;
 dontaudit syslogd_t self:cap_userns { kill sys_ptrace };
-allow syslogd_t self:capability2 { syslog block_suspend };
+allow syslogd_t self:capability2 { block_suspend syslog };
 # setpgid for metalog
 # setrlimit for syslog-ng
-allow syslogd_t self:process { signal_perms getcap setcap setpgid getsched setsched setrlimit };
+allow syslogd_t self:process { getcap getsched setcap setpgid setrlimit setsched signal_perms };
 # receive messages to be logged
 allow syslogd_t self:unix_dgram_socket create_socket_perms;
 allow syslogd_t self:unix_stream_socket create_stream_socket_perms;
@@ -486,7 +486,7 @@ allow syslogd_t self:fifo_file rw_fifo_file_perms;
 allow syslogd_t self:udp_socket create_socket_perms;
 allow syslogd_t self:tcp_socket create_stream_socket_perms;
 allow syslogd_t self:rawip_socket create_socket_perms;
-allow syslogd_t self:netlink_audit_socket { r_netlink_socket_perms nlmsg_write };
+allow syslogd_t self:netlink_audit_socket { nlmsg_write r_netlink_socket_perms };
 allow syslogd_t self:netlink_generic_socket create_socket_perms;
 allow syslogd_t syslog_conf_t:file read_file_perms;
 allow syslogd_t syslog_conf_t:dir list_dir_perms;

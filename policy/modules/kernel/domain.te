@@ -56,7 +56,7 @@ attribute domain;
 attribute named_filetrans_domain;
 
 # Transitions only allowed from domains to other domains
-neverallow domain ~domain:process { transition dyntransition };
+neverallow domain ~domain:process { dyntransition transition };
 
 # Domains that are unconfined
 attribute unconfined_domain_type;
@@ -124,7 +124,7 @@ neverallow ~{ domain unlabeled_t } *:process *;
 allow domain self:anon_inode userfaultfd_anon_inode_perms;
 # read /proc/(pid|self) entries
 allow domain self:dir { list_dir_perms watch_dir_perms };
-allow domain self:lnk_file { read_lnk_file_perms lock ioctl };
+allow domain self:lnk_file { ioctl lock read_lnk_file_perms };
 allow domain self:file rw_file_perms;
 allow domain self:fifo_file rw_fifo_file_perms;
 allow domain self:sem create_sem_perms;
@@ -149,7 +149,7 @@ kernel_dontaudit_link_key(domain)
 kernel_dontaudit_search_debugfs(domain)
 
 # create child processes in the domain
-allow domain self:process { getcap fork getsched signal_perms };
+allow domain self:process { fork getcap getsched signal_perms };
 
 # Use trusted objects in /dev
 dev_read_cpu_online(domain)
@@ -271,19 +271,19 @@ allow unconfined_domain_type domain:fifo_file rw_file_perms;
 allow unconfined_domain_type unconfined_domain_type:dbus send_msg;
 
 # Act upon any other process.
-allow unconfined_domain_type domain:process ~{ ptrace transition dyntransition execmem execstack execheap };
+allow unconfined_domain_type domain:process ~{ dyntransition execheap execmem execstack ptrace transition };
 tunable_policy(`deny_ptrace',`',`
 	allow unconfined_domain_type domain:process ptrace;
 ')
 
 # Create/access any System V IPC objects.
 allow unconfined_domain_type domain:{ sem msgq shm } *;
-allow unconfined_domain_type domain:msg { send receive };
+allow unconfined_domain_type domain:msg { receive send };
 
 # For /proc/pid
 allow unconfined_domain_type domain:dir { list_dir_perms watch_dir_perms };
 allow unconfined_domain_type domain:file manage_file_perms;
-allow unconfined_domain_type domain:lnk_file { read_lnk_file_perms ioctl lock };
+allow unconfined_domain_type domain:lnk_file { ioctl lock read_lnk_file_perms };
 
 # act on all domains keys
 allow unconfined_domain_type domain:key *;
@@ -672,7 +672,7 @@ optional_policy(`
 	puppet_rw_tmp(domain)
 ')
 
-dontaudit domain domain:process { noatsecure siginh rlimitinh } ;
+dontaudit domain domain:process { noatsecure rlimitinh siginh } ;
 
 optional_policy(`
     rkhunter_append_lib_files(domain)

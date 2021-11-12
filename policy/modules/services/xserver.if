@@ -181,7 +181,7 @@ interface(`xserver_rw_session',`
 #
 interface(`xserver_non_drawing_client',`
 	gen_require(`
-		class x_drawable { getattr get_property };
+		class x_drawable { get_property getattr };
 		class x_extension { query use };
 		class x_gc { create setattr };
 		class x_property read;
@@ -196,7 +196,7 @@ interface(`xserver_non_drawing_client',`
 	allow $1 xserver_t:unix_stream_socket connectto;
 
 	allow $1 xextension_t:x_extension { query use };
-	allow $1 root_xdrawable_t:x_drawable { getattr get_property };
+	allow $1 root_xdrawable_t:x_drawable { get_property getattr };
 	allow $1 xproperty_t:x_property read;
 ')
 
@@ -292,9 +292,9 @@ template(`xserver_common_x_domain_template',`
 		class x_synthetic_event all_x_synthetic_event_perms;
 		class x_client destroy;
 		class x_server manage;
-		class x_screen { saver_setattr saver_hide saver_show show_cursor hide_cursor };
-		class x_pointer { get_property set_property manage };
-		class x_keyboard { read manage freeze };
+		class x_screen { hide_cursor saver_hide saver_setattr saver_show show_cursor };
+		class x_pointer { get_property manage set_property };
+		class x_keyboard { freeze manage read };
 	')
 
 	##############################
@@ -323,18 +323,18 @@ template(`xserver_common_x_domain_template',`
 	allow $2 $1_input_xevent_t:{ x_event x_synthetic_event } receive;
 	# can receive default events
 	allow $2 client_xevent_t:{ x_event x_synthetic_event } receive;
-	allow $2 xevent_t:{ x_event x_synthetic_event } { send receive };
+	allow $2 xevent_t:{ x_event x_synthetic_event } { receive send };
 	# dont audit send failures
 	dontaudit $2 input_xevent_type:x_event send;
 
-	allow $2 xdm_t:x_drawable { hide read add_child manage };
+	allow $2 xdm_t:x_drawable { add_child hide manage read };
 	allow $2 xdm_t:x_client destroy;
 
 	allow $2 root_xdrawable_t:x_drawable write;
 	allow $2 xserver_t:x_server manage;
-	allow $2 xserver_t:x_screen { show_cursor hide_cursor saver_setattr saver_hide saver_show };
-	allow $2 xserver_t:x_pointer { get_property set_property manage };
-	allow $2 xserver_t:x_keyboard { read manage freeze };
+	allow $2 xserver_t:x_screen { hide_cursor saver_hide saver_setattr saver_show show_cursor };
+	allow $2 xserver_t:x_pointer { get_property manage set_property };
+	allow $2 xserver_t:x_keyboard { freeze manage read };
 ')
 
 #######################################
@@ -1089,7 +1089,7 @@ interface(`xserver_read_inherited_xdm_lib_files',`
 		type xdm_var_lib_t;
 	')
 
-	allow $1 xdm_var_lib_t:file { read_inherited_file_perms map };
+	allow $1 xdm_var_lib_t:file { map read_inherited_file_perms };
 ')
 
 ########################################
@@ -2467,7 +2467,7 @@ interface(`xserver_rw_xdm_keys',`
 		type xdm_t;
 	')
 
-	allow $1 xdm_t:key { read write setattr };
+	allow $1 xdm_t:key { read setattr write };
 ')
 
 ######################################

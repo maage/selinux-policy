@@ -27,7 +27,7 @@ interface(`sandbox_x_transition',`
 
 	allow $1 sandbox_x_domain:process { signal_perms transition };
 	allow $1 sandbox_x_domain:process dyntransition;
-	dontaudit $1 sandbox_x_domain:process { noatsecure siginh rlimitinh };
+	dontaudit $1 sandbox_x_domain:process { noatsecure rlimitinh siginh };
 	allow sandbox_x_domain $1:process { sigchld signull };
 	allow { sandbox_x_domain sandbox_xserver_t } $1:fd use;
 	role $2 types sandbox_x_domain;
@@ -45,7 +45,7 @@ interface(`sandbox_x_transition',`
 	dontaudit sandbox_x_domain $1:tcp_socket rw_socket_perms;
 	dontaudit sandbox_x_domain $1:udp_socket rw_socket_perms;
 	dontaudit sandbox_x_domain $1:unix_stream_socket rw_socket_perms;
-	dontaudit sandbox_x_domain $1:process { signal sigkill };
+	dontaudit sandbox_x_domain $1:process { sigkill signal };
 	
 	allow $1 sandbox_tmpfs_type:file manage_file_perms;
 	dontaudit $1 sandbox_tmpfs_type:file manage_file_perms;
@@ -116,7 +116,7 @@ template(`sandbox_x_domain_template',`
 	fs_tmpfs_filetrans($1_t, $1_client_tmpfs_t, file )
 	# Pulseaudio tmpfs files with different MCS labels
 	dontaudit $1_client_t $1_client_tmpfs_t:file { read write };
-	dontaudit $1_t $1_client_tmpfs_t:file { read write map };
+	dontaudit $1_t $1_client_tmpfs_t:file { map read write };
 	allow sandbox_xserver_t $1_client_tmpfs_t:file { read write };
 	allow $1_client_t $1_client_tmpfs_t:file { map };
 

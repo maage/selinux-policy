@@ -54,7 +54,7 @@ init_system_domain(wpa_cli_t, wpa_cli_exec_t)
 
 # networkmanager will ptrace itself if gdb is installed
 # and it receives a unexpected signal (rh bug #204161)
-allow NetworkManager_t self:capability { fowner chown fsetid kill setgid setuid sys_admin sys_nice dac_read_search dac_override net_admin net_raw net_bind_service ipc_lock sys_chroot };
+allow NetworkManager_t self:capability { chown dac_override dac_read_search fowner fsetid ipc_lock kill net_admin net_bind_service net_raw setgid setuid sys_admin sys_chroot sys_nice };
 dontaudit NetworkManager_t self:capability sys_tty_config;
 
 allow NetworkManager_t self:bpf { map_create map_read map_write prog_load prog_run };
@@ -64,7 +64,7 @@ ifdef(`hide_broken_symptoms',`
 	dontaudit NetworkManager_t self:capability sys_module;
 ')
 
-allow NetworkManager_t self:process { getcap setcap setpgid getsched setsched signal_perms };
+allow NetworkManager_t self:process { getcap getsched setcap setpgid setsched signal_perms };
 
 allow NetworkManager_t self:process setfscreate;
 selinux_validate_context(NetworkManager_t)
@@ -75,8 +75,8 @@ tunable_policy(`deny_ptrace',`',`
 ')
 
 allow NetworkManager_t self:fifo_file rw_fifo_file_perms;
-allow NetworkManager_t self:unix_dgram_socket { sendto create_socket_perms };
-allow NetworkManager_t self:unix_stream_socket{ create_stream_socket_perms connectto };
+allow NetworkManager_t self:unix_dgram_socket { create_socket_perms sendto };
+allow NetworkManager_t self:unix_stream_socket{ connectto create_stream_socket_perms };
 allow NetworkManager_t self:netlink_generic_socket create_socket_perms;
 allow NetworkManager_t self:netlink_route_socket create_netlink_socket_perms;
 allow NetworkManager_t self:netlink_xfrm_socket create_netlink_socket_perms;

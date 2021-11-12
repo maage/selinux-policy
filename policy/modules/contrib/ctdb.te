@@ -37,7 +37,7 @@ files_pid_file(ctdbd_var_run_t)
 
 allow ctdbd_t self:capability { chown dac_read_search ipc_lock net_admin net_raw sys_nice sys_resource };
 allow ctdbd_t self:capability2 block_suspend;
-allow ctdbd_t self:process { setpgid setrlimit signal_perms setsched };
+allow ctdbd_t self:process { setpgid setrlimit setsched signal_perms };
 allow ctdbd_t self:fifo_file rw_fifo_file_perms;
 allow ctdbd_t self:unix_stream_socket { accept connectto listen };
 allow ctdbd_t self:netlink_route_socket r_netlink_socket_perms;

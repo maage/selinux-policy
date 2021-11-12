@@ -40,10 +40,10 @@ role sendmail_unconfined_roles types unconfined_sendmail_t;
 # Sendmail local policy
 #
 
-allow sendmail_t self:capability { dac_read_search dac_override setuid setgid net_bind_service sys_nice chown sys_tty_config };
+allow sendmail_t self:capability { chown dac_override dac_read_search net_bind_service setgid setuid sys_nice sys_tty_config };
 dontaudit sendmail_t self:capability net_admin;
 dontaudit sendmail_t self:capability2 block_suspend;
-allow sendmail_t self:process { setsched setpgid setrlimit signal signull };
+allow sendmail_t self:process { setpgid setrlimit setsched signal signull };
 allow sendmail_t self:fifo_file rw_fifo_file_perms;
 allow sendmail_t self:unix_stream_socket create_stream_socket_perms;
 allow sendmail_t self:unix_dgram_socket create_socket_perms;

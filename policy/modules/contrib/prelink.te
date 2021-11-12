@@ -50,10 +50,10 @@ append_files_pattern(prelink_t, prelink_log_t, prelink_log_t)
 read_lnk_files_pattern(prelink_t, prelink_log_t, prelink_log_t)
 logging_log_filetrans(prelink_t, prelink_log_t, file)
 
-allow prelink_t prelink_tmp_t:file { manage_file_perms execute relabelfrom execmod };
+allow prelink_t prelink_tmp_t:file { execmod execute manage_file_perms relabelfrom };
 files_tmp_filetrans(prelink_t, prelink_tmp_t, file)
 
-allow prelink_t prelink_tmpfs_t:file { manage_file_perms execute relabelfrom execmod };
+allow prelink_t prelink_tmpfs_t:file { execmod execute manage_file_perms relabelfrom };
 fs_tmpfs_filetrans(prelink_t, prelink_tmpfs_t, file)
 
 manage_dirs_pattern(prelink_t, prelink_var_lib_t, prelink_var_lib_t)
@@ -64,7 +64,7 @@ files_search_var_lib(prelink_t)
 
 # prelink misc objects that are not system
 # libraries or entrypoints
-allow prelink_t prelink_object:file { manage_file_perms execute relabel_file_perms };
+allow prelink_t prelink_object:file { execute manage_file_perms relabel_file_perms };
 
 kernel_read_system_state(prelink_t)
 kernel_read_kernel_sysctls(prelink_t)
@@ -143,9 +143,9 @@ optional_policy(`
 
 optional_policy(`
 	allow prelink_cron_system_t self:capability setuid;
-	allow prelink_cron_system_t self:process { setsched setfscreate signal setrlimit };
+	allow prelink_cron_system_t self:process { setfscreate setrlimit setsched signal };
 	allow prelink_cron_system_t self:fifo_file rw_fifo_file_perms;
-	allow prelink_cron_system_t self:unix_dgram_socket { write bind create setopt };
+	allow prelink_cron_system_t self:unix_dgram_socket { bind create setopt write };
 
 	read_files_pattern(prelink_cron_system_t, prelink_cache_t, prelink_cache_t)
 	allow prelink_cron_system_t prelink_cache_t:file unlink;

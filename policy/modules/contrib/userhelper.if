@@ -45,15 +45,15 @@ template(`userhelper_role_template',`
 	#
 	# Local policy
 	#
-	allow $1_userhelper_t self:capability { setuid setgid net_bind_service dac_read_search   chown sys_tty_config };
-	allow $1_userhelper_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execstack execheap };
+	allow $1_userhelper_t self:capability { chown dac_read_search net_bind_service setgid setuid sys_tty_config };
+	allow $1_userhelper_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 	allow $1_userhelper_t self:process setexec;
 	allow $1_userhelper_t self:fd use;
 	allow $1_userhelper_t self:fifo_file rw_fifo_file_perms;
 	allow $1_userhelper_t self:shm create_shm_perms;
 	allow $1_userhelper_t self:sem create_sem_perms;
 	allow $1_userhelper_t self:msgq create_msgq_perms;
-	allow $1_userhelper_t self:msg { send receive };
+	allow $1_userhelper_t self:msg { receive send };
 	allow $1_userhelper_t self:unix_dgram_socket create_socket_perms;
 	allow $1_userhelper_t self:unix_stream_socket create_stream_socket_perms;
 	allow $1_userhelper_t self:unix_dgram_socket sendto;

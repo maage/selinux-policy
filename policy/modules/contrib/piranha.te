@@ -62,7 +62,7 @@ init_domtrans_script(piranha_fos_t)
 # piranha-gui local policy
 #
 
-allow piranha_web_t self:capability { setuid sys_nice kill setgid };
+allow piranha_web_t self:capability { kill setgid setuid sys_nice };
 allow piranha_web_t self:process { getsched setsched signal signull };
 
 allow piranha_web_t self:rawip_socket create_socket_perms;

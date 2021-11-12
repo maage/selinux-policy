@@ -63,7 +63,7 @@ optional_policy(`
 #
 allow mon_procd_t self:capability sys_ptrace;
 
-allow mon_procd_t self:unix_dgram_socket { create connect };
+allow mon_procd_t self:unix_dgram_socket { connect create };
 
 auth_read_passwd(mon_procd_t)
 

@@ -74,10 +74,10 @@ role ndc_roles types ndc_t;
 # Local policy
 #
 
-allow named_t self:capability { chown dac_read_search dac_override fowner kill net_admin net_raw setgid setuid sys_chroot sys_nice sys_resource };
+allow named_t self:capability { chown dac_override dac_read_search fowner kill net_admin net_raw setgid setuid sys_chroot sys_nice sys_resource };
 dontaudit named_t self:capability sys_tty_config;
 allow named_t self:capability2 block_suspend;
-allow named_t self:process { setsched getcap setcap setrlimit signal_perms };
+allow named_t self:process { getcap setcap setrlimit setsched signal_perms };
 allow named_t self:fifo_file rw_fifo_file_perms;
 allow named_t self:unix_stream_socket { accept connectto listen };
 allow named_t self:tcp_socket { accept listen };

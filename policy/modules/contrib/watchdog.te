@@ -29,7 +29,7 @@ application_executable_file(watchdog_unconfined_exec_t)
 # Local policy
 #
 
-allow watchdog_t self:capability { sys_admin net_admin sys_boot ipc_lock sys_pacct sys_nice sys_resource net_raw };
+allow watchdog_t self:capability { ipc_lock net_admin net_raw sys_admin sys_boot sys_nice sys_pacct sys_resource };
 dontaudit watchdog_t self:capability sys_tty_config;
 allow watchdog_t self:cap_userns kill;
 allow watchdog_t self:process { setsched signal_perms };

@@ -65,8 +65,8 @@ optional_policy(`
 # Local policy
 #
 
-allow amanda_t self:capability { chown dac_read_search  dac_override setuid setgid kill sys_admin };
-allow amanda_t self:process { getsched setsched setpgid signal };
+allow amanda_t self:capability { chown dac_override dac_read_search kill setgid setuid sys_admin };
+allow amanda_t self:process { getsched setpgid setsched signal };
 allow amanda_t self:fifo_file rw_fifo_file_perms;
 allow amanda_t self:unix_stream_socket { accept listen };
 allow amanda_t self:tcp_socket { accept listen };
@@ -162,8 +162,8 @@ logging_send_syslog_msg(amanda_t)
 # Recover local policy
 #
 
-allow amanda_recover_t self:capability { fowner fsetid kill setgid setuid chown dac_read_search  };
-allow amanda_recover_t self:process { sigkill sigstop signal };
+allow amanda_recover_t self:capability { chown dac_read_search fowner fsetid kill setgid setuid };
+allow amanda_recover_t self:process { sigkill signal sigstop };
 allow amanda_recover_t self:fifo_file rw_fifo_file_perms;
 allow amanda_recover_t self:unix_stream_socket create_socket_perms;
 allow amanda_recover_t self:tcp_socket { accept listen };

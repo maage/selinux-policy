@@ -203,7 +203,7 @@ interface(`unconfined_server_stream_connect',`
 
 	files_search_pids($1)
 	files_write_generic_pid_pipes($1)
-	allow $1 unconfined_service_t:unix_stream_socket { getattr connectto };
+	allow $1 unconfined_service_t:unix_stream_socket { connectto getattr };
 ')
 
 ########################################

@@ -71,5 +71,5 @@ interface(`freqset_role',`
 	freqset_domtrans($2)
 
 	ps_process_pattern($2, freqset_t)
-	allow $2 freqset_t:process { signull signal sigkill };
+	allow $2 freqset_t:process { sigkill signal signull };
 ')

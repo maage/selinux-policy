@@ -637,7 +637,7 @@ interface(`openshift_transition',`
 	')
 
 	allow $1 openshift_user_domain:process transition;
-	dontaudit $1 openshift_user_domain:process { noatsecure siginh rlimitinh };
+	dontaudit $1 openshift_user_domain:process { noatsecure rlimitinh siginh };
 	allow openshift_user_domain $1:fd use;
 	allow openshift_user_domain $1:fifo_file rw_inherited_fifo_file_perms;
 	allow openshift_user_domain $1:process sigchld;
@@ -666,7 +666,7 @@ interface(`openshift_dyntransition',`
 	allow openshift_user_domain $1:unix_stream_socket { connectto rw_socket_perms };
 	allow openshift_user_domain $1:unix_dgram_socket rw_socket_perms;
 	allow $1 openshift_user_domain:process { rlimitinh signal };
-	dontaudit openshift_domain $1:tcp_socket { read write getattr setopt getopt shutdown };
+	dontaudit openshift_domain $1:tcp_socket { getattr getopt read setopt shutdown write };
 ')
 
 ########################################

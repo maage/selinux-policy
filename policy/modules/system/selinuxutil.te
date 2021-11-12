@@ -255,8 +255,8 @@ optional_policy(`
 # Newrole local policy
 #
 
-allow newrole_t self:capability { fowner setpcap setuid setgid dac_read_search dac_override };
-allow newrole_t self:process ~{ ptrace setcurrent setexec setfscreate setrlimit execmem execheap execstack };
+allow newrole_t self:capability { dac_override dac_read_search fowner setgid setpcap setuid };
+allow newrole_t self:process ~{ execheap execmem execstack ptrace setcurrent setexec setfscreate setrlimit };
 allow newrole_t self:process setexec;
 allow newrole_t self:fd use;
 allow newrole_t self:fifo_file rw_fifo_file_perms;
@@ -264,9 +264,9 @@ allow newrole_t self:sock_file read_sock_file_perms;
 allow newrole_t self:shm create_shm_perms;
 allow newrole_t self:sem create_sem_perms;
 allow newrole_t self:msgq create_msgq_perms;
-allow newrole_t self:msg { send receive };
+allow newrole_t self:msg { receive send };
 allow newrole_t self:unix_dgram_socket sendto;
-allow newrole_t self:unix_stream_socket { create_stream_socket_perms connectto };
+allow newrole_t self:unix_stream_socket { connectto create_stream_socket_perms };
 logging_send_audit_msgs(newrole_t)
 
 read_files_pattern(newrole_t, default_context_t, default_context_t)
@@ -666,7 +666,7 @@ domain_relabelfrom(setfiles_domain)
 
 allow setfiles_domain { policy_src_t policy_config_t file_context_t default_context_t }:dir list_dir_perms;
 allow setfiles_domain { policy_src_t policy_config_t file_context_t default_context_t }:file read_file_perms;
-allow setfiles_domain { policy_src_t policy_config_t file_context_t default_context_t }:lnk_file { read_lnk_file_perms ioctl lock };
+allow setfiles_domain { policy_src_t policy_config_t file_context_t default_context_t }:lnk_file { ioctl lock read_lnk_file_perms };
 
 logging_send_audit_msgs(setfiles_domain)
 
@@ -744,7 +744,7 @@ optional_policy(`
 
 allow policy_manager_domain self:capability { dac_read_search  sys_nice sys_resource };
 dontaudit policy_manager_domain self:capability sys_tty_config;
-allow policy_manager_domain self:process { signal setsched };
+allow policy_manager_domain self:process { setsched signal };
 allow policy_manager_domain self:unix_stream_socket create_stream_socket_perms;
 allow policy_manager_domain self:unix_dgram_socket create_socket_perms;
 allow policy_manager_domain self:fifo_file rw_fifo_file_perms;

@@ -60,7 +60,7 @@ pegasus_openlmi_domain_template(unconfined)
 # pegasus openlmi providers local policy
 #
 
-allow pegasus_openlmi_domain self:capability { setuid setgid };
+allow pegasus_openlmi_domain self:capability { setgid setuid };
 
 allow pegasus_openlmi_domain self:fifo_file rw_fifo_file_perms;
 allow pegasus_openlmi_domain self:udp_socket create_socket_perms;
@@ -244,7 +244,7 @@ optional_policy(`
 # pegasus openlmi storage local policy
 #
 
-allow pegasus_openlmi_storage_t self:capability { sys_admin sys_rawio sys_resource ipc_lock };
+allow pegasus_openlmi_storage_t self:capability { ipc_lock sys_admin sys_rawio sys_resource };
 allow pegasus_openlmi_storage_t self:process setrlimit;
 
 allow pegasus_openlmi_storage_t self:netlink_route_socket r_netlink_socket_perms;
@@ -348,7 +348,7 @@ optional_policy(`
 # pegasus local policy
 #
 
-allow pegasus_t self:capability { chown kill ipc_lock sys_nice setuid setgid dac_read_search  net_admin net_bind_service sys_ptrace };
+allow pegasus_t self:capability { chown dac_read_search ipc_lock kill net_admin net_bind_service setgid setuid sys_nice sys_ptrace };
 dontaudit pegasus_t self:capability { sys_admin sys_tty_config };
 allow pegasus_t self:process { setsched signal };
 allow pegasus_t self:fifo_file rw_fifo_file_perms;
@@ -357,7 +357,7 @@ allow pegasus_t self:unix_stream_socket { connectto create_stream_socket_perms }
 allow pegasus_t self:tcp_socket create_stream_socket_perms;
 
 allow pegasus_t pegasus_conf_t:dir rw_dir_perms;
-allow pegasus_t pegasus_conf_t:file { read_file_perms link delete_file_perms rename_file_perms };
+allow pegasus_t pegasus_conf_t:file { delete_file_perms link read_file_perms rename_file_perms };
 allow pegasus_t pegasus_conf_t:lnk_file read_lnk_file_perms;
 
 manage_dirs_pattern(pegasus_t, pegasus_cache_t, pegasus_cache_t)

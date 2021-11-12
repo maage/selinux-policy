@@ -25,7 +25,7 @@ systemd_unit_file(nut_unit_file_t)
 # Local policy for upsd
 #
 
-allow nut_domain self:capability { setgid setuid dac_read_search  };
+allow nut_domain self:capability { dac_read_search setgid setuid };
 
 allow nut_domain self:process signal_perms;
 
@@ -68,7 +68,7 @@ optional_policy(`
 allow nut_upsmon_t self:capability kill;
 allow nut_upsmon_t self:tcp_socket create_socket_perms;
 allow nut_upsmon_t self:unix_dgram_socket { create_socket_perms sendto };
-allow nut_upsmon_t self:unix_stream_socket { create_socket_perms connectto };
+allow nut_upsmon_t self:unix_stream_socket { connectto create_socket_perms };
 
 read_files_pattern(nut_upsmon_t, nut_conf_t, nut_conf_t)
 

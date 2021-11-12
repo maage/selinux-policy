@@ -106,13 +106,13 @@ userdom_user_tmp_file(mozilla_tmpfs_t)
 # Local policy
 #
 
-allow mozilla_t self:capability { sys_nice setgid setuid };
-allow mozilla_t self:process { sigkill signal setsched getsched setrlimit };
+allow mozilla_t self:capability { setgid setuid sys_nice };
+allow mozilla_t self:process { getsched setrlimit setsched sigkill signal };
 allow mozilla_t self:fifo_file rw_fifo_file_perms;
-allow mozilla_t self:shm { unix_read unix_write read write destroy create };
+allow mozilla_t self:shm { create destroy read unix_read unix_write write };
 allow mozilla_t self:sem create_sem_perms;
 allow mozilla_t self:socket create_socket_perms;
-allow mozilla_t self:unix_stream_socket { listen accept };
+allow mozilla_t self:unix_stream_socket { accept listen };
 # Browse the web, connect to printer
 allow mozilla_t self:tcp_socket create_socket_perms;
 allow mozilla_t self:netlink_route_socket r_netlink_socket_perms;
@@ -342,14 +342,14 @@ optional_policy(`
 # mozilla_plugin local policy
 #
 
-dontaudit mozilla_plugin_t self:capability { sys_ptrace sys_admin ipc_lock sys_nice sys_tty_config };
+dontaudit mozilla_plugin_t self:capability { ipc_lock sys_admin sys_nice sys_ptrace sys_tty_config };
 dontaudit mozilla_plugin_t self:capability2 block_suspend;
 dontaudit mozilla_plugin_t self:cap_userns {sys_ptrace };
 dontaudit mozilla_plugin_t self:rawip_socket create_socket_perms;
 
 
 allow mozilla_plugin_t self:cap_userns {sys_admin sys_chroot};
-allow mozilla_plugin_t self:process { getsession setcap setpgid getsched setsched signal_perms execmem execstack setrlimit transition };
+allow mozilla_plugin_t self:process { execmem execstack getsched getsession setcap setpgid setrlimit setsched signal_perms transition };
 allow mozilla_plugin_t self:netlink_route_socket r_netlink_socket_perms;
 allow mozilla_plugin_t self:netlink_socket create_socket_perms;
 allow mozilla_plugin_t self:tcp_socket create_stream_socket_perms;
@@ -633,8 +633,8 @@ optional_policy(`
 # mozilla_plugin_config local policy
 #
 
-allow mozilla_plugin_config_t self:capability {  dac_read_search sys_nice setuid setgid };
-allow mozilla_plugin_config_t self:process { setsched signal_perms getsched execmem execstack };
+allow mozilla_plugin_config_t self:capability {  dac_read_search setgid setuid sys_nice };
+allow mozilla_plugin_config_t self:process { execmem execstack getsched setsched signal_perms };
 
 allow mozilla_plugin_config_t self:fifo_file rw_file_perms;
 allow mozilla_plugin_config_t self:unix_stream_socket create_stream_socket_perms;
