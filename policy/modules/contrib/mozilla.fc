@@ -39,7 +39,7 @@ HOME_DIR/zimbrauserdata(/.*)?		gen_context(system_u:object_r:mozilla_home_t,s0)
 ifdef(`distro_redhat',`
 /usr/bin/nspluginscan		--	gen_context(system_u:object_r:mozilla_plugin_exec_t,s0)
 /usr/bin/nspluginviewer		--	gen_context(system_u:object_r:mozilla_plugin_exec_t,s0)
-/usr/lib/nspluginwrapper/npviewer.bin	--	gen_context(system_u:object_r:mozilla_plugin_exec_t,s0)
+/usr/lib/nspluginwrapper/npviewer\.bin	--	gen_context(system_u:object_r:mozilla_plugin_exec_t,s0)
 ')
 
 ifdef(`distro_debian',`

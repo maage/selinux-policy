@@ -49,7 +49,7 @@
 /usr/libexec/news/shrinkfile	--	gen_context(system_u:object_r:innd_exec_t,s0)
 /usr/libexec/news/sm	--	gen_context(system_u:object_r:innd_exec_t,s0)
 /usr/libexec/news/startinnfeed	--	gen_context(system_u:object_r:innd_exec_t,s0)
-/usr/libexec/news/rc.news	--	gen_context(system_u:object_r:innd_exec_t,s0)
+/usr/libexec/news/rc\.news	--	gen_context(system_u:object_r:innd_exec_t,s0)
 
 /var/log/news(/.*)?		gen_context(system_u:object_r:innd_log_t,s0)
 
