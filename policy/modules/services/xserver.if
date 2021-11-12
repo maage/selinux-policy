@@ -16,7 +16,7 @@
 ##	</summary>
 ## </param>
 #
-interface(`xserver_restricted_role',`
+template(`xserver_restricted_role',`
 	gen_require(`
 		type xauth_t, iceauth_t;
 		attribute dridomain, x_userdomain;
@@ -66,7 +66,7 @@ interface(`xserver_dri_domain',`
 ##	</summary>
 ## </param>
 #
-interface(`xserver_role',`
+template(`xserver_role',`
 	gen_require(`
 		type iceauth_home_t, xserver_t, xserver_tmpfs_t, xauth_home_t;
 		type user_fonts_t, user_fonts_cache_t, user_fonts_config_t;
