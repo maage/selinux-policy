@@ -11,13 +11,13 @@
 /etc/NetworkManager/dispatcher\.d/cloud-init-azure-hook	--	gen_context(system_u:object_r:NetworkManager_dispatcher_cloud_script_t,s0)
 /etc/NetworkManager/dispatcher\.d/hook-network-manager	--	gen_context(system_u:object_r:NetworkManager_dispatcher_cloud_script_t,s0)
 
-/etc/dhcp/manager-settings.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
-/etc/dhcp/wireless-settings.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
-/etc/dhcp/wired-settings.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
+/etc/dhcp/manager-settings\.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
+/etc/dhcp/wireless-settings\.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
+/etc/dhcp/wired-settings\.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
 
-/etc/wicd/manager-settings.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
-/etc/wicd/wireless-settings.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
-/etc/wicd/wired-settings.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
+/etc/wicd/manager-settings\.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
+/etc/wicd/wireless-settings\.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
+/etc/wicd/wired-settings\.conf -- gen_context(system_u:object_r:NetworkManager_var_lib_t, s0)
 
 /usr/lib/NetworkManager/dispatcher\.d(/.*)? gen_context(system_u:object_r:NetworkManager_dispatcher_script_t,s0)
 /usr/lib/NetworkManager/dispatcher\.d/01-dnssec-trigger	--	gen_context(system_u:object_r:NetworkManager_dispatcher_dnssec_script_t,s0)
@@ -57,7 +57,7 @@
 /run/NetworkManager(/.*)?		gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
 /run/nm-dhclient.*			gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
 /run/nm-dns-dnsmasq\.conf	--	gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
-/run/nm-xl2tpd.conf.*       --  gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
+/run/nm-xl2tpd\.conf.*       --  gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
 /run/teamd(/.*)?       gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
 /run/wicd\.pid	--	gen_context(system_u:object_r:NetworkManager_var_run_t,s0)
 /run/wpa_supplicant(/.*)?		gen_context(system_u:object_r:NetworkManager_var_run_t,s0)

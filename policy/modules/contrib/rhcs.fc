@@ -105,7 +105,7 @@
 /run/rsctmp(/.*)?   			gen_context(system_u:object_r:cluster_var_run_t,s0)
 /run/corosync-qdevice(/.*)?	gen_context(system_u:object_r:cluster_var_run_t,s0)
 /run/corosync-qnetd(/.*)?	gen_context(system_u:object_r:cluster_var_run_t,s0)
-/run/pcsd-ruby.socket	-s	gen_context(system_u:object_r:cluster_var_run_t,s0)
+/run/pcsd-ruby\.socket	-s	gen_context(system_u:object_r:cluster_var_run_t,s0)
 
 /var/log/cluster/aisexec\.log.* --  gen_context(system_u:object_r:cluster_var_log_t,s0)
 /var/log/cluster/cpglockd\.log.*        --      gen_context(system_u:object_r:cluster_var_log_t,s0)

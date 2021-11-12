@@ -29,7 +29,7 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /usr/lib/systemd/systemd-userdbd	--	gen_context(system_u:object_r:systemd_userdbd_exec_t,s0)
 /usr/lib/systemd/systemd-userwork	--	gen_context(system_u:object_r:systemd_userdbd_exec_t,s0)
 
-/usr/lib/dracut/modules.d/.*\.service	gen_context(system_u:object_r:systemd_unit_file_t,s0)
+/usr/lib/dracut/modules\.d/.*\.service	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-machined\.service	--	gen_context(system_u:object_r:systemd_machined_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-networkd\.service     gen_context(system_u:object_r:systemd_networkd_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-resolved\.service     gen_context(system_u:object_r:systemd_resolved_unit_file_t,s0)
