@@ -1576,6 +1576,7 @@ interface(`logging_systemctl_syslogd',`
 #
 interface(`logging_admin_syslog',`
 	gen_require(`
+		attribute logfile;
 		type syslogd_t, klogd_t, syslog_conf_t;
 		type syslogd_tmp_t, syslogd_var_lib_t;
 		type syslogd_var_run_t, klogd_var_run_t;

@@ -2251,6 +2251,7 @@ interface(`xserver_filetrans_home_content',`
 	gen_require(`
 		type xdm_home_t, xauth_home_t, iceauth_home_t;
 		type iceauth_tmp_t;
+		type tmp_t;
 		type x11_tmp_t;
 		type user_fonts_t, user_fonts_cache_t;
 		type user_fonts_config_t;

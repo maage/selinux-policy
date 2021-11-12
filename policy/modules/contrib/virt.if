@@ -1587,6 +1587,7 @@ interface(`virt_admin',`
 		attribute svirt_file_type;
 		attribute virt_file_type;
 		type virtd_initrc_exec_t;
+		type virtd_unit_file_t;
 	')
 
 	allow $1 virt_system_domain:process signal_perms;

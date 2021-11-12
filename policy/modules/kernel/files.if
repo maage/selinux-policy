@@ -9936,6 +9936,7 @@ interface(`files_filetrans_named_content',`
         type var_lock_t;
 		type tmp_t;
         type system_conf_t;
+		type etc_runtime_t;
 	')
 
 	files_pid_filetrans($1, mnt_t, dir, "media")

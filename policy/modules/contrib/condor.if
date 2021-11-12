@@ -87,6 +87,10 @@ interface(`condor_startd_ranged_domtrans_to',`
 
 
     ifdef(`enable_mcs',`
+	gen_require(`
+		type condor_startd_t;
+	')
+
         range_transition condor_startd_t $2:process $3;
     ')
 

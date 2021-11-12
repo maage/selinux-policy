@@ -1938,6 +1938,10 @@ interface(`systemd_login_undefined',`
 ## </param>
 #
 interface(`systemd_config_generic_services',`
+	gen_require(`
+		attribute systemd_unit_file_type;
+	')
+
 	systemd_exec_systemctl($1)
 	allow $1 systemd_unit_file_type:file read_file_perms;
 	allow $1 systemd_unit_file_type:service manage_service_perms;

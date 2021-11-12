@@ -1458,6 +1458,10 @@ interface(`seutil_run_semanage',`
 ## <rolecap/>
 #
 interface(`seutil_run_setsebool',`
+	gen_require(`
+		type setsebool_t;
+	')
+
 	seutil_domtrans_setsebool($1)
 	role $2 types setsebool_t;
 ')
