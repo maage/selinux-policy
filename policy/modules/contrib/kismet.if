@@ -19,6 +19,7 @@ template(`kismet_role',`
 	gen_require(`
 		type kismet_home_t, kismet_tmp_t;
 		type kismet_t;
+		type kismet_tmpfs_t;
 	')
 
 	kismet_run($1, $2)
