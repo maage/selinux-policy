@@ -610,7 +610,7 @@ interface(`storage_rw_inherited_scsi_generic',`
 
 	dev_list_all_dev_nodes($1)
 	allow $1 scsi_generic_device_t:chr_file rw_inherited_chr_file_perms;
-	allow $1 scsi_generic_device_t:chr_file rw_inherited_blk_file_perms;
+	allow $1 scsi_generic_device_t:blk_file rw_inherited_blk_file_perms;
 	typeattribute $1 scsi_generic_write;
     typeattribute $1 scsi_generic_read;
 ')
