@@ -125,7 +125,13 @@ sysnet_dns_name_resolve(openvswitch_t)
 
 logging_send_audit_msgs(openvswitch_t)
 
-write_sock_files_pattern(init_t, openvswitch_var_run_t, openvswitch_var_run_t)
+
+optional_policy(`
+	gen_require(`
+		type init_t;
+	')
+	write_sock_files_pattern(init_t, openvswitch_var_run_t, openvswitch_var_run_t)
+')
 
 storage_rw_inherited_fixed_disk_dev(openvswitch_t)
 
