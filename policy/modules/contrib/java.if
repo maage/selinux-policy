@@ -161,7 +161,7 @@ template(`java_domtrans',`
 ##	</summary>
 ## </param>
 #
-interface(`java_run',`
+template(`java_run',`
 	gen_require(`
 		attribute_role java_roles;
 	')
