@@ -53,7 +53,8 @@ define(`unpriv_socket_class_set', `{ tcp_socket udp_socket unix_stream_socket un
 #
 # Permissions to mount and unmount file systems.
 #
-define(`mount_fs_perms', `{ mount remount unmount getattr }')
+define(`mount_filesystem_perms', `{ mount remount unmount getattr }')
+define(`mount_fs_perms', `mount_filesystem_perms')
 
 #
 # Permissions for using sockets.
