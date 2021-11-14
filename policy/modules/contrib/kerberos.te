@@ -347,7 +347,7 @@ optional_policy(`
 allow kpropd_t self:capability net_bind_service;
 allow kpropd_t self:process setfscreate;
 
-allow kpropd_t self:fifo_file rw_file_perms;
+allow kpropd_t self:fifo_file rw_fifo_file_perms;
 allow kpropd_t self:unix_stream_socket create_stream_socket_perms;
 allow kpropd_t self:tcp_socket create_stream_socket_perms;
 
