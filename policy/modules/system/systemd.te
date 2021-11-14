@@ -1093,7 +1093,7 @@ optional_policy(`
 # systemd_hwdb domain
 #
 manage_files_pattern(systemd_hwdb_t, systemd_hwdb_etc_t, systemd_hwdb_etc_t)
-allow systemd_hwdb_t systemd_hwdb_etc_t:file {relabelfrom relabelto};
+allow systemd_hwdb_t systemd_hwdb_etc_t:file relabel_file_perms;
 files_etc_filetrans(systemd_hwdb_t, systemd_hwdb_etc_t, file)
 
 systemd_read_efivarfs(systemd_hwdb_t)

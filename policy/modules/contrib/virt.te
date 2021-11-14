@@ -487,7 +487,7 @@ manage_dirs_pattern(virtd_t, virt_var_lib_t, virt_var_lib_t)
 manage_files_pattern(virtd_t, virt_var_lib_t, virt_var_lib_t)
 manage_sock_files_pattern(virtd_t, virt_var_lib_t, virt_var_lib_t)
 files_var_lib_filetrans(virtd_t, virt_var_lib_t, { file dir })
-allow virtd_t virt_var_lib_t:file { relabelfrom relabelto };
+allow virtd_t virt_var_lib_t:file relabel_file_perms;
 
 manage_dirs_pattern(virtlogd_t, virt_var_lockd_t, virt_var_lockd_t)
 manage_files_pattern(virtlogd_t, virt_var_lockd_t, virt_var_lockd_t)
@@ -509,7 +509,7 @@ manage_files_pattern(virtlogd_t, virt_common_var_run_t, virt_common_var_run_t)
 manage_dirs_pattern(virtd_t, virt_lxc_var_run_t, virt_lxc_var_run_t)
 manage_files_pattern(virtd_t, virt_lxc_var_run_t, virt_lxc_var_run_t)
 filetrans_pattern(virtd_t, virt_var_run_t, virt_lxc_var_run_t, dir, "lxc")
-allow virtd_t virt_lxc_var_run_t:file { relabelfrom relabelto };
+allow virtd_t virt_lxc_var_run_t:file relabel_file_perms;
 stream_connect_pattern(virtd_t, virt_lxc_var_run_t, virt_lxc_var_run_t, virtd_lxc_t)
 
 # libvirtd is permitted to talk to virtlogd
@@ -1464,8 +1464,8 @@ manage_files_pattern(svirt_sandbox_domain, container_file_t, container_file_t)
 manage_lnk_files_pattern(svirt_sandbox_domain, container_file_t, container_file_t)
 manage_sock_files_pattern(svirt_sandbox_domain, container_file_t, container_file_t)
 manage_fifo_files_pattern(svirt_sandbox_domain, container_file_t, container_file_t)
-allow svirt_sandbox_domain container_file_t:file { execmod relabelfrom relabelto };
-allow svirt_sandbox_domain container_file_t:dir { execmod relabelfrom relabelto };
+allow svirt_sandbox_domain container_file_t:file { execmod relabel_file_perms };
+allow svirt_sandbox_domain container_file_t:dir { execmod relabel_dir_perms };
 allow svirt_sandbox_domain svirt_file_type:dir_file_class_set mounton;
 
 list_dirs_pattern(svirt_sandbox_domain, container_file_t, container_file_t)

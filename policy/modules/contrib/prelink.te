@@ -158,7 +158,7 @@ optional_policy(`
 
 	manage_files_pattern(prelink_cron_system_t, prelink_var_lib_t, prelink_var_lib_t)
 	files_var_lib_filetrans(prelink_cron_system_t, prelink_var_lib_t, file)
-	allow prelink_cron_system_t prelink_var_lib_t:file { relabelfrom relabelto };
+	allow prelink_cron_system_t prelink_var_lib_t:file relabel_file_perms;
 
 	kernel_read_system_state(prelink_cron_system_t)
 
