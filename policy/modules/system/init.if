@@ -231,10 +231,7 @@ interface(`init_ranged_domain',`
 interface(`init_daemon_domain',`
 	gen_require(`
 		attribute direct_run_init, direct_init, direct_init_entry;
-		type init_t;
-		role system_r;
 		attribute daemon;
-		attribute initrc_transition_domain;
 		attribute initrc_domain;
 	')
 
@@ -371,9 +368,7 @@ interface(`init_ranged_daemon_domain',`
 #
 interface(`init_system_domain',`
 	gen_require(`
-		type init_t;
 		role system_r;
-		attribute initrc_transition_domain;
 		attribute systemprocess, systemprocess_entry;
 		attribute initrc_domain;
 	')
@@ -1306,7 +1301,7 @@ interface(`init_all_labeled_script_domtrans',`
 #
 interface(`init_run_daemon',`
 	gen_require(`
-		attribute direct_run_init, direct_init, direct_init_entry;
+		attribute direct_run_init, direct_init_entry;
 		role system_r;
 	')
 

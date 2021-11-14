@@ -281,7 +281,6 @@ interface(`antivirus_systemctl',`
 #
 interface(`antivirus_admin',`
     gen_require(`
-		attribute antivirus_domain;
         type antivirus_t, antivirus_conf_t, antivirus_tmp_t;
         type antivirus_log_t, antivirus_db_t, antivirus_var_run_t;
         type antivirus_initrc_exec_t, antivirus_unit_file_t;

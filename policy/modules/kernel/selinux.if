@@ -499,7 +499,7 @@ interface(`selinux_set_generic_booleans',`
 #
 interface(`selinux_set_all_booleans',`
 	gen_require(`
-		type security_t, secure_mode_policyload_t;
+		type security_t;
 		attribute boolean_type;
 		attribute can_setbool;
 	')

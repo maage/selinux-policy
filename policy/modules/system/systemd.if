@@ -862,7 +862,7 @@ interface(`systemd_passwd_agent_domtrans',`
 #
 interface(`systemd_passwd_agent_exec',`
 	gen_require(`
-		type systemd_passwd_agent_t, systemd_passwd_agent_exec_t;
+		type systemd_passwd_agent_exec_t;
 	')
 
 	can_exec($1, systemd_passwd_agent_exec_t)
@@ -1720,7 +1720,6 @@ interface(`systemd_filetrans_named_content',`
 		type systemd_passwd_var_run_t;
 		type systemd_logind_var_run_t;
 		type hostname_etc_t;
-		type systemd_home_t;
 		type systemd_rfkill_var_lib_t;
 	')
 
@@ -1939,10 +1938,6 @@ interface(`systemd_login_undefined',`
 ## </param>
 #
 interface(`systemd_config_generic_services',`
-	gen_require(`
-		type systemd_unit_file_t;
-	')
-
 	systemd_exec_systemctl($1)
 	allow $1 systemd_unit_file_type:file read_file_perms;
 	allow $1 systemd_unit_file_type:service manage_service_perms;

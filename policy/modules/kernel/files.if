@@ -569,7 +569,6 @@ interface(`files_poly_member_tmp',`
 interface(`files_tmp_file',`
 	gen_require(`
 		attribute tmpfile;
-		type tmp_t;
 	')
 
 	files_type($1)
@@ -5996,7 +5995,6 @@ interface(`files_getattr_tmp_dirs',`
 #
 interface(`files_dontaudit_access_check_tmp',`
 	gen_require(`
-		type etc_t;
 		type tmp_t;
 	')
 
@@ -8255,7 +8253,7 @@ interface(`files_relabel_all_lock_files',`
 #
 interface(`files_getattr_generic_locks',`
 	gen_require(`
-		type var_t, var_lock_t;
+		type var_lock_t;
 	')
 
 	files_search_locks($1)
@@ -8275,7 +8273,7 @@ interface(`files_getattr_generic_locks',`
 #
 interface(`files_delete_generic_locks',`
        gen_require(`
-		type var_t, var_lock_t;
+		type var_lock_t;
        ')
 
        files_search_locks($1)
@@ -8295,7 +8293,7 @@ interface(`files_delete_generic_locks',`
 #
 interface(`files_manage_generic_locks',`
 	gen_require(`
-		type var_t, var_lock_t;
+		type var_lock_t;
 	')
 
 	files_search_locks($1)
@@ -8337,7 +8335,6 @@ interface(`files_delete_all_locks',`
 interface(`files_read_all_locks',`
 	gen_require(`
 		attribute lockfile;
-		type var_t, var_lock_t;
 	')
 
 	files_search_locks($1)
@@ -8359,7 +8356,6 @@ interface(`files_read_all_locks',`
 interface(`files_manage_all_locks',`
 	gen_require(`
 		attribute lockfile;
-		type var_t, var_lock_t;
 	')
 
 	files_search_locks($1)
@@ -8396,7 +8392,7 @@ interface(`files_manage_all_locks',`
 #
 interface(`files_lock_filetrans',`
 	gen_require(`
-		type var_t, var_lock_t;
+		type var_lock_t;
 	')
 
 	files_search_locks($1)
@@ -8586,10 +8582,6 @@ interface(`files_watch_var_run_dirs',`
 ## </param>
 #
 interface(`files_watch_var_run_path',`
-        gen_require(`
-                type var_run_t;
-        ')
-
 	files_watch_root_dirs($1)
 	files_watch_var_run_dirs($1)
 ')
@@ -9001,7 +8993,6 @@ interface(`files_read_all_pids',`
 interface(`files_map_all_pids',`
 	gen_require(`
 		attribute pidfile;
-		type var_t;
 	')
 
 	allow $1 pidfile:file map;
@@ -9139,7 +9130,7 @@ interface(`files_delete_all_pids',`
 interface(`files_delete_all_pid_dirs',`
 	gen_require(`
 		attribute pidfile;
-		type var_t, var_run_t;
+		type var_t;
 	')
 
 	files_search_pids($1)
@@ -9246,7 +9237,6 @@ interface(`files_delete_all_spool_sockets',`
 interface(`files_relabel_all_spool_dirs',`
 	gen_require(`
 		attribute spoolfile;
-		type var_t;
 	')
 
 	relabel_dirs_pattern($1, spoolfile, spoolfile)

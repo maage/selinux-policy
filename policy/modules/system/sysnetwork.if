@@ -973,10 +973,6 @@ interface(`sysnet_dhcp_state_filetrans',`
 ## <rolecap/>
 #
 interface(`sysnet_dns_name_resolve',`
-	gen_require(`
-		type net_conf_t;
-	')
-
 	allow $1 self:tcp_socket create_socket_perms;
 	allow $1 self:udp_socket create_socket_perms;
 	allow $1 self:netlink_route_socket r_netlink_socket_perms;
@@ -1022,10 +1018,6 @@ interface(`sysnet_dns_name_resolve',`
 ## </param>
 #
 interface(`sysnet_use_ldap',`
-	gen_require(`
-		type net_conf_t;
-	')
-
 	allow $1 self:tcp_socket create_socket_perms;
 
 	corenet_tcp_sendrecv_generic_if($1)
@@ -1057,10 +1049,6 @@ interface(`sysnet_use_ldap',`
 ## </param>
 #
 interface(`sysnet_use_portmap',`
-	gen_require(`
-		type net_conf_t;
-	')
-
 	allow $1 self:tcp_socket create_socket_perms;
 	allow $1 self:udp_socket create_socket_perms;
 

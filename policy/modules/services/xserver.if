@@ -394,7 +394,6 @@ template(`xserver_object_types_template',`
 template(`xserver_user_x_domain_template',`
 	gen_require(`
 		type xdm_t, xserver_tmpfs_t;
-		type xdm_home_t;
 		type xauth_home_t, iceauth_home_t, xserver_t;
 	')
 
@@ -535,7 +534,7 @@ interface(`xserver_domtrans_xauth',`
 #
 interface(`xserver_exec_xauth',`
 	gen_require(`
-		type xauth_t, xauth_exec_t;
+		type xauth_exec_t;
 	')
 
 	can_exec($1, xauth_exec_t)
@@ -2253,7 +2252,7 @@ interface(`xserver_filetrans_home_content',`
 		type xdm_home_t, xauth_home_t, iceauth_home_t;
 		type iceauth_tmp_t;
 		type x11_tmp_t;
-		type user_home_t, user_fonts_t, user_fonts_cache_t;
+		type user_fonts_t, user_fonts_cache_t;
 		type user_fonts_config_t;
 	')
 
@@ -2364,7 +2363,7 @@ interface(`xserver_filetrans_home_content',`
 interface(`xserver_filetrans_admin_home_content',`
 	gen_require(`
 		type xdm_home_t, xauth_home_t, iceauth_home_t;
-		type user_home_t, user_fonts_t, user_fonts_cache_t;
+		type user_fonts_t, user_fonts_cache_t;
 		type user_fonts_config_t;
 	')
 

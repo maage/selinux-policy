@@ -38,7 +38,6 @@ interface(`ncftool_domtrans',`
 #
 interface(`ncftool_run',`
 	gen_require(`
-		type ncftool_t;
 		attribute_role ncftool_roles;
 	')
 

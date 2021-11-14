@@ -470,7 +470,7 @@ interface(`networkmanager_delete_pid_files',`
 #
 interface(`networkmanager_run',`
 	gen_require(`
-		type NetworkManager_t, NetworkManager_exec_t;
+		type NetworkManager_t;
 	')
 
 	networkmanager_domtrans($1)

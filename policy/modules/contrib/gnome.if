@@ -1918,7 +1918,6 @@ gen_require(`
 	type config_home_t;
 	type cache_home_t;
 	type dbus_home_t;
-	type gstreamer_home_t;
 	type gconf_home_t;
 	type gnome_home_t;
 	type icc_data_home_t;

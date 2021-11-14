@@ -84,7 +84,6 @@ interface(`term_login_pty',`
 interface(`term_tty',`
 	gen_require(`
 		attribute ttynode, serial_device;
-		type tty_device_t;
 	')
 
 	typeattribute $1 ttynode, serial_device;
@@ -1041,7 +1040,6 @@ interface(`term_use_all_ptys',`
 interface(`term_use_all_inherited_ptys',`
 	gen_require(`
 		attribute ptynode;
-		type devpts_t;
 	')
 
 	allow $1 ptynode:chr_file { rw_inherited_term_perms lock };
@@ -1875,7 +1873,6 @@ interface(`term_filetrans_all_named_dev',`
 
     gen_require(`
 	    type tty_device_t;
-	    type bsdpty_device_t;
 	    type console_device_t;
 	    type ptmx_t;
     	type devtty_t;

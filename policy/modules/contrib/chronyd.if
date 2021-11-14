@@ -363,7 +363,6 @@ interface(`chronyd_domtrans_chronyc',`
 #
 interface(`chronyd_run_chronyc',`
 	gen_require(`
-		type chronyc_t;
         attribute_role chronyc_roles;
 	')
 

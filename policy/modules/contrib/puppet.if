@@ -88,7 +88,7 @@ interface(`puppet_domtrans_puppetca',`
 #
 interface(`puppet_run',`
 	gen_require(`
-		type puppet_t, puppet_exec_t;
+		type puppet_t;
 	')
 
 	puppet_domtrans($1)
@@ -115,7 +115,7 @@ interface(`puppet_run',`
 #
 interface(`puppet_run_puppetca',`
 	gen_require(`
-		type puppetca_t, puppetca_exec_t;
+		type puppetca_t;
 	')
 
 	puppet_domtrans_puppetca($1)

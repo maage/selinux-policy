@@ -258,7 +258,7 @@ interface(`seutil_run_newrole',`
 #
 interface(`seutil_exec_newrole',`
 	gen_require(`
-		type newrole_t, newrole_exec_t;
+		type newrole_exec_t;
 	')
 
 	files_search_usr($1)
@@ -1458,10 +1458,6 @@ interface(`seutil_run_semanage',`
 ## <rolecap/>
 #
 interface(`seutil_run_setsebool',`
-	gen_require(`
-		type semanage_t;
-	')
-
 	seutil_domtrans_setsebool($1)
 	role $2 types setsebool_t;
 ')
@@ -1696,8 +1692,6 @@ interface(`seutil_dontaudit_libselinux_linked',`
 #
 interface(`seutil_semanage_policy',`
 	gen_require(`
-		type semanage_tmp_t;
-		type policy_config_t;
 		attribute policy_manager_domain;
 	')
 	typeattribute $1 policy_manager_domain;

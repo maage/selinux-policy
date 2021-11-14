@@ -37,7 +37,6 @@ interface(`hddtemp_domtrans',`
 #
 interface(`hddtemp_run',`
 	gen_require(`
-		type hddtemp_t;
 		attribute_role hddtemp_roles;
 	')
 

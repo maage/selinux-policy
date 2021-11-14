@@ -5040,7 +5040,6 @@ interface(`dev_read_cpu_online',`
 interface(`dev_relabel_cpu_online',`
 	gen_require(`
 		type cpu_online_t;
-		type sysfs_t;
 	')
 
 	dev_search_sysfs($1)
@@ -6021,7 +6020,7 @@ interface(`dev_rw_vmware',`
 #
 interface(`dev_rwx_vmware',`
 	gen_require(`
-		type device_t, vmware_device_t;
+		type vmware_device_t;
 	')
 
 	dev_rw_vmware($1)

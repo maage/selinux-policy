@@ -1312,7 +1312,7 @@ interface(`apache_domtrans_sys_script',`
 	gen_require(`
 		attribute httpdcontent;
 		type httpd_sys_script_exec_t;
-		type httpd_sys_script_t, httpd_sys_content_t;
+		type httpd_sys_script_t;
 	')
 
 	tunable_policy(`httpd_enable_cgi',`
@@ -1382,7 +1382,7 @@ interface(`apache_domtrans_all_scripts',`
 #
 interface(`apache_run_all_scripts',`
 	gen_require(`
-		attribute httpd_exec_scripts, httpd_script_domains;
+		attribute httpd_script_domains;
 	')
 
 	role $2 types httpd_script_domains;
@@ -1651,7 +1651,7 @@ interface(`apache_dontaudit_write_tmp_files',`
 #
 interface(`apache_cgi_domain',`
 	gen_require(`
-		type httpd_t, httpd_sys_script_exec_t;
+		type httpd_t;
 	')
 
 	domtrans_pattern(httpd_t, $2, $1)
@@ -1704,7 +1704,7 @@ interface(`apache_admin',`
 	gen_require(`
 		attribute httpdcontent, httpd_script_exec_type;
 		type httpd_t, httpd_config_t, httpd_log_t;
-		type httpd_modules_t, httpd_lock_t, httpd_bool_t;
+		type httpd_modules_t, httpd_lock_t;
 		type httpd_var_run_t, httpd_php_tmp_t, httpd_initrc_exec_t;
 		type httpd_suexec_tmp_t, httpd_tmp_t;
 		type httpd_unit_file_t;

@@ -38,7 +38,6 @@ interface(`freqset_domtrans',`
 #
 interface(`freqset_run',`
 	gen_require(`
-		type freqset_t;
 		attribute_role freqset_roles;
 	')
 

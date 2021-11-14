@@ -2796,7 +2796,7 @@ interface(`userdom_map_user_home_files',`
 #
 interface(`userdom_read_user_home_content_files',`
 	gen_require(`
-		type user_home_dir_t, user_home_t;
+		type user_home_dir_t;
 		attribute user_home_type;
 	')
 
@@ -3084,7 +3084,7 @@ interface(`userdom_manage_user_home_content_files',`
 #
 interface(`userdom_dontaudit_manage_user_home_content_dirs',`
 	gen_require(`
-		type user_home_dir_t, user_home_t;
+		type user_home_t;
 	')
 
 	dontaudit $1 user_home_t:dir manage_dir_perms;
@@ -5312,7 +5312,7 @@ interface(`userdom_manage_user_home_content',`
 #
 interface(`userdom_manage_all_user_home_type_dirs',`
 	gen_require(`
-		type user_home_dir_t, user_home_t;
+		type user_home_dir_t;
 		attribute user_home_type;
 	')
 
@@ -5332,7 +5332,7 @@ interface(`userdom_manage_all_user_home_type_dirs',`
 #
 interface(`userdom_manage_all_user_home_type_files',`
 	gen_require(`
-		type user_home_dir_t, user_home_t;
+		type user_home_dir_t;
 		attribute user_home_type;
 	')
 
@@ -6641,7 +6641,6 @@ template(`userdom_confined_admin_template',`
 	gen_require(`
 		attribute confined_admindomain;
 		attribute userdomain;
-		type user_devpts_t, user_tty_device_t;
 		class context contains;
 	')
 

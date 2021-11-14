@@ -178,7 +178,7 @@ interface(`dovecot_admin',`
 		type dovecot_t, dovecot_etc_t, dovecot_var_log_t;
 		type dovecot_spool_t, dovecot_var_lib_t, dovecot_initrc_exec_t;
 		type dovecot_var_run_t, dovecot_cert_t, dovecot_passwd_t;
-		type dovecot_tmp_t, dovecot_auth_tmp_t, dovecot_deliver_tmp_t;
+		type dovecot_tmp_t, dovecot_auth_tmp_t;
 		type dovecot_keytab_t;
 	')
 

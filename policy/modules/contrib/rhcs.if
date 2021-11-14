@@ -187,7 +187,7 @@ interface(`rhcs_domtrans_fenced',`
 #
 interface(`rhcs_getattr_fenced',`
     gen_require(`
-        type fenced_t, fenced_exec_t;
+        type fenced_exec_t;
     ')
 
 	allow $1 fenced_exec_t:file getattr;
@@ -530,7 +530,6 @@ interface(`rhcs_stream_connect_cluster',`
 #
 interface(`rhcs_stream_connect_cluster_to',`
 	gen_require(`
-		attribute cluster_domain;
 		attribute cluster_pid;
 	')
 

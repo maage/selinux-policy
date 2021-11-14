@@ -176,7 +176,7 @@ interface(`logging_read_audit_log',`
 #
 interface(`logging_watch_audit_log_files',`
 	gen_require(`
-		type var_log_t, auditd_log_t;
+		type auditd_log_t;
 	')
 
 	watch_files_pattern($1, auditd_log_t, auditd_log_t)
@@ -1092,7 +1092,6 @@ interface(`logging_getattr_all_logs',`
 interface(`logging_append_all_logs',`
 	gen_require(`
 		attribute logfile;
-		type var_log_t;
 	')
 
 	files_search_var($1)
@@ -1580,7 +1579,7 @@ interface(`logging_admin_syslog',`
 		type syslogd_t, klogd_t, syslog_conf_t;
 		type syslogd_tmp_t, syslogd_var_lib_t;
 		type syslogd_var_run_t, klogd_var_run_t;
-		type klogd_tmp_t, var_log_t;
+		type klogd_tmp_t;
 		type syslogd_initrc_exec_t;
 	')
 

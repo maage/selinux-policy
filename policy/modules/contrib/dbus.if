@@ -96,7 +96,7 @@ template(`dbus_role_template',`
 	gen_require(`
 		class dbus { send_msg acquire_svc };
 		attribute dbusd_unconfined, session_bus_type, systemd_unit_file_type;
-		type system_dbusd_t, session_dbusd_tmp_t, dbusd_exec_t, dbusd_etc_t;
+		type system_dbusd_t, session_dbusd_tmp_t, dbusd_exec_t;
 		type $1_t;
 	')
 
@@ -521,7 +521,6 @@ interface(`dbus_system_domain',`
 	gen_require(`
 		attribute system_bus_type;
 		type system_dbusd_t;
-		role system_r;
 	')
 	typeattribute $1  system_bus_type;
 

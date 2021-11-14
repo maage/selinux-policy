@@ -17,7 +17,7 @@
 #
 interface(`auth_role',`
 	gen_require(`
-		type chkpwd_t, chkpwd_exec_t, shadow_t;
+		type chkpwd_t, shadow_t;
 	')
 
 	role $1 types chkpwd_t;
@@ -116,7 +116,6 @@ interface(`auth_use_pam',`
 #
 interface(`auth_login_pgm_domain',`
 	gen_require(`
-		type var_auth_t, auth_cache_t;
 		attribute polydomain;
 		attribute login_pgm;
 	')

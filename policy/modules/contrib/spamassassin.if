@@ -18,9 +18,9 @@
 #
 interface(`spamassassin_role',`
 	gen_require(`
-		type spamc_t, spamc_exec_t, spamc_tmp_t;
+		type spamc_t, spamc_exec_t;
 		type spamassassin_t, spamassassin_exec_t;
-		type spamassassin_home_t, spamassassin_tmp_t;
+		type spamassassin_home_t;
 	')
 
 	role $1 types { spamc_t spamassassin_t };

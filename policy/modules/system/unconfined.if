@@ -129,10 +129,6 @@ interface(`unconfined_domain_noaudit',`
 ## </param>
 #
 interface(`unconfined_domain',`
-	gen_require(`
-		attribute unconfined_services;
-	')	
-
 	unconfined_domain_noaudit($1)
 
 	tunable_policy(`selinuxuser_execheap',`

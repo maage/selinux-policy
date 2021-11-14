@@ -46,7 +46,6 @@ interface(`mount_domtrans',`
 interface(`mount_run',`
 	gen_require(`
 		attribute_role mount_roles;
-		type mount_t;
 	')
 
 	mount_domtrans($1)

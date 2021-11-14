@@ -38,7 +38,6 @@ interface(`tcpd_domtrans',`
 interface(`tcpd_wrapped_domain',`
 	gen_require(`
 		type tcpd_t;
-		role system_r;
 	')
 
 	domtrans_pattern(tcpd_t, $2, $1)

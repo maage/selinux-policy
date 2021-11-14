@@ -77,7 +77,7 @@ interface(`sandbox_x_transition',`
 #
 template(`sandbox_x_domain_template',`
 	gen_require(`
-		type xserver_exec_t, sandbox_devpts_t;
+		type xserver_exec_t;
 		type sandbox_xserver_t;
 		type sandbox_exec_t;
 		attribute sandbox_x_domain;
