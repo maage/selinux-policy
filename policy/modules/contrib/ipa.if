@@ -118,12 +118,11 @@ ifndef(`ipa_domtrans_helper',`
 ifndef(`ipa_run_helper',`
 	interface(`ipa_run_helper',`
 		gen_require(`
-			type ipa_helper_t;
-	        attribute_role ipa_helper_roles;
+			attribute_role ipa_helper_roles;
 		')
 
-	    ipa_domtrans_helper($1)
-	    roleattribute $2 ipa_helper_roles;
+		ipa_domtrans_helper($1)
+		roleattribute $2 ipa_helper_roles;
 	')
 ')
 

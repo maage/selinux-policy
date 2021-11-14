@@ -12,7 +12,7 @@
 #
 interface(`sssd_getattr_exec',`
     gen_require(`
-        type sssd_t, sssd_exec_t;
+        type sssd_exec_t;
     ')
 
 	allow $1 sssd_exec_t:file getattr;

@@ -246,7 +246,7 @@ interface(`psad_rw_fifo_file',`
 #
 interface(`psad_setattr_fifo_file',`
     gen_require(`
-        type psad_t, psad_var_lib_t;
+        type psad_var_lib_t;
     ')
 
     files_search_var_lib($1)
@@ -266,7 +266,7 @@ interface(`psad_setattr_fifo_file',`
 #
 interface(`psad_search_lib_files',`
     gen_require(`
-        type psad_t, psad_var_lib_t;
+        type psad_var_lib_t;
     ')
 
     files_search_var_lib($1)

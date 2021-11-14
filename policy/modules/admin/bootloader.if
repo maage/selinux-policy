@@ -56,7 +56,6 @@ interface(`bootloader_exec',`
 #
 interface(`bootloader_run',`
 	gen_require(`
-		type bootloader_t;
 		attribute_role bootloader_roles;
 	')
 

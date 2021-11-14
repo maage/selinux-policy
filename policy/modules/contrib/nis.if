@@ -137,7 +137,7 @@ interface(`nis_domtrans_ypbind',`
 #
 interface(`nis_exec_ypbind',`
     gen_require(`
-        type ypbind_t, ypbind_exec_t;
+        type ypbind_exec_t;
     ')
 
 	can_exec($1, ypbind_exec_t)
@@ -383,7 +383,7 @@ interface(`nis_systemctl_ypbind',`
 #
 interface(`nis_systemctl',`
 	gen_require(`
-		type nis_unit_file_t, ypbind_unit_file_t;
+		type nis_unit_file_t;
 		type ypbind_t, yppasswdd_t, ypserv_t, ypxfr_t;
 	')
 

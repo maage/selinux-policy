@@ -190,7 +190,7 @@ interface(`bind_read_dnssec_keys',`
 #
 interface(`bind_map_dnssec_keys',`
 	gen_require(`
-		type named_conf_t, named_zone_t, dnssec_t;
+		type dnssec_t;
 	')
 
 	allow $1 dnssec_t:file map;
@@ -544,7 +544,7 @@ interface(`bind_admin',`
 	gen_require(`
 		type named_t, named_tmp_t, named_log_t;
 		type named_cache_t, named_zone_t, named_initrc_exec_t;
-		type dnssec_t, ndc_t, named_conf_t, named_var_run_t;
+		type dnssec_t, named_conf_t, named_var_run_t;
 		type named_keytab_t, named_unit_file_t;
 	')
 

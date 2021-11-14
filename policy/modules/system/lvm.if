@@ -519,7 +519,6 @@ interface(`lvm_dbus_send_msg',`
 #
 interface(`lvm_rw_var_run',`
 	gen_require(`
-		type lvm_t;
 		type lvm_var_run_t;
 	')
     allow $1 lvm_var_run_t:file { rw_file_perms };

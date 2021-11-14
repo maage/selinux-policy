@@ -83,9 +83,6 @@ interface(`condor_domtrans_master',`
 ## </param>
 #
 interface(`condor_startd_ranged_domtrans_to',`
-    gen_require(`
-        type sshd_t;
-    ')
     condor_startd_domtrans_to($1, $2)
 
 

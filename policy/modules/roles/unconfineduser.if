@@ -797,10 +797,6 @@ interface(`unconfined_transition',`
 ## </param>
 #
 interface(`unconfined_typebounds',`
-	gen_require(`
-		type unconfined_t;
-	')
-
 	typebounds unconfined_t $1;
 ')
 
@@ -815,10 +811,6 @@ interface(`unconfined_typebounds',`
 ## </param>
 #
 interface(`unconfined_exec_typebounds',`
-	gen_require(`
-		type unconfined_exec_t;
-	')
-
 	typebounds unconfined_exec_t $1;
 ')
 

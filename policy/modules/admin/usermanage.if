@@ -38,7 +38,6 @@ interface(`usermanage_domtrans_chfn',`
 interface(`usermanage_run_chfn',`
 	gen_require(`
 		attribute_role chfn_roles;
-		type chfn_t;
 	')
 
 	usermanage_domtrans_chfn($1)
@@ -102,7 +101,6 @@ interface(`usermanage_access_check_groupadd',`
 #
 interface(`usermanage_run_groupadd',`
 	gen_require(`
-		type groupadd_t;
 		attribute_role groupadd_roles;
 	')
 
@@ -183,7 +181,6 @@ interface(`usermanage_check_exec_passwd',`
 #
 interface(`usermanage_run_passwd',`
 	gen_require(`
-		type passwd_t;
 		attribute_role passwd_roles;
 	')
 
@@ -250,7 +247,6 @@ interface(`usermanage_domtrans_admin_passwd',`
 #
 interface(`usermanage_run_admin_passwd',`
 	gen_require(`
-		type sysadm_passwd_t;
 		attribute_role sysadm_passwd_roles;
 	')
 
@@ -333,7 +329,6 @@ interface(`usermanage_check_exec_useradd',`
 interface(`usermanage_run_useradd',`
 	gen_require(`
 		attribute_role useradd_roles;
-		type useradd_t;
 	')
 
 	usermanage_domtrans_useradd($1)

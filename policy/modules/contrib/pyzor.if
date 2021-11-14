@@ -19,7 +19,6 @@
 interface(`pyzor_role',`
 	gen_require(`
 		type pyzor_t, pyzor_exec_t;
-		type pyzor_home_t, pyzor_var_lib_t, pyzor_tmp_t;
 	')
 
 	role $1 types pyzor_t;

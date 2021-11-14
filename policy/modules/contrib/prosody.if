@@ -159,7 +159,6 @@ interface(`prosody_systemctl',`
 #
 interface(`prosody_run',`
 	gen_require(`
-		type prosody_t;
 		attribute_role prosody_roles;
 	')
 

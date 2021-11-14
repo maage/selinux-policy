@@ -79,7 +79,6 @@ interface(`numad_dbus_chat',`
 interface(`numad_admin',`
 	gen_require(`
 		type numad_t;
-		type numad_unit_file_t;
 	')
 
 	allow $1 numad_t:process { ptrace signal_perms };
