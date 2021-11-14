@@ -279,7 +279,7 @@ interface(`xserver_user_client',`
 template(`xserver_common_x_domain_template',`
 	gen_require(`
 		type root_xdrawable_t, xdm_t, xserver_t;
-		type xproperty_t, $1_xproperty_t;
+#		type xproperty_t, $1_xproperty_t;
 		type xevent_t, client_xevent_t;
 		type input_xevent_t, $1_input_xevent_t;
 
@@ -2205,7 +2205,8 @@ interface(`xserver_manage_user_fonts_dir',`
 #
 interface(`xserver_manage_home_fonts',`
 	gen_require(`
-		type user_fonts_t, user_fonts_config_t, user_fonts_cache_t;
+		type user_fonts_t, user_fonts_config_t;
+#		type user_fonts_cache_t;
 	')
 
 	manage_dirs_pattern($1, user_fonts_t, user_fonts_t)
