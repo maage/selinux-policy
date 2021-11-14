@@ -29,7 +29,7 @@ files_pid_file(dirmngr_var_run_t)
 # Local policy
 #
 
-allow dirmngr_t self:fifo_file rw_file_perms;
+allow dirmngr_t self:fifo_file rw_fifo_file_perms;
 
 allow dirmngr_t dirmngr_conf_t:dir list_dir_perms;
 allow dirmngr_t dirmngr_conf_t:file read_file_perms;
