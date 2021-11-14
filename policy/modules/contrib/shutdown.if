@@ -52,7 +52,6 @@ interface(`shutdown_domtrans',`
 #
 interface(`shutdown_run',`
 	gen_require(`
-		type shutdown_t;
 		attribute_role shutdown_roles;
 	')
 

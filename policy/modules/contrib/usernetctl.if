@@ -39,7 +39,6 @@ interface(`usernetctl_domtrans',`
 #
 interface(`usernetctl_run',`
 	gen_require(`
-		type usernetctl_t;
 		attribute_role usernetctl_roles;
 	')
 

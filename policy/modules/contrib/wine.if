@@ -84,7 +84,6 @@ template(`wine_role',`
 #
 template(`wine_role_template',`
 	gen_require(`
-		type wine_t;
 		attribute wine_domain;
 		type wine_exec_t;
 	')
