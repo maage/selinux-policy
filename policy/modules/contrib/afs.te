@@ -74,7 +74,7 @@ role system_r types afs_vlserver_t;
 
 allow afs_t self:capability { dac_read_search  sys_admin sys_nice sys_tty_config };
 allow afs_t self:process { setsched signal };
-allow afs_t self:fifo_file rw_file_perms;
+allow afs_t self:fifo_file rw_fifo_file_perms;
 allow afs_t self:unix_stream_socket { accept listen };
 
 manage_files_pattern(afs_t, afs_cache_t, afs_cache_t)

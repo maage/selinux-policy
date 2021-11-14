@@ -213,7 +213,7 @@ allow mock_build_t self:fifo_file manage_fifo_file_perms;
 allow mock_build_t self:unix_stream_socket create_stream_socket_perms;
 allow mock_build_t self:unix_dgram_socket create_socket_perms;
 allow mock_build_t self:dir list_dir_perms;
-allow mock_build_t self:dir read_file_perms;
+allow mock_build_t self:dir list_dir_perms;
       
 ps_process_pattern(mock_t, mock_build_t)
 allow mock_t mock_build_t:process signal_perms;
