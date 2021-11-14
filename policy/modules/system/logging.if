@@ -1113,7 +1113,7 @@ interface(`logging_inherit_append_all_logs',`
 		attribute logfile;
 	')
 
-	allow $1 logfile:file { append getattr ioctl lock };
+	allow $1 logfile:file { append_inherited_file_perms ioctl lock };
 ')
 
 ########################################

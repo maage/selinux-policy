@@ -5269,7 +5269,7 @@ interface(`userdom_inherit_append_admin_home_files',`
 		type admin_home_t;
 	')
 
-	allow $1 admin_home_t:file { append getattr };
+	allow $1 admin_home_t:file append_inherited_file_perms;
 ')
 
 
@@ -5644,7 +5644,7 @@ interface(`userdom_inherit_append_user_home_content_files',`
 		type user_home_t;
 	')
 
-	allow $1 user_home_t:file { append getattr };
+	allow $1 user_home_t:file append_inherited_file_perms;
 ')
 
 ########################################
@@ -5663,7 +5663,7 @@ interface(`userdom_inherit_append_user_tmp_files',`
 		type user_tmp_t;
 	')
 
-	allow $1 user_tmp_t:file { append getattr };
+	allow $1 user_tmp_t:file append_inherited_file_perms;
 ')
 
 ######################################

@@ -21,7 +21,7 @@ interface(`unconfined_domain_noaudit',`
 
 	allow $1 self:capability ~{ sys_module };
 	allow $1 self:capability2 ~{ mac_admin mac_override };
-	allow $1 self:fifo_file { manage_fifo_file_perms relabelfrom relabelto };
+	allow $1 self:fifo_file { manage_fifo_file_perms relabel_fifo_file_perms };
 
 	# Transition to myself, to make get_ordered_context_list happy.
 	allow $1 self:process { dyntransition transition };

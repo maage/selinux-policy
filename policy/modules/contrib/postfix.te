@@ -129,7 +129,7 @@ allow postfix_master_t postfix_data_t:file manage_file_perms;
 
 allow postfix_master_t postfix_keytab_t:file read_file_perms;
 
-allow postfix_master_t postfix_map_exec_t:file { ioctl lock mmap_file_perms };
+allow postfix_master_t postfix_map_exec_t:file { lock mmap_exec_file_perms };
 
 allow postfix_master_t postfix_postqueue_exec_t:file getattr_file_perms;
 

@@ -108,7 +108,7 @@ interface(`cfengine_append_inherited_log',`
         ')
 
         cfengine_search_lib_files($1)
-		allow $1 cfengine_var_log_t:file { append getattr ioctl lock };
+		allow $1 cfengine_var_log_t:file { append_inherited_file_perms ioctl lock };
 ')
 
 ####################################

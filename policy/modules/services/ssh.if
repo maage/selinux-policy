@@ -224,7 +224,7 @@ template(`ssh_server_template',`
 	allow $1_t self:unix_stream_socket create_stream_socket_perms;
 	allow $1_t self:shm create_shm_perms;
 
-	allow $1_t $1_devpts_t:chr_file { getattr_chr_file_perms relabelfrom rw_chr_file_perms setattr_chr_file_perms };
+	allow $1_t $1_devpts_t:chr_file { relabelfrom rw_term_perms setattr_chr_file_perms };
 	term_create_pty($1_t, $1_devpts_t)
 
 	#manage_files_pattern($1_t, $1_tmpfs_t, $1_tmpfs_t)

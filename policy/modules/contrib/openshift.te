@@ -211,7 +211,7 @@ manage_sock_files_pattern(openshift_domain, openshift_tmp_t, openshift_tmp_t)
 files_tmp_filetrans(openshift_domain, openshift_tmp_t, { lnk_file file dir sock_file fifo_file })
 allow openshift_domain openshift_tmp_t:dir_file_class_set { relabelfrom relabelto };
 
-allow openshift_domain openshift_log_t:file { append getattr ioctl lock };
+allow openshift_domain openshift_log_t:file { append_inherited_file_perms ioctl lock };
 
 #lsof
 allow openshift_domain openshift_initrc_t:tcp_socket getattr;
