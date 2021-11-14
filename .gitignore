@@ -4,3 +4,4 @@
 /policy/modules/kernel/corenetwork.if
 /*.pp
 /tmp/
+.*.swp
