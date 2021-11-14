@@ -34,7 +34,7 @@ template(`qemu_domain_template',`
 
 	allow $1_t self:capability { dac_read_search  };
 	allow $1_t self:process { execmem execstack getsched signal };
-	allow $1_t self:fifo_file rw_file_perms;
+	allow $1_t self:fifo_file rw_fifo_file_perms;
 	allow $1_t self:shm create_shm_perms;
 	allow $1_t self:unix_stream_socket create_stream_socket_perms;
 	allow $1_t self:tcp_socket create_stream_socket_perms;

@@ -218,7 +218,7 @@ allow pki_apache_domain self:netlink_route_socket { bind create getattr nlmsg_re
 allow pki_apache_domain self:key { read write };
 
 # internal communication is often done using fifo and unix sockets.
-allow pki_apache_domain self:fifo_file rw_file_perms;
+allow pki_apache_domain self:fifo_file rw_fifo_file_perms;
 allow pki_apache_domain self:unix_stream_socket create_stream_socket_perms;
 
 # talk to the hsm

@@ -56,7 +56,7 @@ interface(`snapper_read_inherited_pipe',`
 		type snapperd_t;
 	')
 
-	allow $1 snapperd_t:fifo_file read_inherited_file_perms;
+	allow $1 snapperd_t:fifo_file read_inherited_fifo_file_perms;
 ')
 
 ########################################

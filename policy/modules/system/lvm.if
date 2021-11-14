@@ -442,7 +442,7 @@ interface(`lvm_dontaudit_rw_lock_dir',`
 		type lvm_lock_t;
 	')
 
-	dontaudit $1 lvm_lock_t:dir rw_file_perms;
+	dontaudit $1 lvm_lock_t:dir rw_dir_perms;
 ')
 
 ########################################

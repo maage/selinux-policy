@@ -440,7 +440,7 @@ allow crond_t system_cronjob_t:process transition;
 dontaudit crond_t system_cronjob_t:process { noatsecure rlimitinh siginh };
 allow crond_t system_cronjob_t:fd use;
 allow system_cronjob_t crond_t:fd use;
-allow system_cronjob_t crond_t:fifo_file rw_file_perms;
+allow system_cronjob_t crond_t:fifo_file rw_fifo_file_perms;
 allow system_cronjob_t crond_t:process sigchld;
 allow crond_t system_cronjob_t:key manage_key_perms;
 
@@ -730,7 +730,7 @@ allow crond_t cronjob_t:process transition;
 dontaudit crond_t cronjob_t:process { noatsecure rlimitinh siginh };
 allow crond_t cronjob_t:fd use;
 allow cronjob_t crond_t:fd use;
-allow cronjob_t crond_t:fifo_file rw_file_perms;
+allow cronjob_t crond_t:fifo_file rw_fifo_file_perms;
 allow cronjob_t crond_t:process sigchld;
 
 kernel_read_system_state(cronjob_t)
@@ -792,7 +792,7 @@ rw_dirs_pattern(crond_t, user_cron_spool_t, user_cron_spool_t)
 watch_dirs_pattern(crond_t, user_cron_spool_t, user_cron_spool_t)
 read_files_pattern(crond_t, user_cron_spool_t, user_cron_spool_t)
 read_lnk_files_pattern(crond_t, user_cron_spool_t, user_cron_spool_t)
-allow crond_t user_cron_spool_t:file manage_lnk_file_perms;
+allow crond_t user_cron_spool_t:file manage_file_perms;
 
 tunable_policy(`fcron_crond',`
 	allow crond_t user_cron_spool_t:file manage_file_perms;

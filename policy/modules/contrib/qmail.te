@@ -94,7 +94,7 @@ qmail_read_config(qmail_inject_t)
 #
 
 allow qmail_local_t self:process signal_perms;
-allow qmail_local_t self:fifo_file write_file_perms;
+allow qmail_local_t self:fifo_file write_fifo_file_perms;
 allow qmail_local_t self:unix_stream_socket create_stream_socket_perms;
 
 manage_dirs_pattern(qmail_local_t, qmail_alias_home_t, qmail_alias_home_t)

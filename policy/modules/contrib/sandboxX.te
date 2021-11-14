@@ -146,7 +146,7 @@ tunable_policy(`deny_execmem',`',`
 	allow sandbox_x_domain self:process execmem;
 ')
 
-allow sandbox_x_domain self:fifo_file manage_file_perms;
+allow sandbox_x_domain self:fifo_file manage_fifo_file_perms;
 allow sandbox_x_domain self:sem create_sem_perms;
 allow sandbox_x_domain self:shm create_shm_perms;
 allow sandbox_x_domain self:msgq create_msgq_perms;

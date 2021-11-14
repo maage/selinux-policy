@@ -899,7 +899,7 @@ allow initrc_t self:unix_dgram_socket create_socket_perms;
 allow initrc_t self:unix_stream_socket { accept append bind connect connectto create getattr getopt ioctl listen read setattr setopt shutdown write };
 allow initrc_t self:tcp_socket create_stream_socket_perms;
 allow initrc_t self:udp_socket create_socket_perms;
-allow initrc_t self:fifo_file rw_file_perms;
+allow initrc_t self:fifo_file rw_fifo_file_perms;
 
 allow initrc_t initrc_devpts_t:chr_file rw_term_perms;
 term_create_pty(initrc_t, initrc_devpts_t)

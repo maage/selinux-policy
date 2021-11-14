@@ -204,7 +204,7 @@ optional_policy(`
          domtrans_pattern(bacula_t, bacula_unconfined_script_exec_t, bacula_unconfined_script_t)
 
          allow bacula_unconfined_script_t bacula_unconfined_script_exec_t:dir search_dir_perms;
-         allow bacula_unconfined_script_t bacula_unconfined_script_exec_t:dir read_file_perms;
+         allow bacula_unconfined_script_t bacula_unconfined_script_exec_t:dir list_dir_perms;
          allow bacula_unconfined_script_t bacula_unconfined_script_exec_t:file ioctl;
 
          optional_policy(`

@@ -636,7 +636,7 @@ optional_policy(`
 allow mozilla_plugin_config_t self:capability {  dac_read_search setgid setuid sys_nice };
 allow mozilla_plugin_config_t self:process { execmem execstack getsched setsched signal_perms };
 
-allow mozilla_plugin_config_t self:fifo_file rw_file_perms;
+allow mozilla_plugin_config_t self:fifo_file rw_fifo_file_perms;
 allow mozilla_plugin_config_t self:unix_stream_socket create_stream_socket_perms;
 
 ps_process_pattern(mozilla_plugin_config_t,mozilla_plugin_t)

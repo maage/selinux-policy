@@ -1506,7 +1506,7 @@ interface(`virt_rw_svirt_dev',`
 		type svirt_image_t;
 	')
 
-	allow $1 svirt_image_t:chr_file rw_file_perms;
+	allow $1 svirt_image_t:chr_file rw_chr_file_perms;
 ')
 
 ########################################

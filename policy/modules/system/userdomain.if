@@ -2381,7 +2381,7 @@ interface(`userdom_relabel_user_home_dirs',`
 		type user_home_t;
 	')
 
-	allow $1 user_home_t:dir relabel_file_perms;
+	allow $1 user_home_t:dir relabel_dir_perms;
 ')
 
 ########################################
@@ -2934,7 +2934,7 @@ interface(`userdom_delete_user_home_content_sock_files',`
 		type user_home_t;
 	')
 
-	allow $1 user_home_t:sock_file delete_file_perms;
+	allow $1 user_home_t:sock_file delete_sock_file_perms;
 ')
 
 ########################################
@@ -2952,7 +2952,7 @@ interface(`userdom_delete_all_user_home_content_sock_files',`
 		attribute user_home_type;
 	')
 
-	allow $1 user_home_type:sock_file delete_file_perms;
+	allow $1 user_home_type:sock_file delete_sock_file_perms;
 ')
 
 ########################################
@@ -4107,7 +4107,7 @@ interface(`userdom_spec_domtrans_all_users',`
 
 	corecmd_shell_spec_domtrans($1, userdomain)
 	allow userdomain $1:fd use;
-	allow userdomain $1:fifo_file rw_file_perms;
+	allow userdomain $1:fifo_file rw_fifo_file_perms;
 	allow userdomain $1:process sigchld;
 ')
 
@@ -4130,7 +4130,7 @@ interface(`userdom_xsession_spec_domtrans_all_users',`
 
 	xserver_xsession_spec_domtrans($1, userdomain)
 	allow userdomain $1:fd use;
-	allow userdomain $1:fifo_file rw_file_perms;
+	allow userdomain $1:fifo_file rw_fifo_file_perms;
 	allow userdomain $1:process sigchld;
 ')
 
@@ -4153,7 +4153,7 @@ interface(`userdom_spec_domtrans_unpriv_users',`
 
 	corecmd_shell_spec_domtrans($1, unpriv_userdomain)
 	allow unpriv_userdomain $1:fd use;
-	allow unpriv_userdomain $1:fifo_file rw_file_perms;
+	allow unpriv_userdomain $1:fifo_file rw_fifo_file_perms;
 	allow unpriv_userdomain $1:process sigchld;
 ')
 
@@ -4212,7 +4212,7 @@ interface(`userdom_xsession_spec_domtrans_unpriv_users',`
 
 	xserver_xsession_spec_domtrans($1, unpriv_userdomain)
 	allow unpriv_userdomain $1:fd use;
-	allow unpriv_userdomain $1:fifo_file rw_file_perms;
+	allow unpriv_userdomain $1:fifo_file rw_fifo_file_perms;
 	allow unpriv_userdomain $1:process sigchld;
 ')
 
@@ -4309,7 +4309,7 @@ interface(`userdom_bin_spec_domtrans_unpriv_users',`
 
 	corecmd_bin_spec_domtrans($1, unpriv_userdomain)
 	allow unpriv_userdomain $1:fd use;
-	allow unpriv_userdomain $1:fifo_file rw_file_perms;
+	allow unpriv_userdomain $1:fifo_file rw_fifo_file_perms;
 	allow unpriv_userdomain $1:process sigchld;
 ')
 
@@ -4436,7 +4436,7 @@ interface(`userdom_dontaudit_use_user_ptys',`
 		type user_devpts_t;
 	')
 
-	dontaudit $1 user_devpts_t:chr_file rw_inherited_file_perms;
+	dontaudit $1 user_devpts_t:chr_file rw_inherited_chr_file_perms;
 ')
 
 ########################################
@@ -4603,7 +4603,7 @@ interface(`userdom_dontaudit_use_user_ttys',`
 		type user_tty_device_t;
 	')
 
-	dontaudit $1 user_tty_device_t:chr_file rw_inherited_file_perms;
+	dontaudit $1 user_tty_device_t:chr_file rw_inherited_chr_file_perms;
 ')
 
 ########################################

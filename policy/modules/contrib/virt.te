@@ -466,7 +466,7 @@ allow virtd_t virt_image_type:dir { rmdir setattr };
 allow virtd_t virt_image_type:file relabel_file_perms;
 allow virtd_t virt_image_type:blk_file relabel_blk_file_perms;
 allow virtd_t virt_image_type:chr_file relabel_chr_file_perms;
-allow virtd_t virt_image_type:unix_stream_socket relabel_file_perms;
+allow virtd_t virt_image_type:unix_stream_socket { getattr relabelfrom relabelto };
 allow virtd_t virt_ptynode:chr_file rw_term_perms;
 
 manage_dirs_pattern(virtd_t, virt_tmp_t, virt_tmp_t)
@@ -785,7 +785,7 @@ manage_files_pattern(virtlogd_t, virt_var_run_t, virtlogd_var_run_t)
 allow virtlogd_t virtlogd_etc_t:file read_file_perms;
 files_search_etc(virtlogd_t)
 allow virtlogd_t virt_etc_t:file read_file_perms;
-allow virtlogd_t virt_etc_t:lnk_file read_file_perms;
+allow virtlogd_t virt_etc_t:lnk_file read_lnk_file_perms;
 allow virtlogd_t virt_etc_t:dir search;
 
 manage_dirs_pattern(virtlogd_t, virt_etc_rw_t, virt_etc_rw_t)
@@ -1431,7 +1431,7 @@ allow svirt_sandbox_domain self:key manage_key_perms;
 dontaudit svirt_sandbox_domain svirt_sandbox_domain:key search;
 
 allow svirt_sandbox_domain self:process { getattr getcap getpgid getsched setcap setpgid setrlimit setsched signal_perms };
-allow svirt_sandbox_domain self:fifo_file manage_file_perms;
+allow svirt_sandbox_domain self:fifo_file manage_fifo_file_perms;
 allow svirt_sandbox_domain self:msg all_msg_perms;
 allow svirt_sandbox_domain self:sem create_sem_perms;
 allow svirt_sandbox_domain self:shm create_shm_perms;
@@ -1836,7 +1836,7 @@ optional_policy(`
     domtrans_pattern(virt_qemu_ga_t, virt_qemu_ga_unconfined_exec_t, virt_qemu_ga_unconfined_t)
 
     allow virt_qemu_ga_t virt_qemu_ga_unconfined_exec_t:dir search_dir_perms;
-    allow virt_qemu_ga_t virt_qemu_ga_unconfined_exec_t:dir read_file_perms;
+    allow virt_qemu_ga_t virt_qemu_ga_unconfined_exec_t:dir list_dir_perms;
     allow virt_qemu_ga_t virt_qemu_ga_unconfined_exec_t:file ioctl;
 
     init_domtrans_script(virt_qemu_ga_unconfined_t)

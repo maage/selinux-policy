@@ -184,7 +184,7 @@ interface(`fs_all_mount_fs_perms_xattr_fs',`
 		type fs_t;
 	')
 
-	allow $1 fs_t:filesystem mount_fs_perms;
+	allow $1 fs_t:filesystem mount_filesystem_perms;
 ')
 
 ########################################
@@ -5326,7 +5326,7 @@ interface(`fs_all_mount_fs_perms_tmpfs',`
 		type tmpfs_t;
 	')
 
-	allow $1 tmpfs_t:filesystem mount_fs_perms;
+	allow $1 tmpfs_t:filesystem mount_filesystem_perms;
 ')
 
 ########################################

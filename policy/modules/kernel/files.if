@@ -2793,7 +2793,7 @@ interface(`files_relabel_rootfs',`
 		type root_t;
 	')
 
-	allow $1 root_t:filesystem relabel_file_perms;
+	allow $1 root_t:filesystem { relabelfrom relabelto };
 ')
 
 ########################################

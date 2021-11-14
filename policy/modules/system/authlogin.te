@@ -195,7 +195,7 @@ allow pam_timestamp_t self:process ~{ execheap execmem execstack ptrace setcurre
 dontaudit pam_timestamp_t self:capability sys_tty_config;
 
 allow pam_timestamp_t self:fd use;
-allow pam_timestamp_t self:fifo_file rw_file_perms;
+allow pam_timestamp_t self:fifo_file rw_fifo_file_perms;
 allow pam_timestamp_t self:unix_dgram_socket create_socket_perms;
 allow pam_timestamp_t self:unix_stream_socket rw_stream_socket_perms;
 allow pam_timestamp_t self:unix_dgram_socket sendto;

@@ -425,7 +425,7 @@ optional_policy(`
 
 allow run_init_t self:process setexec;
 allow run_init_t self:capability setuid;
-allow run_init_t self:fifo_file rw_file_perms;
+allow run_init_t self:fifo_file rw_fifo_file_perms;
 logging_send_audit_msgs(run_init_t)
 
 # often the administrator runs such programs from a directory that is owned
@@ -657,7 +657,7 @@ ifdef(`distro_ubuntu',`
 #
 allow setfiles_domain self:capability {  dac_read_search fowner };
 dontaudit setfiles_domain self:capability sys_tty_config;
-allow setfiles_domain self:fifo_file rw_file_perms;
+allow setfiles_domain self:fifo_file rw_fifo_file_perms;
 dontaudit setfiles_domain self:dir relabelfrom;
 dontaudit setfiles_domain self:file relabelfrom;
 dontaudit setfiles_domain self:lnk_file relabelfrom;

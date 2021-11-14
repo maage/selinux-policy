@@ -889,7 +889,7 @@ tunable_policy(`httpd_use_fusefs',`
 tunable_policy(`httpd_ssi_exec',`
 	corecmd_shell_domtrans(httpd_t, httpd_sys_script_t)
 	allow httpd_sys_script_t httpd_t:fd use;
-	allow httpd_sys_script_t httpd_t:fifo_file rw_file_perms;
+	allow httpd_sys_script_t httpd_t:fifo_file rw_fifo_file_perms;
 	allow httpd_sys_script_t httpd_t:process sigchld;
 ')
 
@@ -1751,7 +1751,7 @@ dontaudit httpd_passwd_t httpd_config_t:file read;
 search_dirs_pattern(httpd_script_type, httpd_sys_content_t, httpd_script_exec_type)
 corecmd_shell_entry_type(httpd_script_type)
 
-allow httpd_script_type self:fifo_file rw_file_perms;
+allow httpd_script_type self:fifo_file rw_fifo_file_perms;
 allow httpd_script_type self:unix_stream_socket connectto;
 
 allow httpd_script_type httpd_t:fifo_file write;

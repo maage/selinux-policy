@@ -15,7 +15,7 @@ type seunshare_exec_t;
 allow seunshare_domain self:capability { dac_read_search fowner setgid setpcap setuid sys_admin sys_nice };
 allow seunshare_domain self:process { fork getcap setcap setcurrent setexec setsched signal };
 
-allow seunshare_domain self:fifo_file rw_file_perms;
+allow seunshare_domain self:fifo_file rw_fifo_file_perms;
 allow seunshare_domain self:unix_stream_socket create_stream_socket_perms;
 
 corecmd_exec_shell(seunshare_domain)
