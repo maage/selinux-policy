@@ -484,8 +484,8 @@ interface(`modutils_dontaudit_exec_insmod',`
 #
 interface(`modules_filetrans_named_content',`
 	gen_require(`
-		type modules_dep_t;
 		type modules_conf_t;
+	#	type modules_dep_t;
 	')
 
 	files_etc_filetrans($1, modules_conf_t, file, "modprobe.conf")
