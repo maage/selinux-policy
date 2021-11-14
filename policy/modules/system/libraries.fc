@@ -290,7 +290,7 @@ HOME_DIR/.*/plugins/nppdf\.so.* 	--	gen_context(system_u:object_r:textrel_shlib_
 /usr/lib/(.*/)?jre.*/.*\.so(\.[^/]*)*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 /usr/Adobe/(.*/)?intellinux/nppdf\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/Adobe/(.*/)?intellinux/sidecars/*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/Adobe/(.*/)?intellinux/sidecars/.*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 /usr/acroread/(.*/)?intellinux/nppdf\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/Adobe/(.*/)?lib/[^/]*\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
@@ -303,7 +303,7 @@ HOME_DIR/.*/plugins/nppdf\.so.* 	--	gen_context(system_u:object_r:textrel_shlib_
 
 /usr/(.*/)?intellinux/SPPlugins/ADMPlugin\.apl -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 
-/usr/lib/acroread/(.*/)?sidecars/*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/acroread/(.*/)?sidecars/.*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/acroread/(.*/)?nppdf\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/acroread/(.*/)?lib/[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/acroread/.+\.api		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
