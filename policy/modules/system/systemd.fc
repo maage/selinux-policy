@@ -37,7 +37,7 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /usr/lib/systemd/system/systemd-hwdb.*\.service	--	gen_context(system_u:object_r:systemd_hwdb_unit_file_t,s0)
 /usr/lib/systemd/system/systemd-bootchart.*\.service 	--	gen_context(system_u:object_r:systemd_bootchart_unit_file_t,s0)
 
-/usr/lib/systemd/system/.*halt.(service|target)	--	gen_context(system_u:object_r:power_unit_file_t,s0)
+/usr/lib/systemd/system/.*halt\.(service|target)	--	gen_context(system_u:object_r:power_unit_file_t,s0)
 /usr/lib/systemd/system/.*hibernate.*\.(service|target)		--	gen_context(system_u:object_r:power_unit_file_t,s0)
 /usr/lib/systemd/system/.*power.*\.(service|target)		--	gen_context(system_u:object_r:power_unit_file_t,s0)
 /usr/lib/systemd/system/.*reboot.*\.(service|target)		--	gen_context(system_u:object_r:power_unit_file_t,s0)

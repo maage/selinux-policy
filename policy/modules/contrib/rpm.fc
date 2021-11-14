@@ -66,7 +66,7 @@ ifdef(`distro_redhat', `
 /usr/lib/sysimage/rpm(/.*)?		gen_context(system_u:object_r:rpm_var_lib_t,s0)
 
 /var/log/dnf\.log.*		--	gen_context(system_u:object_r:rpm_log_t,s0)
-/var/log/dnfi\.librepo\.log.*	--	gen_context(system_u:object_r:rpm_log_t,s0)
+/var/log/dnf\.librepo\.log.*	--	gen_context(system_u:object_r:rpm_log_t,s0)
 /var/log/dnf\.rpm\.log.*	--	gen_context(system_u:object_r:rpm_log_t,s0)
 /var/log/hawkey.*		--	gen_context(system_u:object_r:rpm_log_t,s0)
 /var/log/yum\.log.*		--	gen_context(system_u:object_r:rpm_log_t,s0)

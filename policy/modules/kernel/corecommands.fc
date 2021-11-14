@@ -56,10 +56,10 @@ ifdef(`distro_redhat',`
 /etc/ConsoleKit/run-seat\.d(/.*)?	gen_context(system_u:object_r:bin_t,s0)
 /etc/ConsoleKit/run-session\.d(/.*)?	gen_context(system_u:object_r:bin_t,s0)
 
-/etc/cron.daily(/.*)?			gen_context(system_u:object_r:bin_t,s0)
-/etc/cron.hourly(/.*)?			gen_context(system_u:object_r:bin_t,s0)
-/etc/cron.weekly(/.*)?			gen_context(system_u:object_r:bin_t,s0)
-/etc/cron.monthly(/.*)?			gen_context(system_u:object_r:bin_t,s0)
+/etc/cron\.daily(/.*)?			gen_context(system_u:object_r:bin_t,s0)
+/etc/cron\.hourly(/.*)?			gen_context(system_u:object_r:bin_t,s0)
+/etc/cron\.weekly(/.*)?			gen_context(system_u:object_r:bin_t,s0)
+/etc/cron\.monthly(/.*)?			gen_context(system_u:object_r:bin_t,s0)
 
 /etc/dhcp/dhclient\.d(/.*)?		gen_context(system_u:object_r:bin_t,s0)
 

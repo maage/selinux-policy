@@ -349,7 +349,7 @@ ifdef(`distro_suse',`
 
 /usr/lib/oracle/.*/lib/libnnz10\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
-/opt/altera9.1/quartus/linux/libccl_err\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/opt/altera9\.1/quartus/linux/libccl_err\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 /opt/novell/groupwise/client/lib/libgwapijni\.so\.1	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
@@ -366,7 +366,7 @@ ifdef(`distro_suse',`
 /usr/lib/oracle/.*/lib/libclntsh\.so(\.[^/]*)*	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 /opt/(.*/)?oracle/(.*/)?libnnz.*\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libnnz11.so(\.[^/]*)*	gen_context(system_u:object_r:textrel_shlib_t,s0)
+/usr/lib/libnnz11\.so(\.[^/]*)*	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/libxvidcore\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
 
 
