@@ -12,7 +12,6 @@
 #
 template(`samhain_service_template',`
 	gen_require(`
-		attribute samhain_domain;
 		type samhain_exec_t;
 	')
 
@@ -215,7 +214,7 @@ interface(`samhain_manage_pid_files',`
 interface(`samhain_admin',`
 	gen_require(`
 		attribute samhain_domain;
-		type samhain_t, samhaind_t, samhain_db_t, samhain_etc_t;
+		type samhain_db_t, samhain_etc_t;
 		type samhain_initrc_exec_t, samhain_log_t, samhain_var_run_t;
 	')
 

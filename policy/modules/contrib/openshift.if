@@ -38,7 +38,6 @@ interface(`openshift_initrc_domtrans',`
 interface(`openshift_initrc_run',`
 	gen_require(`
 		type openshift_initrc_t;
-		type openshift_initrc_exec_t;
 	')
 
 	openshift_initrc_domtrans($1)

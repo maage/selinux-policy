@@ -58,7 +58,6 @@ interface(`journalctl_exec',`
 #
 interface(`journalctl_run',`
 	gen_require(`
-		type journalctl_t;
 		attribute_role journalctl_roles;
 	')
 

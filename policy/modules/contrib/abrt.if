@@ -619,7 +619,6 @@ interface(`abrt_dontaudit_write_sock_file',`
 #
 interface(`abrt_filetrans_named_content',`
 	gen_require(`
-		type abrt_tmp_t;
 		type abrt_etc_t;
 		type abrt_var_cache_t;
 		type abrt_var_run_t;

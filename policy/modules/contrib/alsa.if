@@ -258,7 +258,6 @@ interface(`alsa_filetrans_home_content',`
 #
 interface(`alsa_filetrans_named_content',`
 	gen_require(`
-		type alsa_home_t;
 		type alsa_etc_rw_t;
 		type alsa_var_lib_t;
 	')
