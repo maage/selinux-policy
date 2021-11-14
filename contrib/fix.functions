@@ -1,0 +1,77 @@
+#!/bin/bash
+
+selint_base() {
+    local rule="$1"; shift
+    selint --source --only-enabled --enable="$rule" --recursive "$@"
+}
+
+sed_escape() {
+    printf "%s" "$*" | sed 's/[^^\\a-zA-Z0-9_]/[&]/g; s/\^/\\^/g; s/\\/\\\\/g'
+}
+
+get_filenames() {
+    local -n ref_filenames="$1"; shift
+    local fname="$1"; shift
+
+    local fnames=()
+    case "$fname" in
+        container.te|container.fc|container.if)
+            fnames=(../container-selinux/"$fname")
+            ;;
+        corenetwork.if|corenetwork.te)
+            fnames=(policy/modules/kernel/"$fname" policy/modules/kernel/"$fname".in policy/modules/kernel/"$fname".m4)
+            ;;
+        *)
+            fnames=("$(git ls-files policy | grep -E "/$fname$")")
+            ;;
+    esac
+
+    for fname in "${fnames[@]}"; do
+        [ -f "$fname" ]
+        ref_filenames+=("${fname[@]}")
+    done
+}
+
+get_rule_filenames()  {
+    # shellcheck disable=SC2178 # regression
+    local -n ref_filenames="$1"; shift
+    local rule="$1"; shift
+
+    local -A unique_fnames=()
+    local fname
+    while read -r fname _; do
+        unique_fnames["$fname"]=1
+    done < <(selint_base "$rule" policy | find_them "$rule")
+    wait $!
+
+    ref_filenames+=("${!unique_fnames[@]}")
+}
+
+find_and_apply_fixes() {
+    local rule="$1"; shift
+
+    local rule_filenames=()
+    get_rule_filenames rule_filenames "$rule"
+    for fname in "${rule_filenames[@]}"; do
+        local filenames=() filename
+        get_filenames filenames "$fname"
+        for filename in "${filenames[@]}"; do
+            local prev=""
+            while true; do
+                local cmd=() vals=()
+                while read -r -a vals; do
+                    unset 'vals[0]'
+                    fix_cmd cmd "${vals[@]}"
+                done < <(selint_base "$rule" --context=policy "$filename" | find_them "$rule")
+                wait $!
+
+                (( ${#cmd[@]} )) || break
+                if [ "$prev" == "${cmd[*]}" ]; then
+                    break
+                fi
+                prev="${cmd[*]}"
+                sed -ri --sandbox "${cmd[*]}" "$filename"
+            done
+        done
+    done
+}
