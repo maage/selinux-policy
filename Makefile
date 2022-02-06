@@ -106,9 +106,6 @@ gennetfilter := $(PYTHON) -E $(support)/gennetfilter.py
 m4iferror := $(support)/iferror.m4
 m4divert := $(support)/divert.m4
 m4undivert := $(support)/undivert.m4
-# use our own genhomedircon to make sure we have a known usable one,
-# so policycoreutils updates are not required (RHEL4)
-genhomedircon := $(PYTHON) -E $(support)/genhomedircon
 
 # documentation paths
 docs := doc
