@@ -55,11 +55,6 @@ allow selinux_unconfined_type { boolean_type -secure_mode_policyload_t }:file wr
 # Access the security API.
 allow selinux_unconfined_type security_t:security ~{ load_policy setenforce setbool };
 
-ifdef(`distro_rhel4',`
-	# needed for systems without audit support
-	auditallow selinux_unconfined_type security_t:security setbool;
-')
-
 if(!secure_mode_policyload) {
 	allow can_setenforce security_t:security setenforce;
 	dev_getattr_sysfs_fs(can_setenforce)
@@ -67,22 +62,7 @@ if(!secure_mode_policyload) {
 	allow can_setenforce security_t:dir list_dir_perms;
 	allow can_setenforce security_t:file rw_file_perms;
 
-	ifdef(`distro_rhel4',`
-		# needed for systems without audit support
-		auditallow can_setenforce security_t:security setenforce;
-	')
-
 	allow can_load_policy security_t:security load_policy;
 
-	ifdef(`distro_rhel4',`
-		# needed for systems without audit support
-		auditallow can_load_policy security_t:security load_policy;
-	')
-
 	allow can_setbool boolean_type:security setbool;
-
-	ifdef(`distro_rhel4',`
-		# needed for systems without audit support
-		auditallow can_setbool boolean_type:security setbool;
-	')
 }

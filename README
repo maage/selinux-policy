@@ -95,9 +95,9 @@ NAME			String (optional).  Sets the name of the policy; the
 			set, the policy type (TYPE) is used.
 
 DISTRO			String (optional).  Enable distribution-specific policy.
-			Available options are redhat, rhel4, gentoo, debian,
+			Available options are redhat, gentoo, debian,
 			and suse.  This option controls distro_redhat,
-			distro_rhel4, distro_gentoo, distro_debian, and
+			distro_gentoo, distro_debian, and
 			distro_suse policy blocks.
 
 MONOLITHIC		Boolean.  If set, a monolithic policy is built,

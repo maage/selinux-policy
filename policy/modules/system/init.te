@@ -1876,12 +1876,6 @@ init_use_script_ptys(daemon)
 allow init_t daemon:process siginh;
 
 ifdef(`hide_broken_symptoms',`
-	# RHEL4 systems seem to have a stray
-	# fds open from the initrd
-	ifdef(`distro_rhel4',`
-		kernel_dontaudit_use_fds(daemon)
-	')
-
 	dontaudit daemon init_t:dir search_dir_perms;
 	dontaudit daemon init_t:file read_file_perms;
 ')

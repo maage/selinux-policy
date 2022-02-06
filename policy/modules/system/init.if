@@ -126,14 +126,6 @@ interface(`init_domain',`
 	allow $1 init_t:unix_dgram_socket sendto;
 
 	allow init_t $1:process2 { nnp_transition nosuid_transition };
-	
-	ifdef(`hide_broken_symptoms',`
-		# RHEL4 systems seem to have a stray
-		# fds open from the initrd
-		ifdef(`distro_rhel4',`
-			kernel_dontaudit_use_fds($1)
-		')
-	')
 ')
 ########################################
 ## <summary>
