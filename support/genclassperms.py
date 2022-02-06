@@ -14,24 +14,20 @@
 from __future__ import annotations
 
 import sys
+from dataclasses import dataclass
 
 USERSPACE_CLASS = "userspace"
 
 
+@dataclass
 class Class:
     """
     This object stores an access vector class.
     """
 
-    def __init__(self, name, perms, common):
-        # The name of the class.
-        self.name = name
-
-        # A list of permissions the class contains.
-        self.perms = perms
-
-        # True if the class is declared as common, False if not.
-        self.common = common
+    name: str
+    perms: list[str]
+    common: bool
 
 
 def get_perms(name, av_db, common):
@@ -76,23 +72,15 @@ def get_av_db(file_name):
     #   if a token is expected but EOF is reached.
     # Now the list of Class objects is returned.
 
+    av_data = []
     with open(file_name) as av_file:
-        av_data = []
         # Read the file and strip out comments on the way.
         # At the end of the loop, av_data will contain a list of individual
         #  words. i.e. ['common', 'file', '{', ...]. All comments and whitespace
         #  will be gone.
-        while True:
-            av_line = av_file.readline()
-
-            # If EOF has been reached:
-            if not av_line:
-                break
-
+        for av_line in av_file:
             # Check if there is a comment, and if there is, remove it.
-            comment_index = av_line.find("#")
-            if comment_index != -1:
-                av_line = av_line[:comment_index]
+            av_line, _, _ = av_line.partition("#")
 
             # Pad the braces with whitespace so that they are split into
             #  their own word. It doesn't matter if there will be extra
@@ -112,7 +100,7 @@ def get_av_db(file_name):
     #  i.e. [Class('name',['perm1','perm2',...],'True'), ...]
     # Dequeue from the beginning of the list until av_data is empty:
     database = []
-    while len(av_data) != 0:
+    while av_data:
         # At the beginning of every loop, the next word should be
         #  "common" or "class", meaning that each loop is a common
         #  or class declaration.
@@ -120,29 +108,25 @@ def get_av_db(file_name):
         #  list, this is what is dequeueing data.
 
         # Figure out whether the next class will be a common or a class.
-        if av_data[0] == "class":
-            common = False
-        elif av_data[0] == "common":
-            common = True
-        else:
-            error(f"Unexpected token in file {file_name}: {av_data[0]}.")
-
         # Dequeue the "class" or "common" key word.
-        av_data = av_data[1:]
+        tok = av_data.pop(0)
+        if tok not in ("class", "common"):
+            error(f"Unexpected token in file {file_name}: {tok}.")
 
-        if len(av_data) == 0:
+        common = bool(tok == "common")
+
+        if not av_data:
             error(f"Missing token in file {file_name}.")
 
         # Get and dequeue the name of the class or common.
-        name = av_data[0]
-        av_data = av_data[1:]
+        name = av_data.pop(0)
 
         # Retrieve the permissions inherited from a common set:
         perms = []
         # If the object we are working with is a class, since only
         #  classes inherit:
-        if common is False:
-            if len(av_data) == 0:
+        if not common:
+            if not av_data:
                 error(f"Missing token in file {file_name}.")
 
             # If the class inherits from something else:
@@ -153,36 +137,36 @@ def get_av_db(file_name):
                 if not av_data:
                     error(f"Missing token in file {file_name} for {name}.")
 
-                # av_data[0] is the name of the parent.
+                # Dequeue the name of the parent.
+                tok = av_data.pop(0)
+
+                # tok is the name of the parent.
                 # Append the permissions of the parent to
                 #  the current class' permissions.
-                perms += get_perms(av_data[0], database, True)
-
-                # Dequeue the name of the parent.
-                av_data = av_data[1:]
+                perms += get_perms(tok, database, True)
 
         # Retrieve the permissions defined with this set.
-        if len(av_data) > 0 and av_data[0] == "{":
+        if av_data and av_data[0] == "{":
             # Dequeue the "{"
-            av_data = av_data[1:]
+            tok = av_data.pop(0)
 
             # Keep appending permissions until a close brace is
             #  found.
-            while av_data[0] != "}":
-                if av_data[0] == "{":
+            while av_data:
+                # Dequeue next token.
+                tok = av_data.pop(0)
+
+                if tok == "}":
+                    break
+
+                if tok == "{":
                     error(f"Extra '{{' in file {file_name}.")
 
                 # Add the permission name.
-                perms.append(av_data[0])
+                perms.append(tok)
 
-                # Dequeue the permission name.
-                av_data = av_data[1:]
-
-                if len(av_data) == 0:
-                    error(f"Missing token '}}' in file {file_name}.")
-
-            # Dequeue the "}"
-            av_data = av_data[1:]
+            if tok != "}":
+                error(f"Missing token '}}' in file {file_name}.")
 
         # Add the new access vector class to the database.
         database.append(Class(name, perms, common))
@@ -195,41 +179,39 @@ def get_sc_db(file_name):
     Returns a security class database generated from the file file_name.
     """
 
+    database = []
+
     # Read the file then close it.
     with open(file_name) as sc_file:
-        sc_data = sc_file.readlines()
+        # For each line in the security classes file, add the name of the class
+        #  and whether it is a userspace class or not to the security class
+        #  database.
+        for line in sc_file:
+            line = line.lstrip()
 
-    # For each line in the security classes file, add the name of the class
-    #  and whether it is a userspace class or not to the security class
-    #  database.
-    database = []
-    for line in sc_data:
-        line = line.lstrip()
-        # If the line is empty or the entire line is a comment, skip.
-        if line == "" or line[0] == "#":
-            continue
+            # If the line is empty or the entire line is a comment, skip.
+            if line == "" or line[0] == "#":
+                continue
 
-        # Check if the comment to the right of the permission matches
-        #  USERSPACE_CLASS.
-        comment_index = line.find("#")
-        userspace = bool(
-            comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS
-        )
+            # Check if the comment to the right of the permission matches
+            #  USERSPACE_CLASS.
+            line, _, comment = line.partition("#")
+            userspace = bool(comment.strip() == USERSPACE_CLASS)
 
-        # All lines should be in the format "class NAME", meaning
-        #  it should have two tokens and the first token should be
-        #  "class".
-        split_line = line.split()
-        if len(split_line) < 2 or split_line[0] != "class":
-            error(f"Wrong syntax: {line}")
+            # All lines should be in the format "class NAME", meaning
+            #  it should have two tokens and the first token should be
+            #  "class".
+            split_line = line.split()
+            if len(split_line) < 2 or split_line[0] != "class":
+                error(f"Wrong syntax: {line}")
 
-        # Add the class's name (split_line[1]) and whether it is a
-        #  userspace class or not to the database.
-        # This is appending a tuple of (NAME,USERSPACE), where NAME is
-        #  the name of the security class and USERSPACE is True if
-        #  if it has "# USERSPACE_CLASS" on the end of the line, False
-        #  if not.
-        database.append((split_line[1], userspace))
+            # Add the class's name (split_line[1]) and whether it is a
+            #  userspace class or not to the database.
+            # This is appending a tuple of (NAME,USERSPACE), where NAME is
+            #  the name of the security class and USERSPACE is True if
+            #  if it has "# USERSPACE_CLASS" on the end of the line, False
+            #  if not.
+            database.append((split_line[1], userspace))
 
     return database
 
@@ -240,13 +222,13 @@ def gen_class_perms(av_db, sc_db):
     """
 
     # Define class template:
-    class_perms_line = "define(`all_%s_perms',`{ %s}')\n"
+    class_perms_line = "define(`all_%s_perms',`{ %s }')"
 
     # Generate the defines for the individual class permissions.
-    class_perms = ""
+    class_perms = []
     for obj in av_db:
         # Don't output commons
-        if obj.common is True:
+        if obj.common:
             continue
 
         # Get the list of permissions from the specified class.
@@ -254,27 +236,24 @@ def gen_class_perms(av_db, sc_db):
 
         # Merge all the permissions into one string with one space
         #  padding.
-        perm_str = ""
-        for perm in perms:
-            perm_str += perm + " "
+        perm_str = " ".join(perms)
 
         # Add the line to the class_perms
-        class_perms += class_perms_line % (obj.name, perm_str)
-    class_perms += "\n"
+        class_perms.append(class_perms_line % (obj.name, perm_str))
 
     # Generate the kernel_class_perms and userspace_class_perms sets.
-    class_line = "\tclass %s all_%s_perms;\n"
-    kernel_class_perms = "define(`all_kernel_class_perms',`\n"
-    userspace_class_perms = "define(`all_userspace_class_perms',`\n"
+    class_line = "\tclass %s all_%s_perms;"
+    kernel_class_perms = ["define(`all_kernel_class_perms',`"]
+    userspace_class_perms = ["define(`all_userspace_class_perms',`"]
     # For each (NAME,USERSPACE) tuple, add the class to the appropriate
-    # class permission set.
+    #  class permission set.
     for name, userspace in sc_db:
         if userspace:
-            userspace_class_perms += class_line % (name, name)
+            userspace_class_perms.append(class_line % (name, name))
         else:
-            kernel_class_perms += class_line % (name, name)
-    kernel_class_perms += "')\n\n"
-    userspace_class_perms += "')\n"
+            kernel_class_perms.append(class_line % (name, name))
+    kernel_class_perms.append("')")
+    userspace_class_perms.append("')")
 
     # Throw all the strings together and return the string.
     return "\n".join(
@@ -282,28 +261,27 @@ def gen_class_perms(av_db, sc_db):
     )
 
 
-def error(error):
+def error(msg):
     """
     Print an error message and exit.
     """
 
-    print(f"{sys.argv[0]} exiting for: {error}", file=sys.stderr, flush=True)
+    print(f"{sys.argv[0]} exiting for: {msg}", file=sys.stderr, flush=True)
     sys.exit(1)
 
 
-# MAIN PROGRAM
 def main():
     if len(sys.argv) != 3:
-        error(f"Incorrect input.\nUsage: {sys.argv[0]} access_vectors security_classes")
+        error(
+            f"Incorrect input.\nUsage: {sys.argv[0]} access_vector_file security_class_file"
+        )
 
-    # argv[1] is the access vector file.
-    av_file = sys.argv[1]
-
-    # argv[2] is the security class file.
-    sc_file = sys.argv[2]
+    access_vector_file, security_class_file = sys.argv[1], sys.argv[2]
 
     # Output the class permissions document.
-    sys.stdout.write(gen_class_perms(get_av_db(av_file), get_sc_db(sc_file)))
+    print(
+        gen_class_perms(get_av_db(access_vector_file), get_sc_db(security_class_file))
+    )
 
 
 if __name__ == "__main__":
