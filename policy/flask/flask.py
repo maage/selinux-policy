@@ -517,16 +517,17 @@ def usage():
     """
     Returns the usage string.
     """
-    usage = f"Usage: {os.path.basename(sys.argv[0])} -a ACCESS_VECTORS -i INITIAL_SIDS -s SECURITY_CLASSES -o OUTPUT_DIRECTORY -k|-u [-w]\n"
-    usage += "\n"
-    usage += " -a --access_vectors\taccess vector definitions\n"
-    usage += " -i --initial_sids\tinitial sid definitions\n"
-    usage += " -s --security_classes\tsecurity class definitions\n"
-    usage += " -o --output\toutput directory for generated files\n"
-    usage += " -k --kernel\toutput mode set to kernel (kernel headers contain empty blocks for all classes specified with # userspace in the security_classes file)\n"
-    usage += " -u --user\toutput mode set to userspace\n"
-    usage += " -w --nowarnings\tsupresses output of warning messages\n"
-    return usage
+    print(
+        f"Usage: {os.path.basename(sys.argv[0])} -a ACCESS_VECTORS -i INITIAL_SIDS -s SECURITY_CLASSES -o OUTPUT_DIRECTORY -k|-u [-w]",
+        "",
+        " -a --access_vectors\taccess vector definitions",
+        " -i --initial_sids\tinitial sid definitions",
+        " -s --security_classes\tsecurity class definitions",
+        " -o --output\toutput directory for generated files",
+        " -k --kernel\toutput mode set to kernel (kernel headers contain empty blocks for all classes specified with # userspace in the security_classes file)",
+        " -u --user\toutput mode set to userspace",
+        " -w --nowarnings\tsupresses output of warning messages",
+    )
 
 
 def main():
@@ -547,7 +548,7 @@ def main():
             ],
         )
     except getopt.GetoptError:
-        print(usage())
+        usage()
         sys.exit(2)
 
     avec = None
@@ -558,7 +559,7 @@ def main():
     warn = True
     for o, a in opts:
         if o in ("-h", "--help"):
-            print(usage())
+            usage()
             sys.exit(0)
         elif o in ("-a", "--access_vectors"):
             avec = a
@@ -570,22 +571,22 @@ def main():
             outd = a
         elif o in ("-k", "--kernel"):
             if mode != None:
-                print(usage())
+                usage()
                 sys.exit(2)
             mode = Flask.KERNEL
         elif o in ("-u", "--user"):
             if mode != None:
-                print(usage())
+                usage()
                 sys.exit(2)
             mode = Flask.USERSPACE
         elif o in ("-w", "--nowarnings"):
             warn = False
         else:
-            print(usage())
+            usage()
             sys.exit(2)
 
     if avec == None or isid == None or secc == None or outd == None:
-        print(usage())
+        usage()
         sys.exit(2)
 
     try:

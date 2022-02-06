@@ -240,17 +240,18 @@ def usage():
     Displays a message describing the proper usage of this script.
     """
 
-    sys.stdout.write(f"usage: {sys.argv[0]} [-w] [-mtb] <file>\n\n")
-    sys.stdout.write(
-        "-w --warn\t\t\tshow warnings\n"
-        + "-m --module <file>\t\tname of module to process\n"
-        + "-t --tunable <file>\t\tname of global tunable file to process\n"
-        + "-b --boolean <file>\t\tname of global boolean file to process\n\n"
+    print(
+        f"usage: {sys.argv[0]} [-w] [-mtb] <file>",
+        "",
+        "-w --warn\t\t\tshow warnings",
+        "-m --module <file>\t\tname of module to process",
+        "-t --tunable <file>\t\tname of global tunable file to process",
+        "-b --boolean <file>\t\tname of global boolean file to process",
+        "",
+        "examples:",
+        f"> {sys.argv[0]} -w -m policy/modules/apache",
+        f"> {sys.argv[0]} -t policy/global_tunables",
     )
-
-    sys.stdout.write("examples:\n")
-    sys.stdout.write(f"> {sys.argv[0]} -w -m policy/modules/apache\n")
-    sys.stdout.write(f"> {sys.argv[0]} -t policy/global_tunables\n")
 
 
 def warning(description):

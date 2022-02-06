@@ -814,13 +814,16 @@ def usage():
     Describes the proper usage of this tool.
     """
 
-    sys.stdout.write(f"{sys.argv[0]} [-tmdT] -x <xmlfile>\n\n")
-    sys.stdout.write("Options:\n")
-    sys.stdout.write("-b --booleans	<file>		--	write boolean config to <file>\n")
-    sys.stdout.write("-m --modules <file>		--	write module config to <file>\n")
-    sys.stdout.write("-d --docs <dir>		--	write interface documentation to <dir>\n")
-    sys.stdout.write("-x --xml <file>		--	filename to read xml data from\n")
-    sys.stdout.write("-T --templates <dir>		--	template directory for documents\n")
+    print(
+        f"{sys.argv[0]} [-tmdT] -x <xmlfile>",
+        "",
+        "Options:",
+        "-b --booleans	<file>		--	write boolean config to <file>",
+        "-m --modules <file>		--	write module config to <file>",
+        "-d --docs <dir>		--	write interface documentation to <dir>",
+        "-x --xml <file>		--	filename to read xml data from",
+        "-T --templates <dir>		--	template directory for documents",
+    )
 
 
 # MAIN PROGRAM
