@@ -101,7 +101,7 @@ class Flask:
 		self.userspace = {}
 		self.sids      = []
 		self.inherits  = {}
-	
+
 	def warning(self, msg):
 		'''
 		Prints a warning message out to stderr if warnings are enabled.
@@ -162,7 +162,7 @@ class Flask:
 				if s in sids: raise DuplicateError, (self.SID, path, number, s)
 				sids.append(s)
 				continue
-			
+
 			raise ParseError, ("data. Was expecting either a comment, whitespace, or security identifier. ", path, number)
 
 		self.sids = sids
@@ -196,7 +196,7 @@ class Flask:
 			if m: continue
 
 			m = self.WHITE.search(line)
-			if m: 
+			if m:
 				if state == INHERIT:
 					state = NONE
 				continue
@@ -224,7 +224,7 @@ class Flask:
 				vector[c] = []
 				state = CLASS
 				continue
-			
+
 			m = self.INHERITS.search(line)
 			if m:
 				if state != CLASS: raise ParseError, (self.INHERITS, number)
@@ -242,7 +242,7 @@ class Flask:
 				if (state != CLASS \
 				and state != INHERIT \
 				and state != COMMON) \
-				or state2 != NONE: 
+				or state2 != NONE:
 					raise ParseError, (self.OPENB, path, number)
 				state2 = OPEN
 				continue
@@ -267,7 +267,7 @@ class Flask:
 				state2 = NONE
 				c = None
 				continue
-			
+
 			raise ParseError, ("data", path, number)
 
 		if state != NONE and state2 != NONE: raise ParseError, (self.EOF, path, number)
@@ -358,7 +358,7 @@ class Flask:
 			if c in self.inherits:
 				ps += self.common[self.inherits[c]]
 			ps += self.vector[c]
-			for p in ps: 
+			for p in ps:
 				columnA = "#define %s__%s " % (c.upper(), p.upper())
 				columnA += "".join([" " for i in range(width - len(columnA))])
 				if not (mode == self.KERNEL and self.userspace[c]):
@@ -398,7 +398,7 @@ class Flask:
 					results.append("    S_(\"%s\")\n" % p)
 				results.append("TE_(common_%s_perm_to_string)\n\n" % common)
 		return results
-	
+
 	def createFlaskH(self, mode = USERSPACE):
 		'''
 		'''
@@ -424,7 +424,7 @@ class Flask:
 		results.append("/*\n")
 		results.append(" * Security identifier indices for initial entities\n")
 		results.append(" */\n")
-		
+
 		count = 0
 		width = 56 # broken for old tools whitespace
 		for s in self.sids:
@@ -476,14 +476,14 @@ def usage():
 
 ########## MAIN ##########
 if __name__ == '__main__':
-	
+
 	# Parse command line args
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], 'a:i:s:o:kuwh', ['access_vectors=', 'initial_sids=', 'security_classes=', 'output=', 'kernel', 'user', 'nowarnings', 'help'])
 	except getopt.GetoptError:
 		print(usage())
 		sys.exit(2)
-	
+
 	avec = None
 	isid = None
 	secc = None
