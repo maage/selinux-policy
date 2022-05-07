@@ -63,7 +63,10 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
         s = bool_desc.split("\n")
         file_name.write("#\n")
         for line in s:
-            file_name.write(f"# {line}\n")
+            if line:
+                file_name.write(f"# {line}\n")
+            else:
+                file_name.write("#\n")
 
         bool_name = bool_val = None
         for name, value in node.attributes.items():
@@ -88,7 +91,10 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
         s = bool_desc.split("\n")
         file_name.write("#\n")
         for line in s:
-            file_name.write(f"# {line}\n")
+            if line:
+                file_name.write(f"# {line}\n")
+            else:
+                file_name.write("#\n")
 
         bool_name = bool_val = None
         for name, value in node.attributes.items():
@@ -157,7 +163,10 @@ def gen_module_conf(doc, file_name, namevalue_list):
                     continue
                 s = format_txt_desc(desc).split("\n")
                 for line in s:
-                    file_name.write(f"# {line}\n")
+                    if line:
+                        file_name.write(f"# {line}\n")
+                    else:
+                        file_name.write("#\n")
 
                 # If the module is set as disabled.
                 if [mod_name, MOD_DISABLED] in namevalue_list:
