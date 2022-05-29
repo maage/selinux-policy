@@ -446,7 +446,6 @@ interface(`sssd_dontaudit_stream_connect',`
 #
 interface(`sssd_run_sssd',`
         gen_require(`
-                type sssd_t;
                 attribute_role sssd_roles;
         ')
 
