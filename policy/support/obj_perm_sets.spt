@@ -285,12 +285,12 @@ define(`watch_reads_chr_file_perms',`{ getattr watch_reads }')
 #
 define(`userfaultfd_anon_inode_perms',`
 	# deprecated 2022.02.07
-	refpolicywarn(`userfaultfd_anon_inode_perms() is deprecated, enumerate the needed permissions instead.')
+	# refpolicywarn(`userfaultfd_anon_inode_perms() is deprecated, enumerate the needed permissions instead.')
 	{ create getattr ioctl read write }
 ')
 define(`common_anon_inode_perms',`
 	# deprecated 2023.10.04
-	refpolicywarn(`common_anon_inode_perms() is deprecated, enumerate the needed permissions instead.')
+	# refpolicywarn(`common_anon_inode_perms() is deprecated, enumerate the needed permissions instead.')
 	{ create getattr ioctl map read write }
 ')
 
