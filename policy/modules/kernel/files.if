@@ -6170,7 +6170,7 @@ interface(`files_read_system_conf_files',`
 #
 interface(`files_watch_system_conf_dirs',`
 	gen_require(`
-		type etc_t, system_conf_t;
+		type system_conf_t;
 	')
 
 	files_search_etc($1)
