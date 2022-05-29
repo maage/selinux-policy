@@ -6164,7 +6164,7 @@ interface(`dev_rw_inherited_vhost',`
 #
 interface(`dev_map_vhost',`
 	gen_require(`
-		type device_t, vhost_device_t;
+		type vhost_device_t;
 	')
 
 	allow $1 vhost_device_t:chr_file map;
