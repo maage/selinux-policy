@@ -87,8 +87,8 @@ genperm := $(PYTHON) -E $(support)/genclassperms.py
 policyvers := $(PYTHON) -E $(support)/policyvers.py
 fcsort := $(PYTHON) -E $(support)/fc_sort.py
 setbools := $(AWK) -f $(support)/set_bools_tuns.awk
-get_type_attr_decl := $(SED) -r -f $(support)/get_type_attr_decl.sed
-comment_move_decl := $(SED) -r -f $(support)/comment_move_decl.sed
+get_type_attr_decl := $(SED) -E -f $(support)/get_type_attr_decl.sed
+comment_move_decl := $(SED) -E -f $(support)/comment_move_decl.sed
 gennetfilter := $(PYTHON) -E $(support)/gennetfilter.py
 m4iferror := $(support)/iferror.m4
 m4divert := $(support)/divert.m4
@@ -438,7 +438,7 @@ $(tmpdir)/system.users: $(m4support) $(tmpdir)/generated_definitions.conf $(user
 	@echo "# This file is replaced on reinstalls of this policy." >> $@.tmp
 	@echo "# Please edit local.users to make local changes." >> $@.tmp
 	@echo "#" >> $@.tmp
-	$(verbose) $(M4) -D self_contained_policy $(M4PARAM) $^ | $(SED) -r -e 's/^[[:blank:]]+//' \
+	$(verbose) $(M4) -D self_contained_policy $(M4PARAM) $^ | $(SED) -E -e 's/^[[:blank:]]+//' \
 		-e '/^[[:blank:]]*($$|#)/d' >> $@.tmp
 	$(verbose) mv -- $@.tmp $@
 
@@ -461,7 +461,7 @@ install-all: install-users
 # Build Appconfig files
 #
 $(tmpdir)/booleans: $(booleans) | $(tmpdir)
-	$(verbose) $(SED) -r -e 's/false/0/g' -e 's/true/1/g' \
+	$(verbose) $(SED) -E -e 's/false/0/g' -e 's/true/1/g' \
 		-e '/^[[:blank:]]*($$|#)/d' $^ | $(SORT) > $@.tmp
 	$(verbose) mv -- $@.tmp $@
 

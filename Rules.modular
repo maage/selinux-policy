@@ -130,7 +130,7 @@ $(tmpdir)/seusers: $(tmpdir)/m4support.m4f $(seusers)
 $(users_extra): | $(tmpdir)
 $(users_extra): $(tmpdir)/m4support.m4f $(user_files)
 	$(verbose) $(M4) $(M4PARAM) -D users_extra -R $^ | \
-		$(SED) -r -n -e 's/^[[:blank:]]*//g' -e '/^user/p' > $@
+		$(SED) -E -n -e 's/^[[:blank:]]*//g' -e '/^user/p' > $@
 
 ########################################
 #
