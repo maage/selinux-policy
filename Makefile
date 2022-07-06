@@ -280,7 +280,7 @@ off_mods += $(filter-out $(base_mods) $(mod_mods) $(off_mods),$(notdir $(detecte
 standalone_ifs := $(filter-out $(subst .te,.if, $(base_mods) $(mod_mods) $(off_mods)), $(notdir $(detected_ifs)))
 
 # filesystems to be used in labeling targets
-filesystems = $(shell mount | grep -v "context=" | egrep -v '\((|.*,)bind(,.*|)\)' | awk '/(ext[234]|btrfs| xfs| jfs).*rw/{print $$3}';)
+filesystems = $(shell mount | $(GREP) -v "context=" | $(GREP) -v '\((|.*,)bind(,.*|)\)' | awk '/(ext[234]|btrfs| xfs| jfs).*rw/{print $$3}';)
 fs_names := "btrfs ext2 ext3 ext4 xfs jfs"
 
 ########################################
@@ -600,7 +600,7 @@ install-src:
 #
 tags: $(tags)
 $(tags):
-	@($(CTAGS) --version | grep -q Exuberant) || (echo ERROR: Need exuberant-ctags to function!; exit 1)
+	@($(CTAGS) --version | $(GREP) -q Exuberant) || (echo ERROR: Need exuberant-ctags to function!; exit 1)
 	@LC_ALL=C $(CTAGS) -f $(tags) --langdef=te --langmap=te:..te.if.spt \
 	 --regex-te='/^type[ \t]+(\w+)(,|;)/\1/t,type/' \
 	 --regex-te='/^typealias[ \t]+\w+[ \t+]+alias[ \t]+(\w+);/\1/t,type/' \
