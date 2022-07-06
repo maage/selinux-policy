@@ -60,7 +60,7 @@ SECHECK ?= $(BINDIR)/sechecker
 
 # interpreters and aux tools
 AWK ?= gawk
-GREP ?= egrep
+GREP ?= grep -E
 INSTALL ?= install
 M4 ?= m4
 PYTHON ?= python3
