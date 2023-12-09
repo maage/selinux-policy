@@ -145,9 +145,8 @@ class TemplateNode:
         if node is not None:
             self.node_list.append(node)
         else:
-            raise self.parent.parser_exception(
-                f"[[{self.s}]] does not have a matching [[end]]"
-            )
+            msg = f"[[{self.s}]] does not have a matching [[end]]"
+            raise self.parent.parser_exception(msg)
 
     def execute(self, stream, data):
         for node in self.node_list:
@@ -177,9 +176,8 @@ class ForTemplateNode(TemplateNode):
         TemplateNode.__init__(self, parent, s)
         match = re_for_loop.match(s)
         if match is None:
-            raise self.parent.parser_exception(
-                f"[[{self.s}]] is not a valid for-loop expression"
-            )
+            msg = f"[[{self.s}]] is not a valid for-loop expression"
+            raise self.parent.parser_exception(msg)
         else:
             self.vars_temp = match.group(1).split(",")
             self.vars = []
@@ -210,9 +208,8 @@ class IfTemplateNode(TemplateNode):
         TemplateNode.__init__(self, parent, s)
         match = re_if.match(s)
         if match is None:
-            raise self.parent.parser_exception(
-                f"[[{self.s}]] is not a valid if expression"
-            )
+            msg = f"[[{self.s}]] is not a valid if expression"
+            raise self.parent.parser_exception(msg)
         else:
             self.expression = match.group(1)
 
@@ -228,9 +225,8 @@ class IfTemplateNode(TemplateNode):
         if node is not None:
             self.node_list.append(node)
         else:
-            raise self.parent.parser_exception(
-                f"[[{self.s}]] does not have a matching [[end]]"
-            )
+            msg = f"[[{self.s}]] does not have a matching [[end]]"
+            raise self.parent.parser_exception(msg)
 
     def execute(self, stream, data):
         if eval(self.expression, globals(), data):
