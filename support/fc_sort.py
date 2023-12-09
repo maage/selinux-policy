@@ -127,8 +127,7 @@ class FileContext:
     def __str__(self):
         if self.file_type:
             return f"{self.path}\t\t{self.file_type}\t{self.context}"
-        else:
-            return f"{self.path}\t\t{self.context}"
+        return f"{self.path}\t\t{self.context}"
 
 
 def main():
