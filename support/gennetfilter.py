@@ -26,7 +26,7 @@ PACKET_OUTPUT = "_client_packet_t"
 
 
 class Port:
-    def __init__(self, proto, num, mls_sens, mcs_cats=""):
+    def __init__(self, proto, num, mls_sens):
         # protocol of the port
         self.proto = proto
 
