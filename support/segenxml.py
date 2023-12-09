@@ -310,7 +310,7 @@ def main():
     )
     args = parser.parse_args()
 
-    global warn
+    global warn  # pylint: disable=global-statement
     warn = args.warn
 
     if args.module:
