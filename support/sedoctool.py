@@ -187,6 +187,7 @@ def get_conf(conf):
     namevalue_list = []
     for i, line in enumerate(conf_lines):
         line = line.strip()
+
         if not line or line.startswith("#"):
             continue
 
