@@ -59,6 +59,7 @@ ruf=(
     N806
     N818
     PERF102
+    PIE808
     PLR1714
     PLR5501
     Q000
