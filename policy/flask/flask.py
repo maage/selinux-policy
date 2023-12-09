@@ -485,7 +485,7 @@ class Flask:
 
 def usage():
     """
-    Returns the usage string.
+    Print the usage.
     """
     print(
         f"Usage: {os.path.basename(sys.argv[0])} -a ACCESS_VECTORS -i INITIAL_SIDS -s SECURITY_CLASSES -o OUTPUT_DIRECTORY -k|-u [-w]",
@@ -494,7 +494,8 @@ def usage():
         " -i --initial_sids\tinitial sid definitions",
         " -s --security_classes\tsecurity class definitions",
         " -o --output\toutput directory for generated files",
-        " -k --kernel\toutput mode set to kernel (kernel headers contain empty blocks for all classes specified with # userspace in the security_classes file)",
+        " -k --kernel\toutput mode set to kernel (kernel headers contain empty blocks",
+        "            \tfor all classes specified with # userspace in the security_classes file)",
         " -u --user\toutput mode set to userspace",
         " -w --nowarnings\tsupresses output of warning messages",
     )
