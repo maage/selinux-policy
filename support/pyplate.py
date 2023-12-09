@@ -51,7 +51,7 @@ PyPlate defines the following directives:
 #
 
 from __future__ import nested_scopes
-import sys, string, re, io
+import sys, re, io
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
 re_for_loop = re.compile(r"for (.*) in (.*)")
