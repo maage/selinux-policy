@@ -255,17 +255,14 @@ def warning(description):
     '''
 
     if warn:
-        sys.stderr.write("%s: " % sys.argv[0] )
-        sys.stderr.write("warning: " + description + "\n")
+        print(f"{sys.argv[0]}: warning: {description}", file=sys.stderr)
 
 def error(description):
     '''
     Describes an error and exists the program.
     '''
 
-    sys.stderr.write("%s: " % sys.argv[0] )
-    sys.stderr.write("error: " + description + "\n")
-    sys.stderr.flush()
+    print(f"{sys.argv[0]}: error: {description}", file=sys.stderr, flush=True)
     sys.exit(1)
 
 
