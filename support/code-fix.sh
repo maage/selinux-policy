@@ -80,6 +80,7 @@ ruf=(
     UP036
     UP039
     TRY003
+    UP031
     W191
 )
 if (( ${#ruf[@]} )); then
