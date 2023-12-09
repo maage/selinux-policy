@@ -24,10 +24,8 @@ sed -Ei '
 
 ! pyflakes "${py_files[@]}" |& grep ^ || exit 1
 
-if false; then
 pyupgrade --py311-plus "${py_files[@]}"
 ! git status --porcelain | grep -Ev '^[?][?] ' || exit 1
-fi
 
 if false; then
 black --target-version py311 "${py_files[@]}"
@@ -41,7 +39,10 @@ ruf=(
     E101
     F841
     SIM118
+    UP010
+    UP015
     UP032
+    UP036
     W191
 )
 if (( ${#ruf[@]} )); then
