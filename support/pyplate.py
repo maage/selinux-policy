@@ -156,8 +156,7 @@ class TemplateNode:
         r = "<" + self.__class__.__name__ + " "
         for i in self.node_list:
             r = r + repr(i)
-        r = r + ">"
-        return r
+        return r + ">"
 
 
 class TopLevelTemplateNode(TemplateNode):
