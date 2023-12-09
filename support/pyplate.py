@@ -120,7 +120,9 @@ class Template:
     def execute_stdout(self, data):
         self.execute(sys.stdout, data)
 
-    def execute(self, stream=sys.stdout, data={}):
+    def execute(self, stream=sys.stdout, data=None):
+        if data is None:
+            data = {}
         self.tree.execute(stream, data)
 
     def __repr__(self):
