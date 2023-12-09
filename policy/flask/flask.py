@@ -506,7 +506,7 @@ def usage():
 def main():
     # Parse command line args
     try:
-        opts, args = getopt.getopt(
+        opts, _ = getopt.getopt(
             sys.argv[1:],
             "a:i:s:o:kuwh",
             [
