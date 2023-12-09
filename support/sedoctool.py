@@ -17,8 +17,7 @@ import sys
 import getopt
 import pyplate
 import os
-import string
-from xml.dom.minidom import parse, parseString
+from xml.dom.minidom import parseString
 
 #modules enabled and disabled values
 MOD_BASE = "base"
