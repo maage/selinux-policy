@@ -19,25 +19,26 @@ from pathlib import Path
 import re
 
 
-class FileContext():
-    """ Container class for file context defintions
-    """
+class FileContext:
+    """Container class for file context defintions"""
 
     def __init__(self, context_line):
-        """ Constructor
-        """
+        """Constructor"""
 
-        matches = re.match(r'^(?P<path>\S+)\s+(?P<type>-.)?\s*(?P<context>.+)$', context_line)
+        matches = re.match(
+            r"^(?P<path>\S+)\s+(?P<type>-.)?\s*(?P<context>.+)$", context_line
+        )
         if matches is None:
             raise ValueError
 
-        self.path, self.file_type, self.context = matches.group('path', 'type', 'context')
+        self.path, self.file_type, self.context = matches.group(
+            "path", "type", "context"
+        )
 
         self.compute_diffdata()
 
     def compute_diffdata(self):
-        """ Compute the interal values needed for comparing two file context definitions
-        """
+        """Compute the interal values needed for comparing two file context definitions"""
 
         self.meta = False
         self.stem_len = 0
@@ -50,9 +51,20 @@ class FileContext():
                 skip_escaped = False
                 continue
 
-            if char in ('.', '^', '$', '?', '*', '+', '|', '[', '(', '{',):
+            if char in (
+                ".",
+                "^",
+                "$",
+                "?",
+                "*",
+                "+",
+                "|",
+                "[",
+                "(",
+                "{",
+            ):
                 self.meta = True
-            if char == '\\':
+            if char == "\\":
                 skip_escaped = True
 
             if not self.meta:
@@ -62,7 +74,7 @@ class FileContext():
 
     @staticmethod
     def _compare(a, b):
-        """ Compare two file context definitions
+        """Compare two file context definitions
 
         Returns:
           -1 if a is less specific than b
@@ -112,35 +124,46 @@ class FileContext():
 
     def __str__(self):
         if self.file_type:
-            return f'{self.path}\t\t{self.file_type}\t{self.context}'
+            return f"{self.path}\t\t{self.file_type}\t{self.context}"
         else:
-            return f'{self.path}\t\t{self.context}'
+            return f"{self.path}\t\t{self.context}"
 
 
-if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(description='Sort file context definitions')
-    parser.add_argument('infile', metavar='INFILE', type=Path,
-                        help='input file of the original file context definitions')
-    parser.add_argument('outfile', metavar='OUTFILE', nargs='?', type=Path, default=None,
-                        help='output file for the sorted file context definitions')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Sort file context definitions")
+    parser.add_argument(
+        "infile",
+        metavar="INFILE",
+        type=Path,
+        help="input file of the original file context definitions",
+    )
+    parser.add_argument(
+        "outfile",
+        metavar="OUTFILE",
+        nargs="?",
+        type=Path,
+        default=None,
+        help="output file for the sorted file context definitions",
+    )
     args = parser.parse_args()
 
     file_context_definitions = []
 
     # Parse the input file
-    with args.infile.open('r') as fd:
+    with args.infile.open("r") as fd:
         for lineno, line in enumerate(fd, start=1):
             line = line.strip()
 
             # Ignore comments and empty lines
-            if not line or line.startswith('#'):
+            if not line or line.startswith("#"):
                 continue
 
             try:
                 file_context_definitions.append(FileContext(line))
             except ValueError:
-                print(f'{args.infile}:{lineno}: unable to parse a file context line: {line}')
+                print(
+                    f"{args.infile}:{lineno}: unable to parse a file context line: {line}"
+                )
                 exit(1)
 
     # Sort
@@ -148,6 +171,6 @@ if __name__ == '__main__':
 
     # Print output, either to file or if no output file given to stdout
 
-    with args.outfile.open('w') if args.outfile else sys.stdout as fd:
+    with args.outfile.open("w") if args.outfile else sys.stdout as fd:
         for fcd in file_context_definitions:
             print(fcd, file=fd)
