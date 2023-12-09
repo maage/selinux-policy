@@ -262,7 +262,7 @@ def gen_doc_menu(mod_layer, module_list):
     for layer, value in module_list.items():
         cur_menu = (layer, [])
         menu.append(cur_menu)
-        if layer != mod_layer and mod_layer != None:
+        if layer != mod_layer and mod_layer is not None:
             continue
         # we are in our layer so fill in the other modules or we want them all
         for mod, desc in value.items():

@@ -570,12 +570,12 @@ def main():
         elif o in ("-o", "--output"):
             outd = a
         elif o in ("-k", "--kernel"):
-            if mode != None:
+            if mode is not None:
                 usage()
                 sys.exit(2)
             mode = Flask.KERNEL
         elif o in ("-u", "--user"):
-            if mode != None:
+            if mode is not None:
                 usage()
                 sys.exit(2)
             mode = Flask.USERSPACE
@@ -585,7 +585,7 @@ def main():
             usage()
             sys.exit(2)
 
-    if avec == None or isid == None or secc == None or outd == None:
+    if avec is None or isid is None or secc is None or outd is None:
         usage()
         sys.exit(2)
 
