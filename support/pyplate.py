@@ -244,7 +244,7 @@ class IfTemplateNode(TemplateNode):
 class ElifTemplateNode(IfTemplateNode):
     def __init__(self, parent, s):  # pylint: disable=super-init-not-called
         self.else_node = None
-        TemplateNode.__init__(self, parent, s)
+        TemplateNode.__init__(self, parent, s)  # pylint: disable=non-parent-init-called
         match = re_elif.match(s)
         if match is None:
             self.parent.parser_exception(f"[[{self.s}]] is not a valid elif expression")
