@@ -50,7 +50,6 @@ PyPlate defines the following directives:
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 
-from __future__ import nested_scopes
 import sys, re, io
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
@@ -77,15 +76,12 @@ class Template:
         self.parse_string(filename)
 
   def parse_file(self, filename):
-    file = open(filename, 'r')
+    file = open(filename)
     self.parse(file)
     file.close()
 
   def parse_string(self, template):
-    if sys.version_info >= (3,0):
-      file = io.StringIO(template)
-    else:
-      file = io.StringIO(template.decode('utf-8'))
+    file = io.StringIO(template)
     self.parse(file)
     file.close()
 
@@ -291,10 +287,7 @@ class CommentTemplateNode(LeafTemplateNode):
 
 class ExpressionTemplateNode(LeafTemplateNode):
   def execute(self, stream, data):
-    if sys.version_info >= (3,0):
-      stream.write(str(eval(self.s, globals(), data)))
-    else:
-      stream.write(str(eval(self.s, globals(), data)).decode('utf-8'))
+    stream.write(str(eval(self.s, globals(), data)))
 
 class ExecTemplateNode(LeafTemplateNode):
   def __init__(self, parent, s):

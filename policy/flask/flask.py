@@ -114,7 +114,7 @@ class Flask:
         Parses security class definitions from the given path.
         '''
         classes = []
-        input = open(path, 'r')
+        input = open(path)
 
         number = 0
         for line in input:
@@ -148,7 +148,7 @@ class Flask:
         '''
 
         sids = []
-        input = open(path, 'r')
+        input = open(path)
 
         number = 0
         for line in input:
@@ -182,7 +182,7 @@ class Flask:
         common = {}
         inherits = {}
         user_commons = {}
-        input = open(path, 'r')
+        input = open(path)
 
         # states
         NONE    = 0
