@@ -71,6 +71,7 @@ pyl=(
     undefined-variable
     unnecessary-semicolon
     unused-import
+    use-implicit-booleaness-not-len
 )
 if (( ${#pyl[@]} )); then
 pyl2="${pyl[*]}"
