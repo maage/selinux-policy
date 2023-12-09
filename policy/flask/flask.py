@@ -19,7 +19,7 @@ class ParseError(Exception):
 
     def __str__(self):
         typeS = self.type
-        if type(self.type) is not str:
+        if not isinstance(self.type, str):
             typeS = Flask.CONSTANT_S[self.type]
         return "Parse Error: Unexpected %s on line %d of %s." % (
             typeS,
@@ -37,7 +37,7 @@ class DuplicateError(Exception):
 
     def __str__(self):
         typeS = self.type
-        if type(self.type) is not str:
+        if not isinstance(self.type, str):
             typeS = Flask.CONSTANT_S[self.type]
         return "Duplicate Error: Duplicate %s '%s' on line %d of %s." % (
             typeS,
@@ -56,7 +56,7 @@ class UndefinedError(Exception):
 
     def __str__(self):
         typeS = self.type
-        if type(self.type) is not str:
+        if not isinstance(self.type, str):
             typeS = Flask.CONSTANT_S[self.type]
         return "Undefined Error: %s '%s' is not defined but used on line %d of %s." % (
             typeS,
