@@ -64,7 +64,7 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
         s = bool_desc.split("\n")
         file_name.write("#\n")
         for line in s:
-            file_name.write("# %s\n" % line)
+            file_name.write(f"# {line}\n")
 
         bool_name = bool_val = None
         for (name, value) in node.attributes.items():
@@ -79,7 +79,7 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
                 bool_val = BOOL_DISABLED
 
             if bool_name and bool_val:
-                file_name.write("%s = %s\n\n" % (bool_name, bool_val))
+                file_name.write(f"{bool_name} = {bool_val}\n\n")
                 bool_name = bool_val = None
 
     # tunables are currently implemented as booleans
@@ -89,7 +89,7 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
         s = bool_desc.split("\n")
         file_name.write("#\n")
         for line in s:
-            file_name.write("# %s\n" % line)
+            file_name.write(f"# {line}\n")
 
         bool_name = bool_val = None
         for (name, value) in node.attributes.items():
@@ -104,7 +104,7 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
                 bool_val = BOOL_DISABLED
 
             if bool_name and bool_val:
-                file_name.write("%s = %s\n\n" % (bool_name, bool_val))
+                file_name.write(f"{bool_name} = {bool_val}\n\n")
                 bool_name = bool_val = None
 
 def gen_module_conf(doc, file_name, namevalue_list):
@@ -117,11 +117,11 @@ def gen_module_conf(doc, file_name, namevalue_list):
 
     file_name.write("#\n# This file contains a listing of available modules.\n")
     file_name.write("# To prevent a module from  being used in policy\n")
-    file_name.write("# creation, set the module name to \"%s\".\n#\n" % MOD_DISABLED)
-    file_name.write("# For monolithic policies, modules set to \"%s\" and \"%s\"\n" % (MOD_BASE, MOD_ENABLED))
+    file_name.write(f"# creation, set the module name to \"{MOD_DISABLED}\".\n#\n")
+    file_name.write(f"# For monolithic policies, modules set to \"{MOD_BASE}\" and \"{MOD_ENABLED}\"\n")
     file_name.write("# will be built into the policy.\n#\n")
-    file_name.write("# For modular policies, modules set to \"%s\" will be\n" % MOD_BASE)
-    file_name.write("# included in the base module.  \"%s\" will be compiled\n" % MOD_ENABLED)
+    file_name.write(f"# For modular policies, modules set to \"{MOD_BASE}\" will be\n")
+    file_name.write(f"# included in the base module.  \"{MOD_ENABLED}\" will be compiled\n")
     file_name.write("# as individual loadable modules.\n#\n\n")
 
     # For required in [True,False] is present so that the requiered modules
@@ -144,7 +144,7 @@ def gen_module_conf(doc, file_name, namevalue_list):
             mod_layer = node.parentNode.getAttribute("name")
 
             if mod_name and mod_layer:
-                file_name.write("# Layer: %s\n# Module: %s\n" % (mod_layer,mod_name))
+                file_name.write(f"# Layer: {mod_layer}\n# Module: {mod_name}\n")
                 if required:
                     file_name.write("# Required in base\n")
                 file_name.write("#\n")
@@ -154,25 +154,25 @@ def gen_module_conf(doc, file_name, namevalue_list):
                     continue
                 s = format_txt_desc(desc).split("\n")
                 for line in s:
-                    file_name.write("# %s\n" % line)
+                    file_name.write(f"# {line}\n")
 
                 # If the module is set as disabled.
                 if [mod_name, MOD_DISABLED] in namevalue_list:
-                    file_name.write("%s = %s\n\n" % (mod_name, MOD_DISABLED))
+                    file_name.write(f"{mod_name} = {MOD_DISABLED}\n\n")
                 # If the module is set as enabled.
                 elif [mod_name, MOD_ENABLED] in namevalue_list:
-                    file_name.write("%s = %s\n\n" % (mod_name, MOD_ENABLED))
+                    file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
                 # If the module is set as base.
                 elif [mod_name, MOD_BASE] in namevalue_list:
-                    file_name.write("%s = %s\n\n" % (mod_name, MOD_BASE))
+                    file_name.write(f"{mod_name} = {MOD_BASE}\n\n")
                 # If the module is a new module.
                 else:
                     # Set the module to base if it is marked as required.
                     if mod_req:
-                        file_name.write("%s = %s\n\n" % (mod_name, MOD_BASE))
+                        file_name.write(f"{mod_name} = {MOD_BASE}\n\n")
                     # Set the module to enabled if it is not required.
                     else:
-                        file_name.write("%s = %s\n\n" % (mod_name, MOD_ENABLED))
+                        file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
 
 def get_conf(conf):
     """
@@ -770,7 +770,7 @@ def usage():
     Describes the proper usage of this tool.
     """
 
-    sys.stdout.write("%s [-tmdT] -x <xmlfile>\n\n" % sys.argv[0])
+    sys.stdout.write(f"{sys.argv[0]} [-tmdT] -x <xmlfile>\n\n")
     sys.stdout.write("Options:\n")
     sys.stdout.write("-b --booleans	<file>		--	write boolean config to <file>\n")
     sys.stdout.write("-m --modules <file>		--	write module config to <file>\n")

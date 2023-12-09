@@ -46,7 +46,7 @@ class UnusedError(Exception):
     def __init__(self, info):
         self.info = info
     def __str__(self):
-        return "Unused Error: %s" % self.info
+        return f"Unused Error: {self.info}"
 
 class Flask:
     '''
@@ -277,7 +277,7 @@ class Flask:
         if state != NONE and state2 != NONE: raise ParseError(self.EOF, path, number)
 
         cvdiff = set(self.classes) - set(vectors)
-        if cvdiff: raise UnusedError("Not all security classes were used in access vectors: %s" % cvdiff) # the inverse of this will be caught as an undefined class error
+        if cvdiff: raise UnusedError(f"Not all security classes were used in access vectors: {cvdiff}") # the inverse of this will be caught as an undefined class error
 
         self.commons = commons
         self.user_commons = user_commons
@@ -309,7 +309,7 @@ class Flask:
 
     def createUL(self, count):
         fields = [1, 2, 4, 8]
-        return "0x%08xUL" % (fields[count % 4] << 4 * (count / 4))
+        return f"0x{fields[count % 4] << 4 * (count / 4):08x}UL"
 
     def createAvInheritH(self, mode = USERSPACE):
         '''
@@ -321,7 +321,7 @@ class Flask:
                 i = self.inherits[c]
                 count = len(self.common[i])
                 if not (mode == self.KERNEL and self.userspace[c]):
-                    results.append("   S_(SECCLASS_%s, %s, %s)\n" % (c.upper(), i, self.createUL(count)))
+                    results.append(f"   S_(SECCLASS_{c.upper()}, {i}, {self.createUL(count)})\n")
         return results
 
     def createAvPermToStringH(self, mode = USERSPACE):
@@ -332,7 +332,7 @@ class Flask:
         for c in self.vectors:
             for p in self.vector[c]:
                 if not (mode == self.KERNEL and self.userspace[c]):
-                    results.append("   S_(SECCLASS_%s, %s__%s, \"%s\")\n" % (c.upper(), c.upper(), p.upper(), p))
+                    results.append(f"   S_(SECCLASS_{c.upper()}, {c.upper()}__{p.upper()}, \"{p}\")\n")
 
         return results
 
@@ -348,9 +348,9 @@ class Flask:
             count = 0
             for p in self.common[common]:
                 if not (mode == self.KERNEL and self.user_commons[common]):
-                    columnA = "#define COMMON_%s__%s " % (common.upper(), p.upper())
+                    columnA = f"#define COMMON_{common.upper()}__{p.upper()} "
                     columnA += "".join([" " for i in range(width - len(columnA))])
-                    results.append("%s%s\n" % (columnA, self.createUL(count)))
+                    results.append(f"{columnA}{self.createUL(count)}\n")
                     count += 1
 
         width = 50 # broken for old tools whitespace
@@ -362,10 +362,10 @@ class Flask:
                 ps += self.common[self.inherits[c]]
             ps += self.vector[c]
             for p in ps:
-                columnA = "#define %s__%s " % (c.upper(), p.upper())
+                columnA = f"#define {c.upper()}__{p.upper()} "
                 columnA += "".join([" " for i in range(width - len(columnA))])
                 if not (mode == self.KERNEL and self.userspace[c]):
-                    results.append("%s%s\n" % (columnA, self.createUL(count)))
+                    results.append(f"{columnA}{self.createUL(count)}\n")
                 count += 1
 
         return results
@@ -386,7 +386,7 @@ class Flask:
             if mode == self.KERNEL and self.userspace[c]:
                 results.append("    S_(NULL)\n")
             else:
-                results.append("    S_(\"%s\")\n" % c)
+                results.append(f"    S_(\"{c}\")\n")
         return results
 
     def createCommonPermToStringH(self, mode = USERSPACE):
@@ -396,10 +396,10 @@ class Flask:
         results.append(self.autogen)
         for common in self.commons:
             if not (mode == self.KERNEL and self.user_commons[common]):
-                results.append("TB_(common_%s_perm_to_string)\n" % common)
+                results.append(f"TB_(common_{common}_perm_to_string)\n")
                 for p in self.common[common]:
-                    results.append("    S_(\"%s\")\n" % p)
-                results.append("TE_(common_%s_perm_to_string)\n\n" % common)
+                    results.append(f"    S_(\"{p}\")\n")
+                results.append(f"TE_(common_{common}_perm_to_string)\n\n")
         return results
 
     def createFlaskH(self, mode = USERSPACE):
@@ -418,7 +418,7 @@ class Flask:
         width = 57
         for c in self.classes:
             count += 1
-            columnA = "#define SECCLASS_%s " % c.upper()
+            columnA = f"#define SECCLASS_{c.upper()} "
             columnA += "".join([" " for i in range(width - len(columnA))])
             if not (mode == self.KERNEL and self.userspace[c]):
                 results.append("%s%d\n" % (columnA, count))
@@ -432,7 +432,7 @@ class Flask:
         width = 56 # broken for old tools whitespace
         for s in self.sids:
             count += 1
-            columnA = "#define SECINITSID_%s " % s.upper()
+            columnA = f"#define SECINITSID_{s.upper()} "
             columnA += "".join([" " for i in range(width - len(columnA))])
             results.append("%s%d\n" % (columnA, count))
 
@@ -456,7 +456,7 @@ class Flask:
         results.append("{\n")
         results.append("    \"null\",\n")
         for s in self.sids:
-            results.append("    \"%s\",\n" % s)
+            results.append(f"    \"{s}\",\n")
         results.append("};\n")
         results.append("\n")
 
@@ -466,7 +466,7 @@ def usage():
     '''
     Returns the usage string.
     '''
-    usage  = 'Usage: %s -a ACCESS_VECTORS -i INITIAL_SIDS -s SECURITY_CLASSES -o OUTPUT_DIRECTORY -k|-u [-w]\n' % os.path.basename(sys.argv[0])
+    usage  = f'Usage: {os.path.basename(sys.argv[0])} -a ACCESS_VECTORS -i INITIAL_SIDS -s SECURITY_CLASSES -o OUTPUT_DIRECTORY -k|-u [-w]\n'
     usage += '\n'
     usage += ' -a --access_vectors\taccess vector definitions\n'
     usage += ' -i --initial_sids\tinitial sid definitions\n'
