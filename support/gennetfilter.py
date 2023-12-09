@@ -179,7 +179,7 @@ def main():
         print("Invalid options.")
         sys.exit(1)
 
-    for o, a in opts:
+    for o, _a in opts:
         if o in ("-c", "--mcs"):
             mcs = True
         if o in ("-m", "--mls"):
