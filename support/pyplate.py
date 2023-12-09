@@ -285,7 +285,7 @@ class LeafTemplateNode(TemplateNode):
         self.parent = parent
         self.s = s
 
-    def execute(self, stream, data):
+    def execute(self, stream, _data):
         stream.write(self.s)
 
     def __repr__(self):
@@ -310,7 +310,7 @@ class ExecTemplateNode(LeafTemplateNode):
             self.parent.parser_exception(f"[[{self.s}]] is not a valid statement")
         self.s = match.group(1)
 
-    def execute(self, stream, data):
+    def execute(self, _stream, data):
         exec(self.s, globals(), data)
         pass
 
