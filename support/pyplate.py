@@ -320,7 +320,8 @@ class ExecTemplateNode(LeafTemplateNode):
         self.s = match.group(1)
 
     def execute(self, _stream, data):
-        exec(self.s, globals(), data)
+        # pylint: disable=exec-used
+        exec(self.s, globals(), data)  # noqa: S102
 
 
 class CallTemplateNode(LeafTemplateNode):
