@@ -242,7 +242,7 @@ class IfTemplateNode(TemplateNode):
 
 
 class ElifTemplateNode(IfTemplateNode):
-    def __init__(self, parent, s):
+    def __init__(self, parent, s):  # pylint: disable=super-init-not-called
         self.else_node = None
         TemplateNode.__init__(self, parent, s)
         match = re_elif.match(s)
@@ -287,7 +287,7 @@ class FunctionTemplateNode(TemplateNode):
 
 
 class LeafTemplateNode(TemplateNode):
-    def __init__(self, parent, s):
+    def __init__(self, parent, s):  # pylint: disable=super-init-not-called
         self.parent = parent
         self.s = s
 
