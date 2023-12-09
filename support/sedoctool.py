@@ -42,7 +42,7 @@ def read_policy_xml(filename):
     try:
         with open(filename) as f:
             try:
-                doc = parseString(f.read())
+                doc = parseString(f.read())  # noqa: S318
             except (TypeError, AttributeError):
                 error("Error while parsing xml")
     except OSError:
