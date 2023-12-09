@@ -81,6 +81,7 @@ ruf=(
     RET507
     S102
     S307
+    S318
     SIM102
     SIM108
     SIM109
