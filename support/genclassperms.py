@@ -147,12 +147,10 @@ def get_av_db(file_name):
             # If the class inherits from something else:
             if av_data[0] == "inherits":
                 # Dequeue the "inherits" key word.
-                av_data = av_data[1:]
+                av_data.pop(0)
 
-                if len(av_data) == 0:
-                    error("Missing token in file "\
-                        + file_name + " for " +\
-                        keyword + " " + name + ".")
+                if not av_data:
+                    error(f"Missing token in file {file_name} for {name}.")
 
                 # av_data[0] is the name of the parent.
                 # Append the permissions of the parent to
