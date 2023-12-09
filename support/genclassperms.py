@@ -141,7 +141,7 @@ def get_av_db(file_name):
         perms = []
         # If the object we are working with is a class, since only
         #  classes inherit:
-        if common == False:
+        if common is False:
             if len(av_data) == 0:
                 error(f"Missing token in file {file_name}.")
 
@@ -246,7 +246,7 @@ def gen_class_perms(av_db, sc_db):
     class_perms = ""
     for obj in av_db:
         # Don't output commons
-        if obj.common == True:
+        if obj.common is True:
             continue
 
         # Get the list of permissions from the specified class.
