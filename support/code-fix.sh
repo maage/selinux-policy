@@ -102,6 +102,7 @@ fi
 
 pyl=(
     anomalous-backslash-in-string
+    attribute-defined-outside-init
     bad-indentation
     bare-except
     colon
