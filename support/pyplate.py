@@ -74,6 +74,11 @@ class ParseError(Exception):
 
 class Template:
     def __init__(self, filename=None):
+        self.file = None
+        self.line = None
+        self.lineno = 0
+        self.functions = {}
+        self.tree = None
         if filename is not None:
             try:
                 self.parse_file(filename)
