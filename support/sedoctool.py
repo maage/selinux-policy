@@ -742,21 +742,21 @@ def gen_docs(doc, working_dir, templatedir):
         body_tpl.execute(temp_fh, body_args)
 
 
-def error(error):
+def error(msg):
     """
     Print an error message and exit.
     """
 
-    print(f"{sys.argv[0]} exiting for: {error}", file=sys.stderr, flush=True)
+    print(f"{sys.argv[0]} exiting for: {msg}", file=sys.stderr, flush=True)
     sys.exit(1)
 
 
-def warning(warn):
+def warning(msg):
     """
     Print a warning message.
     """
 
-    print(f"{sys.argv[0]} warning: {warn}", file=sys.stderr)
+    print(f"{sys.argv[0]} warning: {msg}", file=sys.stderr)
 
 
 def usage():
