@@ -7,7 +7,10 @@
 #      it under the terms of the GNU General Public License as published by
 #      the Free Software Foundation, version 2.
 
-import sys, string, getopt, re
+import getopt
+import re
+import string
+import sys
 
 NETPORT = re.compile(
     r"^network_port\(\s*\w+\s*(\s*,\s*\w+\s*,\s*\w+\s*,\s*\w+\s*)+\s*\)\s*(#|$)"

@@ -7,8 +7,8 @@
 
 import getopt
 import os
-import sys
 import re
+import sys
 
 
 class ParseError(Exception):

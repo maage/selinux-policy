@@ -13,11 +13,12 @@
     SELinux reference policy XML format.
 """
 
-import sys
 import getopt
-import pyplate
 import os
+import sys
 from xml.dom.minidom import parseString
+
+import pyplate
 
 # modules enabled and disabled values
 MOD_BASE = "base"
