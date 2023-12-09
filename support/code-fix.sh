@@ -61,6 +61,7 @@ ruf=(
     PERF102
     PIE808
     PLR1714
+    PLR1722
     PLR5501
     Q000
     Q002
