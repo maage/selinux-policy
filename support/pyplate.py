@@ -196,7 +196,8 @@ class ForTemplateNode(TemplateNode):
         for var in self.vars:
             if var in data:
                 remember_vars[var] = data[var]
-        for lst in eval(self.expression, globals(), data):
+        # pylint: disable=eval-used
+        for lst in eval(self.expression, globals(), data):  # noqa: S307, PGH001
             if is_sequence(lst):
                 for index, value in enumerate(lst):
                     data[self.vars[index]] = value
@@ -233,7 +234,8 @@ class IfTemplateNode(TemplateNode):
         return False
 
     def execute(self, stream, data):
-        if eval(self.expression, globals(), data):
+        # pylint: disable=eval-used
+        if eval(self.expression, globals(), data):  # noqa: S307, PGH001
             TemplateNode.execute(self, stream, data)
         elif self.else_node is not None:
             self.else_node.execute(stream, data)
@@ -303,7 +305,10 @@ class CommentTemplateNode(LeafTemplateNode):
 
 class ExpressionTemplateNode(LeafTemplateNode):
     def execute(self, stream, data):
-        stream.write(str(eval(self.s, globals(), data)))
+        stream.write(
+            # pylint: disable=eval-used
+            str(eval(self.s, globals(), data))  # noqa: S307, PGH001
+        )
 
 
 class ExecTemplateNode(LeafTemplateNode):
@@ -329,7 +334,10 @@ class CallTemplateNode(LeafTemplateNode):
 
     def execute(self, stream, data):
         self.parent.functions[self.function_name].call(
-            eval(self.vars, globals(), data), stream, data
+            # pylint: disable=eval-used
+            eval(self.vars, globals(), data),  # noqa: S307, PGH001
+            stream,
+            data,
         )
 
 
