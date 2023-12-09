@@ -143,7 +143,7 @@ mcs = False
 
 try:
     opts, paths = getopt.getopt(sys.argv[1:],'mc',['mls','mcs'])
-except getopt.GetoptError, error:
+except getopt.GetoptError:
     print "Invalid options."
     sys.exit(1)
 
