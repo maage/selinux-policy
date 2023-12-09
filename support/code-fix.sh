@@ -107,6 +107,7 @@ pyl=(
     colon
     consider-iterating-dictionary
     consider-using-dict-items
+    consider-using-enumerate
     consider-using-f-string
     consider-using-in
     consider-using-sys-exit
