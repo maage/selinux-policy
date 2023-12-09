@@ -20,9 +20,7 @@ sed -Ei '
 ' "${py_files[@]}"
 ! git status --porcelain | grep -Ev '^[?][?] ' || exit 1
 
-if false; then
 ! pyflakes "${py_files[@]}" |& grep 'invalid syntax' || exit 1
-fi
 
 if false; then
 ! pyflakes "${py_files[@]}" |& grep ^ || exit 1
@@ -43,7 +41,6 @@ fi
 ruf=(
     D206
     E101
-    SIM109
     SIM118
     W191
 )
@@ -55,11 +52,8 @@ fi
 
 
 pyl=(
-    broad-exception-caught
     consider-iterating-dictionary
     consider-using-dict-items
-    line-too-long
-    no-value-for-parameter
 )
 if (( ${#pyl[@]} )); then
 pyl2="${pyl[*]}"
