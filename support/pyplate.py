@@ -141,7 +141,7 @@ class TemplateNode:
         self.parent = parent
         self.s = s
         self.node_list = []
-        while 1:
+        while True:
             new_node = TemplateNodeFactory(parent)
             if self.add_node(new_node):
                 break
