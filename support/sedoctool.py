@@ -185,7 +185,7 @@ def get_conf(conf):
     conf_lines = conf.readlines()
 
     namevalue_list = []
-    for i in range(0, len(conf_lines)):
+    for i in range(len(conf_lines)):
         line = conf_lines[i]
         if line.strip() != "" and line.strip()[0] != "#":
             namevalue = line.strip().split("=")
