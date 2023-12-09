@@ -277,7 +277,9 @@ def gen_class_perms(av_db, sc_db):
     userspace_class_perms += "')\n"
 
     # Throw all the strings together and return the string.
-    return class_perms + kernel_class_perms + userspace_class_perms
+    return "\n".join(
+        [*class_perms, "", *kernel_class_perms, "", *userspace_class_perms]
+    )
 
 
 def error(error):
