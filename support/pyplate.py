@@ -144,7 +144,7 @@ class TemplateNode:
     def add_node(self, node):
         if node == "end":
             return 1
-        elif node != None:
+        if node != None:
             self.node_list.append(node)
         else:
             raise self.parent.parser_exception(
@@ -221,13 +221,13 @@ class IfTemplateNode(TemplateNode):
     def add_node(self, node):
         if node == "end":
             return 1
-        elif isinstance(node, ElseTemplateNode):
+        if isinstance(node, ElseTemplateNode):
             self.else_node = node
             return 1
-        elif isinstance(node, ElifTemplateNode):
+        if isinstance(node, ElifTemplateNode):
             self.else_node = node
             return 1
-        elif node != None:
+        if node != None:
             self.node_list.append(node)
         else:
             raise self.parent.parser_exception(
@@ -359,21 +359,19 @@ def TemplateNodeFactory(parent):
     if match == None:
         parent.parser_eat(len(src))
         return LeafTemplateNode(parent, src)
-    elif src == "" or match.start() != 0:
+    if src == "" or match.start() != 0:
         parent.parser_eat(match.start())
         return LeafTemplateNode(parent, src[: match.start()])
-    else:
-        directive = match.group()[2:-2].strip()
-        parent.parser_eat(match.end())
-        if directive == "end":
-            return "end"
-        elif re_comment.match(directive):
-            return CommentTemplateNode(parent, directive)
-        else:
-            for i in template_factory_types:
-                if directive[0 : len(i)] == i:
-                    return template_factory_type_map[i](parent, directive)
-            return ExpressionTemplateNode(parent, directive)
+    directive = match.group()[2:-2].strip()
+    parent.parser_eat(match.end())
+    if directive == "end":
+        return "end"
+    if re_comment.match(directive):
+        return CommentTemplateNode(parent, directive)
+    for i in template_factory_types:
+        if directive[0 : len(i)] == i:
+            return template_factory_type_map[i](parent, directive)
+    return ExpressionTemplateNode(parent, directive)
 
 
 def is_sequence(obj):
