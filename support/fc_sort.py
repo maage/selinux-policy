@@ -13,10 +13,10 @@ and therefore setfiles (or this standalone tool) need to sort
 the regular expressions in a deterministic and stable way.
 """
 
-import sys
 import argparse
-from pathlib import Path
 import re
+import sys
+from pathlib import Path
 
 
 class FileContext:
