@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #  Author: Joshua Brindle <jbrindle@tresys.com>
-#	  Caleb Case <ccase@tresys.com>
+# 	  Caleb Case <ccase@tresys.com>
 #
 # Copyright (C) 2005 - 2006 Tresys Technology, LLC
 #      This program is free software; you can redistribute it and/or modify
@@ -19,16 +19,16 @@ import pyplate
 import os
 from xml.dom.minidom import parseString
 
-#modules enabled and disabled values
+# modules enabled and disabled values
 MOD_BASE = "base"
 MOD_ENABLED = "module"
 MOD_DISABLED = "off"
 
-#booleans enabled and disabled values
+# booleans enabled and disabled values
 BOOL_ENABLED = "true"
 BOOL_DISABLED = "false"
 
-#tunables enabled and disabled values
+# tunables enabled and disabled values
 TUN_ENABLED = "true"
 TUN_DISABLED = "false"
 
@@ -52,6 +52,7 @@ def read_policy_xml(filename):
     xml_fh.close()
     return doc
 
+
 def gen_booleans_conf(doc, file_name, namevalue_list):
     """
     Generates the booleans configuration file using the XML provided and the
@@ -67,15 +68,15 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
             file_name.write(f"# {line}\n")
 
         bool_name = bool_val = None
-        for (name, value) in node.attributes.items():
+        for name, value in node.attributes.items():
             if name == "name":
                 bool_name = value
             elif name == "dftval":
                 bool_val = value
 
-            if [bool_name,BOOL_ENABLED] in namevalue_list:
+            if [bool_name, BOOL_ENABLED] in namevalue_list:
                 bool_val = BOOL_ENABLED
-            elif [bool_name,BOOL_DISABLED] in namevalue_list:
+            elif [bool_name, BOOL_DISABLED] in namevalue_list:
                 bool_val = BOOL_DISABLED
 
             if bool_name and bool_val:
@@ -92,20 +93,21 @@ def gen_booleans_conf(doc, file_name, namevalue_list):
             file_name.write(f"# {line}\n")
 
         bool_name = bool_val = None
-        for (name, value) in node.attributes.items():
+        for name, value in node.attributes.items():
             if name == "name":
                 bool_name = value
             elif name == "dftval":
                 bool_val = value
 
-            if [bool_name,BOOL_ENABLED] in namevalue_list:
+            if [bool_name, BOOL_ENABLED] in namevalue_list:
                 bool_val = BOOL_ENABLED
-            elif [bool_name,BOOL_DISABLED] in namevalue_list:
+            elif [bool_name, BOOL_DISABLED] in namevalue_list:
                 bool_val = BOOL_DISABLED
 
             if bool_name and bool_val:
                 file_name.write(f"{bool_name} = {bool_val}\n\n")
                 bool_name = bool_val = None
+
 
 def gen_module_conf(doc, file_name, namevalue_list):
     """
@@ -117,16 +119,20 @@ def gen_module_conf(doc, file_name, namevalue_list):
 
     file_name.write("#\n# This file contains a listing of available modules.\n")
     file_name.write("# To prevent a module from  being used in policy\n")
-    file_name.write(f"# creation, set the module name to \"{MOD_DISABLED}\".\n#\n")
-    file_name.write(f"# For monolithic policies, modules set to \"{MOD_BASE}\" and \"{MOD_ENABLED}\"\n")
+    file_name.write(f'# creation, set the module name to "{MOD_DISABLED}".\n#\n')
+    file_name.write(
+        f'# For monolithic policies, modules set to "{MOD_BASE}" and "{MOD_ENABLED}"\n'
+    )
     file_name.write("# will be built into the policy.\n#\n")
-    file_name.write(f"# For modular policies, modules set to \"{MOD_BASE}\" will be\n")
-    file_name.write(f"# included in the base module.  \"{MOD_ENABLED}\" will be compiled\n")
+    file_name.write(f'# For modular policies, modules set to "{MOD_BASE}" will be\n')
+    file_name.write(
+        f'# included in the base module.  "{MOD_ENABLED}" will be compiled\n'
+    )
     file_name.write("# as individual loadable modules.\n#\n\n")
 
     # For required in [True,False] is present so that the requiered modules
     # are at the top of the config file.
-    for required in [True,False]:
+    for required in [True, False]:
         for node in doc.getElementsByTagName("module"):
             mod_req = False
             for req in node.getElementsByTagName("required"):
@@ -136,7 +142,6 @@ def gen_module_conf(doc, file_name, namevalue_list):
             # Skip if we arnt working on the right set of modules.
             if mod_req and not required or not mod_req and required:
                 continue
-
 
             mod_name = mod_layer = None
 
@@ -174,6 +179,7 @@ def gen_module_conf(doc, file_name, namevalue_list):
                     else:
                         file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
 
+
 def get_conf(conf):
     """
     Returns a list of [name, value] pairs from a config file with the format
@@ -183,30 +189,34 @@ def get_conf(conf):
     conf_lines = conf.readlines()
 
     namevalue_list = []
-    for i in range(0,len(conf_lines)):
+    for i in range(0, len(conf_lines)):
         line = conf_lines[i]
-        if line.strip() != '' and line.strip()[0] != "#":
+        if line.strip() != "" and line.strip()[0] != "#":
             namevalue = line.strip().split("=")
             if len(namevalue) != 2:
-                warning("line %d: \"%s\" is not a valid line, skipping"\
-                     % (i, line.strip()))
+                warning(
+                    'line %d: "%s" is not a valid line, skipping' % (i, line.strip())
+                )
                 continue
 
             namevalue[0] = namevalue[0].strip()
             if len(namevalue[0].split()) > 1:
-                warning("line %d: \"%s\" is not a valid line, skipping"\
-                     % (i, line.strip()))
+                warning(
+                    'line %d: "%s" is not a valid line, skipping' % (i, line.strip())
+                )
                 continue
 
             namevalue[1] = namevalue[1].strip()
             if len(namevalue[1].split()) > 1:
-                warning("line %d: \"%s\" is not a valid line, skipping"\
-                     % (i, line.strip()))
+                warning(
+                    'line %d: "%s" is not a valid line, skipping' % (i, line.strip())
+                )
                 continue
 
             namevalue_list.append(namevalue)
 
     return namevalue_list
+
 
 def first_cmp_func(a):
     """
@@ -215,12 +225,14 @@ def first_cmp_func(a):
 
     return a[0]
 
+
 def int_cmp_func(a):
     """
     Return the interface name to sort/compare on.
     """
 
     return a["interface_name"]
+
 
 def temp_cmp_func(a):
     """
@@ -229,6 +241,7 @@ def temp_cmp_func(a):
 
     return a["template_name"]
 
+
 def tun_cmp_func(a):
     """
     Return the tunable name to sort/compare on.
@@ -236,12 +249,14 @@ def tun_cmp_func(a):
 
     return a["tun_name"]
 
+
 def bool_cmp_func(a):
     """
     Return the boolean name to sort/compare on.
     """
 
     return a["bool_name"]
+
 
 def gen_doc_menu(mod_layer, module_list):
     """
@@ -254,7 +269,7 @@ def gen_doc_menu(mod_layer, module_list):
         menu.append(cur_menu)
         if layer != mod_layer and mod_layer != None:
             continue
-        #we are in our layer so fill in the other modules or we want them all
+        # we are in our layer so fill in the other modules or we want them all
         for mod, desc in value.items():
             cur_menu[1].append((mod, desc))
 
@@ -263,32 +278,40 @@ def gen_doc_menu(mod_layer, module_list):
         x[1].sort(key=first_cmp_func)
     return menu
 
+
 def format_html_desc(node):
     """
     Formats a XML node into a HTML format.
     """
 
-    desc_buf = ''
+    desc_buf = ""
     for desc in node.childNodes:
         if desc.nodeName == "#text":
-            if desc.data != '':
+            if desc.data != "":
                 if desc.parentNode.nodeName != "p":
                     desc_buf += "<p>" + desc.data + "</p>"
                 else:
                     desc_buf += desc.data
         else:
-            desc_buf += "<" + desc.nodeName + ">" \
-                 + format_html_desc(desc) \
-                 + "</" + desc.nodeName +">"
+            desc_buf += (
+                "<"
+                + desc.nodeName
+                + ">"
+                + format_html_desc(desc)
+                + "</"
+                + desc.nodeName
+                + ">"
+            )
 
     return desc_buf
+
 
 def format_txt_desc(node):
     """
     Formats a XML node into a plain text format.
     """
 
-    desc_buf = ''
+    desc_buf = ""
     for desc in node.childNodes:
         if desc.nodeName == "#text":
             desc_buf += desc.data + "\n"
@@ -302,13 +325,14 @@ def format_txt_desc(node):
 
     return desc_buf.strip() + "\n"
 
+
 def gen_docs(doc, working_dir, templatedir):
     """
     Generates all the documentation.
     """
 
     try:
-        #get the template data ahead of time so we don't reopen them over and over
+        # get the template data ahead of time so we don't reopen them over and over
         bodyfile = open(templatedir + "/header.html")
         bodydata = bodyfile.read()
         bodyfile.close()
@@ -354,17 +378,15 @@ def gen_docs(doc, working_dir, templatedir):
     except:
         error("Could not open templates")
 
-
     try:
         os.chdir(working_dir)
     except:
         error("Could not chdir to target directory")
 
-
-#arg, i have to go through this dom tree ahead of time to build up the menus
+    # arg, i have to go through this dom tree ahead of time to build up the menus
     module_list = {}
     for node in doc.getElementsByTagName("module"):
-        mod_name = mod_layer = interface_buf = ''
+        mod_name = mod_layer = interface_buf = ""
 
         mod_name = node.getAttribute("name")
         mod_layer = node.parentNode.getAttribute("name")
@@ -377,9 +399,9 @@ def gen_docs(doc, working_dir, templatedir):
 
         module_list[mod_layer][mod_name] = mod_summary
 
-#generate index pages
-    main_content_buf = ''
-    for mod_layer,modules in module_list.items():
+    # generate index pages
+    main_content_buf = ""
+    for mod_layer, modules in module_list.items():
         menu = gen_doc_menu(mod_layer, module_list)
 
         layer_summary = None
@@ -387,9 +409,11 @@ def gen_docs(doc, working_dir, templatedir):
             if desc.parentNode.getAttribute("name") == mod_layer:
                 layer_summary = format_html_desc(desc)
 
-        menu_args = { "menulist" : menu,
-                  "mod_layer" : mod_layer,
-                  "layer_summary" : layer_summary }
+        menu_args = {
+            "menulist": menu,
+            "mod_layer": mod_layer,
+            "layer_summary": layer_summary,
+        }
         menu_tpl = pyplate.Template(menudata)
         menu_buf = menu_tpl.execute_string(menu_args)
 
@@ -398,8 +422,7 @@ def gen_docs(doc, working_dir, templatedir):
 
         main_content_buf += content_buf
 
-        body_args = { "menu" : menu_buf,
-                  "content" : content_buf }
+        body_args = {"menu": menu_buf, "content": content_buf}
 
         index_file = mod_layer + ".html"
         index_fh = open(index_file, "w")
@@ -408,27 +431,25 @@ def gen_docs(doc, working_dir, templatedir):
         index_fh.close()
 
     menu = gen_doc_menu(None, module_list)
-    menu_args = { "menulist" : menu,
-              "mod_layer" : None }
+    menu_args = {"menulist": menu, "mod_layer": None}
     menu_tpl = pyplate.Template(menudata)
     menu_buf = menu_tpl.execute_string(menu_args)
 
-    body_args = { "menu" : menu_buf,
-              "content" : main_content_buf }
+    body_args = {"menu": menu_buf, "content": main_content_buf}
 
     index_file = "index.html"
     index_fh = open(index_file, "w")
     body_tpl = pyplate.Template(bodydata)
     body_tpl.execute(index_fh, body_args)
     index_fh.close()
-#now generate the individual module pages
+    # now generate the individual module pages
 
     all_interfaces = []
     all_templates = []
     all_tunables = []
     all_booleans = []
     for node in doc.getElementsByTagName("module"):
-        mod_name = mod_layer = mod_desc = interface_buf = ''
+        mod_name = mod_layer = mod_desc = interface_buf = ""
 
         mod_name = node.getAttribute("name")
         mod_layer = node.parentNode.getAttribute("name")
@@ -469,30 +490,39 @@ def gen_docs(doc, working_dir, templatedir):
                     paramunused = "Yes"
                 else:
                     paramunused = "No"
-                parameter = { "name" : paramname,
-                          "desc" : paramdesc,
-                          "optional" : paramopt,
-                          "unused" : paramunused }
+                parameter = {
+                    "name": paramname,
+                    "desc": paramdesc,
+                    "optional": paramopt,
+                    "unused": paramunused,
+                }
                 interface_parameters.append(parameter)
-            interfaces.append( { "interface_name" : interface_name,
-                       "interface_line" : interface_line,
-                       "interface_summary" : interface_summary,
-                       "interface_desc" : interface_desc,
-                       "interface_parameters" : interface_parameters })
-            #all_interfaces is for the main interface index with all interfaces
-            all_interfaces.append( { "interface_name" : interface_name,
-                       "interface_line" : interface_line,
-                       "interface_summary" : interface_summary,
-                       "interface_desc" : interface_desc,
-                       "interface_parameters" : interface_parameters,
-                       "mod_name": mod_name,
-                       "mod_layer" : mod_layer })
+            interfaces.append(
+                {
+                    "interface_name": interface_name,
+                    "interface_line": interface_line,
+                    "interface_summary": interface_summary,
+                    "interface_desc": interface_desc,
+                    "interface_parameters": interface_parameters,
+                }
+            )
+            # all_interfaces is for the main interface index with all interfaces
+            all_interfaces.append(
+                {
+                    "interface_name": interface_name,
+                    "interface_line": interface_line,
+                    "interface_summary": interface_summary,
+                    "interface_desc": interface_desc,
+                    "interface_parameters": interface_parameters,
+                    "mod_name": mod_name,
+                    "mod_layer": mod_layer,
+                }
+            )
         interfaces.sort(key=int_cmp_func)
         interface_tpl = pyplate.Template(intdata)
-        interface_buf = interface_tpl.execute_string({"interfaces" : interfaces})
+        interface_buf = interface_tpl.execute_string({"interfaces": interfaces})
 
-
-# now generate individual template pages
+        # now generate individual template pages
         templates = []
         for template in node.getElementsByTagName("template"):
             template_parameters = []
@@ -517,30 +547,40 @@ def gen_docs(doc, working_dir, templatedir):
                     paramunused = "Yes"
                 else:
                     paramunused = "No"
-                parameter = { "name" : paramname,
-                          "desc" : paramdesc,
-                          "optional" : paramopt,
-                          "unused": paramunused }
+                parameter = {
+                    "name": paramname,
+                    "desc": paramdesc,
+                    "optional": paramopt,
+                    "unused": paramunused,
+                }
                 template_parameters.append(parameter)
-            templates.append( { "template_name" : template_name,
-                       "template_line" : template_line,
-                       "template_summary" : template_summary,
-                       "template_desc" : template_desc,
-                       "template_parameters" : template_parameters })
-            #all_templates is for the main interface index with all templates
-            all_templates.append( { "template_name" : template_name,
-                       "template_line" : template_line,
-                       "template_summary" : template_summary,
-                       "template_desc" : template_desc,
-                       "template_parameters" : template_parameters,
-                       "mod_name": mod_name,
-                       "mod_layer" : mod_layer })
+            templates.append(
+                {
+                    "template_name": template_name,
+                    "template_line": template_line,
+                    "template_summary": template_summary,
+                    "template_desc": template_desc,
+                    "template_parameters": template_parameters,
+                }
+            )
+            # all_templates is for the main interface index with all templates
+            all_templates.append(
+                {
+                    "template_name": template_name,
+                    "template_line": template_line,
+                    "template_summary": template_summary,
+                    "template_desc": template_desc,
+                    "template_parameters": template_parameters,
+                    "mod_name": mod_name,
+                    "mod_layer": mod_layer,
+                }
+            )
 
         templates.sort(key=temp_cmp_func)
         template_tpl = pyplate.Template(templatedata)
-        template_buf = template_tpl.execute_string({"templates" : templates})
+        template_buf = template_tpl.execute_string({"templates": templates})
 
-        #generate 'boolean' pages
+        # generate 'boolean' pages
         booleans = []
         for boolean in node.getElementsByTagName("bool"):
             boolean_desc = None
@@ -550,20 +590,28 @@ def gen_docs(doc, working_dir, templatedir):
                 if desc.nodeName == "desc":
                     boolean_desc = format_html_desc(desc)
 
-            booleans.append({ "bool_name" : boolean_name,
-                      "desc" : boolean_desc,
-                      "def_val" : boolean_dftval })
-            #all_booleans is for the main boolean index with all booleans
-            all_booleans.append({ "bool_name" : boolean_name,
-                       "desc" : boolean_desc,
-                       "def_val" : boolean_dftval,
-                       "mod_name": mod_name,
-                       "mod_layer" : mod_layer })
+            booleans.append(
+                {
+                    "bool_name": boolean_name,
+                    "desc": boolean_desc,
+                    "def_val": boolean_dftval,
+                }
+            )
+            # all_booleans is for the main boolean index with all booleans
+            all_booleans.append(
+                {
+                    "bool_name": boolean_name,
+                    "desc": boolean_desc,
+                    "def_val": boolean_dftval,
+                    "mod_name": mod_name,
+                    "mod_layer": mod_layer,
+                }
+            )
         booleans.sort(key=bool_cmp_func)
         boolean_tpl = pyplate.Template(booldata)
-        boolean_buf = boolean_tpl.execute_string({"booleans" : booleans})
+        boolean_buf = boolean_tpl.execute_string({"booleans": booleans})
 
-        #generate 'tunable' pages
+        # generate 'tunable' pages
         tunables = []
         for tunable in node.getElementsByTagName("tunable"):
             tunable_desc = None
@@ -573,25 +621,31 @@ def gen_docs(doc, working_dir, templatedir):
                 if desc.nodeName == "desc":
                     tunable_desc = format_html_desc(desc)
 
-            tunables.append({ "tun_name" : tunable_name,
-                      "desc" : tunable_desc,
-                      "def_val" : tunable_dftval })
-            #all_tunables is for the main tunable index with all tunables
-            all_tunables.append({ "tun_name" : tunable_name,
-                       "desc" : tunable_desc,
-                       "def_val" : tunable_dftval,
-                       "mod_name": mod_name,
-                       "mod_layer" : mod_layer })
+            tunables.append(
+                {
+                    "tun_name": tunable_name,
+                    "desc": tunable_desc,
+                    "def_val": tunable_dftval,
+                }
+            )
+            # all_tunables is for the main tunable index with all tunables
+            all_tunables.append(
+                {
+                    "tun_name": tunable_name,
+                    "desc": tunable_desc,
+                    "def_val": tunable_dftval,
+                    "mod_name": mod_name,
+                    "mod_layer": mod_layer,
+                }
+            )
         tunables.sort(key=tun_cmp_func)
         tunable_tpl = pyplate.Template(tundata)
-        tunable_buf = tunable_tpl.execute_string({"tunables" : tunables})
-
+        tunable_buf = tunable_tpl.execute_string({"tunables": tunables})
 
         menu = gen_doc_menu(mod_layer, module_list)
 
         menu_tpl = pyplate.Template(menudata)
-        menu_buf = menu_tpl.execute_string({ "menulist" : menu })
-
+        menu_buf = menu_tpl.execute_string({"menulist": menu})
 
         # pyplate's execute_string gives us a line of whitespace in
         # template_buf or interface_buf if there are no interfaces or
@@ -611,21 +665,22 @@ def gen_docs(doc, working_dir, templatedir):
         if not boolean_buf.strip():
             boolean_buf = None
 
-        module_args = { "mod_layer" : mod_layer,
-                  "mod_name" : mod_name,
-                  "mod_summary" : mod_summary,
-                  "mod_desc" : mod_desc,
-                  "mod_req" : mod_req,
-                  "interfaces" : interface_buf,
-                  "templates" : template_buf,
-                  "tunables" : tunable_buf,
-                  "booleans" : boolean_buf }
+        module_args = {
+            "mod_layer": mod_layer,
+            "mod_name": mod_name,
+            "mod_summary": mod_summary,
+            "mod_desc": mod_desc,
+            "mod_req": mod_req,
+            "interfaces": interface_buf,
+            "templates": template_buf,
+            "tunables": tunable_buf,
+            "booleans": boolean_buf,
+        }
 
         module_tpl = pyplate.Template(moduledata)
         module_buf = module_tpl.execute_string(module_args)
 
-        body_args = { "menu" : menu_buf,
-                  "content" : module_buf }
+        body_args = {"menu": menu_buf, "content": module_buf}
 
         module_file = mod_layer + "_" + mod_name + ".html"
         module_fh = open(module_file, "w")
@@ -633,44 +688,38 @@ def gen_docs(doc, working_dir, templatedir):
         body_tpl.execute(module_fh, body_args)
         module_fh.close()
 
-
     menu = gen_doc_menu(None, module_list)
-    menu_args = { "menulist" : menu,
-              "mod_layer" : None }
+    menu_args = {"menulist": menu, "mod_layer": None}
     menu_tpl = pyplate.Template(menudata)
     menu_buf = menu_tpl.execute_string(menu_args)
 
-    #build the interface index
+    # build the interface index
     all_interfaces.sort(key=int_cmp_func)
     interface_tpl = pyplate.Template(intlistdata)
-    interface_buf = interface_tpl.execute_string({"interfaces" : all_interfaces})
+    interface_buf = interface_tpl.execute_string({"interfaces": all_interfaces})
     int_file = "interfaces.html"
     int_fh = open(int_file, "w")
     body_tpl = pyplate.Template(bodydata)
 
-    body_args = { "menu" : menu_buf,
-              "content" : interface_buf }
+    body_args = {"menu": menu_buf, "content": interface_buf}
 
     body_tpl.execute(int_fh, body_args)
     int_fh.close()
 
-
-    #build the template index
+    # build the template index
     all_templates.sort(key=temp_cmp_func)
     template_tpl = pyplate.Template(templistdata)
-    template_buf = template_tpl.execute_string({"templates" : all_templates})
+    template_buf = template_tpl.execute_string({"templates": all_templates})
     temp_file = "templates.html"
     temp_fh = open(temp_file, "w")
     body_tpl = pyplate.Template(bodydata)
 
-    body_args = { "menu" : menu_buf,
-              "content" : template_buf }
+    body_args = {"menu": menu_buf, "content": template_buf}
 
     body_tpl.execute(temp_fh, body_args)
     temp_fh.close()
 
-
-    #build the global tunable index
+    # build the global tunable index
     global_tun = []
     for tunable in doc.getElementsByTagName("tunable"):
         if tunable.parentNode.nodeName == "policy":
@@ -678,38 +727,40 @@ def gen_docs(doc, working_dir, templatedir):
             default_value = tunable.getAttribute("dftval")
             for desc in tunable.getElementsByTagName("desc"):
                 description = format_html_desc(desc)
-            global_tun.append( { "tun_name" : tunable_name,
-                        "def_val" : default_value,
-                        "desc" : description } )
+            global_tun.append(
+                {
+                    "tun_name": tunable_name,
+                    "def_val": default_value,
+                    "desc": description,
+                }
+            )
     global_tun.sort(key=tun_cmp_func)
     global_tun_tpl = pyplate.Template(gtunlistdata)
-    global_tun_buf = global_tun_tpl.execute_string({"tunables" : global_tun})
+    global_tun_buf = global_tun_tpl.execute_string({"tunables": global_tun})
     global_tun_file = "global_tunables.html"
     global_tun_fh = open(global_tun_file, "w")
     body_tpl = pyplate.Template(bodydata)
 
-    body_args = { "menu" : menu_buf,
-              "content" : global_tun_buf }
+    body_args = {"menu": menu_buf, "content": global_tun_buf}
 
     body_tpl.execute(global_tun_fh, body_args)
     global_tun_fh.close()
 
-    #build the tunable index
+    # build the tunable index
     all_tunables = all_tunables + global_tun
     all_tunables.sort(key=tun_cmp_func)
     tunable_tpl = pyplate.Template(tunlistdata)
-    tunable_buf = tunable_tpl.execute_string({"tunables" : all_tunables})
+    tunable_buf = tunable_tpl.execute_string({"tunables": all_tunables})
     temp_file = "tunables.html"
     temp_fh = open(temp_file, "w")
     body_tpl = pyplate.Template(bodydata)
 
-    body_args = { "menu" : menu_buf,
-              "content" : tunable_buf }
+    body_args = {"menu": menu_buf, "content": tunable_buf}
 
     body_tpl.execute(temp_fh, body_args)
     temp_fh.close()
 
-    #build the global boolean index
+    # build the global boolean index
     global_bool = []
     for boolean in doc.getElementsByTagName("bool"):
         if boolean.parentNode.nodeName == "policy":
@@ -717,37 +768,34 @@ def gen_docs(doc, working_dir, templatedir):
             default_value = boolean.getAttribute("dftval")
             for desc in boolean.getElementsByTagName("desc"):
                 description = format_html_desc(desc)
-            global_bool.append( { "bool_name" : bool_name,
-                        "def_val" : default_value,
-                        "desc" : description } )
+            global_bool.append(
+                {"bool_name": bool_name, "def_val": default_value, "desc": description}
+            )
     global_bool.sort(key=bool_cmp_func)
     global_bool_tpl = pyplate.Template(gboollistdata)
-    global_bool_buf = global_bool_tpl.execute_string({"booleans" : global_bool})
+    global_bool_buf = global_bool_tpl.execute_string({"booleans": global_bool})
     global_bool_file = "global_booleans.html"
     global_bool_fh = open(global_bool_file, "w")
     body_tpl = pyplate.Template(bodydata)
 
-    body_args = { "menu" : menu_buf,
-              "content" : global_bool_buf }
+    body_args = {"menu": menu_buf, "content": global_bool_buf}
 
     body_tpl.execute(global_bool_fh, body_args)
     global_bool_fh.close()
 
-    #build the boolean index
+    # build the boolean index
     all_booleans = all_booleans + global_bool
     all_booleans.sort(key=bool_cmp_func)
     boolean_tpl = pyplate.Template(boollistdata)
-    boolean_buf = boolean_tpl.execute_string({"booleans" : all_booleans})
+    boolean_buf = boolean_tpl.execute_string({"booleans": all_booleans})
     temp_file = "booleans.html"
     temp_fh = open(temp_file, "w")
     body_tpl = pyplate.Template(bodydata)
 
-    body_args = { "menu" : menu_buf,
-              "content" : boolean_buf }
+    body_args = {"menu": menu_buf, "content": boolean_buf}
 
     body_tpl.execute(temp_fh, body_args)
     temp_fh.close()
-
 
 
 def error(error):
@@ -758,12 +806,14 @@ def error(error):
     print(f"{sys.argv[0]} exiting for: {error}", file=sys.stderr, flush=True)
     sys.exit(1)
 
+
 def warning(warn):
     """
     Print a warning message.
     """
 
     print(f"{sys.argv[0]} warning: {warn}", file=sys.stderr)
+
 
 def usage():
     """
@@ -781,7 +831,9 @@ def usage():
 
 # MAIN PROGRAM
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "b:m:d:x:T:", ["booleans","modules","docs","xml", "templates"])
+    opts, args = getopt.getopt(
+        sys.argv[1:], "b:m:d:x:T:", ["booleans", "modules", "docs", "xml", "templates"]
+    )
 except getopt.GetoptError:
     usage()
     sys.exit(1)
@@ -817,7 +869,7 @@ if booleans:
         conf.close()
 
     try:
-        conf = open(booleans, 'w')
+        conf = open(booleans, "w")
     except:
         error("Could not open booleans file for writing")
 
@@ -836,7 +888,7 @@ if modules:
         conf.close()
 
     try:
-        conf = open(modules, 'w')
+        conf = open(modules, "w")
     except:
         error("Could not open modules file for writing")
     gen_module_conf(doc, conf, namevalue_list)
