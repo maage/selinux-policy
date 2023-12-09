@@ -9,12 +9,26 @@
 
 import getopt
 import re
-import string
 import sys
-
-NETPORT = re.compile(
-    r"^network_port\(\s*\w+\s*(\s*,\s*\w+\s*,\s*\w+\s*,\s*\w+\s*)+\s*\)\s*(#|$)"
+from collections.abc import (
+    Sequence,
 )
+from dataclasses import (
+    dataclass,
+    field,
+)
+
+re_network_port = r"^network_port"
+re_netport_parameters = r"\s*,\s*(\w+)\s*,\s*([\w-]+)\s*,\s*(\w+)"
+re_netport = (
+    re_network_port
+    + r"\(\s*(?P<name>\w+)\s*(?P<parameters>(?:"
+    + re_netport_parameters
+    + r")+)?\s*\)\s*(?:#|$)"
+)
+NETWORK_PORT = re.compile(re_network_port)
+NETPORT_PARAMETERS = re.compile(re_netport_parameters)
+NETPORT = re.compile(re_netport)
 
 DEFAULT_INPUT_PACKET = "server_packet_t"
 DEFAULT_OUTPUT_PACKET = "client_packet_t"
@@ -25,29 +39,18 @@ PACKET_INPUT = "_server_packet_t"
 PACKET_OUTPUT = "_client_packet_t"
 
 
+@dataclass(frozen=True)
 class Port:
-    def __init__(self, proto, num, mls_sens):
-        # protocol of the port
-        self.proto = proto
-
-        # port number
-        self.num = num
-
-        # MLS sensitivity
-        self.mls_sens = mls_sens
-
-        # MCS categories
-        # not currently supported, so we always get s0
-        self.mcs_cats = DEFAULT_MCS
+    proto: str
+    num: str
+    mls_sens: str
+    mcs_cats: str = ""
 
 
+@dataclass(frozen=True)
 class Packet:
-    def __init__(self, prefix, ports):
-        # prefix
-        self.prefix = prefix
-
-        # A list of Ports
-        self.ports = ports
+    prefix: str
+    ports: Sequence[Port] = field(default_factory=list)
 
 
 def print_input_rules(packets, mls, mcs):
@@ -64,15 +67,7 @@ def print_input_rules(packets, mls, mcs):
 
     for i in packets:
         for j in i.ports:
-            line = (
-                "base -A selinux_new_input -p "
-                + j.proto
-                + " --dport "
-                + j.num
-                + " -j SECMARK --selctx system_u:object_r:"
-                + i.prefix
-                + PACKET_INPUT
-            )
+            line = f"base -A selinux_new_input -p {j.proto} --dport {j.num} -j SECMARK --selctx system_u:object_r:{i.prefix}{PACKET_INPUT}"
             if mls:
                 line += ":" + j.mls_sens
             elif mcs:
@@ -96,15 +91,7 @@ def print_output_rules(packets, mls, mcs):
 
     for i in packets:
         for j in i.ports:
-            line = (
-                "base -A selinux_new_output -p "
-                + j.proto
-                + " --dport "
-                + j.num
-                + " -j SECMARK --selctx system_u:object_r:"
-                + i.prefix
-                + PACKET_OUTPUT
-            )
+            line = f"base -A selinux_new_output -p {j.proto} --dport {j.num} -j SECMARK --selctx system_u:object_r:{i.prefix}{PACKET_OUTPUT}"
             if mls:
                 line += ":" + j.mls_sens
             elif mcs:
@@ -119,26 +106,34 @@ def parse_corenet(file_name):
     packets = []
 
     with open(file_name) as corenet_te_in:
-        for corenet_line in corenet_te_in:
-            if not NETPORT.match(corenet_line):
+        for lineno, corenet_line in enumerate(corenet_te_in, start=1):
+            corenet_line = corenet_line.strip()
+            if not corenet_line:
                 continue
 
-            corenet_line = corenet_line.strip()
+            if NETWORK_PORT.match(corenet_line) is None:
+                continue
 
-            # parse out the parameters
-            openparen = string.find(corenet_line, "(") + 1
-            closeparen = string.find(corenet_line, ")", openparen)
-            parms = re.split(r"\W+", corenet_line[openparen:closeparen])
-            name = parms[0]
-            del parms[0]
+            match = NETPORT.match(corenet_line)
+            if match is None:
+                sys.stderr.write(
+                    f"{file_name}:{lineno}: Parse error: '{corenet_line}'\n"
+                )
+                sys.exit(1)
 
+            if match.lastgroup == "name":
+                # No parameters, so not possible to add port here
+                continue
+
+            parms = re.findall(NETPORT_PARAMETERS, match.group("parameters"))
             ports = []
-            while len(parms) > 0:
-                # add a port combination.
-                ports.append(Port(parms[0], parms[1], parms[2]))
-                del parms[:3]
+            for p in parms:
+                proto, num, mls_sens = p[0:3]
+                # Ports can be either single or range, fix range char
+                num = num.replace("-", ":")
+                ports.append(Port(proto, num, mls_sens))
 
-            packets.append(Packet(name, ports))
+            packets.append(Packet(match.group("name"), ports))
 
     return packets
 
