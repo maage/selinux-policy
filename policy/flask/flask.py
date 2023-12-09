@@ -106,7 +106,8 @@ class Flask:
         '''
         Prints a warning message out to stderr if warnings are enabled.
         '''
-        if self.WARN: sys.stderr.write("Warning: %s\n" % msg)
+        if self.WARN:
+            print(f"Warning: {msg}", file=sys.stderr)
 
     def parseClasses(self, path):
         '''
