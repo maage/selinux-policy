@@ -118,16 +118,11 @@ def print_output_rules(packets, mls, mcs):
 def parse_corenet(file_name):
     packets = []
 
-    corenet_te_in = open(file_name)
+    with open(file_name) as corenet_te_in:
+        for corenet_line in corenet_te_in:
+            if not NETPORT.match(corenet_line):
+                continue
 
-    while True:
-        corenet_line = corenet_te_in.readline()
-
-        # If EOF has been reached:
-        if not corenet_line:
-            break
-
-        if NETPORT.match(corenet_line):
             corenet_line = corenet_line.strip()
 
             # parse out the parameters
@@ -144,8 +139,6 @@ def parse_corenet(file_name):
                 del parms[:3]
 
             packets.append(Packet(name, ports))
-
-    corenet_te_in.close()
 
     return packets
 
