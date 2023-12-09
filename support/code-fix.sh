@@ -63,6 +63,7 @@ ruf=(
     N806
     N818
     PERF102
+    PIE790
     PIE808
     PLR1714
     PLR1722
