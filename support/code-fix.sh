@@ -44,6 +44,7 @@ ruf=(
     D206
     E101
     SIM109
+    SIM118
     W191
 )
 if (( ${#ruf[@]} )); then
@@ -55,6 +56,8 @@ fi
 
 pyl=(
     broad-exception-caught
+    consider-iterating-dictionary
+    consider-using-dict-items
     line-too-long
     no-value-for-parameter
 )
