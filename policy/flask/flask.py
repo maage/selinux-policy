@@ -345,7 +345,6 @@ class Flask:
         count = 0
         for common in self.commons:
             count = 0
-            shift = 0
             for p in self.common[common]:
                 if not (mode == self.KERNEL and self.user_commons[common]):
                     columnA = "#define COMMON_%s__%s " % (common.upper(), p.upper())
