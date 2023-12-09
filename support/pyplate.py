@@ -191,12 +191,12 @@ class ForTemplateNode(TemplateNode):
         for var in self.vars:
             if var in data:
                 remember_vars[var] = data[var]
-        for list in eval(self.expression, globals(), data):
-            if is_sequence(list):
-                for index, value in enumerate(list):
+        for lst in eval(self.expression, globals(), data):
+            if is_sequence(lst):
+                for index, value in enumerate(lst):
                     data[self.vars[index]] = value
             else:
-                data[self.vars[0]] = list
+                data[self.vars[0]] = lst
             TemplateNode.execute(self, stream, data)
         for key, value in remember_vars.items():
             data[key] = value
