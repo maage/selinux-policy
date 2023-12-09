@@ -128,7 +128,7 @@ class Flask:
             if m:
                 g = m.groupdict()
                 c = g['name']
-                if c in classes: raise DuplicateError, (self.CLASS, path, number, c)
+                if c in classes: raise DuplicateError(self.CLASS, path, number, c)
                 classes.append(c)
                 if self.USERFLAG.search(line):
                     self.userspace[c] = True
@@ -136,7 +136,7 @@ class Flask:
                     self.userspace[c] = False
                 continue
 
-            raise ParseError, ("data.  Was expecting either a comment, whitespace, or class definition. ", path, number)
+            raise ParseError("data.  Was expecting either a comment, whitespace, or class definition. ", path, number)
 
         self.classes = classes
         return classes
@@ -159,11 +159,11 @@ class Flask:
             if m:
                 g = m.groupdict()
                 s = g['name']
-                if s in sids: raise DuplicateError, (self.SID, path, number, s)
+                if s in sids: raise DuplicateError(self.SID, path, number, s)
                 sids.append(s)
                 continue
 
-            raise ParseError, ("data. Was expecting either a comment, whitespace, or security identifier. ", path, number)
+            raise ParseError("data. Was expecting either a comment, whitespace, or security identifier. ", path, number)
 
         self.sids = sids
         return sids
@@ -203,10 +203,10 @@ class Flask:
 
             m = self.COMMON.search(line)
             if m:
-                if state != NONE: raise ParseError, (self.COMMON, path, number)
+                if state != NONE: raise ParseError(self.COMMON, path, number)
                 g = m.groupdict()
                 c = g['name']
-                if c in commons: raise DuplicateError, (self.COMMON, path, number, c)
+                if c in commons: raise DuplicateError(self.COMMON, path, number, c)
                 commons.append(c)
                 common[c] = []
                 user_commons[c] = True
@@ -215,11 +215,11 @@ class Flask:
 
             m = self.CLASS.search(line)
             if m:
-                if state != NONE: raise ParseError, (self.CLASS, number)
+                if state != NONE: raise ParseError(self.CLASS, number)
                 g = m.groupdict()
                 c = g['name']
-                if c in vectors: raise DuplicateError, (self.CLASS, path, number, c)
-                if c not in self.classes: raise UndefinedError, (self.CLASS, path, number, c)
+                if c in vectors: raise DuplicateError(self.CLASS, path, number, c)
+                if c not in self.classes: raise UndefinedError(self.CLASS, path, number, c)
                 vectors.append(c)
                 vector[c] = []
                 state = CLASS
@@ -227,11 +227,11 @@ class Flask:
 
             m = self.INHERITS.search(line)
             if m:
-                if state != CLASS: raise ParseError, (self.INHERITS, number)
+                if state != CLASS: raise ParseError(self.INHERITS, number)
                 g = m.groupdict()
                 i = g['name']
-                if c in inherits: raise DuplicateError, (self.INHERITS, path, number, c)
-                if i not in common: raise UndefinedError, (self.COMMON, path, number, i)
+                if c in inherits: raise DuplicateError(self.INHERITS, path, number, c)
+                if i not in common: raise UndefinedError(self.COMMON, path, number, i)
                 inherits[c] = i
                 state = INHERIT
                 if not self.userspace[c]: user_commons[i] = False
@@ -243,37 +243,37 @@ class Flask:
                 and state != INHERIT \
                 and state != COMMON) \
                 or state2 != NONE:
-                    raise ParseError, (self.OPENB, path, number)
+                    raise ParseError(self.OPENB, path, number)
                 state2 = OPEN
                 continue
 
             m = self.VECTOR.search(line)
             if m:
-                if state2 != OPEN: raise ParseError, (self.VECTOR, path, number)
+                if state2 != OPEN: raise ParseError(self.VECTOR, path, number)
                 g = m.groupdict()
                 v = g['name']
                 if state == CLASS or state == INHERIT:
-                    if v in vector[c]: raise DuplicateError, (self.VECTOR, path, number, v)
+                    if v in vector[c]: raise DuplicateError(self.VECTOR, path, number, v)
                     vector[c].append(v)
                 elif state == COMMON:
-                    if v in common[c]: raise DuplicateError, (self.VECTOR, path, number, v)
+                    if v in common[c]: raise DuplicateError(self.VECTOR, path, number, v)
                     common[c].append(v)
                 continue
 
             m = self.CLOSEB.search(line)
             if m:
-                if state2 != OPEN: raise ParseError, (self.CLOSEB, path, number)
+                if state2 != OPEN: raise ParseError(self.CLOSEB, path, number)
                 state = NONE
                 state2 = NONE
                 c = None
                 continue
 
-            raise ParseError, ("data", path, number)
+            raise ParseError("data", path, number)
 
-        if state != NONE and state2 != NONE: raise ParseError, (self.EOF, path, number)
+        if state != NONE and state2 != NONE: raise ParseError(self.EOF, path, number)
 
         cvdiff = set(self.classes) - set(vectors)
-        if cvdiff: raise UnusedError, "Not all security classes were used in access vectors: %s" % cvdiff # the inverse of this will be caught as an undefined class error
+        if cvdiff: raise UnusedError("Not all security classes were used in access vectors: %s" % cvdiff) # the inverse of this will be caught as an undefined class error
 
         self.commons = commons
         self.user_commons = user_commons
@@ -531,6 +531,6 @@ if __name__ == '__main__':
         f.parseClasses(secc)
         f.parseVectors(avec)
         f.createHeaders(outd, mode)
-    except Exception, e:
+    except Exception as e:
         print(e)
         sys.exit(2)
