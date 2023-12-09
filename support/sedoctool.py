@@ -166,16 +166,14 @@ def gen_module_conf(doc, file_name, namevalue_list):
                 elif [mod_name, MOD_ENABLED] in namevalue_list:
                     file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
                 # If the module is set as base.
-                elif [mod_name, MOD_BASE] in namevalue_list:
-                    file_name.write(f"{mod_name} = {MOD_BASE}\n\n")
+                # or
                 # If the module is a new module.
+                # Set the module to base if it is marked as required.
+                elif ([mod_name, MOD_BASE] in namevalue_list) or mod_req:
+                    file_name.write(f"{mod_name} = {MOD_BASE}\n\n")
+                # Set the module to enabled if it is not required.
                 else:
-                    # Set the module to base if it is marked as required.
-                    if mod_req:
-                        file_name.write(f"{mod_name} = {MOD_BASE}\n\n")
-                    # Set the module to enabled if it is not required.
-                    else:
-                        file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
+                    file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
 
 
 def get_conf(conf):
