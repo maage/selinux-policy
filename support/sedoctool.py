@@ -543,7 +543,6 @@ def gen_docs(doc, working_dir, templatedir):
         #generate 'boolean' pages
         booleans = []
         for boolean in node.getElementsByTagName("bool"):
-            boolean_parameters = []
             boolean_desc = None
             boolean_name = boolean.getAttribute("name")
             boolean_dftval = boolean.getAttribute("dftval")
@@ -567,7 +566,6 @@ def gen_docs(doc, working_dir, templatedir):
         #generate 'tunable' pages
         tunables = []
         for tunable in node.getElementsByTagName("tunable"):
-            tunable_parameters = []
             tunable_desc = None
             tunable_name = tunable.getAttribute("name")
             tunable_dftval = tunable.getAttribute("dftval")
