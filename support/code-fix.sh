@@ -123,6 +123,7 @@ pyl=(
     empty-docstring
     eval-used
     exec-used
+    global-statement
     global-variable-not-assigned
     inconsistent-return-statements
     line-too-long
