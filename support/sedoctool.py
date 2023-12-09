@@ -379,7 +379,7 @@ def gen_docs(doc, working_dir, templatedir):
 
     # generate index pages
     main_content_buf = ""
-    for mod_layer, modules in module_list.items():
+    for mod_layer in module_list:
         menu = gen_doc_menu(mod_layer, module_list)
 
         layer_summary = None
