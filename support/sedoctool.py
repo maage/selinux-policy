@@ -475,11 +475,13 @@ def gen_docs(doc, working_dir, templatedir):
                           "unused" : paramunused }
                 interface_parameters.append(parameter)
             interfaces.append( { "interface_name" : interface_name,
+                       "interface_line" : interface_line,
                        "interface_summary" : interface_summary,
                        "interface_desc" : interface_desc,
                        "interface_parameters" : interface_parameters })
             #all_interfaces is for the main interface index with all interfaces
             all_interfaces.append( { "interface_name" : interface_name,
+                       "interface_line" : interface_line,
                        "interface_summary" : interface_summary,
                        "interface_desc" : interface_desc,
                        "interface_parameters" : interface_parameters,
@@ -521,11 +523,13 @@ def gen_docs(doc, working_dir, templatedir):
                           "unused": paramunused }
                 template_parameters.append(parameter)
             templates.append( { "template_name" : template_name,
+                       "template_line" : template_line,
                        "template_summary" : template_summary,
                        "template_desc" : template_desc,
                        "template_parameters" : template_parameters })
             #all_templates is for the main interface index with all templates
             all_templates.append( { "template_name" : template_name,
+                       "template_line" : template_line,
                        "template_summary" : template_summary,
                        "template_desc" : template_desc,
                        "template_parameters" : template_parameters,
