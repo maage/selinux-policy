@@ -22,9 +22,7 @@ sed -Ei '
 
 ! pyflakes "${py_files[@]}" |& grep 'invalid syntax' || exit 1
 
-if false; then
 ! pyflakes "${py_files[@]}" |& grep ^ || exit 1
-fi
 
 if false; then
 pyupgrade --py311-plus "${py_files[@]}"
@@ -41,6 +39,7 @@ fi
 ruf=(
     D206
     E101
+    F841
     SIM118
     W191
 )
