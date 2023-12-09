@@ -56,6 +56,7 @@ pyl=(
     consider-iterating-dictionary
     consider-using-dict-items
     undefined-variable
+    unused-import
 )
 if (( ${#pyl[@]} )); then
 pyl2="${pyl[*]}"
