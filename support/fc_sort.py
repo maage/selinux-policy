@@ -112,9 +112,9 @@ class FileContext():
 
     def __str__(self):
         if self.file_type:
-            return '{}\t\t{}\t{}'.format(self.path, self.file_type, self.context)
+            return f'{self.path}\t\t{self.file_type}\t{self.context}'
         else:
-            return '{}\t\t{}'.format(self.path, self.context)
+            return f'{self.path}\t\t{self.context}'
 
 
 if __name__ == '__main__':
@@ -140,7 +140,7 @@ if __name__ == '__main__':
             try:
                 file_context_definitions.append(FileContext(line))
             except ValueError:
-                print('{}:{}: unable to parse a file context line: {}'.format(args.infile, lineno, line))
+                print(f'{args.infile}:{lineno}: unable to parse a file context line: {line}')
                 exit(1)
 
     # Sort

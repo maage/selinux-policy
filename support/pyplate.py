@@ -147,7 +147,7 @@ class TemplateNode:
       self.node_list.append(node)
     else:
       raise self.parent.parser_exception(
-        "[[%s]] does not have a matching [[end]]" % self.s)
+        f"[[{self.s}]] does not have a matching [[end]]")
 
   def execute(self, stream, data):
     for node in self.node_list:
@@ -176,7 +176,7 @@ class ForTemplateNode(TemplateNode):
     match = re_for_loop.match(s)
     if match == None:
       raise self.parent.parser_exception(
-        "[[%s]] is not a valid for-loop expression" % self.s)
+        f"[[{self.s}]] is not a valid for-loop expression")
     else:
       self.vars_temp = match.group(1).split(",")
       self.vars = []
@@ -207,7 +207,7 @@ class IfTemplateNode(TemplateNode):
     match = re_if.match(s)
     if match == None:
       raise self.parent.parser_exception(
-        "[[%s]] is not a valid if expression" % self.s)
+        f"[[{self.s}]] is not a valid if expression")
     else:
       self.expression = match.group(1)
 
@@ -224,7 +224,7 @@ class IfTemplateNode(TemplateNode):
       self.node_list.append(node)
     else:
       raise self.parent.parser_exception(
-        "[[%s]] does not have a matching [[end]]" % self.s)
+        f"[[{self.s}]] does not have a matching [[end]]")
 
   def execute(self, stream, data):
     if eval(self.expression, globals(), data):
@@ -239,7 +239,7 @@ class ElifTemplateNode(IfTemplateNode):
     match = re_elif.match(s)
     if match == None:
       self.parent.parser_exception(
-        "[[%s]] is not a valid elif expression" % self.s)
+        f"[[{self.s}]] is not a valid elif expression")
     else:
       self.expression = match.group(1)
 
@@ -252,7 +252,7 @@ class FunctionTemplateNode(TemplateNode):
     match = re_def.match(s)
     if match == None:
       self.parent.parser_exception(
-        "[[%s]] is not a valid function definition" % self.s)
+        f"[[{self.s}]] is not a valid function definition")
     self.function_name = match.group(1)
     self.vars_temp = match.group(2).split(",")
     self.vars = []
@@ -302,7 +302,7 @@ class ExecTemplateNode(LeafTemplateNode):
     match = re_exec.match(s)
     if match == None:
       self.parent.parser_exception(
-        "[[%s]] is not a valid statement" % self.s)
+        f"[[{self.s}]] is not a valid statement")
     self.s = match.group(1)
 
   def execute(self, stream, data):
@@ -315,7 +315,7 @@ class CallTemplateNode(LeafTemplateNode):
     match = re_call.match(s)
     if match == None:
       self.parent.parser_exception(
-        "[[%s]] is not a valid function call" % self.s)
+        f"[[{self.s}]] is not a valid function call")
     self.function_name = match.group(1)
     self.vars = "(" + match.group(2).strip() + ",)"
 
