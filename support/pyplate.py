@@ -81,9 +81,8 @@ class Template:
                 self.parse_string(filename)
 
     def parse_file(self, filename):
-        file = open(filename)
-        self.parse(file)
-        file.close()
+        with open(filename) as file:
+            self.parse(file)
 
     def parse_string(self, template):
         file = io.StringIO(template)
@@ -110,9 +109,8 @@ class Template:
         raise ParserException(self.lineno, s)
 
     def execute_file(self, filename, data):
-        file = open(filename, "w")
-        self.execute(file, data)
-        file.close()
+        with open(filename, "w") as file:
+            self.execute(file, data)
 
     def execute_string(self, data):
         s = io.StringIO()
