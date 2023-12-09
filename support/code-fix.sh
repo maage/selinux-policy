@@ -41,6 +41,7 @@ ruf=(
     E101
     F841
     SIM118
+    UP032
     W191
 )
 if (( ${#ruf[@]} )); then
