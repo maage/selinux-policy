@@ -12,35 +12,35 @@ import sys
 
 
 class ParseError(Exception):
-    def __init__(self, type, file, line):
-        self.type = type
+    def __init__(self, type_, file, line):
+        self.type = type_
         self.file = file
         self.line = line
 
     def __str__(self):
-        typeS = self.type
+        type_str = self.type
         if not isinstance(self.type, str):
-            typeS = Flask.CONSTANT_S[self.type]
+            type_str = Flask.CONSTANT_S[self.type]
         return "Parse Error: Unexpected %s on line %d of %s." % (
-            typeS,
+            type_str,
             self.line,
             self.file,
         )
 
 
 class DuplicateError(Exception):
-    def __init__(self, type, file, line, symbol):
-        self.type = type
+    def __init__(self, type_, file, line, symbol):
+        self.type = type_
         self.file = file
         self.line = line
         self.symbol = symbol
 
     def __str__(self):
-        typeS = self.type
+        type_str = self.type
         if not isinstance(self.type, str):
-            typeS = Flask.CONSTANT_S[self.type]
+            type_str = Flask.CONSTANT_S[self.type]
         return "Duplicate Error: Duplicate %s '%s' on line %d of %s." % (
-            typeS,
+            type_str,
             self.symbol,
             self.line,
             self.file,
@@ -48,18 +48,18 @@ class DuplicateError(Exception):
 
 
 class UndefinedError(Exception):
-    def __init__(self, type, file, line, symbol):
-        self.type = type
+    def __init__(self, type_, file, line, symbol):
+        self.type = type_
         self.file = file
         self.line = line
         self.symbol = symbol
 
     def __str__(self):
-        typeS = self.type
+        type_str = self.type
         if not isinstance(self.type, str):
-            typeS = Flask.CONSTANT_S[self.type]
+            type_str = Flask.CONSTANT_S[self.type]
         return "Undefined Error: %s '%s' is not defined but used on line %d of %s." % (
-            typeS,
+            type_str,
             self.symbol,
             self.line,
             self.file,
@@ -395,9 +395,9 @@ class Flask:
             count = 0
             for p in self.common[common]:
                 if not (mode == self.KERNEL and self.user_commons[common]):
-                    columnA = f"#define COMMON_{common.upper()}__{p.upper()} "
-                    columnA += "".join([" " for i in range(width - len(columnA))])
-                    results.append(f"{columnA}{self.createUL(count)}\n")
+                    column = f"#define COMMON_{common.upper()}__{p.upper()} "
+                    column += "".join([" " for i in range(width - len(column))])
+                    results.append(f"{column}{self.createUL(count)}\n")
                     count += 1
 
         width = 50  # broken for old tools whitespace
@@ -409,10 +409,10 @@ class Flask:
                 ps += self.common[self.inherits[c]]
             ps += self.vector[c]
             for p in ps:
-                columnA = f"#define {c.upper()}__{p.upper()} "
-                columnA += "".join([" " for i in range(width - len(columnA))])
+                column = f"#define {c.upper()}__{p.upper()} "
+                column += "".join([" " for i in range(width - len(column))])
                 if not (mode == self.KERNEL and self.userspace[c]):
-                    results.append(f"{columnA}{self.createUL(count)}\n")
+                    results.append(f"{column}{self.createUL(count)}\n")
                 count += 1
 
         return results
@@ -462,10 +462,10 @@ class Flask:
         width = 57
         for c in self.classes:
             count += 1
-            columnA = f"#define SECCLASS_{c.upper()} "
-            columnA += "".join([" " for i in range(width - len(columnA))])
+            column = f"#define SECCLASS_{c.upper()} "
+            column += "".join([" " for i in range(width - len(column))])
             if not (mode == self.KERNEL and self.userspace[c]):
-                results.append("%s%d\n" % (columnA, count))
+                results.append("%s%d\n" % (column, count))
 
         results.append("\n")
         results.append("/*\n")
@@ -476,14 +476,14 @@ class Flask:
         width = 56  # broken for old tools whitespace
         for s in self.sids:
             count += 1
-            columnA = f"#define SECINITSID_{s.upper()} "
-            columnA += "".join([" " for i in range(width - len(columnA))])
-            results.append("%s%d\n" % (columnA, count))
+            column = f"#define SECINITSID_{s.upper()} "
+            column += "".join([" " for i in range(width - len(column))])
+            results.append("%s%d\n" % (column, count))
 
         results.append("\n")
-        columnA = "#define SECINITSID_NUM "
-        columnA += "".join([" " for i in range(width - len(columnA))])
-        results.append("%s%d\n" % (columnA, count))
+        column = "#define SECINITSID_NUM "
+        column += "".join([" " for i in range(width - len(column))])
+        results.append("%s%d\n" % (column, count))
 
         results.append("\n")
         results.append("#endif\n")
