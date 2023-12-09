@@ -220,7 +220,7 @@ def getTunableXML(file_name, kind):
             if kind != "both" and boolean.group(1) != kind:
                 error(f"{boolean.group(1)} in a {kind} file.")
 
-            tunable_buf.append('<%s name="%s" dftval="%s">\n' % boolean.groups())
+            tunable_buf.append('<{} name="{}" dftval="{}">\n'.format(*boolean.groups()))
             tunable_buf += temp_buf
             temp_buf = []
             tunable_buf.append(f"</{boolean.group(1)}>\n")
