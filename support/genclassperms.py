@@ -75,34 +75,32 @@ def get_av_db(file_name):
     #   if a token is expected but EOF is reached.
     # Now the list of Class objects is returned.
 
-    av_file = open(file_name)
-    av_data = []
-    # Read the file and strip out comments on the way.
-    # At the end of the loop, av_data will contain a list of individual
-    #  words. i.e. ['common', 'file', '{', ...]. All comments and whitespace
-    #  will be gone.
-    while True:
-        av_line = av_file.readline()
+    with open(file_name) as av_file:
+        av_data = []
+        # Read the file and strip out comments on the way.
+        # At the end of the loop, av_data will contain a list of individual
+        #  words. i.e. ['common', 'file', '{', ...]. All comments and whitespace
+        #  will be gone.
+        while True:
+            av_line = av_file.readline()
 
-        # If EOF has been reached:
-        if not av_line:
-            break
+            # If EOF has been reached:
+            if not av_line:
+                break
 
-        # Check if there is a comment, and if there is, remove it.
-        comment_index = av_line.find("#")
-        if comment_index != -1:
-            av_line = av_line[:comment_index]
+            # Check if there is a comment, and if there is, remove it.
+            comment_index = av_line.find("#")
+            if comment_index != -1:
+                av_line = av_line[:comment_index]
 
-        # Pad the braces with whitespace so that they are split into
-        #  their own word. It doesn't matter if there will be extra
-        #  white space, it'll get thrown away when the string is split.
-        av_line.replace("{", " { ")
-        av_line.replace("}", " } ")
+            # Pad the braces with whitespace so that they are split into
+            #  their own word. It doesn't matter if there will be extra
+            #  white space, it'll get thrown away when the string is split.
+            av_line.replace("{", " { ")
+            av_line.replace("}", " } ")
 
-        # Split up the words on the line and add it to av_data.
-        av_data += av_line.split()
-
-    av_file.close()
+            # Split up the words on the line and add it to av_data.
+            av_data += av_line.split()
 
     # Parsing the file:
     # The implementation of this parse is a queue. We use the list of words
@@ -197,9 +195,8 @@ def get_sc_db(file_name):
     """
 
     # Read the file then close it.
-    sc_file = open(file_name)
-    sc_data = sc_file.readlines()
-    sc_file.close()
+    with open(file_name) as sc_file:
+        sc_data = sc_file.readlines()
 
     # For each line in the security classes file, add the name of the class
     #  and whether it is a userspace class or not to the security class

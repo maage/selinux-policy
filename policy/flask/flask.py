@@ -138,37 +138,36 @@ class Flask:
         Parses security class definitions from the given path.
         """
         classes = []
-        input = open(path)
+        with open(path) as inp:
+            number = 0
+            for line in inp:
+                number += 1
+                m = self.COMMENT.search(line)
+                if m:
+                    continue
 
-        number = 0
-        for line in input:
-            number += 1
-            m = self.COMMENT.search(line)
-            if m:
-                continue
+                m = self.WHITE.search(line)
+                if m:
+                    continue
 
-            m = self.WHITE.search(line)
-            if m:
-                continue
+                m = self.CLASS.search(line)
+                if m:
+                    g = m.groupdict()
+                    c = g["name"]
+                    if c in classes:
+                        raise DuplicateError(self.CLASS, path, number, c)
+                    classes.append(c)
+                    if self.USERFLAG.search(line):
+                        self.userspace[c] = True
+                    else:
+                        self.userspace[c] = False
+                    continue
 
-            m = self.CLASS.search(line)
-            if m:
-                g = m.groupdict()
-                c = g["name"]
-                if c in classes:
-                    raise DuplicateError(self.CLASS, path, number, c)
-                classes.append(c)
-                if self.USERFLAG.search(line):
-                    self.userspace[c] = True
-                else:
-                    self.userspace[c] = False
-                continue
-
-            raise ParseError(
-                "data.  Was expecting either a comment, whitespace, or class definition. ",
-                path,
-                number,
-            )
+                raise ParseError(
+                    "data.  Was expecting either a comment, whitespace, or class definition. ",
+                    path,
+                    number,
+                )
 
         self.classes = classes
         return classes
@@ -179,35 +178,35 @@ class Flask:
         """
 
         sids = []
-        input = open(path)
+        with open(path) as inp:
+            number = 0
+            for line in inp:
+                number += 1
+                m = self.COMMENT.search(line)
+                if m:
+                    continue
 
-        number = 0
-        for line in input:
-            number += 1
-            m = self.COMMENT.search(line)
-            if m:
-                continue
+                m = self.WHITE.search(line)
+                if m:
+                    continue
 
-            m = self.WHITE.search(line)
-            if m:
-                continue
+                m = self.SID.search(line)
+                if m:
+                    g = m.groupdict()
+                    s = g["name"]
+                    if s in sids:
+                        raise DuplicateError(self.SID, path, number, s)
+                    sids.append(s)
+                    continue
 
-            m = self.SID.search(line)
-            if m:
-                g = m.groupdict()
-                s = g["name"]
-                if s in sids:
-                    raise DuplicateError(self.SID, path, number, s)
-                sids.append(s)
-                continue
+                raise ParseError(
+                    "data. Was expecting either a comment, whitespace, or security identifier. ",
+                    path,
+                    number,
+                )
 
-            raise ParseError(
-                "data. Was expecting either a comment, whitespace, or security identifier. ",
-                path,
-                number,
-            )
+            self.sids = sids
 
-        self.sids = sids
         return sids
 
     def parseVectors(self, path):
@@ -220,7 +219,6 @@ class Flask:
         common = {}
         inherits = {}
         user_commons = {}
-        input = open(path)
 
         # states
         NONE = 0
@@ -232,96 +230,97 @@ class Flask:
         state = NONE
         state2 = NONE
         number = 0
-        for line in input:
-            number += 1
-            m = self.COMMENT.search(line)
-            if m:
-                continue
+        with open(path) as inp:
+            for line in inp:
+                number += 1
+                m = self.COMMENT.search(line)
+                if m:
+                    continue
 
-            m = self.WHITE.search(line)
-            if m:
-                if state == INHERIT:
+                m = self.WHITE.search(line)
+                if m:
+                    if state == INHERIT:
+                        state = NONE
+                    continue
+
+                m = self.COMMON.search(line)
+                if m:
+                    if state != NONE:
+                        raise ParseError(self.COMMON, path, number)
+                    g = m.groupdict()
+                    c = g["name"]
+                    if c in commons:
+                        raise DuplicateError(self.COMMON, path, number, c)
+                    commons.append(c)
+                    common[c] = []
+                    user_commons[c] = True
+                    state = COMMON
+                    continue
+
+                m = self.CLASS.search(line)
+                if m:
+                    if state != NONE:
+                        raise ParseError(self.CLASS, number)
+                    g = m.groupdict()
+                    c = g["name"]
+                    if c in vectors:
+                        raise DuplicateError(self.CLASS, path, number, c)
+                    if c not in self.classes:
+                        raise UndefinedError(self.CLASS, path, number, c)
+                    vectors.append(c)
+                    vector[c] = []
+                    state = CLASS
+                    continue
+
+                m = self.INHERITS.search(line)
+                if m:
+                    if state != CLASS:
+                        raise ParseError(self.INHERITS, number)
+                    g = m.groupdict()
+                    i = g["name"]
+                    if c in inherits:
+                        raise DuplicateError(self.INHERITS, path, number, c)
+                    if i not in common:
+                        raise UndefinedError(self.COMMON, path, number, i)
+                    inherits[c] = i
+                    state = INHERIT
+                    if not self.userspace[c]:
+                        user_commons[i] = False
+                    continue
+
+                m = self.OPENB.search(line)
+                if m:
+                    if (state not in (CLASS, INHERIT, COMMON)) or state2 != NONE:
+                        raise ParseError(self.OPENB, path, number)
+                    state2 = OPEN
+                    continue
+
+                m = self.VECTOR.search(line)
+                if m:
+                    if state2 != OPEN:
+                        raise ParseError(self.VECTOR, path, number)
+                    g = m.groupdict()
+                    v = g["name"]
+                    if state in (CLASS, INHERIT):
+                        if v in vector[c]:
+                            raise DuplicateError(self.VECTOR, path, number, v)
+                        vector[c].append(v)
+                    elif state == COMMON:
+                        if v in common[c]:
+                            raise DuplicateError(self.VECTOR, path, number, v)
+                        common[c].append(v)
+                    continue
+
+                m = self.CLOSEB.search(line)
+                if m:
+                    if state2 != OPEN:
+                        raise ParseError(self.CLOSEB, path, number)
                     state = NONE
-                continue
+                    state2 = NONE
+                    c = None
+                    continue
 
-            m = self.COMMON.search(line)
-            if m:
-                if state != NONE:
-                    raise ParseError(self.COMMON, path, number)
-                g = m.groupdict()
-                c = g["name"]
-                if c in commons:
-                    raise DuplicateError(self.COMMON, path, number, c)
-                commons.append(c)
-                common[c] = []
-                user_commons[c] = True
-                state = COMMON
-                continue
-
-            m = self.CLASS.search(line)
-            if m:
-                if state != NONE:
-                    raise ParseError(self.CLASS, number)
-                g = m.groupdict()
-                c = g["name"]
-                if c in vectors:
-                    raise DuplicateError(self.CLASS, path, number, c)
-                if c not in self.classes:
-                    raise UndefinedError(self.CLASS, path, number, c)
-                vectors.append(c)
-                vector[c] = []
-                state = CLASS
-                continue
-
-            m = self.INHERITS.search(line)
-            if m:
-                if state != CLASS:
-                    raise ParseError(self.INHERITS, number)
-                g = m.groupdict()
-                i = g["name"]
-                if c in inherits:
-                    raise DuplicateError(self.INHERITS, path, number, c)
-                if i not in common:
-                    raise UndefinedError(self.COMMON, path, number, i)
-                inherits[c] = i
-                state = INHERIT
-                if not self.userspace[c]:
-                    user_commons[i] = False
-                continue
-
-            m = self.OPENB.search(line)
-            if m:
-                if (state not in (CLASS, INHERIT, COMMON)) or state2 != NONE:
-                    raise ParseError(self.OPENB, path, number)
-                state2 = OPEN
-                continue
-
-            m = self.VECTOR.search(line)
-            if m:
-                if state2 != OPEN:
-                    raise ParseError(self.VECTOR, path, number)
-                g = m.groupdict()
-                v = g["name"]
-                if state in (CLASS, INHERIT):
-                    if v in vector[c]:
-                        raise DuplicateError(self.VECTOR, path, number, v)
-                    vector[c].append(v)
-                elif state == COMMON:
-                    if v in common[c]:
-                        raise DuplicateError(self.VECTOR, path, number, v)
-                    common[c].append(v)
-                continue
-
-            m = self.CLOSEB.search(line)
-            if m:
-                if state2 != OPEN:
-                    raise ParseError(self.CLOSEB, path, number)
-                state = NONE
-                state2 = NONE
-                c = None
-                continue
-
-            raise ParseError("data", path, number)
+                raise ParseError("data", path, number)
 
         if NONE not in (state, state2):
             raise ParseError(self.EOF, path, number)
@@ -356,9 +355,8 @@ class Flask:
         }
 
         for key, value in headers.items():
-            of = open(os.path.join(path, key), "w")
-            of.writelines(value)
-            of.close()
+            with open(os.path.join(path, key), "w") as of:
+                of.writelines(value)
 
     def createUL(self, count):
         fields = [1, 2, 4, 8]
