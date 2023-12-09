@@ -185,25 +185,27 @@ def get_conf(conf):
     conf_lines = conf.readlines()
 
     namevalue_list = []
-    for i in range(len(conf_lines)):
-        line = conf_lines[i]
-        if line.strip() != "" and line.strip()[0] != "#":
-            namevalue = line.strip().split("=")
-            if len(namevalue) != 2:
-                warning(f'line {i:d}: "{line.strip()}" is not a valid line, skipping')
-                continue
+    for i, line in enumerate(conf_lines):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
 
-            namevalue[0] = namevalue[0].strip()
-            if len(namevalue[0].split()) > 1:
-                warning(f'line {i:d}: "{line.strip()}" is not a valid line, skipping')
-                continue
+        namevalue = line.split("=")
+        if len(namevalue) != 2:
+            warning(f'line {i:d}: "{line}" is not a valid line, skipping')
+            continue
 
-            namevalue[1] = namevalue[1].strip()
-            if len(namevalue[1].split()) > 1:
-                warning(f'line {i:d}: "{line.strip()}" is not a valid line, skipping')
-                continue
+        namevalue[0] = namevalue[0].strip()
+        if len(namevalue[0].split()) > 1:
+            warning(f'line {i:d}: "{line}" is not a valid line, skipping')
+            continue
 
-            namevalue_list.append(namevalue)
+        namevalue[1] = namevalue[1].strip()
+        if len(namevalue[1].split()) > 1:
+            warning(f'line {i:d}: "{line}" is not a valid line, skipping')
+            continue
+
+        namevalue_list.append(namevalue)
 
     return namevalue_list
 
