@@ -568,7 +568,7 @@ def main():
         f.parseClasses(secc)
         f.parseVectors(avec)
         f.createHeaders(outd, mode)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # pylint: disable=broad-exception-caught
         print(e)
         sys.exit(2)
 
