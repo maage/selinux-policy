@@ -311,7 +311,6 @@ class ExecTemplateNode(LeafTemplateNode):
 
     def execute(self, _stream, data):
         exec(self.s, globals(), data)
-        pass
 
 
 class CallTemplateNode(LeafTemplateNode):
