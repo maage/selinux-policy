@@ -179,13 +179,12 @@ class ForTemplateNode(TemplateNode):
         if match is None:
             msg = f"[[{self.s}]] is not a valid for-loop expression"
             raise self.parent.parser_exception(msg)
-        else:
-            self.vars_temp = match.group(1).split(",")
-            self.vars = []
-            for v in self.vars_temp:
-                self.vars.append(v.strip())
-            # print(self.vars)
-            self.expression = match.group(2)
+        self.vars_temp = match.group(1).split(",")
+        self.vars = []
+        for v in self.vars_temp:
+            self.vars.append(v.strip())
+        # print(self.vars)
+        self.expression = match.group(2)
 
     def execute(self, stream, data):
         remember_vars = {}
@@ -211,8 +210,7 @@ class IfTemplateNode(TemplateNode):
         if match is None:
             msg = f"[[{self.s}]] is not a valid if expression"
             raise self.parent.parser_exception(msg)
-        else:
-            self.expression = match.group(1)
+        self.expression = match.group(1)
 
     def add_node(self, node):
         if node == "end":
