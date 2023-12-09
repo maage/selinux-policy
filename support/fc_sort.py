@@ -78,7 +78,8 @@ class FileContext:
         """
         Compare two file context definitions
 
-        Returns:
+        Returns
+        -------
           -1 if a is less specific than b
            0 if a and be are equally specific
            1 if a is more specific than b
