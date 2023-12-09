@@ -66,8 +66,8 @@ def getModuleXML(file_name):
     # Gather information.
     module_dir = os.path.dirname(file_name)
     module_name = os.path.basename(file_name)
-    module_te = "%s/%s.te" % (module_dir, module_name)
-    module_if = "%s/%s.if" % (module_dir, module_name)
+    module_te = f"{module_dir}/{module_name}.te"
+    module_if = f"{module_dir}/{module_name}.if"
 
     # Try to open the file, if it cant, just ignore it.
     try:
@@ -75,14 +75,13 @@ def getModuleXML(file_name):
         module_code = module_file.readlines()
         module_file.close()
     except:
-        warning("cannot open file %s for read, skipping" % file_name)
+        warning(f"cannot open file {file_name} for read, skipping")
         return []
 
     module_buf = []
 
     # Infer the module name, which is the base of the file name.
-    module_buf.append("<module name=\"%s\" filename=\"%s\">\n"
-        % (os.path.splitext(os.path.split(file_name)[-1])[0], module_if))
+    module_buf.append(f"<module name=\"{os.path.splitext(os.path.split(file_name)[-1])[0]}\" filename=\"{module_if}\">\n")
 
     temp_buf = []
     interface = None
@@ -137,7 +136,7 @@ def getModuleXML(file_name):
         if interface:
             # Add the opening tag for the interface/template
             groups = interface.groups()
-            module_buf.append("<%s name=\"%s\" lineno=\"%s\">\n" % (groups[0], groups[1], line_num))
+            module_buf.append(f"<{groups[0]} name=\"{groups[1]}\" lineno=\"{line_num}\">\n")
 
             # Add all the comments attributed to this interface to
             #  the module buffer.
@@ -148,7 +147,7 @@ def getModuleXML(file_name):
             # Add default summaries and parameters so that the
             #  DTD is happy.
             else:
-                warning ("unable to find XML for %s %s()" % (groups[0], groups[1]))
+                warning (f"unable to find XML for {groups[0]} {groups[1]}()")
                 module_buf.append("<summary>\n")
                 module_buf.append("Summary is missing!\n")
                 module_buf.append("</summary>\n")
@@ -159,7 +158,7 @@ def getModuleXML(file_name):
                 module_buf.append("</param>\n")
 
             # Close the interface/template tag.
-            module_buf.append("</%s>\n" % interface.group(1))
+            module_buf.append(f"</{interface.group(1)}>\n")
 
             interface = None
             continue
@@ -172,7 +171,7 @@ def getModuleXML(file_name):
     # Otherwise there are some lingering XML comments at the bottom, warn
     #  the user.
     elif temp_buf:
-        warning("orphan XML comments at bottom of file %s" % file_name)
+        warning(f"orphan XML comments at bottom of file {file_name}")
 
     # Process the TE file if it exists.
     module_buf = module_buf + getTunableXML(module_te, "both")
@@ -192,7 +191,7 @@ def getTunableXML(file_name, kind):
         tunable_code = tunable_file.readlines()
         tunable_file.close()
     except:
-        warning("cannot open file %s for read, skipping" % file_name)
+        warning(f"cannot open file {file_name} for read, skipping")
         return []
 
     tunable_buf = []
@@ -218,17 +217,17 @@ def getTunableXML(file_name, kind):
             # Skip if both kinds are valid.
             if kind != "both":
                 if boolean.group(1) != kind:
-                    error("%s in a %s file." % (boolean.group(1), kind))
+                    error(f"{boolean.group(1)} in a {kind} file.")
 
             tunable_buf.append("<%s name=\"%s\" dftval=\"%s\">\n" % boolean.groups())
             tunable_buf += temp_buf
             temp_buf = []
-            tunable_buf.append("</%s>\n" % boolean.group(1))
+            tunable_buf.append(f"</{boolean.group(1)}>\n")
 
     # If there are XML comments at the end of the file, they arn't
     # attributed to anything. These are ignored.
     if len(temp_buf):
-        warning("orphan XML comments at bottom of file %s" % file_name)
+        warning(f"orphan XML comments at bottom of file {file_name}")
 
     return tunable_buf
 
@@ -238,15 +237,15 @@ def usage():
     Displays a message describing the proper usage of this script.
     """
 
-    sys.stdout.write("usage: %s [-w] [-mtb] <file>\n\n" % sys.argv[0])
+    sys.stdout.write(f"usage: {sys.argv[0]} [-w] [-mtb] <file>\n\n")
     sys.stdout.write("-w --warn\t\t\tshow warnings\n"+\
     "-m --module <file>\t\tname of module to process\n"+\
     "-t --tunable <file>\t\tname of global tunable file to process\n"+\
     "-b --boolean <file>\t\tname of global boolean file to process\n\n")
 
     sys.stdout.write("examples:\n")
-    sys.stdout.write("> %s -w -m policy/modules/apache\n" % sys.argv[0])
-    sys.stdout.write("> %s -t policy/global_tunables\n" % sys.argv[0])
+    sys.stdout.write(f"> {sys.argv[0]} -w -m policy/modules/apache\n")
+    sys.stdout.write(f"> {sys.argv[0]} -t policy/global_tunables\n")
 
 def warning(description):
     '''
