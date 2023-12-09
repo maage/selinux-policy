@@ -194,23 +194,17 @@ def get_conf(conf):
         if line.strip() != "" and line.strip()[0] != "#":
             namevalue = line.strip().split("=")
             if len(namevalue) != 2:
-                warning(
-                    'line %d: "%s" is not a valid line, skipping' % (i, line.strip())
-                )
+                warning(f'line {i:d}: "{line.strip()}" is not a valid line, skipping')
                 continue
 
             namevalue[0] = namevalue[0].strip()
             if len(namevalue[0].split()) > 1:
-                warning(
-                    'line %d: "%s" is not a valid line, skipping' % (i, line.strip())
-                )
+                warning(f'line {i:d}: "{line.strip()}" is not a valid line, skipping')
                 continue
 
             namevalue[1] = namevalue[1].strip()
             if len(namevalue[1].split()) > 1:
-                warning(
-                    'line %d: "%s" is not a valid line, skipping' % (i, line.strip())
-                )
+                warning(f'line {i:d}: "{line.strip()}" is not a valid line, skipping')
                 continue
 
             namevalue_list.append(namevalue)

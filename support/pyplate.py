@@ -66,7 +66,7 @@ re_comment = re.compile(r"#(.*)#")
 # Template parser
 class ParserException(Exception):
     def __init__(self, lineno, s):
-        Exception.__init__(self, "line %d: %s" % (lineno, s))
+        Exception.__init__(self, f"line {lineno:d}: {s}")
 
 
 class Template:
