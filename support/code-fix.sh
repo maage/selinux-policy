@@ -55,6 +55,7 @@ pyl=(
     anomalous-backslash-in-string
     consider-iterating-dictionary
     consider-using-dict-items
+    syntax-error
     undefined-variable
     unused-import
 )
