@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Sort file context definitions
+"""
+Sort file context definitions
 
 The original setfiles sorting algorithm did not take into
 account regular expression specificity. With the current
@@ -74,7 +75,8 @@ class FileContext:
 
     @staticmethod
     def _compare(a, b):
-        """Compare two file context definitions
+        """
+        Compare two file context definitions
 
         Returns:
           -1 if a is less specific than b
