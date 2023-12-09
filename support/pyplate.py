@@ -143,12 +143,12 @@ class TemplateNode:
 
     def add_node(self, node):
         if node == "end":
-            return 1
-        if node is not None:
-            self.node_list.append(node)
-        else:
+            return True
+        if node is None:
             msg = f"[[{self.s}]] does not have a matching [[end]]"
             raise self.parent.parser_exception(msg)
+        self.node_list.append(node)
+        return False
 
     def execute(self, stream, data):
         for node in self.node_list:
@@ -166,10 +166,10 @@ class TopLevelTemplateNode(TemplateNode):
         TemplateNode.__init__(self, parent, "")
 
     def add_node(self, node):
-        if node is not None:
-            self.node_list.append(node)
-        else:
-            return 1
+        if node is None:
+            return True
+        self.node_list.append(node)
+        return False
 
 
 class ForTemplateNode(TemplateNode):
@@ -216,18 +216,18 @@ class IfTemplateNode(TemplateNode):
 
     def add_node(self, node):
         if node == "end":
-            return 1
+            return True
         if isinstance(node, ElseTemplateNode):
             self.else_node = node
-            return 1
+            return True
         if isinstance(node, ElifTemplateNode):
             self.else_node = node
-            return 1
-        if node is not None:
-            self.node_list.append(node)
-        else:
+            return True
+        if node is None:
             msg = f"[[{self.s}]] does not have a matching [[end]]"
             raise self.parent.parser_exception(msg)
+        self.node_list.append(node)
+        return False
 
     def execute(self, stream, data):
         if eval(self.expression, globals(), data):
