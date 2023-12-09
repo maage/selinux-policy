@@ -1,4 +1,5 @@
-"""PyPlate : a simple Python-based templating program
+"""
+PyPlate : a simple Python-based templating program
 
 PyPlate parses a file and replaces directives (in double square brackets [[ ... ]])
 by various means using a given dictionary of variables.  Arbitrary Python code
