@@ -11,6 +11,7 @@
 """
     This script generates an object class perm definition file.
 """
+from __future__ import annotations
 
 import sys
 
