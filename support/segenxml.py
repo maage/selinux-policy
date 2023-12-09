@@ -217,9 +217,8 @@ def getTunableXML(file_name, kind):
             # If there is a gen_bool in a tunable file or a
             # gen_tunable in a boolean file, error and exit.
             # Skip if both kinds are valid.
-            if kind != "both":
-                if boolean.group(1) != kind:
-                    error(f"{boolean.group(1)} in a {kind} file.")
+            if kind != "both" and boolean.group(1) != kind:
+                error(f"{boolean.group(1)} in a {kind} file.")
 
             tunable_buf.append('<%s name="%s" dftval="%s">\n' % boolean.groups())
             tunable_buf += temp_buf
