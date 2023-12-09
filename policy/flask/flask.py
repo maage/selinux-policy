@@ -360,7 +360,6 @@ class Flask:
         return f"0x{fields[count % 4] << 4 * (count / 4):08x}UL"
 
     def createAvInheritH(self, mode=USERSPACE):
-        """ """
         results = []
         results.append(self.autogen)
         for c in self.vectors:
@@ -374,7 +373,6 @@ class Flask:
         return results
 
     def createAvPermToStringH(self, mode=USERSPACE):
-        """ """
         results = []
         results.append(self.autogen)
         for c in self.vectors:
@@ -387,7 +385,6 @@ class Flask:
         return results
 
     def createAvPermissionsH(self, mode=USERSPACE):
-        """ """
         results = []
         results.append(self.autogen)
 
@@ -420,7 +417,6 @@ class Flask:
         return results
 
     def createClassToStringH(self, mode=USERSPACE):
-        """ """
         results = []
         results.append(self.autogen)
         results.append("/*\n * Security object class definitions\n */\n")
@@ -438,7 +434,6 @@ class Flask:
         return results
 
     def createCommonPermToStringH(self, mode=USERSPACE):
-        """ """
         results = []
         results.append(self.autogen)
         for common in self.commons:
@@ -450,7 +445,6 @@ class Flask:
         return results
 
     def createFlaskH(self, mode=USERSPACE):
-        """ """
         results = []
         results.append(self.autogen)
         results.append("#ifndef _SELINUX_FLASK_H_\n")
@@ -492,7 +486,6 @@ class Flask:
         return results
 
     def createInitialSidToStringH(self, mode=USERSPACE):
-        """ """
         assert mode in (Flask.USERSPACE, Flask.KERNEL)  # noqa: S101
         results = []
         results.append(self.autogen)
