@@ -156,7 +156,7 @@ def gen_module_conf(doc, file_name, namevalue_list):
                 file_name.write("#\n")
 
             for desc in node.getElementsByTagName("summary"):
-                if not desc.parentNode == node:
+                if desc.parentNode != node:
                     continue
                 s = format_txt_desc(desc).split("\n")
                 for line in s:
