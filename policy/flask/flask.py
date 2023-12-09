@@ -240,7 +240,7 @@ class Flask:
                 m = Flask.CLASS.search(line)
                 if m:
                     if state != Flask.S_NONE:
-                        raise ParseError(Flask.CLASS, number)
+                        raise ParseError(Flask.CLASS, path, number)
                     g = m.groupdict()
                     c = g["name"]
                     if c in vectors:
@@ -255,7 +255,7 @@ class Flask:
                 m = Flask.INHERITS.search(line)
                 if m:
                     if state != Flask.S_CLASS:
-                        raise ParseError(Flask.INHERITS, number)
+                        raise ParseError(Flask.INHERITS, path, number)
                     g = m.groupdict()
                     i = g["name"]
                     if c in inherits:
