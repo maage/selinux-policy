@@ -285,9 +285,7 @@ def error(error):
     Print an error message and exit.
     """
 
-    sys.stderr.write("%s exiting for: " % sys.argv[0])
-    sys.stderr.write("%s\n" % error)
-    sys.stderr.flush()
+    print(f"{sys.argv[0]} exiting for: {error}", file=sys.stderr, flush=True)
     sys.exit(1)
 
 # MAIN PROGRAM

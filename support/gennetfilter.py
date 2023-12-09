@@ -154,10 +154,10 @@ for o, a in opts:
         mls = True
 
 if len(paths) == 0:
-    sys.stderr.write("Need a path for corenetwork.te.in!\n")
+    print("Need a path for corenetwork.te.in!", file=sys.stderr)
     sys.exit(1)
 elif len(paths) > 1:
-    sys.stderr.write("Ignoring extra specified paths\n")
+    print("Ignoring extra specified paths", file=sys.stderr)
 
 packets=parse_corenet(paths[0])
 print_netfilter_config(packets,mls,mcs)
