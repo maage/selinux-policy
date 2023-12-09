@@ -16,6 +16,7 @@ import sys
 
 USERSPACE_CLASS = "userspace"
 
+
 class Class:
     """
     This object stores an access vector class.
@@ -30,6 +31,7 @@ class Class:
 
         # True if the class is declared as common, False if not.
         self.common = common
+
 
 def get_perms(name, av_db, common):
     """
@@ -49,6 +51,7 @@ def get_perms(name, av_db, common):
             return obj.perms
 
     return []
+
 
 def get_av_db(file_name):
     """
@@ -93,8 +96,8 @@ def get_av_db(file_name):
         # Pad the braces with whitespace so that they are split into
         #  their own word. It doesn't matter if there will be extra
         #  white space, it'll get thrown away when the string is split.
-        av_line.replace("{"," { ")
-        av_line.replace("}"," } ")
+        av_line.replace("{", " { ")
+        av_line.replace("}", " } ")
 
         # Split up the words on the line and add it to av_data.
         av_data += av_line.split()
@@ -187,6 +190,7 @@ def get_av_db(file_name):
 
     return database
 
+
 def get_sc_db(file_name):
     """
     Returns a security class database generated from the file file_name.
@@ -210,7 +214,7 @@ def get_sc_db(file_name):
         # Check if the comment to the right of the permission matches
         #  USERSPACE_CLASS.
         comment_index = line.find("#")
-        if comment_index != -1 and line[comment_index+1:].strip() == USERSPACE_CLASS:
+        if comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS:
             userspace = True
         else:
             userspace = False
@@ -231,6 +235,7 @@ def get_sc_db(file_name):
         database.append((split_line[1], userspace))
 
     return database
+
 
 def gen_class_perms(av_db, sc_db):
     """
@@ -277,6 +282,7 @@ def gen_class_perms(av_db, sc_db):
     # Throw all the strings together and return the string.
     return class_perms + kernel_class_perms + userspace_class_perms
 
+
 def error(error):
     """
     Print an error message and exit.
@@ -284,6 +290,7 @@ def error(error):
 
     print(f"{sys.argv[0]} exiting for: {error}", file=sys.stderr, flush=True)
     sys.exit(1)
+
 
 # MAIN PROGRAM
 app_name = sys.argv[0]

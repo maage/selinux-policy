@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 #  Author(s): Donald Miner <dminer@tresys.com>
-#	     Dave Sugar <dsugar@tresys.com>
-#	     Brian Williams <bwilliams@tresys.com>
-#	     Caleb Case <ccase@tresys.com>
+# 	     Dave Sugar <dsugar@tresys.com>
+# 	     Brian Williams <bwilliams@tresys.com>
+# 	     Caleb Case <ccase@tresys.com>
 #
 # Copyright (C) 2005 - 2006 Tresys Technology, LLC
 #      This program is free software; you can redistribute it and/or modify
@@ -28,40 +28,40 @@ warn = False
 # Pre compiled regular expressions:
 
 # Matches either an interface or a template declaration. Will give the tuple:
-#	("interface" or "template", name)
+# 	("interface" or "template", name)
 # Some examples:
-#	"interface(`kernel_read_system_state',`"
-#	 -> ("interface", "kernel_read_system_state")
-#	"template(`base_user_template',`"
-#	 -> ("template", "base_user_template")
+# 	"interface(`kernel_read_system_state',`"
+# 	 -> ("interface", "kernel_read_system_state")
+# 	"template(`base_user_template',`"
+# 	 -> ("template", "base_user_template")
 INTERFACE = re.compile(r"^\s*(interface|template)\(`(\w*)'")
 
 # Matches either a gen_bool or a gen_tunable statement. Will give the tuple:
-#	("tunable" or "bool", name, "true" or "false")
+# 	("tunable" or "bool", name, "true" or "false")
 # Some examples:
-#	"gen_bool(secure_mode, false)"
-#	 -> ("bool", "secure_mode", "false")
-#	"gen_tunable(allow_kerberos, false)"
-#	 -> ("tunable", "allow_kerberos", "false")
+# 	"gen_bool(secure_mode, false)"
+# 	 -> ("bool", "secure_mode", "false")
+# 	"gen_tunable(allow_kerberos, false)"
+# 	 -> ("tunable", "allow_kerberos", "false")
 BOOLEAN = re.compile(r"^\s*gen_(tunable|bool)\(\s*(\w*)\s*,\s*(true|false)\s*\)")
 
 # Matches a XML comment in the policy, which is defined as any line starting
 #  with two # and at least one character of white space. Will give the single
 #  valued tuple:
-#	("comment")
+# 	("comment")
 # Some Examples:
-#	"## <summary>"
-#	 -> ("<summary>")
-#	"##		The domain allowed access.	"
-#	 -> ("The domain allowed access.")
+# 	"## <summary>"
+# 	 -> ("<summary>")
+# 	"##		The domain allowed access.	"
+# 	 -> ("The domain allowed access.")
 XML_COMMENT = re.compile(r"^##\s+(.*?)\s*$")
 
 
 # FUNCTIONS
 def getModuleXML(file_name):
-    '''
+    """
     Returns the XML data for a module in a list, one line per list item.
-    '''
+    """
 
     # Gather information.
     module_dir = os.path.dirname(file_name)
@@ -81,7 +81,9 @@ def getModuleXML(file_name):
     module_buf = []
 
     # Infer the module name, which is the base of the file name.
-    module_buf.append(f"<module name=\"{os.path.splitext(os.path.split(file_name)[-1])[0]}\" filename=\"{module_if}\">\n")
+    module_buf.append(
+        f'<module name="{os.path.splitext(os.path.split(file_name)[-1])[0]}" filename="{module_if}">\n'
+    )
 
     temp_buf = []
     interface = None
@@ -91,7 +93,7 @@ def getModuleXML(file_name):
     finding_header = True
 
     # Get rid of whitespace at top of file
-    while(module_code and module_code[0].isspace()):
+    while module_code and module_code[0].isspace():
         module_code = module_code[1:]
 
     # Go line by line and figure out what to do with it.
@@ -136,7 +138,7 @@ def getModuleXML(file_name):
         if interface:
             # Add the opening tag for the interface/template
             groups = interface.groups()
-            module_buf.append(f"<{groups[0]} name=\"{groups[1]}\" lineno=\"{line_num}\">\n")
+            module_buf.append(f'<{groups[0]} name="{groups[1]}" lineno="{line_num}">\n')
 
             # Add all the comments attributed to this interface to
             #  the module buffer.
@@ -147,11 +149,11 @@ def getModuleXML(file_name):
             # Add default summaries and parameters so that the
             #  DTD is happy.
             else:
-                warning (f"unable to find XML for {groups[0]} {groups[1]}()")
+                warning(f"unable to find XML for {groups[0]} {groups[1]}()")
                 module_buf.append("<summary>\n")
                 module_buf.append("Summary is missing!\n")
                 module_buf.append("</summary>\n")
-                module_buf.append("<param name=\"?\">\n")
+                module_buf.append('<param name="?">\n')
                 module_buf.append("<summary>\n")
                 module_buf.append("Parameter descriptions are missing!\n")
                 module_buf.append("</summary>\n")
@@ -162,8 +164,6 @@ def getModuleXML(file_name):
 
             interface = None
             continue
-
-
 
     # If the file just had a header, add the comments to the module buffer.
     if finding_header:
@@ -180,10 +180,11 @@ def getModuleXML(file_name):
 
     return module_buf
 
+
 def getTunableXML(file_name, kind):
-    '''
+    """
     Return all the XML for the tunables/bools in the file specified.
-    '''
+    """
 
     # Try to open the file, if it cant, just ignore it.
     try:
@@ -219,7 +220,7 @@ def getTunableXML(file_name, kind):
                 if boolean.group(1) != kind:
                     error(f"{boolean.group(1)} in a {kind} file.")
 
-            tunable_buf.append("<%s name=\"%s\" dftval=\"%s\">\n" % boolean.groups())
+            tunable_buf.append('<%s name="%s" dftval="%s">\n' % boolean.groups())
             tunable_buf += temp_buf
             temp_buf = []
             tunable_buf.append(f"</{boolean.group(1)}>\n")
@@ -238,31 +239,34 @@ def usage():
     """
 
     sys.stdout.write(f"usage: {sys.argv[0]} [-w] [-mtb] <file>\n\n")
-    sys.stdout.write("-w --warn\t\t\tshow warnings\n"+\
-    "-m --module <file>\t\tname of module to process\n"+\
-    "-t --tunable <file>\t\tname of global tunable file to process\n"+\
-    "-b --boolean <file>\t\tname of global boolean file to process\n\n")
+    sys.stdout.write(
+        "-w --warn\t\t\tshow warnings\n"
+        + "-m --module <file>\t\tname of module to process\n"
+        + "-t --tunable <file>\t\tname of global tunable file to process\n"
+        + "-b --boolean <file>\t\tname of global boolean file to process\n\n"
+    )
 
     sys.stdout.write("examples:\n")
     sys.stdout.write(f"> {sys.argv[0]} -w -m policy/modules/apache\n")
     sys.stdout.write(f"> {sys.argv[0]} -t policy/global_tunables\n")
 
+
 def warning(description):
-    '''
+    """
     Warns the user of a non-critical error.
-    '''
+    """
 
     if warn:
         print(f"{sys.argv[0]}: warning: {description}", file=sys.stderr)
 
+
 def error(description):
-    '''
+    """
     Describes an error and exists the program.
-    '''
+    """
 
     print(f"{sys.argv[0]}: error: {description}", file=sys.stderr, flush=True)
     sys.exit(1)
-
 
 
 # MAIN PROGRAM
@@ -280,23 +284,25 @@ if len(sys.argv) <= 1:
 
 # Parse command line args
 try:
-    opts, args = getopt.getopt(sys.argv[1:], 'whm:t:b:', ['warn', 'help', 'module=', 'tunable=', 'boolean='])
+    opts, args = getopt.getopt(
+        sys.argv[1:], "whm:t:b:", ["warn", "help", "module=", "tunable=", "boolean="]
+    )
 except getopt.GetoptError:
     usage()
     sys.exit(2)
 for o, a in opts:
-    if o in ('-w', '--warn'):
+    if o in ("-w", "--warn"):
         warn = True
-    elif o in ('-h', '--help'):
+    elif o in ("-h", "--help"):
         usage()
         sys.exit(0)
-    elif o in ('-m', '--module'):
+    elif o in ("-m", "--module"):
         module = a
         break
-    elif o in ('-t', '--tunable'):
+    elif o in ("-t", "--tunable"):
         tunable = a
         break
-    elif o in ('-b', '--boolean'):
+    elif o in ("-b", "--boolean"):
         boolean = a
         break
     else:
@@ -312,4 +318,3 @@ elif boolean:
 else:
     usage()
     sys.exit(2)
-
