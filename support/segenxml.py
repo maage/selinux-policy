@@ -258,7 +258,6 @@ def warning(description):
     Warns the user of a non-critical error.
     """
 
-    global warn
     if warn:
         print(f"{sys.argv[0]}: warning: {description}", file=sys.stderr)
 
