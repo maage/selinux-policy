@@ -33,6 +33,7 @@ black --target-version py311 "${py_files[@]}"
 
 
 ruf=(
+    A002
     B007
     COM819
     D206
@@ -54,6 +55,7 @@ ruf=(
     F841
     I001
     ISC003
+    N806
     PERF102
     PLR1714
     Q000
