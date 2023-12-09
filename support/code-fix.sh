@@ -131,6 +131,7 @@ pyl=(
     unnecessary-semicolon
     unused-argument
     unused-import
+    unused-variable
     use-implicit-booleaness-not-len
 )
 if (( ${#pyl[@]} )); then
