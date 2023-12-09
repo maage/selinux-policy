@@ -163,11 +163,8 @@ class Flask:
                         self.userspace[c] = False
                     continue
 
-                raise ParseError(
-                    "data.  Was expecting either a comment, whitespace, or class definition. ",
-                    path,
-                    number,
-                )
+                msg = "data.  Was expecting either a comment, whitespace, or class definition. "
+                raise ParseError(msg, path, number)
 
         self.classes = classes
         return classes
@@ -199,11 +196,8 @@ class Flask:
                     sids.append(s)
                     continue
 
-                raise ParseError(
-                    "data. Was expecting either a comment, whitespace, or security identifier. ",
-                    path,
-                    number,
-                )
+                msg = "data. Was expecting either a comment, whitespace, or security identifier. "
+                raise ParseError(msg, path, number)
 
             self.sids = sids
 
@@ -320,16 +314,17 @@ class Flask:
                     c = None
                     continue
 
-                raise ParseError("data", path, number)
+                msg = "data"
+                raise ParseError(msg, path, number)
 
         if NONE not in (state, state2):
             raise ParseError(self.EOF, path, number)
 
         cvdiff = set(self.classes) - set(vectors)
         if cvdiff:
-            raise UnusedError(
-                f"Not all security classes were used in access vectors: {cvdiff}"
-            )  # the inverse of this will be caught as an undefined class error
+            # the inverse of this will be caught as an undefined class error
+            msg = f"Not all security classes were used in access vectors: {cvdiff}"
+            raise UnusedError(msg)
 
         self.commons = commons
         self.user_commons = user_commons
