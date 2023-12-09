@@ -21,11 +21,7 @@ class ParseError(Exception):
         type_str = self.type
         if not isinstance(self.type, str):
             type_str = Flask.CONSTANT_S[self.type]
-        return "Parse Error: Unexpected %s on line %d of %s." % (
-            type_str,
-            self.line,
-            self.file,
-        )
+        return f"Parse Error: Unexpected {type_str} on line {self.line} of {self.file}."
 
 
 class DuplicateError(Exception):
@@ -39,12 +35,7 @@ class DuplicateError(Exception):
         type_str = self.type
         if not isinstance(self.type, str):
             type_str = Flask.CONSTANT_S[self.type]
-        return "Duplicate Error: Duplicate %s '%s' on line %d of %s." % (
-            type_str,
-            self.symbol,
-            self.line,
-            self.file,
-        )
+        return f"Duplicate Error: Duplicate {type_str} '{self.symbol}' on line {self.line} of {self.file}."
 
 
 class UndefinedError(Exception):
@@ -58,12 +49,7 @@ class UndefinedError(Exception):
         type_str = self.type
         if not isinstance(self.type, str):
             type_str = Flask.CONSTANT_S[self.type]
-        return "Undefined Error: %s '%s' is not defined but used on line %d of %s." % (
-            type_str,
-            self.symbol,
-            self.line,
-            self.file,
-        )
+        return f"Undefined Error: {type_str} '{self.symbol}' is not defined but used on line {self.line} of {self.file}."
 
 
 class UnusedError(Exception):
@@ -461,7 +447,7 @@ class Flask:
             column = f"#define SECCLASS_{c.upper()} "
             column += "".join([" " for i in range(width - len(column))])
             if not (mode == Flask.KERNEL and self.userspace[c]):
-                results.append("%s%d\n" % (column, count))
+                results.append(f"{column}{count}\n")
 
         results.append("\n")
         results.append("/*\n")
@@ -474,12 +460,12 @@ class Flask:
             count += 1
             column = f"#define SECINITSID_{s.upper()} "
             column += "".join([" " for i in range(width - len(column))])
-            results.append("%s%d\n" % (column, count))
+            results.append(f"{column}{count}\n")
 
         results.append("\n")
         column = "#define SECINITSID_NUM "
         column += "".join([" " for i in range(width - len(column))])
-        results.append("%s%d\n" % (column, count))
+        results.append(f"{column}{count}\n")
 
         results.append("\n")
         results.append("#endif\n")
