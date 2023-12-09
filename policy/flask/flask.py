@@ -150,10 +150,7 @@ class Flask:
                     if c in classes:
                         raise DuplicateError(Flask.CLASS, path, number, c)
                     classes.append(c)
-                    if Flask.USERFLAG.search(line):
-                        self.userspace[c] = True
-                    else:
-                        self.userspace[c] = False
+                    self.userspace[c] = Flask.USERFLAG.search(line)
                     continue
 
                 msg = "data.  Was expecting either a comment, whitespace, or class definition. "
