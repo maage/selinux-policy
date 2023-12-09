@@ -123,14 +123,13 @@ def get_av_db(file_name):
         elif av_data[0] == "common":
             common = True
         else:
-            error("Unexpected token in file " + file_name + ": "\
-                + av_data[0] + ".")
+            error(f"Unexpected token in file {file_name}: {av_data[0]}.")
 
         # Dequeue the "class" or "common" key word.
         av_data = av_data[1:]
 
         if len(av_data) == 0:
-            error("Missing token in file " + file_name + ".")
+            error(f"Missing token in file {file_name}.")
 
         # Get and dequeue the name of the class or common.
         name = av_data[0]
@@ -142,7 +141,7 @@ def get_av_db(file_name):
         #  classes inherit:
         if common == False:
             if len(av_data) == 0:
-                error("Missing token in file " + file_name + ".")
+                error(f"Missing token in file {file_name}.")
 
             # If the class inherits from something else:
             if av_data[0] == "inherits":
@@ -169,8 +168,7 @@ def get_av_db(file_name):
             #  found.
             while av_data[0] != "}":
                 if av_data[0] == "{":
-                    error("Extra '{' in file " +\
-                         file_name + ".")
+                    error(f"Extra '{{' in file {file_name}.")
 
                 # Add the permission name.
                 perms.append(av_data[0])
@@ -179,8 +177,7 @@ def get_av_db(file_name):
                 av_data = av_data[1:]
 
                 if len(av_data) == 0:
-                    error("Missing token '}' in file "\
-                        + file_name + ".")
+                    error(f"Missing token '}}' in file {file_name}.")
 
             # Dequeue the "}"
             av_data = av_data[1:]
@@ -223,7 +220,7 @@ def get_sc_db(file_name):
         #  "class".
         split_line = line.split()
         if len(split_line) < 2 or split_line[0] != "class":
-            error("Wrong syntax: " + line)
+            error(f"Wrong syntax: {line}")
 
         # Add the class's name (split_line[1]) and whether it is a
         #  userspace class or not to the database.
@@ -292,7 +289,7 @@ def error(error):
 app_name = sys.argv[0]
 
 if len(sys.argv) != 3:
-    error("Incorrect input.\nUsage: " + sys.argv[0] + " access_vectors security_classes" )
+    error(f"Incorrect input.\nUsage: {sys.argv[0]} access_vectors security_classes")
 
 # argv[1] is the access vector file.
 av_file = sys.argv[1]
