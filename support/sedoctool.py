@@ -779,7 +779,7 @@ def usage():
 # MAIN PROGRAM
 def main():
     try:
-        opts, args = getopt.getopt(
+        opts, _args = getopt.getopt(
             sys.argv[1:],
             "b:m:d:x:T:",
             ["booleans", "modules", "docs", "xml", "templates"],
