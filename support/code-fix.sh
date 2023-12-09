@@ -52,6 +52,7 @@ fi
 
 
 pyl=(
+    anomalous-backslash-in-string
     consider-iterating-dictionary
     consider-using-dict-items
     undefined-variable
