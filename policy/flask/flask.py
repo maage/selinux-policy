@@ -493,6 +493,7 @@ class Flask:
 
     def createInitialSidToStringH(self, mode=USERSPACE):
         """ """
+        assert mode in (Flask.USERSPACE, Flask.KERNEL)  # noqa: S101
         results = []
         results.append(self.autogen)
         results.append("static char *initial_sid_to_string[] =\n")
