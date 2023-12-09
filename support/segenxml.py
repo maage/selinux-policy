@@ -71,7 +71,7 @@ def getModuleXML(file_name):
 
     # Try to open the file, if it cant, just ignore it.
     try:
-        module_file = open(module_if, "r")
+        module_file = open(module_if)
         module_code = module_file.readlines()
         module_file.close()
     except:
@@ -187,7 +187,7 @@ def getTunableXML(file_name, kind):
 
     # Try to open the file, if it cant, just ignore it.
     try:
-        tunable_file = open(file_name, "r")
+        tunable_file = open(file_name)
         tunable_code = tunable_file.readlines()
         tunable_file.close()
     except:

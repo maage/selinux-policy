@@ -86,7 +86,7 @@ def print_output_rules(packets,mls,mcs):
 def parse_corenet(file_name):
     packets = []
 
-    corenet_te_in = open(file_name, "r")
+    corenet_te_in = open(file_name)
 
     while True:
         corenet_line = corenet_te_in.readline()

@@ -309,46 +309,46 @@ def gen_docs(doc, working_dir, templatedir):
 
     try:
         #get the template data ahead of time so we don't reopen them over and over
-        bodyfile = open(templatedir + "/header.html", "r")
+        bodyfile = open(templatedir + "/header.html")
         bodydata = bodyfile.read()
         bodyfile.close()
-        intfile = open(templatedir + "/interface.html", "r")
+        intfile = open(templatedir + "/interface.html")
         intdata = intfile.read()
         intfile.close()
-        templatefile = open(templatedir + "/template.html", "r")
+        templatefile = open(templatedir + "/template.html")
         templatedata = templatefile.read()
         templatefile.close()
-        tunfile = open(templatedir + "/tunable.html", "r")
+        tunfile = open(templatedir + "/tunable.html")
         tundata = tunfile.read()
         tunfile.close()
-        boolfile = open(templatedir + "/boolean.html", "r")
+        boolfile = open(templatedir + "/boolean.html")
         booldata = boolfile.read()
         boolfile.close()
-        menufile = open(templatedir + "/menu.html", "r")
+        menufile = open(templatedir + "/menu.html")
         menudata = menufile.read()
         menufile.close()
-        indexfile = open(templatedir + "/module_list.html","r")
+        indexfile = open(templatedir + "/module_list.html")
         indexdata = indexfile.read()
         indexfile.close()
-        modulefile = open(templatedir + "/module.html","r")
+        modulefile = open(templatedir + "/module.html")
         moduledata = modulefile.read()
         modulefile.close()
-        intlistfile = open(templatedir + "/int_list.html", "r")
+        intlistfile = open(templatedir + "/int_list.html")
         intlistdata = intlistfile.read()
         intlistfile.close()
-        templistfile = open(templatedir + "/temp_list.html", "r")
+        templistfile = open(templatedir + "/temp_list.html")
         templistdata = templistfile.read()
         templistfile.close()
-        tunlistfile = open(templatedir + "/tun_list.html", "r")
+        tunlistfile = open(templatedir + "/tun_list.html")
         tunlistdata = tunlistfile.read()
         tunlistfile.close()
-        boollistfile = open(templatedir + "/bool_list.html", "r")
+        boollistfile = open(templatedir + "/bool_list.html")
         boollistdata = boollistfile.read()
         boollistfile.close()
-        gboollistfile = open(templatedir + "/global_bool_list.html", "r")
+        gboollistfile = open(templatedir + "/global_bool_list.html")
         gboollistdata = gboollistfile.read()
         gboollistfile.close()
-        gtunlistfile = open(templatedir + "/global_tun_list.html", "r")
+        gtunlistfile = open(templatedir + "/global_tun_list.html")
         gtunlistdata = gtunlistfile.read()
         gtunlistfile.close()
     except:
@@ -808,7 +808,7 @@ if booleans:
     namevalue_list = []
     if os.path.exists(booleans):
         try:
-            conf = open(booleans, 'r')
+            conf = open(booleans)
         except:
             error("Could not open booleans file for reading")
 
@@ -829,7 +829,7 @@ if modules:
     namevalue_list = []
     if os.path.exists(modules):
         try:
-            conf = open(modules, 'r')
+            conf = open(modules)
         except:
             error("Could not open modules file for reading")
         namevalue_list = get_conf(conf)

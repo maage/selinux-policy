@@ -72,7 +72,7 @@ def get_av_db(file_name):
     #   if a token is expected but EOF is reached.
     # Now the list of Class objects is returned.
 
-    av_file = open(file_name, "r")
+    av_file = open(file_name)
     av_data = []
     # Read the file and strip out comments on the way.
     # At the end of the loop, av_data will contain a list of individual
