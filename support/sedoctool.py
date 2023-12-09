@@ -477,14 +477,8 @@ def gen_docs(doc, working_dir, templatedir):
                 for desc in args.getElementsByTagName("summary"):
                     paramdesc = format_html_desc(desc)
                 paramname = args.getAttribute("name")
-                if args.getAttribute("optional") == "true":
-                    paramopt = "Yes"
-                else:
-                    paramopt = "No"
-                if args.getAttribute("unused") == "true":
-                    paramunused = "Yes"
-                else:
-                    paramunused = "No"
+                paramopt = "Yes" if args.getAttribute("optional") == "true" else "No"
+                paramunused = "Yes" if args.getAttribute("unused") == "true" else "No"
                 parameter = {
                     "name": paramname,
                     "desc": paramdesc,
@@ -534,14 +528,8 @@ def gen_docs(doc, working_dir, templatedir):
                 for desc in args.getElementsByTagName("summary"):
                     paramdesc = format_html_desc(desc)
                 paramname = args.getAttribute("name")
-                if args.getAttribute("optional") == "true":
-                    paramopt = "Yes"
-                else:
-                    paramopt = "No"
-                if args.getAttribute("unused") == "true":
-                    paramunused = "Yes"
-                else:
-                    paramunused = "No"
+                paramopt = "Yes" if args.getAttribute("optional") == "true" else "No"
+                paramunused = "Yes" if args.getAttribute("unused") == "true" else "No"
                 parameter = {
                     "name": paramname,
                     "desc": paramdesc,

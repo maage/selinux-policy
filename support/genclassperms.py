@@ -214,10 +214,9 @@ def get_sc_db(file_name):
         # Check if the comment to the right of the permission matches
         #  USERSPACE_CLASS.
         comment_index = line.find("#")
-        if comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS:
-            userspace = True
-        else:
-            userspace = False
+        userspace = bool(
+            comment_index != -1 and line[comment_index + 1 :].strip() == USERSPACE_CLASS
+        )
 
         # All lines should be in the format "class NAME", meaning
         #  it should have two tokens and the first token should be
