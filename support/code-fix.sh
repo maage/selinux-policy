@@ -63,6 +63,7 @@ ruf=(
     Q000
     Q002
     Q003
+    RET504
     RET505
     RET507
     SIM102
