@@ -361,10 +361,5 @@ def TemplateNodeFactory(parent):
           return template_factory_type_map[i](parent, directive)
       return ExpressionTemplateNode(parent, directive)
 
-def is_sequence(object):
-  try:
-    test = object[0:0]
-  except:
-    return False
-  else:
-    return True
+def is_sequence(obj):
+    return bool(isinstance(obj, (list, tuple)))
