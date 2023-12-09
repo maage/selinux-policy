@@ -148,7 +148,10 @@ class Flask:
 
         sids = []
         input = open(path, 'r')
+
+        number = 0
         for line in input:
+            number += 1
             m = self.COMMENT.search(line)
             if m: continue
 
