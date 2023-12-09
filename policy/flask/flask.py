@@ -291,9 +291,7 @@ class Flask:
 
             m = self.OPENB.search(line)
             if m:
-                if (
-                    state != CLASS and state != INHERIT and state != COMMON
-                ) or state2 != NONE:
+                if (state not in (CLASS, INHERIT, COMMON)) or state2 != NONE:
                     raise ParseError(self.OPENB, path, number)
                 state2 = OPEN
                 continue
@@ -304,7 +302,7 @@ class Flask:
                     raise ParseError(self.VECTOR, path, number)
                 g = m.groupdict()
                 v = g["name"]
-                if state == CLASS or state == INHERIT:
+                if state in (CLASS, INHERIT):
                     if v in vector[c]:
                         raise DuplicateError(self.VECTOR, path, number, v)
                     vector[c].append(v)
@@ -325,7 +323,7 @@ class Flask:
 
             raise ParseError("data", path, number)
 
-        if state != NONE and state2 != NONE:
+        if NONE not in (state, state2):
             raise ParseError(self.EOF, path, number)
 
         cvdiff = set(self.classes) - set(vectors)
