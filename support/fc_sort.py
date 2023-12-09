@@ -166,7 +166,7 @@ def main():
                 print(
                     f"{args.infile}:{lineno}: unable to parse a file context line: {line}"
                 )
-                exit(1)
+                sys.exit(1)
 
     # Sort
     file_context_definitions.sort()
