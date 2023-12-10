@@ -65,6 +65,7 @@ ruf=(
     N806
     N818
     PERF102
+    PGH001
     PIE790
     PIE808
     PLR1714
@@ -78,6 +79,7 @@ ruf=(
     RET505
     RET506
     RET507
+    S307
     SIM102
     SIM108
     SIM109
@@ -117,6 +119,7 @@ pyl=(
     consider-using-with
     dangerous-default-value
     empty-docstring
+    eval-used
     global-variable-not-assigned
     inconsistent-return-statements
     line-too-long
