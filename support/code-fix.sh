@@ -59,6 +59,7 @@ ruf=(
     SIM108
     SIM109
     SIM114
+    SIM115
     SIM118
     SIM201
     UP010
@@ -82,6 +83,7 @@ pyl=(
     consider-iterating-dictionary
     consider-using-dict-items
     consider-using-in
+    consider-using-with
     line-too-long
     multiple-statements
     no-else-continue
