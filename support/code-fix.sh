@@ -132,6 +132,7 @@ pyl=(
     no-else-return
     no-member
     no-value-for-parameter
+    non-parent-init-called
     redefined-builtin
     redefined-outer-name
     simplifiable-if-statement
