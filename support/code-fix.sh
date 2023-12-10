@@ -51,6 +51,7 @@ ruf=(
     Q002
     Q003
     RET507
+    SIM108
     SIM118
     SIM201
     UP010
@@ -76,6 +77,7 @@ pyl=(
     line-too-long
     multiple-statements
     no-else-continue
+    simplifiable-if-statement
     syntax-error
     trailing-newlines
     undefined-variable
