@@ -72,6 +72,7 @@ ruf=(
     RET503
     RET504
     RET505
+    RET506
     RET507
     SIM102
     SIM108
@@ -103,17 +104,24 @@ pyl=(
     consider-iterating-dictionary
     consider-using-dict-items
     consider-using-in
+    consider-using-sys-exit
     consider-using-with
+    dangerous-default-value
+    empty-docstring
+    inconsistent-return-statements
     line-too-long
     multiple-statements
     no-else-continue
+    no-else-raise
     no-else-return
     simplifiable-if-statement
+    singleton-comparison
     syntax-error
     trailing-newlines
     undefined-variable
     unidiomatic-typecheck
     unnecessary-semicolon
+    unused-argument
     unused-import
     use-implicit-booleaness-not-len
 )
