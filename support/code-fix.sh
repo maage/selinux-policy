@@ -50,8 +50,10 @@ ruf=(
     Q000
     Q002
     Q003
+    RET505
     RET507
     SIM108
+    SIM114
     SIM118
     SIM201
     UP010
@@ -77,6 +79,7 @@ pyl=(
     line-too-long
     multiple-statements
     no-else-continue
+    no-else-return
     simplifiable-if-statement
     syntax-error
     trailing-newlines
