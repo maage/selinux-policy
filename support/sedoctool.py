@@ -247,7 +247,7 @@ def gen_doc_menu(
     Generates the HTML document menu.
     """
 
-    menu = []
+    menu: list[menu_item_t] = []
     for layer, value in module_list.items():
         cur_menu: menu_item_t = (layer, [])
         menu.append(cur_menu)
@@ -370,59 +370,14 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
 
     # arg, i have to go through this dom tree ahead of time to build up the menus
     interface_buf: str | None
-    body_args: eval_data_t
-    module_list: module_list_t = {}
-    for node in doc.getElementsByTagName("module"):
-        mod_name = mod_layer = interface_buf = ""
-
-        mod_name = node.getAttribute("name")
-        mod_layer = node.parentNode.getAttribute("name")
-
-        desc = get_first_child_by_names(node, ["summary"])[0]
-        mod_summary = format_html_desc(desc) if desc else ""
-        if mod_layer not in module_list:
-            module_list[mod_layer] = {}
-
-        module_list[mod_layer][mod_name] = mod_summary
+    module_list = gen_module_list(doc)
 
     # generate index pages
     main_content_buf = ""
     for mod_layer in module_list:
-        menu = gen_doc_menu(mod_layer, module_list)
+        main_content_buf += write_mod_layer(tm, doc, mod_layer, module_list)
 
-        layer_summary = get_layer_summary(doc, mod_layer)
-
-        menu_args = {
-            "menulist": menu,
-            "mod_layer": mod_layer,
-            "layer_summary": layer_summary,
-        }
-        menu_tpl = tm.get("menu")
-        menu_buf = menu_tpl.execute_string(menu_args)
-
-        content_tpl = tm.get("index")
-        content_buf = content_tpl.execute_string(menu_args)
-
-        main_content_buf += content_buf
-
-        body_args = {"menu": menu_buf, "content": content_buf}
-
-        index_file = f"{mod_layer}.html"
-        with open(index_file, "w") as index_fh:
-            body_tpl = tm.get("body")
-            body_tpl.execute(index_fh, body_args)
-
-    menu = gen_doc_menu(None, module_list)
-    menu_args = {"menulist": menu, "mod_layer": None}
-    menu_tpl = tm.get("menu")
-    menu_buf = menu_tpl.execute_string(menu_args)
-
-    body_args = {"menu": menu_buf, "content": main_content_buf}
-
-    index_file = "index.html"
-    with open(index_file, "w") as index_fh:
-        body_tpl = tm.get("body")
-        body_tpl.execute(index_fh, body_args)
+    write_index(tm, module_list, main_content_buf)
 
     # now generate the individual module pages
     all_interfaces: tmpl_data_t = []
@@ -443,10 +398,10 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
         mod_layer = node.parentNode.getAttribute("name")
         mod_summary, mod_desc = get_elem_summary_desc(node)
 
-        mod_req = None
-        for req in node.getElementsByTagName("required"):
-            if req.getAttribute("val") == "true":
-                mod_req = True
+        mod_req = any(
+            req.getAttribute("val") == "true"
+            for req in node.getElementsByTagName("required")
+        )
 
         interfaces = []
         for interface in node.getElementsByTagName("interface"):
@@ -646,30 +601,17 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
             body_tpl.execute(module_fh, body_args)
 
     menu = gen_doc_menu(None, module_list)
-    menu_args = {"menulist": menu, "mod_layer": None}
+    menu_args: eval_data_t = {"menulist": menu, "mod_layer": None}
     menu_tpl = tm.get("menu")
     menu_buf = menu_tpl.execute_string(menu_args)
 
     # build the interface index
     all_interfaces.sort(key=int_cmp_func)
-    interface_tpl = tm.get("intlist")
-    interface_buf = interface_tpl.execute_string({"interfaces": all_interfaces})
-    int_file = "interfaces.html"
-
-    with open(int_file, "w") as int_fh:
-        body_tpl = tm.get("body")
-        body_args = {"menu": menu_buf, "content": interface_buf}
-        body_tpl.execute(int_fh, body_args)
+    write_interfaces(tm, all_interfaces, menu_buf)
 
     # build the template index
     all_templates.sort(key=temp_cmp_func)
-    template_tpl = tm.get("templist")
-    template_buf = template_tpl.execute_string({"templates": all_templates})
-    temp_file = "templates.html"
-    with open(temp_file, "w") as temp_fh:
-        body_tpl = tm.get("body")
-        body_args = {"menu": menu_buf, "content": template_buf}
-        body_tpl.execute(temp_fh, body_args)
+    write_templates(tm, all_templates, menu_buf)
 
     global_tun: tmpl_data_t
     global_bool: tmpl_data_t
@@ -687,12 +629,12 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
             {"tun_name": tunable_name, "def_val": default_value, "desc": description}
         )
     global_tun.sort(key=tun_cmp_func)
-    gen_global_tunables(tm, global_tun, menu_buf)
+    write_global_tunables(tm, global_tun, menu_buf)
 
     # build the tunable index
     all_tunables += global_tun
     all_tunables.sort(key=tun_cmp_func)
-    gen_tunables(tm, all_tunables, menu_buf)
+    write_tunables(tm, all_tunables, menu_buf)
 
     # build the global boolean index
     global_bool = []
@@ -707,15 +649,103 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
             {"bool_name": bool_name, "def_val": default_value, "desc": description}
         )
     global_bool.sort(key=bool_cmp_func)
-    gen_global_booleans(tm, global_bool, menu_buf)
+    write_global_booleans(tm, global_bool, menu_buf)
 
     # build the boolean index
     all_booleans += global_bool
     all_booleans.sort(key=bool_cmp_func)
-    gen_booleans(tm, all_booleans, menu_buf)
+    write_booleans(tm, all_booleans, menu_buf)
 
 
-def gen_global_tunables(
+def gen_module_list(doc: Document) -> module_list_t:
+    module_list: module_list_t = {}
+    for node in doc.getElementsByTagName("module"):
+        mod_name = node.getAttribute("name")
+        mod_layer = node.parentNode.getAttribute("name")
+        desc = get_first_child_by_names(node, ["summary"])[0]
+        mod_summary = format_html_desc(desc) if desc else ""
+        if mod_layer not in module_list:
+            module_list[mod_layer] = {}
+
+        module_list[mod_layer][mod_name] = mod_summary
+
+    return module_list
+
+
+def write_mod_layer(
+    tm: TemplateManager,
+    doc: Document,
+    mod_layer: str,
+    module_list: module_list_t,
+) -> str:
+    menu = gen_doc_menu(mod_layer, module_list)
+
+    layer_summary = get_layer_summary(doc, mod_layer)
+
+    menu_args = {
+        "menulist": menu,
+        "mod_layer": mod_layer,
+        "layer_summary": layer_summary,
+    }
+    menu_tpl = tm.get("menu")
+    menu_buf = menu_tpl.execute_string(menu_args)
+
+    content_tpl = tm.get("index")
+    content_buf = content_tpl.execute_string(menu_args)
+
+    body_args: eval_data_t = {"menu": menu_buf, "content": content_buf}
+
+    index_file = f"{mod_layer}.html"
+    with open(index_file, "w") as index_fh:
+        body_tpl = tm.get("body")
+        body_tpl.execute(index_fh, body_args)
+
+    return content_buf
+
+
+def write_index(
+    tm: TemplateManager, module_list: module_list_t, main_content_buf: str
+) -> None:
+    menu = gen_doc_menu(None, module_list)
+    menu_args = {"menulist": menu, "mod_layer": None}
+    menu_tpl = tm.get("menu")
+    menu_buf = menu_tpl.execute_string(menu_args)
+
+    body_args: eval_data_t = {"menu": menu_buf, "content": main_content_buf}
+
+    index_file = "index.html"
+    with open(index_file, "w") as index_fh:
+        body_tpl = tm.get("body")
+        body_tpl.execute(index_fh, body_args)
+
+
+def write_interfaces(
+    tm: TemplateManager, all_interfaces: tmpl_data_t, menu_buf: str
+) -> None:
+    interface_tpl = tm.get("intlist")
+    interface_args: eval_data_t = {"interfaces": all_interfaces}
+    interface_buf = interface_tpl.execute_string(interface_args)
+    int_file = "interfaces.html"
+    with open(int_file, "w") as int_fh:
+        body_tpl = tm.get("body")
+        body_args: eval_data_t = {"menu": menu_buf, "content": interface_buf}
+        body_tpl.execute(int_fh, body_args)
+
+
+def write_templates(
+    tm: TemplateManager, all_templates: tmpl_data_t, menu_buf: str
+) -> None:
+    template_tpl = tm.get("templist")
+    template_args: eval_data_t = {"templates": all_templates}
+    template_buf = template_tpl.execute_string(template_args)
+    temp_file = "templates.html"
+    with open(temp_file, "w") as temp_fh:
+        body_tpl = tm.get("body")
+        body_args: eval_data_t = {"menu": menu_buf, "content": template_buf}
+        body_tpl.execute(temp_fh, body_args)
+
+
+def write_global_tunables(
     tm: TemplateManager, global_tun: tmpl_data_t, menu_buf: str
 ) -> None:
     global_tun_tpl = tm.get("gtunlist")
@@ -728,7 +758,9 @@ def gen_global_tunables(
         body_tpl.execute(global_tun_fh, body_args)
 
 
-def gen_tunables(tm: TemplateManager, all_tunables: tmpl_data_t, menu_buf: str) -> None:
+def write_tunables(
+    tm: TemplateManager, all_tunables: tmpl_data_t, menu_buf: str
+) -> None:
     tunable_tpl = tm.get("tunlist")
     tunable_args: eval_data_t = {"tunables": all_tunables}
     tunable_buf = tunable_tpl.execute_string(tunable_args)
@@ -739,7 +771,7 @@ def gen_tunables(tm: TemplateManager, all_tunables: tmpl_data_t, menu_buf: str) 
         body_tpl.execute(temp_fh, body_args)
 
 
-def gen_global_booleans(
+def write_global_booleans(
     tm: TemplateManager, global_bool: tmpl_data_t, menu_buf: str
 ) -> None:
     global_bool_tpl = tm.get("gboollist")
@@ -752,7 +784,9 @@ def gen_global_booleans(
         body_tpl.execute(global_bool_fh, body_args)
 
 
-def gen_booleans(tm: TemplateManager, all_booleans: tmpl_data_t, menu_buf: str) -> None:
+def write_booleans(
+    tm: TemplateManager, all_booleans: tmpl_data_t, menu_buf: str
+) -> None:
     boolean_tpl = tm.get("boollist")
     bool_args: eval_data_t = {"booleans": all_booleans}
     boolean_buf = boolean_tpl.execute_string(bool_args)
