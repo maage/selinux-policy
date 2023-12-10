@@ -136,6 +136,7 @@ pyl=(
     redefined-outer-name
     simplifiable-if-statement
     singleton-comparison
+    super-init-not-called
     syntax-error
     trailing-newlines
     undefined-variable
