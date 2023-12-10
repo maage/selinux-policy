@@ -122,6 +122,7 @@ pyl=(
     no-member
     no-value-for-parameter
     redefined-builtin
+    redefined-outer-name
     simplifiable-if-statement
     singleton-comparison
     syntax-error
