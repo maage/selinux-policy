@@ -48,6 +48,7 @@ ruf=(
     F841
     I001
     ISC003
+    PLR1714
     Q000
     Q002
     Q003
@@ -55,6 +56,7 @@ ruf=(
     RET507
     SIM102
     SIM108
+    SIM109
     SIM114
     SIM118
     SIM201
@@ -78,6 +80,7 @@ pyl=(
     colon
     consider-iterating-dictionary
     consider-using-dict-items
+    consider-using-in
     line-too-long
     multiple-statements
     no-else-continue
