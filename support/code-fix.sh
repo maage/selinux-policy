@@ -115,6 +115,7 @@ pyl=(
     consider-using-with
     dangerous-default-value
     empty-docstring
+    global-variable-not-assigned
     inconsistent-return-statements
     line-too-long
     multiple-statements
