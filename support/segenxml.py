@@ -217,13 +217,14 @@ def getTunableXML(file_name, kind):
             # If there is a gen_bool in a tunable file or a
             # gen_tunable in a boolean file, error and exit.
             # Skip if both kinds are valid.
-            if kind != "both" and boolean.group(1) != kind:
-                error(f"{boolean.group(1)} in a {kind} file.")
+            typ, name, value = boolean.groups()
+            if kind not in ("both", typ):
+                error(f"{typ} in a {kind} file.")
 
-            tunable_buf.append('<{} name="{}" dftval="{}">\n'.format(*boolean.groups()))
+            tunable_buf.append(f'<{typ} name="{name}" dftval="{value}">\n')
             tunable_buf += temp_buf
             temp_buf = []
-            tunable_buf.append(f"</{boolean.group(1)}>\n")
+            tunable_buf.append(f"</{typ}>\n")
 
     # If there are XML comments at the end of the file, they arn't
     # attributed to anything. These are ignored.
