@@ -45,6 +45,7 @@ ruf=(
     Q000
     Q002
     Q003
+    RET507
     SIM118
     UP010
     UP015
@@ -68,6 +69,7 @@ pyl=(
     consider-using-dict-items
     line-too-long
     multiple-statements
+    no-else-continue
     syntax-error
     trailing-newlines
     undefined-variable
