@@ -119,6 +119,7 @@ pyl=(
     no-else-continue
     no-else-raise
     no-else-return
+    no-member
     no-value-for-parameter
     redefined-builtin
     simplifiable-if-statement
