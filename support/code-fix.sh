@@ -103,6 +103,7 @@ fi
 pyl=(
     anomalous-backslash-in-string
     bad-indentation
+    bare-except
     colon
     consider-iterating-dictionary
     consider-using-dict-items
@@ -118,12 +119,15 @@ pyl=(
     no-else-continue
     no-else-raise
     no-else-return
+    no-value-for-parameter
+    redefined-builtin
     simplifiable-if-statement
     singleton-comparison
     syntax-error
     trailing-newlines
     undefined-variable
     unidiomatic-typecheck
+    unnecessary-pass
     unnecessary-semicolon
     unused-argument
     unused-import
