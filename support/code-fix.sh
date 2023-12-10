@@ -41,6 +41,7 @@ ruf=(
     E701
     E703
     F841
+    ISC003
     Q000
     Q002
     Q003
@@ -65,6 +66,7 @@ pyl=(
     colon
     consider-iterating-dictionary
     consider-using-dict-items
+    line-too-long
     multiple-statements
     syntax-error
     trailing-newlines
