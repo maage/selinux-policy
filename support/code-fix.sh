@@ -38,6 +38,7 @@ ruf=(
     ARG002
     B006
     B007
+    BLE001
     COM819
     D206
     D210
@@ -105,6 +106,7 @@ pyl=(
     attribute-defined-outside-init
     bad-indentation
     bare-except
+    broad-exception-caught
     colon
     consider-iterating-dictionary
     consider-using-dict-items
