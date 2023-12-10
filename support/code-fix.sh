@@ -41,6 +41,7 @@ ruf=(
     E401
     E701
     E703
+    E721
     F841
     I001
     ISC003
@@ -75,6 +76,7 @@ pyl=(
     syntax-error
     trailing-newlines
     undefined-variable
+    unidiomatic-typecheck
     unnecessary-semicolon
     unused-import
     use-implicit-booleaness-not-len
