@@ -27,22 +27,29 @@ sed -Ei '
 pyupgrade --py311-plus "${py_files[@]}"
 ! git status --porcelain | grep -Ev '^[?][?] ' || exit 1
 
-if false; then
 black --target-version py311 "${py_files[@]}"
 ! git status --porcelain | grep -Ev '^[?][?] ' || exit 1
-fi
 
 
 
 ruf=(
+    COM819
     D206
+    D210
+    D300
     E101
+    E701
+    E703
     F841
+    Q000
+    Q002
+    Q003
     SIM118
     UP010
     UP015
     UP032
     UP036
+    UP039
     W191
 )
 if (( ${#ruf[@]} )); then
@@ -54,10 +61,15 @@ fi
 
 pyl=(
     anomalous-backslash-in-string
+    bad-indentation
+    colon
     consider-iterating-dictionary
     consider-using-dict-items
+    multiple-statements
     syntax-error
+    trailing-newlines
     undefined-variable
+    unnecessary-semicolon
     unused-import
 )
 if (( ${#pyl[@]} )); then
