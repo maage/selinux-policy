@@ -53,6 +53,7 @@ ruf=(
     Q003
     RET505
     RET507
+    SIM102
     SIM108
     SIM114
     SIM118
