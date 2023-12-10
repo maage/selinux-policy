@@ -79,6 +79,7 @@ ruf=(
     RET505
     RET506
     RET507
+    S102
     S307
     SIM102
     SIM108
@@ -120,6 +121,7 @@ pyl=(
     dangerous-default-value
     empty-docstring
     eval-used
+    exec-used
     global-variable-not-assigned
     inconsistent-return-statements
     line-too-long
