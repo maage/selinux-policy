@@ -673,7 +673,6 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
 
     global_tun: tmpl_data_t
     global_bool: tmpl_data_t
-    bool_args: eval_data_t
 
     # build the global tunable index
     global_tun = []
@@ -688,24 +687,12 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
             {"tun_name": tunable_name, "def_val": default_value, "desc": description}
         )
     global_tun.sort(key=tun_cmp_func)
-    global_tun_tpl = tm.get("gtunlist")
-    global_tun_buf = global_tun_tpl.execute_string({"tunables": global_tun})
-    global_tun_file = "global_tunables.html"
-    with open(global_tun_file, "w") as global_tun_fh:
-        body_tpl = tm.get("body")
-        body_args = {"menu": menu_buf, "content": global_tun_buf}
-        body_tpl.execute(global_tun_fh, body_args)
+    gen_global_tunables(tm, global_tun, menu_buf)
 
     # build the tunable index
     all_tunables += global_tun
     all_tunables.sort(key=tun_cmp_func)
-    tunable_tpl = tm.get("tunlist")
-    tunable_buf = tunable_tpl.execute_string({"tunables": all_tunables})
-    temp_file = "tunables.html"
-    with open(temp_file, "w") as temp_fh:
-        body_tpl = tm.get("body")
-        body_args = {"menu": menu_buf, "content": tunable_buf}
-        body_tpl.execute(temp_fh, body_args)
+    gen_tunables(tm, all_tunables, menu_buf)
 
     # build the global boolean index
     global_bool = []
@@ -720,6 +707,41 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
             {"bool_name": bool_name, "def_val": default_value, "desc": description}
         )
     global_bool.sort(key=bool_cmp_func)
+    gen_global_booleans(tm, global_bool, menu_buf)
+
+    # build the boolean index
+    all_booleans += global_bool
+    all_booleans.sort(key=bool_cmp_func)
+    gen_booleans(tm, all_booleans, menu_buf)
+
+
+def gen_global_tunables(
+    tm: TemplateManager, global_tun: tmpl_data_t, menu_buf: str
+) -> None:
+    global_tun_tpl = tm.get("gtunlist")
+    global_tun_args: eval_data_t = {"tunables": global_tun}
+    global_tun_buf = global_tun_tpl.execute_string(global_tun_args)
+    global_tun_file = "global_tunables.html"
+    with open(global_tun_file, "w") as global_tun_fh:
+        body_tpl = tm.get("body")
+        body_args: eval_data_t = {"menu": menu_buf, "content": global_tun_buf}
+        body_tpl.execute(global_tun_fh, body_args)
+
+
+def gen_tunables(tm: TemplateManager, all_tunables: tmpl_data_t, menu_buf: str) -> None:
+    tunable_tpl = tm.get("tunlist")
+    tunable_args: eval_data_t = {"tunables": all_tunables}
+    tunable_buf = tunable_tpl.execute_string(tunable_args)
+    temp_file = "tunables.html"
+    with open(temp_file, "w") as temp_fh:
+        body_tpl = tm.get("body")
+        body_args: eval_data_t = {"menu": menu_buf, "content": tunable_buf}
+        body_tpl.execute(temp_fh, body_args)
+
+
+def gen_global_booleans(
+    tm: TemplateManager, global_bool: tmpl_data_t, menu_buf: str
+) -> None:
     global_bool_tpl = tm.get("gboollist")
     global_bool_args: eval_data_t = {"booleans": global_bool}
     global_bool_buf = global_bool_tpl.execute_string(global_bool_args)
@@ -729,11 +751,10 @@ def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
         body_args = {"menu": menu_buf, "content": global_bool_buf}
         body_tpl.execute(global_bool_fh, body_args)
 
-    # build the boolean index
-    all_booleans += global_bool
-    all_booleans.sort(key=bool_cmp_func)
+
+def gen_booleans(tm: TemplateManager, all_booleans: tmpl_data_t, menu_buf: str) -> None:
     boolean_tpl = tm.get("boollist")
-    bool_args = {"booleans": all_booleans}
+    bool_args: eval_data_t = {"booleans": all_booleans}
     boolean_buf = boolean_tpl.execute_string(bool_args)
     temp_file = "booleans.html"
     with open(temp_file, "w") as temp_fh:
