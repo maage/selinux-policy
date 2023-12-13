@@ -93,7 +93,9 @@ def gen_booleans_conf(
             yield ""
 
 
-def gen_module_conf(doc, file_name, namevalue_list):
+def gen_module_conf(
+    doc: Document, file_name: str, namevalue_list: namevalue_list_t
+) -> Iterator[str]:
     """
     Generates the module configuration file using the XML provided and the
     previous module configuration.
@@ -101,68 +103,71 @@ def gen_module_conf(doc, file_name, namevalue_list):
     # If file exists, preserve settings and modify if needed.
     # Otherwise, create it.
 
-    file_name.write("#\n# This file contains a listing of available modules.\n")
-    file_name.write("# To prevent a module from  being used in policy\n")
-    file_name.write(f'# creation, set the module name to "{MOD_DISABLED}".\n#\n')
-    file_name.write(
-        f'# For monolithic policies, modules set to "{MOD_BASE}" and "{MOD_ENABLED}"\n'
+    yield from (
+        "#",
+        "# This file contains a listing of available modules.",
+        "# To prevent a module from  being used in policy",
+        f'# creation, set the module name to "{MOD_DISABLED}".',
+        "#",
+        f'# For monolithic policies, modules set to "{MOD_BASE}" and "{MOD_ENABLED}"',
+        "# will be built into the policy.",
+        "#",
+        f'# For modular policies, modules set to "{MOD_BASE}" will be',
+        f'# included in the base module.  "{MOD_ENABLED}" will be compiled',
+        "# as individual loadable modules.",
+        "#",
+        "",
     )
-    file_name.write("# will be built into the policy.\n#\n")
-    file_name.write(f'# For modular policies, modules set to "{MOD_BASE}" will be\n')
-    file_name.write(
-        f'# included in the base module.  "{MOD_ENABLED}" will be compiled\n'
-    )
-    file_name.write("# as individual loadable modules.\n#\n\n")
 
     # For required in [True,False] is present so that the requiered modules
     # are at the top of the config file.
-    for required in [True, False]:
+    for required in (True, False):
         for node in doc.getElementsByTagName("module"):
-            mod_req = False
-            for req in node.getElementsByTagName("required"):
-                if req.getAttribute("val") == "true":
-                    mod_req = True
+            mod_req = any(
+                req.getAttribute("val") == "true"
+                for req in node.getElementsByTagName("required")
+            )
 
             # Skip if we arnt working on the right set of modules.
-            if mod_req and not required or not mod_req and required:
+            if (mod_req and not required) or (not mod_req and required):
                 continue
-
-            mod_name = mod_layer = None
 
             mod_name = node.getAttribute("name")
             mod_layer = node.parentNode.getAttribute("name")
 
-            if mod_name and mod_layer:
-                file_name.write(f"# Layer: {mod_layer}\n# Module: {mod_name}\n")
-                if required:
-                    file_name.write("# Required in base\n")
-                file_name.write("#\n")
+            if mod_name is None:
+                error(f'{file_name} module missing "name" attribute')
+
+            if mod_layer is not None:
+                yield f"# Layer: {mod_layer}"
+            yield f"# Module: {mod_name}"
+
+            if required:
+                yield "# Required in base"
+            yield "#"
 
             for desc in node.getElementsByTagName("summary"):
                 if desc.parentNode != node:
                     continue
-                s = format_txt_desc(desc).split("\n")
-                for line in s:
-                    if line:
-                        file_name.write(f"# {line}\n")
-                    else:
-                        file_name.write("#\n")
+                for line in format_txt_desc(desc).split("\n"):
+                    yield f"# {line}" if line else "#"
 
-                # If the module is set as disabled.
-                if [mod_name, MOD_DISABLED] in namevalue_list:
-                    file_name.write(f"{mod_name} = {MOD_DISABLED}\n\n")
-                # If the module is set as enabled.
-                elif [mod_name, MOD_ENABLED] in namevalue_list:
-                    file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
-                # If the module is set as base.
-                # or
-                # If the module is a new module.
-                # Set the module to base if it is marked as required.
-                elif ([mod_name, MOD_BASE] in namevalue_list) or mod_req:
-                    file_name.write(f"{mod_name} = {MOD_BASE}\n\n")
-                # Set the module to enabled if it is not required.
-                else:
-                    file_name.write(f"{mod_name} = {MOD_ENABLED}\n\n")
+            # If the module is set as disabled.
+            if (mod_name, MOD_DISABLED) in namevalue_list:
+                yield f"{mod_name} = {MOD_DISABLED}"
+            # If the module is set as enabled.
+            elif (mod_name, MOD_ENABLED) in namevalue_list:
+                yield f"{mod_name} = {MOD_ENABLED}"
+            # If the module is set as base.
+            # or
+            # If the module is a new module.
+            # Set the module to base if it is marked as required.
+            elif ((mod_name, MOD_BASE) in namevalue_list) or mod_req:
+                yield f"{mod_name} = {MOD_BASE}"
+            # Set the module to enabled if it is not required.
+            else:
+                yield f"{mod_name} = {MOD_ENABLED}"
+            yield ""
 
 
 def get_conf(conf):
@@ -828,7 +833,11 @@ def main():
 
         try:
             with open(modules, "w") as conf:
-                gen_module_conf(doc, conf, namevalue_list)
+                print(
+                    *(gen_module_conf(doc, xmlfile, namevalue_list)),
+                    sep="\n",
+                    file=conf,
+                )
         except OSError:
             error("Could not open modules file for writing")
 
