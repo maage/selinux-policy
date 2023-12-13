@@ -63,7 +63,7 @@ re_comment = re.compile(r"#(.*)#")
 ############################################################
 # Template parser
 class ParseError(Exception):
-    def __init__(self, lineno, s):
+    def __init__(self, lineno: int, s: str) -> None:
         Exception.__init__(self, f"line {lineno:d}: {s}")
 
 
@@ -103,8 +103,8 @@ class Template:
         self.lineno = self.lineno + self.line[:chars].count("\n")
         self.line = self.line[chars:]
 
-    def parser_exception(self, s):
-        raise ParseError(self.lineno, s)
+    def parser_exception(self, s: str) -> ParseError:
+        return ParseError(self.lineno, s)
 
     def execute_file(self, filename, data):
         with open(filename, "w") as file:
@@ -245,9 +245,9 @@ class ElifTemplateNode(IfTemplateNode):
         TemplateNode.__init__(self, parent, s)  # pylint: disable=non-parent-init-called
         match = re_elif.match(s)
         if match is None:
-            self.parent.parser_exception(f"[[{self.s}]] is not a valid elif expression")
-        else:
-            self.expression = match.group(1)
+            msg = f"[[{self.s}]] is not a valid elif expression"
+            raise self.parent.parser_exception(msg)
+        self.expression = match.group(1)
 
 
 class ElseTemplateNode(TemplateNode):
@@ -284,7 +284,8 @@ class ExecTemplateNode(LeafTemplateNode):
         LeafTemplateNode.__init__(self, parent, s)
         match = re_exec.match(s)
         if match is None:
-            self.parent.parser_exception(f"[[{self.s}]] is not a valid statement")
+            msg = f"[[{self.s}]] is not a valid statement"
+            raise self.parent.parser_exception(msg)
         self.s = match.group(1)
 
     def execute(self, _stream, data):
