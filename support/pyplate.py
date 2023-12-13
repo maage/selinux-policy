@@ -147,7 +147,7 @@ class TemplateNode:
                 break
 
     def add_node(self, node):
-        if node == "end":
+        if isinstance(node, EndTemplateNode):
             return True
         if node is None:
             msg = f"[[{self.s}]] does not have a matching [[end]]"
@@ -164,6 +164,11 @@ class TemplateNode:
         for i in self.node_list:
             r = r + repr(i)
         return r + ">"
+
+
+class EndTemplateNode(TemplateNode):
+    def __init__(self) -> None:  # pylint: disable=super-init-not-called
+        pass
 
 
 class TopLevelTemplateNode(TemplateNode):
@@ -219,7 +224,7 @@ class IfTemplateNode(TemplateNode):
         self.expression = match.group(1)
 
     def add_node(self, node):
-        if node == "end":
+        if isinstance(node, EndTemplateNode):
             return True
         if isinstance(node, ElseTemplateNode):
             self.else_node = node
@@ -371,7 +376,7 @@ def TemplateNodeFactory(parent):
     directive = match.group()[2:-2].strip()
     parent.parser_eat(match.end())
     if directive == "end":
-        return "end"
+        return EndTemplateNode()
     if re_comment.match(directive):
         return CommentTemplateNode(parent, directive)
     for i in template_factory_types:
