@@ -9,7 +9,8 @@ Usage:
 # Load and parse template file
 template = pyplate.Template("output") (filename or string)
 # Execute it with a dictionary of variables
-template.execute_file(output_stream, locals())
+template.execute_string({str: Any})
+template.execute(stream, {str: Any})
 
 PyPlate defines the following directives:
   [[...]]       evaluate the arbitrary Python expression and insert the
@@ -48,7 +49,6 @@ PyPlate defines the following directives:
 
 import io
 import re
-import sys
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
 re_for_loop = re.compile(r"for (.*) in (.*)")
@@ -68,31 +68,12 @@ class ParseError(Exception):
 
 
 class Template:
-    def __init__(self, filename=None):
-        self.file = None
-        self.line = None
-        self.lineno = 0
-        self.tree = None
-        if filename is not None:
-            try:
-                self.parse_file(filename)
-            except OSError:
-                self.parse_string(filename)
-
-    def parse_file(self, filename):
-        with open(filename) as file:
-            self.parse(file)
-
-    def parse_string(self, template):
-        file = io.StringIO(template)
-        self.parse(file)
-        file.close()
-
-    def parse(self, file):
-        self.file = file
+    def __init__(self, template: str) -> None:
+        self.file = io.StringIO(template)
         self.line = self.file.read()
         self.lineno = 0
         self.tree = TopLevelTemplateNode(self)
+        self.file.close()
 
     def parser_get(self):
         if self.line == "":
@@ -106,21 +87,12 @@ class Template:
     def parser_exception(self, s: str) -> ParseError:
         return ParseError(self.lineno, s)
 
-    def execute_file(self, filename, data):
-        with open(filename, "w") as file:
-            self.execute(file, data)
-
     def execute_string(self, data):
         s = io.StringIO()
         self.execute(s, data)
         return s.getvalue()
 
-    def execute_stdout(self, data):
-        self.execute(sys.stdout, data)
-
-    def execute(self, stream=sys.stdout, data=None):
-        if data is None:
-            data = {}
+    def execute(self, stream, data):
         self.tree.execute(stream, data)
 
     def __repr__(self):
