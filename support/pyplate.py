@@ -26,11 +26,6 @@ PyPlate defines the following directives:
 
   [[for ... in ...]]  for-loop with usual Python semantics
   [[end]]
-
-  [[def ...(...)]]  define a "function" out of other templating elements
-  [[end]]
-
-  [[call ...]]  call a templating function (not a regular Python function)
 """
 
 #
@@ -77,7 +72,6 @@ class Template:
         self.file = None
         self.line = None
         self.lineno = 0
-        self.functions = {}
         self.tree = None
         if filename is not None:
             try:
@@ -98,7 +92,6 @@ class Template:
         self.file = file
         self.line = self.file.read()
         self.lineno = 0
-        self.functions = {}
         self.tree = TopLevelTemplateNode(self)
 
     def parser_get(self):
@@ -261,36 +254,6 @@ class ElseTemplateNode(TemplateNode):
     pass
 
 
-class FunctionTemplateNode(TemplateNode):
-    def __init__(self, parent, s):
-        TemplateNode.__init__(self, parent, s)
-        match = re_def.match(s)
-        if match is None:
-            self.parent.parser_exception(
-                f"[[{self.s}]] is not a valid function definition"
-            )
-        self.function_name = match.group(1)
-        self.vars_temp = match.group(2).split(",")
-        self.vars = []
-        for v in self.vars_temp:
-            self.vars.append(v.strip())
-        # print(self.vars)
-        self.parent.functions[self.function_name] = self
-
-    def execute(self, stream, data):
-        pass
-
-    def call(self, args, stream, data):
-        remember_vars = {}
-        for index, var in enumerate(self.vars):
-            if var in data:
-                remember_vars[var] = data[var]
-            data[var] = args[index]
-        TemplateNode.execute(self, stream, data)
-        for key, value in remember_vars.items():
-            data[key] = value
-
-
 class LeafTemplateNode(TemplateNode):
     def __init__(self, parent, s):  # pylint: disable=super-init-not-called
         self.parent = parent
@@ -329,24 +292,6 @@ class ExecTemplateNode(LeafTemplateNode):
         exec(self.s, globals(), data)  # noqa: S102
 
 
-class CallTemplateNode(LeafTemplateNode):
-    def __init__(self, parent, s):
-        LeafTemplateNode.__init__(self, parent, s)
-        match = re_call.match(s)
-        if match is None:
-            self.parent.parser_exception(f"[[{self.s}]] is not a valid function call")
-        self.function_name = match.group(1)
-        self.vars = "(" + match.group(2).strip() + ",)"
-
-    def execute(self, stream, data):
-        self.parent.functions[self.function_name].call(
-            # pylint: disable=eval-used
-            eval(self.vars, globals(), data),  # noqa: S307, PGH001
-            stream,
-            data,
-        )
-
-
 ############################################################
 # Node factory
 template_factory_type_map = {
@@ -354,8 +299,6 @@ template_factory_type_map = {
     "for": ForTemplateNode,
     "elif": ElifTemplateNode,
     "else": ElseTemplateNode,
-    "def": FunctionTemplateNode,
-    "call": CallTemplateNode,
     "exec": ExecTemplateNode,
 }
 template_factory_types = template_factory_type_map.keys()
