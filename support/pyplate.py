@@ -7,7 +7,7 @@ can be run inside many of the directives, making this system highly flexible.
 
 Usage:
 # Load and parse template file
-template = pyplate.Template("output") (filename or string)
+template = pyplate.Template(string)
 # Execute it with a dictionary of variables
 template.execute_string({str: Any})
 template.execute(stream, {str: Any})
@@ -52,6 +52,14 @@ from __future__ import annotations
 import io
 import re
 from dataclasses import dataclass, field
+from typing import Any, TextIO, TypeAlias
+
+stream_t: TypeAlias = TextIO
+node_t: TypeAlias = "TemplateNode"
+eval_data_t: TypeAlias = dict[str, Any]
+tmpl_param_t: TypeAlias = list[eval_data_t]
+tmpl_item_t: TypeAlias = str
+tmpl_data_t: TypeAlias = list[eval_data_t]
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
 re_for_loop = re.compile(r"for (.*) in (.*)")
@@ -100,43 +108,43 @@ class Template:
         self.lineno = 0
         self.tree = TopLevelTemplateNode(self)
 
-    def parser_get(self):
+    def parser_get(self) -> str | None:
         if self.line == "":
             return None
         return self.line
 
-    def parser_eat(self, chars):
-        self.lineno = self.lineno + self.line[:chars].count("\n")
+    def parser_eat(self, chars: int) -> None:
+        self.lineno += self.line[:chars].count("\n")
         self.line = self.line[chars:]
 
     def parser_exception(self, s: str) -> ParseError:
         return ParseError(self.template_input.file_name, self.lineno, s)
 
-    def execute_string(self, data):
+    def execute_string(self, data: eval_data_t) -> str:
         s = io.StringIO()
         self.execute(s, data)
         return s.getvalue()
 
-    def execute(self, stream, data):
+    def execute(self, stream: stream_t, data: eval_data_t) -> None:
         self.tree.execute(stream, data)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return repr(self.tree)
 
 
 ############################################################
 # NODES
 class TemplateNode:
-    def __init__(self, parent, s):
+    def __init__(self, parent: Template, s: str) -> None:
         self.parent = parent
         self.s = s
-        self.node_list = []
+        self.node_list: list[node_t] = []
         while True:
             new_node = TemplateNodeFactory(parent)
             if self.add_node(new_node):
                 break
 
-    def add_node(self, node):
+    def add_node(self, node: None | node_t) -> bool:
         if isinstance(node, EndTemplateNode):
             return True
         if node is None:
@@ -145,15 +153,14 @@ class TemplateNode:
         self.node_list.append(node)
         return False
 
-    def execute(self, stream, data):
+    def execute(self, stream: stream_t, data: eval_data_t) -> None:
         for node in self.node_list:
             node.execute(stream, data)
 
-    def __repr__(self):
-        r = "<" + self.__class__.__name__ + " "
-        for i in self.node_list:
-            r = r + repr(i)
-        return r + ">"
+    def __repr__(self) -> str:
+        return (
+            f"<{self.__class__.__name__} {" ".join(repr(i) for i in self.node_list)}>"
+        )
 
 
 class EndTemplateNode(TemplateNode):
@@ -162,10 +169,10 @@ class EndTemplateNode(TemplateNode):
 
 
 class TopLevelTemplateNode(TemplateNode):
-    def __init__(self, parent):
+    def __init__(self, parent: Template) -> None:
         TemplateNode.__init__(self, parent, "")
 
-    def add_node(self, node):
+    def add_node(self, node: None | node_t) -> bool:
         if node is None:
             return True
         self.node_list.append(node)
@@ -173,21 +180,21 @@ class TopLevelTemplateNode(TemplateNode):
 
 
 class ForTemplateNode(TemplateNode):
-    def __init__(self, parent, s):
+    def __init__(self, parent: Template, s: str) -> None:
         TemplateNode.__init__(self, parent, s)
         match = re_for_loop.match(s)
         if match is None:
             msg = f"[[{self.s}]] is not a valid for-loop expression"
             raise self.parent.parser_exception(msg)
         self.vars_temp = match.group(1).split(",")
-        self.vars = []
+        self.vars: list[str] = []
         for v in self.vars_temp:
             self.vars.append(v.strip())
         # print(self.vars)
         self.expression = match.group(2)
 
-    def execute(self, stream, data):
-        remember_vars = {}
+    def execute(self, stream: stream_t, data: eval_data_t) -> None:
+        remember_vars: eval_data_t = {}
         for var in self.vars:
             if var in data:
                 remember_vars[var] = data[var]
@@ -204,8 +211,8 @@ class ForTemplateNode(TemplateNode):
 
 
 class IfTemplateNode(TemplateNode):
-    def __init__(self, parent, s):
-        self.else_node = None
+    def __init__(self, parent: Template, s: str) -> None:
+        self.else_node: None | TemplateNode = None
         TemplateNode.__init__(self, parent, s)
         match = re_if.match(s)
         if match is None:
@@ -213,7 +220,7 @@ class IfTemplateNode(TemplateNode):
             raise self.parent.parser_exception(msg)
         self.expression = match.group(1)
 
-    def add_node(self, node):
+    def add_node(self, node: None | node_t) -> bool:
         if isinstance(node, EndTemplateNode):
             return True
         if isinstance(node, ElseTemplateNode):
@@ -228,7 +235,7 @@ class IfTemplateNode(TemplateNode):
         self.node_list.append(node)
         return False
 
-    def execute(self, stream, data):
+    def execute(self, stream: stream_t, data: eval_data_t) -> None:
         # pylint: disable=eval-used
         if eval(self.expression, globals(), data):  # noqa: S307, PGH001
             TemplateNode.execute(self, stream, data)
@@ -237,7 +244,9 @@ class IfTemplateNode(TemplateNode):
 
 
 class ElifTemplateNode(IfTemplateNode):
-    def __init__(self, parent, s):  # pylint: disable=super-init-not-called
+    def __init__(  # pylint: disable=super-init-not-called
+        self, parent: Template, s: str
+    ) -> None:
         self.else_node = None
         TemplateNode.__init__(self, parent, s)  # pylint: disable=non-parent-init-called
         match = re_elif.match(s)
@@ -252,24 +261,26 @@ class ElseTemplateNode(TemplateNode):
 
 
 class LeafTemplateNode(TemplateNode):
-    def __init__(self, parent, s):  # pylint: disable=super-init-not-called
+    def __init__(  # pylint: disable=super-init-not-called
+        self, parent: Template, s: str
+    ) -> None:
         self.parent = parent
         self.s = s
 
-    def execute(self, stream, _data):
+    def execute(self, stream: stream_t, _data: eval_data_t) -> None:
         stream.write(self.s)
 
-    def __repr__(self):
-        return "<" + self.__class__.__name__ + ">"
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}>"
 
 
 class CommentTemplateNode(LeafTemplateNode):
-    def execute(self, stream, data):
+    def execute(self, stream: stream_t, data: eval_data_t) -> None:
         pass
 
 
 class ExpressionTemplateNode(LeafTemplateNode):
-    def execute(self, stream, data):
+    def execute(self, stream: stream_t, data: eval_data_t) -> None:
         stream.write(
             # pylint: disable=eval-used
             str(eval(self.s, globals(), data))  # noqa: S307, PGH001
@@ -277,7 +288,7 @@ class ExpressionTemplateNode(LeafTemplateNode):
 
 
 class ExecTemplateNode(LeafTemplateNode):
-    def __init__(self, parent, s):
+    def __init__(self, parent: Template, s: str) -> None:
         LeafTemplateNode.__init__(self, parent, s)
         match = re_exec.match(s)
         if match is None:
@@ -285,7 +296,7 @@ class ExecTemplateNode(LeafTemplateNode):
             raise self.parent.parser_exception(msg)
         self.s = match.group(1)
 
-    def execute(self, _stream, data):
+    def execute(self, _stream: stream_t, data: eval_data_t) -> None:
         # pylint: disable=exec-used
         exec(self.s, globals(), data)  # noqa: S102
 
@@ -301,7 +312,7 @@ template_factory_type_map = {
 }
 
 
-def TemplateNodeFactory(parent):
+def TemplateNodeFactory(parent: Template) -> None | TemplateNode:
     src = parent.parser_get()
 
     if src is None:
