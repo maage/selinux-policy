@@ -170,16 +170,14 @@ def gen_module_conf(
             yield ""
 
 
-def get_conf(conf):
+def get_conf(conf) -> namevalue_list_t:
     """
     Returns a list of [name, value] pairs from a config file with the format
     name = value
     """
 
-    conf_lines = conf.readlines()
-
     namevalue_list = []
-    for i, line in enumerate(conf_lines):
+    for i, line in enumerate(conf):
         line = line.strip()
 
         if not line or line.startswith("#"):
@@ -190,17 +188,12 @@ def get_conf(conf):
             warning(f'line {i:d}: "{line}" is not a valid line, skipping')
             continue
 
-        namevalue[0] = namevalue[0].strip()
-        if len(namevalue[0].split()) > 1:
+        nv = namevalue[0].strip(), namevalue[1].strip()
+        if any(len(nve.split()) != 1 for nve in nv):
             warning(f'line {i:d}: "{line}" is not a valid line, skipping')
             continue
 
-        namevalue[1] = namevalue[1].strip()
-        if len(namevalue[1].split()) > 1:
-            warning(f'line {i:d}: "{line}" is not a valid line, skipping')
-            continue
-
-        namevalue_list.append(namevalue)
+        namevalue_list.append(nv)
 
     return namevalue_list
 
