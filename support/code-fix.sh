@@ -2,7 +2,17 @@
 
 set -epux
 
-py_files=(support/*.py policy/flask/flask.py)
+#py_files=(support/*.py policy/flask/flask.py)
+py_files=()
+readarray -t all_changed_files < <(git diff --name-only HEAD^)
+for a in "${all_changed_files[@]}"; do
+    if [[ $a =~ \.py$ ]]; then
+        py_files+=("$a")
+    fi
+done
+if (( ${#py_files[@]} == 0 )); then
+    exit 0
+fi
 
 if false; then
 sed -Ei 's/[[:blank:]]+$//' "${py_files[@]}"
@@ -154,3 +164,6 @@ if (( ${#pyl[@]} )); then
 pyl2="${pyl[*]}"
 pylint --disable=all --enable="${pyl2// /,}" "${py_files[@]}"
 fi
+
+
+mypy --ignore-missing-imports "${py_files[@]}"
