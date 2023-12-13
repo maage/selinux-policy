@@ -196,7 +196,7 @@ class ForTemplateNode(TemplateNode):
                 remember_vars[var] = data[var]
         # pylint: disable=eval-used
         for lst in eval(self.expression, globals(), data):  # noqa: S307, PGH001
-            if is_sequence(lst):
+            if isinstance(lst, (list, tuple)):
                 for index, value in enumerate(lst):
                     data[self.vars[index]] = value
             else:
@@ -326,7 +326,3 @@ def TemplateNodeFactory(parent):
         if directive[0 : len(i)] == i:
             return template_factory_type_map[i](parent, directive)
     return ExpressionTemplateNode(parent, directive)
-
-
-def is_sequence(obj):
-    return bool(isinstance(obj, (list, tuple)))
