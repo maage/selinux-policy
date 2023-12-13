@@ -331,6 +331,15 @@ def get_elem_summary_desc(node: Element) -> list[str]:
     return results
 
 
+def get_layer_summary(doc: Document, mod_layer: str) -> str | None:
+    for node in doc.getElementsByTagName("layer"):
+        if node.getAttribute("name") == mod_layer:
+            desc = get_first_child_by_names(node, ["summary"])[0]
+            if desc:
+                return format_html_desc(desc)
+    return None
+
+
 def gen_docs(doc, working_dir, templatedir):
     """
     Generates all the documentation.
@@ -395,10 +404,7 @@ def gen_docs(doc, working_dir, templatedir):
     for mod_layer in module_list:
         menu = gen_doc_menu(mod_layer, module_list)
 
-        layer_summary = None
-        for desc in doc.getElementsByTagName("summary"):
-            if desc.parentNode.getAttribute("name") == mod_layer:
-                layer_summary = format_html_desc(desc)
+        layer_summary = get_layer_summary(doc, mod_layer)
 
         menu_args = {
             "menulist": menu,
