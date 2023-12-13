@@ -73,9 +73,7 @@ def gen_booleans_conf(
             bool_val = None
             if "dftval" in node.attributes:
                 bool_val = node.attributes["dftval"].value
-            bool_desc = None
-            for desc in node.getElementsByTagName("desc"):
-                bool_desc = format_txt_desc(desc)
+            desc = get_first_child_by_names(node, ["desc"])[0]
 
             if (bool_name, BOOL_ENABLED) in namevalue_list:
                 bool_val = BOOL_ENABLED
@@ -85,7 +83,8 @@ def gen_booleans_conf(
             if bool_val is None:
                 error(f"{file_name} {elem_type} {bool_name} missing value")
 
-            if bool_desc:
+            if desc:
+                bool_desc = format_txt_desc(desc)
                 yield "#"
                 for line in bool_desc.split("\n"):
                     yield f"# {line}" if line else "#"
@@ -147,9 +146,8 @@ def gen_module_conf(
                 yield "# Required in base"
             yield "#"
 
-            for desc in node.getElementsByTagName("summary"):
-                if desc.parentNode != node:
-                    continue
+            desc = get_first_child_by_names(node, ["summary"])[0]
+            if desc:
                 for line in format_txt_desc(desc).split("\n"):
                     yield f"# {line}" if line else "#"
 
@@ -391,9 +389,8 @@ def gen_docs(doc, working_dir, templatedir):
         mod_name = node.getAttribute("name")
         mod_layer = node.parentNode.getAttribute("name")
 
-        for desc in node.getElementsByTagName("summary"):
-            if desc.parentNode == node and desc:
-                mod_summary = format_html_desc(desc)
+        desc = get_first_child_by_names(node, ["summary"])[0]
+        mod_summary = format_html_desc(desc) if desc else None
         if mod_layer not in module_list:
             module_list[mod_layer] = {}
 
@@ -444,41 +441,28 @@ def gen_docs(doc, working_dir, templatedir):
     all_tunables = []
     all_booleans = []
     for node in doc.getElementsByTagName("module"):
-        mod_name = mod_layer = mod_desc = interface_buf = ""
-
         mod_name = node.getAttribute("name")
         mod_layer = node.parentNode.getAttribute("name")
+        mod_summary, mod_desc = get_elem_summary_desc(node)
 
         mod_req = None
         for req in node.getElementsByTagName("required"):
             if req.getAttribute("val") == "true":
                 mod_req = True
 
-        for desc in node.getElementsByTagName("summary"):
-            if desc.parentNode == node:
-                mod_summary = format_html_desc(desc)
-        for desc in node.getElementsByTagName("desc"):
-            if desc.parentNode == node:
-                mod_desc = format_html_desc(desc)
-
         interfaces = []
         for interface in node.getElementsByTagName("interface"):
             interface_parameters = []
-            interface_desc = interface_summary = None
+            interface_summary, interface_desc = get_elem_summary_desc(interface)
             interface_name = interface.getAttribute("name")
             interface_line = interface.getAttribute("lineno")
-            for desc in interface.childNodes:
-                if desc.nodeName == "desc":
-                    interface_desc = format_html_desc(desc)
-                elif desc.nodeName == "summary":
-                    interface_summary = format_html_desc(desc)
 
             for args in interface.getElementsByTagName("param"):
-                for desc in args.getElementsByTagName("summary"):
-                    paramdesc = format_html_desc(desc)
                 paramname = args.getAttribute("name")
                 paramopt = "Yes" if args.getAttribute("optional") == "true" else "No"
                 paramunused = "Yes" if args.getAttribute("unused") == "true" else "No"
+                desc = get_first_child_by_names(args, ["summary"])[0]
+                paramdesc = format_html_desc(desc) if desc else None
                 parameter = {
                     "name": paramname,
                     "desc": paramdesc,
@@ -515,21 +499,16 @@ def gen_docs(doc, working_dir, templatedir):
         templates = []
         for template in node.getElementsByTagName("template"):
             template_parameters = []
-            template_desc = template_summary = None
+            template_summary, template_desc = get_elem_summary_desc(template)
             template_name = template.getAttribute("name")
             template_line = template.getAttribute("lineno")
-            for desc in template.childNodes:
-                if desc.nodeName == "desc":
-                    template_desc = format_html_desc(desc)
-                elif desc.nodeName == "summary":
-                    template_summary = format_html_desc(desc)
 
             for args in template.getElementsByTagName("param"):
-                for desc in args.getElementsByTagName("summary"):
-                    paramdesc = format_html_desc(desc)
                 paramname = args.getAttribute("name")
                 paramopt = "Yes" if args.getAttribute("optional") == "true" else "No"
                 paramunused = "Yes" if args.getAttribute("unused") == "true" else "No"
+                desc = get_first_child_by_names(args, ["summary"])[0]
+                paramdesc = format_html_desc(desc) if desc else None
                 parameter = {
                     "name": paramname,
                     "desc": paramdesc,
@@ -566,13 +545,10 @@ def gen_docs(doc, working_dir, templatedir):
         # generate 'boolean' pages
         booleans = []
         for boolean in node.getElementsByTagName("bool"):
-            boolean_desc = None
             boolean_name = boolean.getAttribute("name")
             boolean_dftval = boolean.getAttribute("dftval")
-            for desc in boolean.childNodes:
-                if desc.nodeName == "desc":
-                    boolean_desc = format_html_desc(desc)
-
+            desc = get_first_child_by_names(boolean, ["summary"])[0]
+            boolean_desc = format_html_desc(desc) if desc else None
             booleans.append(
                 {
                     "bool_name": boolean_name,
@@ -597,13 +573,10 @@ def gen_docs(doc, working_dir, templatedir):
         # generate 'tunable' pages
         tunables = []
         for tunable in node.getElementsByTagName("tunable"):
-            tunable_desc = None
             tunable_name = tunable.getAttribute("name")
             tunable_dftval = tunable.getAttribute("dftval")
-            for desc in tunable.childNodes:
-                if desc.nodeName == "desc":
-                    tunable_desc = format_html_desc(desc)
-
+            desc = get_first_child_by_names(tunable, ["summary"])[0]
+            tunable_desc = format_html_desc(desc) if desc else None
             tunables.append(
                 {
                     "tun_name": tunable_name,
@@ -702,8 +675,8 @@ def gen_docs(doc, working_dir, templatedir):
         if tunable.parentNode.nodeName == "policy":
             tunable_name = tunable.getAttribute("name")
             default_value = tunable.getAttribute("dftval")
-            for desc in tunable.getElementsByTagName("desc"):
-                description = format_html_desc(desc)
+            desc = get_first_child_by_names(tunable, ["summary"])[0]
+            description = format_html_desc(desc) if desc else None
             global_tun.append(
                 {
                     "tun_name": tunable_name,
@@ -737,8 +710,8 @@ def gen_docs(doc, working_dir, templatedir):
         if boolean.parentNode.nodeName == "policy":
             bool_name = boolean.getAttribute("name")
             default_value = boolean.getAttribute("dftval")
-            for desc in boolean.getElementsByTagName("desc"):
-                description = format_html_desc(desc)
+            desc = get_first_child_by_names(tunable, ["summary"])[0]
+            description = format_html_desc(desc) if desc else None
             global_bool.append(
                 {"bool_name": bool_name, "def_val": default_value, "desc": description}
             )
