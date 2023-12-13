@@ -55,7 +55,7 @@ import re
 import sys
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, TextIO, TypeAlias
+from typing import Any, Literal, TextIO, TypeAlias
 
 try:
     import astpretty
@@ -78,7 +78,7 @@ tmpl_data_t: TypeAlias = list[eval_data_t]
 fun_t: TypeAlias = Callable[[Any, eval_data_t], Any]
 func_t: TypeAlias = Callable[[Any, eval_data_t, Any], Any]
 funn_t: TypeAlias = Callable[[Any, eval_data_t], None]
-expr_result_t: TypeAlias = tuple[bool, funn_t | fun_t | None]
+expr_result_t: TypeAlias = tuple[Literal[False], None] | tuple[Literal[True], funn_t | fun_t]
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
 re_for_loop = re.compile(r"for (.*) in (.*)")
@@ -95,6 +95,22 @@ re_comment = re.compile(r"#(.*)#")
 class ParseError(Exception):
     def __init__(self, file_name: str, lineno: int, s: str) -> None:
         Exception.__init__(self, f"{file_name}:{lineno:d}: {s}")
+
+
+AST_CACHE: dict[str, ast.Module] = {}
+AST_FUNS: dict[str, funn_t | fun_t] = {}
+
+
+def _ast_parse(s: str) -> tuple[bool, ast.Module, funn_t | fun_t | None]:
+    if s in AST_CACHE:
+        return True, AST_CACHE[s], AST_FUNS[s]
+    aa = ast.parse(s)
+    AST_CACHE[s] = aa
+    return False, aa, None
+
+
+def _ast_set(s: str, fun: funn_t | fun_t) -> None:
+    AST_FUNS[s] = fun
 
 
 @dataclass
@@ -394,16 +410,19 @@ class TemplateNode:
         return False, None
 
     def eval(self, s: str, data: eval_data_t, msg: str) -> Any:
-        aa = ast.parse(s, self.parent.template_input.file_name)
-        # check for Expr needed for typing
-        if (
-            isinstance(aa, ast.Module)
-            and len(aa.body) == 1
-            and isinstance(aa.body[0], ast.Expr)
-        ):
-            ok, fun = self.op_expr(aa.body[0].value, data)
-            if ok and fun:
-                return fun(self, data)
+        ok, aa, fun = _ast_parse(s)
+        if not ok:
+            # check for Expr needed for typing
+            if (
+                isinstance(aa, ast.Module)
+                and len(aa.body) == 1
+                and isinstance(aa.body[0], ast.Expr)
+            ):
+                ok, fun = self.op_expr(aa.body[0].value, data)
+                if fun:
+                    _ast_set(s, fun)
+        if fun:
+            return fun(self, data)
         sys.stderr.write(astdump(f"eval {msg} {s}", aa))
         sys.stderr.write(
             f"stack={self.parent.stack_variables}\ndata={data.keys()} {data}\n"
@@ -412,17 +431,20 @@ class TemplateNode:
         raise self.parent.parser_exception(msg)
 
     def exec(self, s: str, data: eval_data_t, msg: str) -> None:
-        aa = ast.parse(self.s, self.parent.template_input.file_name)
-        # check for Assign needed for typing
-        if (
-            isinstance(aa, ast.Module)
-            and len(aa.body) == 1
-            and isinstance(aa.body[0], ast.Assign)
-        ):
-            ok, fun = self.op_assign(aa.body[0], data)
-            if ok and fun:
-                fun(self, data)
-                return
+        ok, aa, fun = _ast_parse(s)
+        if not ok:
+            # check for Assign needed for typing
+            if (
+                isinstance(aa, ast.Module)
+                and len(aa.body) == 1
+                and isinstance(aa.body[0], ast.Assign)
+            ):
+                ok, fun = self.op_assign(aa.body[0], data)
+                if fun:
+                    _ast_set(s, fun)
+        if fun:
+            fun(self, data)
+            return
         sys.stderr.write(astdump(f"exec {msg} {s}", aa))
         sys.stderr.write(
             f"stack={self.parent.stack_variables}\ndata={data.keys()} {data}\n"
