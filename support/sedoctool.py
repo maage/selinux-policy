@@ -21,7 +21,7 @@ from collections.abc import Iterator
 from typing import TypeAlias
 from xml.dom.minidom import Document, Element, parseString
 
-import pyplate
+from pyplate import TemplateManager
 
 namevalue_list_t: TypeAlias = list[tuple[str, str]]
 
@@ -335,36 +335,26 @@ def gen_docs(doc, working_dir, templatedir):
     Generates all the documentation.
     """
 
+    tm = TemplateManager()
     try:
         # get the template data ahead of time so we don't reopen them over and over
-        with open(templatedir + "/header.html") as f:
-            bodydata = f.read()
-        with open(templatedir + "/interface.html") as f:
-            intdata = f.read()
-        with open(templatedir + "/template.html") as f:
-            templatedata = f.read()
-        with open(templatedir + "/tunable.html") as f:
-            tundata = f.read()
-        with open(templatedir + "/boolean.html") as f:
-            booldata = f.read()
-        with open(templatedir + "/menu.html") as f:
-            menudata = f.read()
-        with open(templatedir + "/module_list.html") as f:
-            indexdata = f.read()
-        with open(templatedir + "/module.html") as f:
-            moduledata = f.read()
-        with open(templatedir + "/int_list.html") as f:
-            intlistdata = f.read()
-        with open(templatedir + "/temp_list.html") as f:
-            templistdata = f.read()
-        with open(templatedir + "/tun_list.html") as f:
-            tunlistdata = f.read()
-        with open(templatedir + "/bool_list.html") as f:
-            boollistdata = f.read()
-        with open(templatedir + "/global_bool_list.html") as f:
-            gboollistdata = f.read()
-        with open(templatedir + "/global_tun_list.html") as f:
-            gtunlistdata = f.read()
+        for name, file_name in (
+            ("body", "header.html"),
+            ("int", "interface.html"),
+            ("template", "template.html"),
+            ("tun", "tunable.html"),
+            ("bool", "boolean.html"),
+            ("menu", "menu.html"),
+            ("index", "module_list.html"),
+            ("module", "module.html"),
+            ("intlist", "int_list.html"),
+            ("templist", "temp_list.html"),
+            ("tunlist", "tun_list.html"),
+            ("boollist", "bool_list.html"),
+            ("gboollist", "global_bool_list.html"),
+            ("gtunlist", "global_tun_list.html"),
+        ):
+            tm.set(name, os.path.join(templatedir, file_name))
     except OSError:
         error("Could not open templates")
 
@@ -400,10 +390,10 @@ def gen_docs(doc, working_dir, templatedir):
             "mod_layer": mod_layer,
             "layer_summary": layer_summary,
         }
-        menu_tpl = pyplate.Template(menudata)
+        menu_tpl = tm.get("menu")
         menu_buf = menu_tpl.execute_string(menu_args)
 
-        content_tpl = pyplate.Template(indexdata)
+        content_tpl = tm.get("index")
         content_buf = content_tpl.execute_string(menu_args)
 
         main_content_buf += content_buf
@@ -412,19 +402,19 @@ def gen_docs(doc, working_dir, templatedir):
 
         index_file = f"{mod_layer}.html"
         with open(index_file, "w") as index_fh:
-            body_tpl = pyplate.Template(bodydata)
+            body_tpl = tm.get("body")
             body_tpl.execute(index_fh, body_args)
 
     menu = gen_doc_menu(None, module_list)
     menu_args = {"menulist": menu, "mod_layer": None}
-    menu_tpl = pyplate.Template(menudata)
+    menu_tpl = tm.get("menu")
     menu_buf = menu_tpl.execute_string(menu_args)
 
     body_args = {"menu": menu_buf, "content": main_content_buf}
 
     index_file = "index.html"
     with open(index_file, "w") as index_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_tpl.execute(index_fh, body_args)
 
     # now generate the individual module pages
@@ -484,7 +474,7 @@ def gen_docs(doc, working_dir, templatedir):
                 }
             )
         interfaces.sort(key=int_cmp_func)
-        interface_tpl = pyplate.Template(intdata)
+        interface_tpl = tm.get("int")
         interface_buf = interface_tpl.execute_string({"interfaces": interfaces})
 
         # now generate individual template pages
@@ -531,7 +521,7 @@ def gen_docs(doc, working_dir, templatedir):
             )
 
         templates.sort(key=temp_cmp_func)
-        template_tpl = pyplate.Template(templatedata)
+        template_tpl = tm.get("template")
         template_buf = template_tpl.execute_string({"templates": templates})
 
         # generate 'boolean' pages
@@ -559,7 +549,7 @@ def gen_docs(doc, working_dir, templatedir):
                 }
             )
         booleans.sort(key=bool_cmp_func)
-        boolean_tpl = pyplate.Template(booldata)
+        boolean_tpl = tm.get("bool")
         boolean_buf = boolean_tpl.execute_string({"booleans": booleans})
 
         # generate 'tunable' pages
@@ -587,12 +577,12 @@ def gen_docs(doc, working_dir, templatedir):
                 }
             )
         tunables.sort(key=tun_cmp_func)
-        tunable_tpl = pyplate.Template(tundata)
+        tunable_tpl = tm.get("tun")
         tunable_buf = tunable_tpl.execute_string({"tunables": tunables})
 
         menu = gen_doc_menu(mod_layer, module_list)
 
-        menu_tpl = pyplate.Template(menudata)
+        menu_tpl = tm.get("menu")
         menu_buf = menu_tpl.execute_string({"menulist": menu})
 
         # pyplate's execute_string gives us a line of whitespace in
@@ -625,39 +615,39 @@ def gen_docs(doc, working_dir, templatedir):
             "booleans": boolean_buf,
         }
 
-        module_tpl = pyplate.Template(moduledata)
+        module_tpl = tm.get("module")
         module_buf = module_tpl.execute_string(module_args)
 
         body_args = {"menu": menu_buf, "content": module_buf}
 
         module_file = f"{mod_layer}_{mod_name}.html"
         with open(module_file, "w") as module_fh:
-            body_tpl = pyplate.Template(bodydata)
+            body_tpl = tm.get("body")
             body_tpl.execute(module_fh, body_args)
 
     menu = gen_doc_menu(None, module_list)
     menu_args = {"menulist": menu, "mod_layer": None}
-    menu_tpl = pyplate.Template(menudata)
+    menu_tpl = tm.get("menu")
     menu_buf = menu_tpl.execute_string(menu_args)
 
     # build the interface index
     all_interfaces.sort(key=int_cmp_func)
-    interface_tpl = pyplate.Template(intlistdata)
+    interface_tpl = tm.get("intlist")
     interface_buf = interface_tpl.execute_string({"interfaces": all_interfaces})
     int_file = "interfaces.html"
 
     with open(int_file, "w") as int_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_args = {"menu": menu_buf, "content": interface_buf}
         body_tpl.execute(int_fh, body_args)
 
     # build the template index
     all_templates.sort(key=temp_cmp_func)
-    template_tpl = pyplate.Template(templistdata)
+    template_tpl = tm.get("templist")
     template_buf = template_tpl.execute_string({"templates": all_templates})
     temp_file = "templates.html"
     with open(temp_file, "w") as temp_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_args = {"menu": menu_buf, "content": template_buf}
         body_tpl.execute(temp_fh, body_args)
 
@@ -677,22 +667,22 @@ def gen_docs(doc, working_dir, templatedir):
                 }
             )
     global_tun.sort(key=tun_cmp_func)
-    global_tun_tpl = pyplate.Template(gtunlistdata)
+    global_tun_tpl = tm.get("gtunlist")
     global_tun_buf = global_tun_tpl.execute_string({"tunables": global_tun})
     global_tun_file = "global_tunables.html"
     with open(global_tun_file, "w") as global_tun_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_args = {"menu": menu_buf, "content": global_tun_buf}
         body_tpl.execute(global_tun_fh, body_args)
 
     # build the tunable index
     all_tunables = all_tunables + global_tun
     all_tunables.sort(key=tun_cmp_func)
-    tunable_tpl = pyplate.Template(tunlistdata)
+    tunable_tpl = tm.get("tunlist")
     tunable_buf = tunable_tpl.execute_string({"tunables": all_tunables})
     temp_file = "tunables.html"
     with open(temp_file, "w") as temp_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_args = {"menu": menu_buf, "content": tunable_buf}
         body_tpl.execute(temp_fh, body_args)
 
@@ -708,22 +698,22 @@ def gen_docs(doc, working_dir, templatedir):
                 {"bool_name": bool_name, "def_val": default_value, "desc": description}
             )
     global_bool.sort(key=bool_cmp_func)
-    global_bool_tpl = pyplate.Template(gboollistdata)
+    global_bool_tpl = tm.get("gboollist")
     global_bool_buf = global_bool_tpl.execute_string({"booleans": global_bool})
     global_bool_file = "global_booleans.html"
     with open(global_bool_file, "w") as global_bool_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_args = {"menu": menu_buf, "content": global_bool_buf}
         body_tpl.execute(global_bool_fh, body_args)
 
     # build the boolean index
     all_booleans = all_booleans + global_bool
     all_booleans.sort(key=bool_cmp_func)
-    boolean_tpl = pyplate.Template(boollistdata)
+    boolean_tpl = tm.get("boollist")
     boolean_buf = boolean_tpl.execute_string({"booleans": all_booleans})
     temp_file = "booleans.html"
     with open(temp_file, "w") as temp_fh:
-        body_tpl = pyplate.Template(bodydata)
+        body_tpl = tm.get("body")
         body_args = {"menu": menu_buf, "content": boolean_buf}
         body_tpl.execute(temp_fh, body_args)
 
@@ -775,7 +765,7 @@ def main():
         sys.exit(1)
 
     booleans = modules = docsdir = None
-    templatedir = "templates/"
+    templatedir = "templates"
     xmlfile = "policy.xml"
 
     for opt, val in opts:

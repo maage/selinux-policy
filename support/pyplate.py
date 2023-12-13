@@ -47,8 +47,11 @@ PyPlate defines the following directives:
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 
+from __future__ import annotations
+
 import io
 import re
+from dataclasses import dataclass, field
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
 re_for_loop = re.compile(r"for (.*) in (.*)")
@@ -63,17 +66,39 @@ re_comment = re.compile(r"#(.*)#")
 ############################################################
 # Template parser
 class ParseError(Exception):
-    def __init__(self, lineno: int, s: str) -> None:
-        Exception.__init__(self, f"line {lineno:d}: {s}")
+    def __init__(self, file_name: str, lineno: int, s: str) -> None:
+        Exception.__init__(self, f"{file_name}:{lineno:d}: {s}")
+
+
+@dataclass
+class TemplateInput:
+    file_name: str
+    content: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        with open(self.file_name) as f:
+            self.content = f.read()
+
+
+class TemplateManager:
+    def __init__(self) -> None:
+        self.templates: dict[str, Template] = {}
+
+    def set(self, name: str, file_name: str) -> None:
+        self.templates[name] = Template(TemplateInput(file_name))
+
+    def get(self, name: str) -> Template:
+        return self.templates[name]
 
 
 class Template:
-    def __init__(self, template: str) -> None:
-        self.file = io.StringIO(template)
+    def __init__(self, template_input: TemplateInput) -> None:
+        self.template_input = template_input
+        self.file = io.StringIO(self.template_input.content)
         self.line = self.file.read()
+        self.file.close()
         self.lineno = 0
         self.tree = TopLevelTemplateNode(self)
-        self.file.close()
 
     def parser_get(self):
         if self.line == "":
@@ -85,7 +110,7 @@ class Template:
         self.line = self.line[chars:]
 
     def parser_exception(self, s: str) -> ParseError:
-        return ParseError(self.lineno, s)
+        return ParseError(self.template_input.file_name, self.lineno, s)
 
     def execute_string(self, data):
         s = io.StringIO()
