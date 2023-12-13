@@ -49,10 +49,25 @@ PyPlate defines the following directives:
 
 from __future__ import annotations
 
+import ast
 import io
 import re
+import sys
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any, TextIO, TypeAlias
+
+try:
+    import astpretty
+
+    def astdump(info: str, aa: ast.AST) -> str:
+        return f"{info}\n{astpretty.pformat(aa, show_offsets=False)}\n"
+
+except OSError:
+
+    def astdump(info: str, aa: ast.AST) -> str:
+        return f"{info}\n{ast.dump(aa, indent=4)}\n"
+
 
 stream_t: TypeAlias = TextIO
 node_t: TypeAlias = "TemplateNode"
@@ -60,6 +75,10 @@ eval_data_t: TypeAlias = dict[str, Any]
 tmpl_param_t: TypeAlias = list[eval_data_t]
 tmpl_item_t: TypeAlias = str
 tmpl_data_t: TypeAlias = list[eval_data_t]
+fun_t: TypeAlias = Callable[[Any, eval_data_t], Any]
+func_t: TypeAlias = Callable[[Any, eval_data_t, Any], Any]
+funn_t: TypeAlias = Callable[[Any, eval_data_t], None]
+expr_result_t: TypeAlias = tuple[bool, funn_t | fun_t | None]
 
 re_directive = re.compile(r"\[\[(.*)\]\]")
 re_for_loop = re.compile(r"for (.*) in (.*)")
@@ -106,7 +125,8 @@ class Template:
         self.line = self.file.read()
         self.file.close()
         self.lineno = 0
-        self.tree = TopLevelTemplateNode(self)
+        self.tree: TemplateNode = TopLevelTemplateNode(self)
+        self.stack_variables: list[eval_data_t] = [{}]
 
     def parser_get(self) -> str | None:
         if self.line == "":
@@ -126,6 +146,7 @@ class Template:
         return s.getvalue()
 
     def execute(self, stream: stream_t, data: eval_data_t) -> None:
+        self.stack_variables.clear()
         self.tree.execute(stream, data)
 
     def __repr__(self) -> str:
@@ -162,6 +183,253 @@ class TemplateNode:
             f"<{self.__class__.__name__} {" ".join(repr(i) for i in self.node_list)}>"
         )
 
+    @staticmethod
+    def f_constant(value) -> fun_t:
+        def _(_self, _data: eval_data_t) -> Any:
+            return value
+
+        return _
+
+    @staticmethod
+    def f_name_load(key: Any) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            for parent_data in reversed(self.parent.stack_variables):
+                if key in parent_data:
+                    return parent_data[key]
+            return data[key]
+
+        return _
+
+    @staticmethod
+    def f_add(l_fun: fun_t, r_fun: fun_t) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return l_fun(self, data) + r_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_subscript(v_fun: fun_t, s_fun: fun_t) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return v_fun(self, data)[s_fun(self, data)]
+
+        return _
+
+    @staticmethod
+    def f_in(c_fun: fun_t) -> func_t:
+        def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
+            return value in c_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_noteq(c_fun: fun_t) -> func_t:
+        def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
+            return value != c_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_eq(c_fun: fun_t) -> func_t:
+        def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
+            return value == c_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_compare(l_fun: fun_t, lst: tuple[func_t, ...]) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:  # bool:
+            value = l_fun(self, data)
+            return all(elem(self, data, value) for elem in lst)
+
+        return _
+
+    @staticmethod
+    def f_and(lst: tuple[fun_t, ...]) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:  # bool:
+            return all(elem(self, data) for elem in lst)
+
+        return _
+
+    @staticmethod
+    def f_or(lst: tuple[fun_t, ...]) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:  # bool:
+            return any(elem(self, data) for elem in lst)
+
+        return _
+
+    @staticmethod
+    def f_not(o_fun: fun_t) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:  # bool:
+            return not o_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_uadd(o_fun: fun_t) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return +o_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_usub(o_fun: fun_t) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return -o_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_invert(o_fun: fun_t) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return ~o_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_name_store(v_fun: fun_t, name: str) -> funn_t:
+        def _(self, data: eval_data_t) -> None:
+            self.parent.stack_variables[name] = v_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_stmts(lst: list[funn_t]) -> funn_t:
+        def _(self, data: eval_data_t) -> None:
+            for elem in lst:
+                elem(self, data)
+
+        return _
+
+    def op_assign(self, assign: ast.Assign, data: eval_data_t) -> expr_result_t:
+        ok, v_fun = self.op_expr(assign.value, data)
+        if not (ok and v_fun):
+            return False, None
+        lst = []
+        for tgt in assign.targets:
+            if not (isinstance(tgt, ast.Name) and isinstance(tgt.ctx, ast.Store)):
+                return False, None
+            assert v_fun is not None
+            lst.append(TemplateNode.f_name_store(v_fun, tgt.id))
+        fun = lst[0] if len(lst) == 1 else TemplateNode.f_stmts(lst)
+        return True, fun
+
+    def op_expr(self, expr: ast.expr, data: eval_data_t) -> expr_result_t:
+        if isinstance(expr, ast.Constant):  # implemented fully
+            return True, TemplateNode.f_constant(expr.value)
+        if isinstance(expr, ast.Name):
+            name = expr.id
+            if name is None:
+                return False, None
+            if not isinstance(expr.ctx, ast.Load):
+                return False, None
+            return True, TemplateNode.f_name_load(name)
+        if isinstance(expr, ast.BinOp):
+            l_ok, l_fun = self.op_expr(expr.left, data)
+            if not (l_ok and l_fun):
+                return False, None
+            r_ok, r_fun = self.op_expr(expr.right, data)
+            if not (r_ok and r_fun):
+                return False, None
+            if isinstance(expr.op, ast.Add):
+                funb = TemplateNode.f_add
+            else:
+                return False, None
+            return True, funb(l_fun, r_fun)
+        if isinstance(expr, ast.Subscript):  # implemented fully
+            v_ok, v_fun = self.op_expr(expr.value, data)
+            if not (v_ok and v_fun):
+                return False, None
+            s_ok, s_fun = self.op_expr(expr.slice, data)
+            if not (s_ok and s_fun):
+                return False, None
+            return True, TemplateNode.f_subscript(v_fun, s_fun)
+        if isinstance(expr, ast.Compare):
+            l_ok, l_fun = self.op_expr(expr.left, data)
+            if not (l_ok and l_fun):
+                return False, None
+            funac = []
+            for idx, op in enumerate(expr.ops):
+                c_ok, c_fun = self.op_expr(expr.comparators[idx], data)
+                if not (c_ok and c_fun):
+                    return False, None
+                if isinstance(op, ast.In):
+                    ffc = TemplateNode.f_in
+                elif isinstance(op, ast.NotEq):
+                    ffc = TemplateNode.f_noteq
+                elif isinstance(op, ast.Eq):
+                    ffc = TemplateNode.f_eq
+                else:
+                    return False, None
+                funac.append(ffc(c_fun))
+            return True, TemplateNode.f_compare(l_fun, tuple(funac))
+        if isinstance(expr, ast.BoolOp):  # implemented fully
+            funa = []
+            if isinstance(expr.op, ast.And):
+                ffb = TemplateNode.f_and
+            elif isinstance(expr.op, ast.Or):
+                ffb = TemplateNode.f_or
+            else:
+                return False, None
+            for v in expr.values:
+                v_ok, v_fun = self.op_expr(v, data)
+                if not (v_ok and v_fun):
+                    return False, None
+                funa.append(v_fun)
+            return True, ffb(tuple(funa))
+        if isinstance(expr, ast.UnaryOp):  # implemented fully
+            o_ok, o_fun = self.op_expr(expr.operand, data)
+            if not (o_ok and o_fun):
+                return False, None
+            if isinstance(expr.op, ast.Not):
+                ffu = TemplateNode.f_not
+            elif isinstance(expr.op, ast.UAdd):
+                ffu = TemplateNode.f_uadd
+            elif isinstance(expr.op, ast.USub):
+                ffu = TemplateNode.f_usub
+            elif isinstance(expr.op, ast.Invert):
+                ffu = TemplateNode.f_invert
+            else:
+                return False, None
+            return True, ffu(o_fun)
+        return False, None
+
+    def eval(self, s: str, data: eval_data_t, msg: str) -> Any:
+        aa = ast.parse(s, self.parent.template_input.file_name)
+        # check for Expr needed for typing
+        if (
+            isinstance(aa, ast.Module)
+            and len(aa.body) == 1
+            and isinstance(aa.body[0], ast.Expr)
+        ):
+            ok, fun = self.op_expr(aa.body[0].value, data)
+            if ok and fun:
+                return fun(self, data)
+        sys.stderr.write(astdump(f"eval {msg} {s}", aa))
+        sys.stderr.write(
+            f"stack={self.parent.stack_variables}\ndata={data.keys()} {data}\n"
+        )
+        msg = f"eval: {msg} '{s}' stack={self.parent.stack_variables} data keys={data.keys()}"
+        raise self.parent.parser_exception(msg)
+
+    def exec(self, s: str, data: eval_data_t, msg: str) -> None:
+        aa = ast.parse(self.s, self.parent.template_input.file_name)
+        # check for Assign needed for typing
+        if (
+            isinstance(aa, ast.Module)
+            and len(aa.body) == 1
+            and isinstance(aa.body[0], ast.Assign)
+        ):
+            ok, fun = self.op_assign(aa.body[0], data)
+            if ok and fun:
+                fun(self, data)
+                return
+        sys.stderr.write(astdump(f"exec {msg} {s}", aa))
+        sys.stderr.write(
+            f"stack={self.parent.stack_variables}\ndata={data.keys()} {data}\n"
+        )
+        msg = f"exec: {msg} '{s}' stack={self.parent.stack_variables} data keys={data.keys()}"
+        raise self.parent.parser_exception(msg)
+
 
 class EndTemplateNode(TemplateNode):
     def __init__(self) -> None:  # pylint: disable=super-init-not-called
@@ -190,20 +458,16 @@ class ForTemplateNode(TemplateNode):
         self.expression = match.group(2)
 
     def execute(self, stream: stream_t, data: eval_data_t) -> None:
-        remember_vars: eval_data_t = {}
-        for var in self.vars:
-            if var in data:
-                remember_vars[var] = data[var]
-        # pylint: disable=eval-used
-        for lst in eval(self.expression, globals(), data):  # noqa: S307, PGH001
+        self.parent.stack_variables.append({})
+        gen = self.eval(self.expression, data, "for")
+        for lst in gen:
             if isinstance(lst, (list, tuple)):
                 for index, value in enumerate(lst):
-                    data[self.vars[index]] = value
+                    self.parent.stack_variables[-1][self.vars[index]] = value
             else:
-                data[self.vars[0]] = lst
+                self.parent.stack_variables[-1][self.vars[0]] = lst
             TemplateNode.execute(self, stream, data)
-        for key, value in remember_vars.items():
-            data[key] = value
+        self.parent.stack_variables.pop()
 
 
 class IfTemplateNode(TemplateNode):
@@ -232,8 +496,8 @@ class IfTemplateNode(TemplateNode):
         return False
 
     def execute(self, stream: stream_t, data: eval_data_t) -> None:
-        # pylint: disable=eval-used
-        if eval(self.expression, globals(), data):  # noqa: S307, PGH001
+        gen = self.eval(self.expression, data, "if")
+        if gen:
             TemplateNode.execute(self, stream, data)
         elif self.else_node is not None:
             self.else_node.execute(stream, data)
@@ -277,10 +541,8 @@ class CommentTemplateNode(LeafTemplateNode):
 
 class ExpressionTemplateNode(LeafTemplateNode):
     def execute(self, stream: stream_t, data: eval_data_t) -> None:
-        stream.write(
-            # pylint: disable=eval-used
-            str(eval(self.s, globals(), data))  # noqa: S307, PGH001
-        )
+        gen = self.eval(self.s, data, "expression")
+        stream.write(str(gen))
 
 
 class ExecTemplateNode(LeafTemplateNode):
@@ -293,8 +555,7 @@ class ExecTemplateNode(LeafTemplateNode):
         self.s = match.group(1)
 
     def execute(self, _stream: stream_t, data: eval_data_t) -> None:
-        # pylint: disable=exec-used
-        exec(self.s, globals(), data)  # noqa: S102
+        self.exec(self.s, data, "exec")
 
 
 ############################################################
