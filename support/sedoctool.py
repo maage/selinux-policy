@@ -16,9 +16,10 @@
 import getopt
 import os
 import sys
+import xml
 from collections.abc import Iterator
 from typing import TypeAlias
-from xml.dom.minidom import Document, parseString
+from xml.dom.minidom import Document, Element, parseString
 
 import pyplate
 
@@ -304,6 +305,30 @@ def format_txt_desc(node):
                         desc_buf += "\t -" + li.firstChild.data + "\n"
 
     return desc_buf.strip() + "\n"
+
+
+def get_first_child_by_names(node: Element, names: list[str]) -> list[Element | None]:
+    to_find = names.copy()
+    results: list[Element | None] = [None] * len(names)
+    for desc in node.childNodes:
+        if (desc.nodeType != xml.dom.Node.ELEMENT_NODE) or (
+            desc.tagName not in to_find
+        ):
+            continue
+        idx = names.index(desc.tagName)
+        results[idx] = desc
+        to_find.remove(desc.tagName)
+        if not to_find:
+            break
+    return results
+
+
+def get_elem_summary_desc(node: Element) -> list[str]:
+    results = []
+    for desc in get_first_child_by_names(node, ["summary", "desc"]):
+        # Some are missing
+        results += ["" if desc is None else format_html_desc(desc)]
+    return results
 
 
 def gen_docs(doc, working_dir, templatedir):
