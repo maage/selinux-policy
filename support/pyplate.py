@@ -298,11 +298,10 @@ class ExecTemplateNode(LeafTemplateNode):
 template_factory_type_map = {
     "if": IfTemplateNode,
     "for": ForTemplateNode,
+    "exec": ExecTemplateNode,
     "elif": ElifTemplateNode,
     "else": ElseTemplateNode,
-    "exec": ExecTemplateNode,
 }
-template_factory_types = template_factory_type_map.keys()
 
 
 def TemplateNodeFactory(parent):
@@ -319,11 +318,12 @@ def TemplateNodeFactory(parent):
         return LeafTemplateNode(parent, src[: match.start()])
     directive = match.group()[2:-2].strip()
     parent.parser_eat(match.end())
+    # most common, slight speedup
     if directive == "end":
         return EndTemplateNode()
     if re_comment.match(directive):
         return CommentTemplateNode(parent, directive)
-    for i in template_factory_types:
-        if directive[0 : len(i)] == i:
-            return template_factory_type_map[i](parent, directive)
+    for key, typ in template_factory_type_map.items():
+        if directive.startswith(key):
+            return typ(parent, directive)
     return ExpressionTemplateNode(parent, directive)
