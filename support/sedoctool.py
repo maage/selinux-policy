@@ -16,9 +16,13 @@
 import getopt
 import os
 import sys
-from xml.dom.minidom import parseString
+from collections.abc import Iterator
+from typing import TypeAlias
+from xml.dom.minidom import Document, parseString
 
 import pyplate
+
+namevalue_list_t: TypeAlias = list[tuple[str, str]]
 
 # modules enabled and disabled values
 MOD_BASE = "base"
@@ -51,66 +55,42 @@ def read_policy_xml(filename):
     return doc
 
 
-def gen_booleans_conf(doc, file_name, namevalue_list):
+def gen_booleans_conf(
+    doc: Document, file_name: str, namevalue_list: namevalue_list_t
+) -> Iterator[str]:
     """
     Generates the booleans configuration file using the XML provided and the
     previous booleans configuration.
     """
 
-    for node in doc.getElementsByTagName("bool"):
-        for desc in node.getElementsByTagName("desc"):
-            bool_desc = format_txt_desc(desc)
-        s = bool_desc.split("\n")
-        file_name.write("#\n")
-        for line in s:
-            if line:
-                file_name.write(f"# {line}\n")
-            else:
-                file_name.write("#\n")
-
-        bool_name = bool_val = None
-        for name, value in node.attributes.items():
-            if name == "name":
-                bool_name = value
-            elif name == "dftval":
-                bool_val = value
-
-            if [bool_name, BOOL_ENABLED] in namevalue_list:
-                bool_val = BOOL_ENABLED
-            elif [bool_name, BOOL_DISABLED] in namevalue_list:
-                bool_val = BOOL_DISABLED
-
-            if bool_name and bool_val:
-                file_name.write(f"{bool_name} = {bool_val}\n\n")
-                bool_name = bool_val = None
-
     # tunables are currently implemented as booleans
-    for node in doc.getElementsByTagName("tunable"):
-        for desc in node.getElementsByTagName("desc"):
-            bool_desc = format_txt_desc(desc)
-        s = bool_desc.split("\n")
-        file_name.write("#\n")
-        for line in s:
-            if line:
-                file_name.write(f"# {line}\n")
-            else:
-                file_name.write("#\n")
+    for elem_type in ("bool", "tunable"):
+        for node in doc.getElementsByTagName(elem_type):
+            if "name" not in node.attributes:
+                error(f'{file_name} {elem_type} missing "name" attribute {node}')
+            bool_name = node.attributes["name"].value
+            bool_val = None
+            if "dftval" in node.attributes:
+                bool_val = node.attributes["dftval"].value
+            bool_desc = None
+            for desc in node.getElementsByTagName("desc"):
+                bool_desc = format_txt_desc(desc)
 
-        bool_name = bool_val = None
-        for name, value in node.attributes.items():
-            if name == "name":
-                bool_name = value
-            elif name == "dftval":
-                bool_val = value
-
-            if [bool_name, BOOL_ENABLED] in namevalue_list:
+            if (bool_name, BOOL_ENABLED) in namevalue_list:
                 bool_val = BOOL_ENABLED
-            elif [bool_name, BOOL_DISABLED] in namevalue_list:
+            elif (bool_name, BOOL_DISABLED) in namevalue_list:
                 bool_val = BOOL_DISABLED
 
-            if bool_name and bool_val:
-                file_name.write(f"{bool_name} = {bool_val}\n\n")
-                bool_name = bool_val = None
+            if bool_val is None:
+                error(f"{file_name} {elem_type} {bool_name} missing value")
+
+            if bool_desc:
+                yield "#"
+                for line in bool_desc.split("\n"):
+                    yield f"# {line}" if line else "#"
+
+            yield f"{bool_name} = {bool_val}"
+            yield ""
 
 
 def gen_module_conf(doc, file_name, namevalue_list):
@@ -829,7 +809,11 @@ def main():
 
         try:
             with open(booleans, "w") as conf:
-                gen_booleans_conf(doc, conf, namevalue_list)
+                print(
+                    *(gen_booleans_conf(doc, xmlfile, namevalue_list)),
+                    sep="",
+                    file=conf,
+                )
         except OSError:
             error("Could not open booleans file for writing")
 
