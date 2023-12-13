@@ -268,19 +268,11 @@ def format_html_desc(node):
         if desc.nodeName == "#text":
             if desc.data != "":
                 if desc.parentNode.nodeName != "p":
-                    desc_buf += "<p>" + desc.data + "</p>"
+                    desc_buf += f"<p>{desc.data}</p>"
                 else:
                     desc_buf += desc.data
         else:
-            desc_buf += (
-                "<"
-                + desc.nodeName
-                + ">"
-                + format_html_desc(desc)
-                + "</"
-                + desc.nodeName
-                + ">"
-            )
+            desc_buf += f"<{desc.nodeName}>{format_html_desc(desc)}</{desc.nodeName}>"
 
     return desc_buf
 
@@ -300,7 +292,7 @@ def format_txt_desc(node):
                 if chld.nodeName == "ul":
                     desc_buf += "\n"
                     for li in chld.getElementsByTagName("li"):
-                        desc_buf += "\t -" + li.firstChild.data + "\n"
+                        desc_buf += f"\t -{li.firstChild.data}\n"
 
     return desc_buf.strip() + "\n"
 
@@ -418,7 +410,7 @@ def gen_docs(doc, working_dir, templatedir):
 
         body_args = {"menu": menu_buf, "content": content_buf}
 
-        index_file = mod_layer + ".html"
+        index_file = f"{mod_layer}.html"
         with open(index_file, "w") as index_fh:
             body_tpl = pyplate.Template(bodydata)
             body_tpl.execute(index_fh, body_args)
@@ -638,7 +630,7 @@ def gen_docs(doc, working_dir, templatedir):
 
         body_args = {"menu": menu_buf, "content": module_buf}
 
-        module_file = mod_layer + "_" + mod_name + ".html"
+        module_file = f"{mod_layer}_{mod_name}.html"
         with open(module_file, "w") as module_fh:
             body_tpl = pyplate.Template(bodydata)
             body_tpl.execute(module_fh, body_args)
