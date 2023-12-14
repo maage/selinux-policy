@@ -654,18 +654,15 @@ def gen_docs(doc, working_dir, templatedir):
     # build the global tunable index
     global_tun = []
     for tunable in doc.getElementsByTagName("tunable"):
-        if tunable.parentNode.nodeName == "policy":
-            tunable_name = tunable.getAttribute("name")
-            default_value = tunable.getAttribute("dftval")
-            desc = get_first_child_by_names(tunable, ["summary"])[0]
-            description = format_html_desc(desc) if desc else None
-            global_tun.append(
-                {
-                    "tun_name": tunable_name,
-                    "def_val": default_value,
-                    "desc": description,
-                }
-            )
+        if tunable.parentNode.nodeName != "policy":
+            continue
+        tunable_name = tunable.getAttribute("name")
+        default_value = tunable.getAttribute("dftval")
+        desc = get_first_child_by_names(tunable, ["summary"])[0]
+        description = format_html_desc(desc) if desc else None
+        global_tun.append(
+            {"tun_name": tunable_name, "def_val": default_value, "desc": description}
+        )
     global_tun.sort(key=tun_cmp_func)
     global_tun_tpl = tm.get("gtunlist")
     global_tun_buf = global_tun_tpl.execute_string({"tunables": global_tun})
@@ -689,14 +686,15 @@ def gen_docs(doc, working_dir, templatedir):
     # build the global boolean index
     global_bool = []
     for boolean in doc.getElementsByTagName("bool"):
-        if boolean.parentNode.nodeName == "policy":
-            bool_name = boolean.getAttribute("name")
-            default_value = boolean.getAttribute("dftval")
-            desc = get_first_child_by_names(boolean, ["summary"])[0]
-            description = format_html_desc(desc) if desc else None
-            global_bool.append(
-                {"bool_name": bool_name, "def_val": default_value, "desc": description}
-            )
+        if boolean.parentNode.nodeName != "policy":
+            continue
+        bool_name = boolean.getAttribute("name")
+        default_value = boolean.getAttribute("dftval")
+        desc = get_first_child_by_names(boolean, ["summary"])[0]
+        description = format_html_desc(desc) if desc else None
+        global_bool.append(
+            {"bool_name": bool_name, "def_val": default_value, "desc": description}
+        )
     global_bool.sort(key=bool_cmp_func)
     global_bool_tpl = tm.get("gboollist")
     global_bool_buf = global_bool_tpl.execute_string({"booleans": global_bool})
