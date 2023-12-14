@@ -529,7 +529,7 @@ def gen_docs(doc, working_dir, templatedir):
         for boolean in node.getElementsByTagName("bool"):
             boolean_name = boolean.getAttribute("name")
             boolean_dftval = boolean.getAttribute("dftval")
-            desc = get_first_child_by_names(boolean, ["summary"])[0]
+            desc = get_first_child_by_names(boolean, ["desc"])[0]
             boolean_desc = format_html_desc(desc) if desc else None
             booleans.append(
                 {
@@ -557,7 +557,7 @@ def gen_docs(doc, working_dir, templatedir):
         for tunable in node.getElementsByTagName("tunable"):
             tunable_name = tunable.getAttribute("name")
             tunable_dftval = tunable.getAttribute("dftval")
-            desc = get_first_child_by_names(tunable, ["summary"])[0]
+            desc = get_first_child_by_names(tunable, ["desc"])[0]
             tunable_desc = format_html_desc(desc) if desc else None
             tunables.append(
                 {
@@ -658,7 +658,7 @@ def gen_docs(doc, working_dir, templatedir):
             continue
         tunable_name = tunable.getAttribute("name")
         default_value = tunable.getAttribute("dftval")
-        desc = get_first_child_by_names(tunable, ["summary"])[0]
+        desc = get_first_child_by_names(tunable, ["desc"])[0]
         description = format_html_desc(desc) if desc else None
         global_tun.append(
             {"tun_name": tunable_name, "def_val": default_value, "desc": description}
@@ -690,7 +690,7 @@ def gen_docs(doc, working_dir, templatedir):
             continue
         bool_name = boolean.getAttribute("name")
         default_value = boolean.getAttribute("dftval")
-        desc = get_first_child_by_names(boolean, ["summary"])[0]
+        desc = get_first_child_by_names(boolean, ["desc"])[0]
         description = format_html_desc(desc) if desc else None
         global_bool.append(
             {"bool_name": bool_name, "def_val": default_value, "desc": description}
