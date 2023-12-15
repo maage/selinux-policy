@@ -372,7 +372,7 @@ def gen_docs(doc, working_dir, templatedir):
         mod_layer = node.parentNode.getAttribute("name")
 
         desc = get_first_child_by_names(node, ["summary"])[0]
-        mod_summary = format_html_desc(desc) if desc else None
+        mod_summary = format_html_desc(desc) if desc else ""
         if mod_layer not in module_list:
             module_list[mod_layer] = {}
 
