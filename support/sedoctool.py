@@ -51,7 +51,7 @@ def read_policy_xml(filename):
             except (TypeError, AttributeError):
                 error("Error while parsing xml")
     except OSError:
-        error("error opening " + filename)
+        error(f"error opening {filename}")
 
     return doc
 
