@@ -676,7 +676,7 @@ def gen_docs(doc, working_dir, templatedir):
         body_tpl.execute(global_tun_fh, body_args)
 
     # build the tunable index
-    all_tunables = all_tunables + global_tun
+    all_tunables += global_tun
     all_tunables.sort(key=tun_cmp_func)
     tunable_tpl = tm.get("tunlist")
     tunable_buf = tunable_tpl.execute_string({"tunables": all_tunables})
@@ -707,7 +707,7 @@ def gen_docs(doc, working_dir, templatedir):
         body_tpl.execute(global_bool_fh, body_args)
 
     # build the boolean index
-    all_booleans = all_booleans + global_bool
+    all_booleans += global_bool
     all_booleans.sort(key=bool_cmp_func)
     boolean_tpl = tm.get("boollist")
     boolean_buf = boolean_tpl.execute_string({"booleans": all_booleans})
