@@ -710,7 +710,8 @@ def gen_docs(doc, working_dir, templatedir):
     all_booleans += global_bool
     all_booleans.sort(key=bool_cmp_func)
     boolean_tpl = tm.get("boollist")
-    boolean_buf = boolean_tpl.execute_string({"booleans": all_booleans})
+    bool_args = {"booleans": all_booleans}
+    boolean_buf = boolean_tpl.execute_string(bool_args)
     temp_file = "booleans.html"
     with open(temp_file, "w") as temp_fh:
         body_tpl = tm.get("body")
