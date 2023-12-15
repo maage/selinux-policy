@@ -692,7 +692,7 @@ def gen_docs(doc, working_dir, templatedir):
         if boolean.parentNode.nodeName == "policy":
             bool_name = boolean.getAttribute("name")
             default_value = boolean.getAttribute("dftval")
-            desc = get_first_child_by_names(tunable, ["summary"])[0]
+            desc = get_first_child_by_names(boolean, ["summary"])[0]
             description = format_html_desc(desc) if desc else None
             global_bool.append(
                 {"bool_name": bool_name, "def_val": default_value, "desc": description}
