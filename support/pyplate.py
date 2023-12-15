@@ -187,7 +187,6 @@ class ForTemplateNode(TemplateNode):
             msg = f"[[{self.s}]] is not a valid for-loop expression"
             raise self.parent.parser_exception(msg)
         self.vars = [v.strip() for v in match.group(1).split(",")]
-        # print(self.vars)
         self.expression = match.group(2)
 
     def execute(self, stream: stream_t, data: eval_data_t) -> None:
