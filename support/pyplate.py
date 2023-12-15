@@ -186,10 +186,7 @@ class ForTemplateNode(TemplateNode):
         if match is None:
             msg = f"[[{self.s}]] is not a valid for-loop expression"
             raise self.parent.parser_exception(msg)
-        self.vars_temp = match.group(1).split(",")
-        self.vars: list[str] = []
-        for v in self.vars_temp:
-            self.vars.append(v.strip())
+        self.vars = [v.strip() for v in match.group(1).split(",")]
         # print(self.vars)
         self.expression = match.group(2)
 
