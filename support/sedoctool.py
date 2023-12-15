@@ -18,12 +18,15 @@ import os
 import sys
 import xml
 from collections.abc import Iterator
-from typing import TypeAlias
+from typing import Any, Never, TextIO, TypeAlias
 from xml.dom.minidom import Document, Element, parseString
 
-from pyplate import TemplateManager
+from pyplate import TemplateManager, eval_data_t, tmpl_data_t, tmpl_param_t
 
 namevalue_list_t: TypeAlias = list[tuple[str, str]]
+menu_item_t: TypeAlias = tuple[str, list[tuple[str, str]]]
+module_list_t: TypeAlias = dict[str, dict[str, str]]
+sort_t: TypeAlias = tuple[str, Any]
 
 # modules enabled and disabled values
 MOD_BASE = "base"
@@ -39,7 +42,7 @@ TUN_ENABLED = "true"
 TUN_DISABLED = "false"
 
 
-def read_policy_xml(filename):
+def read_policy_xml(filename: str) -> xml.dom.minidom.Document:
     """
     Takes in XML from a file and returns a parsed file.
     """
@@ -169,13 +172,13 @@ def gen_module_conf(
             yield ""
 
 
-def get_conf(conf) -> namevalue_list_t:
+def get_conf(conf: TextIO) -> namevalue_list_t:
     """
     Returns a list of [name, value] pairs from a config file with the format
     name = value
     """
 
-    namevalue_list = []
+    namevalue_list: namevalue_list_t = []
     for i, line in enumerate(conf):
         line = line.strip()
 
@@ -197,7 +200,7 @@ def get_conf(conf) -> namevalue_list_t:
     return namevalue_list
 
 
-def first_cmp_func(a):
+def first_cmp_func(a: tuple[str, Any]) -> Any:
     """
     Return the first element to sort/compare on.
     """
@@ -205,7 +208,7 @@ def first_cmp_func(a):
     return a[0]
 
 
-def int_cmp_func(a):
+def int_cmp_func(a: dict[str, Any]) -> Any:
     """
     Return the interface name to sort/compare on.
     """
@@ -213,7 +216,7 @@ def int_cmp_func(a):
     return a["interface_name"]
 
 
-def temp_cmp_func(a):
+def temp_cmp_func(a: dict[str, Any]) -> Any:
     """
     Return the template name to sort/compare on.
     """
@@ -221,7 +224,7 @@ def temp_cmp_func(a):
     return a["template_name"]
 
 
-def tun_cmp_func(a):
+def tun_cmp_func(a: dict[str, Any]) -> Any:
     """
     Return the tunable name to sort/compare on.
     """
@@ -229,7 +232,7 @@ def tun_cmp_func(a):
     return a["tun_name"]
 
 
-def bool_cmp_func(a):
+def bool_cmp_func(a: dict[str, Any]) -> Any:
     """
     Return the boolean name to sort/compare on.
     """
@@ -237,14 +240,16 @@ def bool_cmp_func(a):
     return a["bool_name"]
 
 
-def gen_doc_menu(mod_layer, module_list):
+def gen_doc_menu(
+    mod_layer: str | None, module_list: module_list_t
+) -> list[menu_item_t]:
     """
     Generates the HTML document menu.
     """
 
     menu = []
     for layer, value in module_list.items():
-        cur_menu = (layer, [])
+        cur_menu: menu_item_t = (layer, [])
         menu.append(cur_menu)
         if layer != mod_layer and mod_layer is not None:
             continue
@@ -258,7 +263,7 @@ def gen_doc_menu(mod_layer, module_list):
     return menu
 
 
-def format_html_desc(node):
+def format_html_desc(node: Element) -> str:
     """
     Formats a XML node into a HTML format.
     """
@@ -277,7 +282,7 @@ def format_html_desc(node):
     return desc_buf
 
 
-def format_txt_desc(node):
+def format_txt_desc(node: Element) -> str:
     """
     Formats a XML node into a plain text format.
     """
@@ -330,7 +335,7 @@ def get_layer_summary(doc: Document, mod_layer: str) -> str | None:
     return None
 
 
-def gen_docs(doc, working_dir, templatedir):
+def gen_docs(doc: Document, working_dir: str, templatedir: str) -> None:
     """
     Generates all the documentation.
     """
@@ -364,7 +369,9 @@ def gen_docs(doc, working_dir, templatedir):
         error("Could not chdir to target directory")
 
     # arg, i have to go through this dom tree ahead of time to build up the menus
-    module_list = {}
+    interface_buf: str | None
+    body_args: eval_data_t
+    module_list: module_list_t = {}
     for node in doc.getElementsByTagName("module"):
         mod_name = mod_layer = interface_buf = ""
 
@@ -418,11 +425,20 @@ def gen_docs(doc, working_dir, templatedir):
         body_tpl.execute(index_fh, body_args)
 
     # now generate the individual module pages
-    all_interfaces = []
-    all_templates = []
-    all_tunables = []
-    all_booleans = []
+    all_interfaces: tmpl_data_t = []
+    all_templates: tmpl_data_t = []
+    all_tunables: tmpl_data_t = []
+    all_booleans: tmpl_data_t = []
     for node in doc.getElementsByTagName("module"):
+        tunable_buf: str | None
+        template_buf: str | None
+        boolean_buf: str | None
+        interfaces: tmpl_data_t
+        parameter: eval_data_t
+        templates: tmpl_data_t
+        booleans: tmpl_data_t
+        tunables: tmpl_data_t
+
         mod_name = node.getAttribute("name")
         mod_layer = node.parentNode.getAttribute("name")
         mod_summary, mod_desc = get_elem_summary_desc(node)
@@ -434,7 +450,7 @@ def gen_docs(doc, working_dir, templatedir):
 
         interfaces = []
         for interface in node.getElementsByTagName("interface"):
-            interface_parameters = []
+            interface_parameters: tmpl_param_t = []
             interface_summary, interface_desc = get_elem_summary_desc(interface)
             interface_name = interface.getAttribute("name")
             interface_line = interface.getAttribute("lineno")
@@ -480,7 +496,7 @@ def gen_docs(doc, working_dir, templatedir):
         # now generate individual template pages
         templates = []
         for template in node.getElementsByTagName("template"):
-            template_parameters = []
+            template_parameters: tmpl_param_t = []
             template_summary, template_desc = get_elem_summary_desc(template)
             template_name = template.getAttribute("name")
             template_line = template.getAttribute("lineno")
@@ -594,12 +610,16 @@ def gen_docs(doc, working_dir, templatedir):
         # This detects if either of these are just whitespace, and sets
         # their values to 'None' so that when applying it to the
         # templates, they are properly recognized as not existing.
+        assert interface_buf is not None
         if not interface_buf.strip():
             interface_buf = None
+        assert template_buf is not None
         if not template_buf.strip():
             template_buf = None
+        assert tunable_buf is not None
         if not tunable_buf.strip():
             tunable_buf = None
+        assert boolean_buf is not None
         if not boolean_buf.strip():
             boolean_buf = None
 
@@ -651,6 +671,10 @@ def gen_docs(doc, working_dir, templatedir):
         body_args = {"menu": menu_buf, "content": template_buf}
         body_tpl.execute(temp_fh, body_args)
 
+    global_tun: tmpl_data_t
+    global_bool: tmpl_data_t
+    bool_args: eval_data_t
+
     # build the global tunable index
     global_tun = []
     for tunable in doc.getElementsByTagName("tunable"):
@@ -697,7 +721,8 @@ def gen_docs(doc, working_dir, templatedir):
         )
     global_bool.sort(key=bool_cmp_func)
     global_bool_tpl = tm.get("gboollist")
-    global_bool_buf = global_bool_tpl.execute_string({"booleans": global_bool})
+    global_bool_args: eval_data_t = {"booleans": global_bool}
+    global_bool_buf = global_bool_tpl.execute_string(global_bool_args)
     global_bool_file = "global_booleans.html"
     with open(global_bool_file, "w") as global_bool_fh:
         body_tpl = tm.get("body")
@@ -717,7 +742,7 @@ def gen_docs(doc, working_dir, templatedir):
         body_tpl.execute(temp_fh, body_args)
 
 
-def error(msg):
+def error(msg: str) -> Never:
     """
     Print an error message and exit.
     """
@@ -726,7 +751,7 @@ def error(msg):
     sys.exit(1)
 
 
-def warning(msg):
+def warning(msg: str) -> None:
     """
     Print a warning message.
     """
@@ -734,7 +759,7 @@ def warning(msg):
     print(f"{sys.argv[0]} warning: {msg}", file=sys.stderr)
 
 
-def usage():
+def usage() -> None:
     """
     Describes the proper usage of this tool.
     """
@@ -752,7 +777,7 @@ def usage():
 
 
 # MAIN PROGRAM
-def main():
+def main() -> None:
     try:
         opts, _args = getopt.getopt(
             sys.argv[1:],
