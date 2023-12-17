@@ -224,6 +224,13 @@ class TemplateNode:
         return _
 
     @staticmethod
+    def f_add_rc(l_fun: fun_t, value: Any) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return l_fun(self, data) + value
+
+        return _
+
+    @staticmethod
     def f_subscript(v_fun: fun_t, s_fun: fun_t) -> fun_t:
         def _(self, data: eval_data_t) -> Any:
             return v_fun(self, data)[s_fun(self, data)]
@@ -255,6 +262,13 @@ class TemplateNode:
     def f_eq(c_fun: fun_t) -> func_t:
         def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
             return value == c_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_in_lc(value, Any, c_fun: fun_t) -> func_t:
+        def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
+            return value in c_fun(self, data)
 
         return _
 
@@ -364,6 +378,8 @@ class TemplateNode:
             l_ok, l_fun = self.op_expr(expr.left, data)
             if not (l_ok and l_fun):
                 return False, None
+            if isinstance(expr.right, ast.Constant):
+                return True, TemplateNode.f_add_rc(l_fun, expr.right.value)
             r_ok, r_fun = self.op_expr(expr.right, data)
             if not (r_ok and r_fun):
                 return False, None
@@ -384,6 +400,10 @@ class TemplateNode:
 
             return True, TemplateNode.f_subscript(v_fun, s_fun)
         if isinstance(expr, ast.Compare):
+            if isinstance(expr.left, ast.Constant) and len(expr.ops) == 1:
+                c_ok, c_fun = self.op_expr(expr.comparators[0], data)
+                if c_ok and c_fun:
+                    return True, TemplateNode.f_in_lc(expr.left.value, c_fun)
             l_ok, l_fun = self.op_expr(expr.left, data)
             if not (l_ok and l_fun):
                 return False, None
