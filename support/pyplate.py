@@ -351,8 +351,8 @@ class TemplateNode:
 
         return _
 
-    def op_assign(self, assign: ast.Assign, data: eval_data_t) -> expr_result_t:
-        ok, v_fun = self.op_expr(assign.value, data)
+    def op_assign(self, assign: ast.Assign) -> expr_result_t:
+        ok, v_fun = self.op_expr(assign.value)
         if not (ok and v_fun):
             return False, None
         lst = []
@@ -364,7 +364,7 @@ class TemplateNode:
         fun = lst[0] if len(lst) == 1 else TemplateNode.f_stmts(lst)
         return True, fun
 
-    def op_expr(self, expr: ast.expr, data: eval_data_t) -> expr_result_t:
+    def op_expr(self, expr: ast.expr) -> expr_result_t:
         if isinstance(expr, ast.Constant):  # implemented fully
             return True, TemplateNode.f_constant(expr.value)
         if isinstance(expr, ast.Name):
@@ -375,12 +375,12 @@ class TemplateNode:
                 return False, None
             return True, TemplateNode.f_name_load(name)
         if isinstance(expr, ast.BinOp):
-            l_ok, l_fun = self.op_expr(expr.left, data)
+            l_ok, l_fun = self.op_expr(expr.left)
             if not (l_ok and l_fun):
                 return False, None
             if isinstance(expr.right, ast.Constant):
                 return True, TemplateNode.f_add_rc(l_fun, expr.right.value)
-            r_ok, r_fun = self.op_expr(expr.right, data)
+            r_ok, r_fun = self.op_expr(expr.right)
             if not (r_ok and r_fun):
                 return False, None
             if isinstance(expr.op, ast.Add):
@@ -389,22 +389,22 @@ class TemplateNode:
                 return False, None
             return True, funb(l_fun, r_fun)
         if isinstance(expr, ast.Subscript):  # implemented fully
-            v_ok, v_fun = self.op_expr(expr.value, data)
+            v_ok, v_fun = self.op_expr(expr.value)
             if not (v_ok and v_fun):
                 return False, None
             if isinstance(expr.slice, ast.Constant):
                 return True, TemplateNode.f_subscript_c(v_fun, expr.slice.value)
-            s_ok, s_fun = self.op_expr(expr.slice, data)
+            s_ok, s_fun = self.op_expr(expr.slice)
             if not (s_ok and s_fun):
                 return False, None
 
             return True, TemplateNode.f_subscript(v_fun, s_fun)
         if isinstance(expr, ast.Compare):
             if isinstance(expr.left, ast.Constant) and len(expr.ops) == 1:
-                c_ok, c_fun = self.op_expr(expr.comparators[0], data)
+                c_ok, c_fun = self.op_expr(expr.comparators[0])
                 if c_ok and c_fun:
                     return True, TemplateNode.f_in_lc(expr.left.value, c_fun)
-            l_ok, l_fun = self.op_expr(expr.left, data)
+            l_ok, l_fun = self.op_expr(expr.left)
             if not (l_ok and l_fun):
                 return False, None
             if len(expr.ops) == 1 and isinstance(expr.comparators[0], ast.Constant):
@@ -415,7 +415,7 @@ class TemplateNode:
                     return True, TemplateNode.f_eq_c(l_fun, expr.comparators[0].value)
             funac = []
             for idx, op in enumerate(expr.ops):
-                c_ok, c_fun = self.op_expr(expr.comparators[idx], data)
+                c_ok, c_fun = self.op_expr(expr.comparators[idx])
                 if not (c_ok and c_fun):
                     return False, None
                 if isinstance(op, ast.In):
@@ -437,13 +437,13 @@ class TemplateNode:
             else:
                 return False, None
             for v in expr.values:
-                v_ok, v_fun = self.op_expr(v, data)
+                v_ok, v_fun = self.op_expr(v)
                 if not (v_ok and v_fun):
                     return False, None
                 funa.append(v_fun)
             return True, ffb(tuple(funa))
         if isinstance(expr, ast.UnaryOp):  # implemented fully
-            o_ok, o_fun = self.op_expr(expr.operand, data)
+            o_ok, o_fun = self.op_expr(expr.operand)
             if not (o_ok and o_fun):
                 return False, None
             if isinstance(expr.op, ast.Not):
@@ -468,7 +468,7 @@ class TemplateNode:
                 and len(aa.body) == 1
                 and isinstance(aa.body[0], ast.Expr)
             ):
-                ok, fun = self.op_expr(aa.body[0].value, data)
+                ok, fun = self.op_expr(aa.body[0].value)
                 if fun:
                     _ast_set(s, fun)
         if fun:
@@ -489,7 +489,7 @@ class TemplateNode:
                 and len(aa.body) == 1
                 and isinstance(aa.body[0], ast.Assign)
             ):
-                ok, fun = self.op_assign(aa.body[0], data)
+                ok, fun = self.op_assign(aa.body[0])
                 if fun:
                     _ast_set(s, fun)
         if fun:
