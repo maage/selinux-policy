@@ -304,7 +304,7 @@ class TemplateNode:
     @staticmethod
     def f_name_store(v_fun: fun_t, name: str) -> funn_t:
         def _(self, data: eval_data_t) -> None:
-            self.parent.stack_variables[name] = v_fun(self, data)
+            self.parent.stack_variables[-1][name] = v_fun(self, data)
 
         return _
 
