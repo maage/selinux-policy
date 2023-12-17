@@ -267,7 +267,7 @@ class TemplateNode:
 
     @staticmethod
     def f_in_lc(value, Any, c_fun: fun_t) -> func_t:
-        def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
+        def _(self, data: eval_data_t) -> Any:  # bool:
             return value in c_fun(self, data)
 
         return _
