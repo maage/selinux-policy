@@ -142,7 +142,7 @@ class Template:
         self.file.close()
         self.lineno = 0
         self.tree: TemplateNode = TopLevelTemplateNode(self)
-        self.stack_variables: list[eval_data_t] = [{}]
+        self.stack_variables: list[eval_data_t] = []
 
     def parser_get(self) -> str | None:
         if self.line == "":
@@ -231,6 +231,13 @@ class TemplateNode:
         return _
 
     @staticmethod
+    def f_subscript_c(v_fun: fun_t, value: Any) -> fun_t:
+        def _(self, data: eval_data_t) -> Any:
+            return v_fun(self, data)[value]
+
+        return _
+
+    @staticmethod
     def f_in(c_fun: fun_t) -> func_t:
         def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
             return value in c_fun(self, data)
@@ -247,6 +254,20 @@ class TemplateNode:
     @staticmethod
     def f_eq(c_fun: fun_t) -> func_t:
         def _(self, data: eval_data_t, value: Any) -> Any:  # bool:
+            return value == c_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_noteq_c(c_fun: fun_t, value: Any) -> func_t:
+        def _(self, data: eval_data_t) -> Any:  # bool:
+            return value != c_fun(self, data)
+
+        return _
+
+    @staticmethod
+    def f_eq_c(c_fun: fun_t, value: Any) -> func_t:
+        def _(self, data: eval_data_t) -> Any:  # bool:
             return value == c_fun(self, data)
 
         return _
@@ -355,14 +376,23 @@ class TemplateNode:
             v_ok, v_fun = self.op_expr(expr.value, data)
             if not (v_ok and v_fun):
                 return False, None
+            if isinstance(expr.slice, ast.Constant):
+                return True, TemplateNode.f_subscript_c(v_fun, expr.slice.value)
             s_ok, s_fun = self.op_expr(expr.slice, data)
             if not (s_ok and s_fun):
                 return False, None
+
             return True, TemplateNode.f_subscript(v_fun, s_fun)
         if isinstance(expr, ast.Compare):
             l_ok, l_fun = self.op_expr(expr.left, data)
             if not (l_ok and l_fun):
                 return False, None
+            if len(expr.ops) == 1 and isinstance(expr.comparators[0], ast.Constant):
+                op = expr.ops[0]
+                if isinstance(op, ast.NotEq):
+                    return True, TemplateNode.f_noteq_c(l_fun, expr.comparators[0].value)
+                elif isinstance(op, ast.Eq):
+                    return True, TemplateNode.f_eq_c(l_fun, expr.comparators[0].value)
             funac = []
             for idx, op in enumerate(expr.ops):
                 c_ok, c_fun = self.op_expr(expr.comparators[idx], data)
