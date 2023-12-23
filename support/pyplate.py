@@ -57,16 +57,9 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any, Literal, TextIO, TypeAlias
 
-try:
-    import astpretty
 
-    def astdump(info: str, aa: ast.AST) -> str:
-        return f"{info}\n{astpretty.pformat(aa, show_offsets=False)}\n"
-
-except OSError:
-
-    def astdump(info: str, aa: ast.AST) -> str:
-        return f"{info}\n{ast.dump(aa, indent=4)}\n"
+def astdump(info: str, aa: ast.AST) -> str:
+    return f"{info}\n{ast.dump(aa, indent=4)}\n"
 
 
 stream_t: TypeAlias = TextIO
