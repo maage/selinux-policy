@@ -79,6 +79,8 @@ ifdef(`distro_suse',`
 
 /etc/ipsec\.d/examples(/.*)?	gen_context(system_u:object_r:etc_t,s0)
 
+/etc/kernel/cmdline 	--  	gen_context(system_u:object_r:etc_runtime_t,s0)
+
 /etc/network/ifstate	--	gen_context(system_u:object_r:etc_runtime_t,s0)
 
 /etc/ptal/ptal-printd-like -- 	gen_context(system_u:object_r:etc_runtime_t,s0)
