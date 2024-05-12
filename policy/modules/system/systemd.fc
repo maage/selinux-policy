@@ -147,8 +147,6 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 
 /run/initramfs(/.*)?	<<none>>
 
-/run/systemd/resolve(/.*)?	gen_context(system_u:object_r:systemd_resolved_var_run_t,s0)
-
 /run/user/%{USERID}/systemd(/.*)?	gen_context(system_u:object_r:systemd_logind_var_run_t,s0)
 
 # source: systemd-analyze unit-paths | sort
@@ -161,7 +159,6 @@ HOME_DIR/\.local/share/systemd(/.*)?		gen_context(system_u:object_r:systemd_home
 /run/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /run/systemd/system\.attached(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /run/systemd/system\.control(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
-/run/systemd/transient(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/lib/systemd/system(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /usr/local/lib/systemd/system(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 
@@ -186,7 +183,6 @@ HOME_DIR/\.local/share/systemd/user(/.*)?			gen_context(system_u:object_r:system
 /var/lib/flatpak/exports/share/systemd/user(/.*)?		gen_context(system_u:object_r:systemd_unit_file_t,s0)
 
 # invocation files
-/run/systemd/units(/.*)?			gen_context(system_u:object_r:systemd_unit_file_t,s0)
 /run/user/%{USERID}/systemd/units(/.*)?	gen_context(system_u:object_r:systemd_unit_file_t,s0)
 
 # inaccessible
