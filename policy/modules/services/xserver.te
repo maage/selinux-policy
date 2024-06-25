@@ -1914,3 +1914,14 @@ optional_policy(`
 	manage_dirs_pattern(xdm_t, user_tmp_t, pulseaudio_var_run_t)
 	allow xdm_t tmp_t:dir create;
 ')
+
+# AVC avc:  denied  { execute } for  pid=2105 comm=Xwayland path=/memfd:/.glXXXXXX (deleted) dev="tmpfs" ino=3127 scontext=system_u:system_r:xserver_t:s0-s0:c0.c1023 tcontext=system_u:object_r:xserver_tmpfs_t:s0 tclass=file permissive=0
+allow xserver_t xserver_tmpfs_t:file execute;
+
+# AVC avc:  denied  { getattr } for  pid=172351 comm=lsof path=/memfd:/.nvidia_drv.XXXXXX (deleted) dev="tmpfs" ino=3140 scontext=system_u:system_r:system_cronjob_t:s0-s0:c0.c1023 tcontext=unconfined_u:object_r:xserver_tmpfs_t:s0 tclass=file permissive=0  "
+optional_policy(`
+	gen_require(`
+		type system_cronjob_t;
+	')
+	allow system_cronjob_t xserver_tmpfs_t:file getattr;
+')
