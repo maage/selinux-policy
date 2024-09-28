@@ -5705,7 +5705,7 @@ interface(`userdom_connectto_stream',`
 ########################################
 ## <summary>
 ##	Do not audit attempts to read and write
-##	unserdomain datagram socket.
+##	userdomain datagram socket.
 ## </summary>
 ## <param name="domain">
 ##	<summary>

@@ -283,11 +283,6 @@ optional_policy(`
 ### homed
 ###
 
-systemd_domain_template(systemd_homed)
-
-type systemd_homed_unit_file_t;
-systemd_unit_file(systemd_homed_unit_file_t)
-
 type systemd_homed_runtime_t;
 files_pid_file(systemd_homed_runtime_t)
 
