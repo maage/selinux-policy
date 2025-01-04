@@ -484,3 +484,31 @@ optional_policy(`
 	xserver_stream_connect_xdm(gnome_initial_setup_t)
 	xserver_xdm_signull(gnome_initial_setup_t)
 ')
+
+# LOCAL: Try to silence mime.cache mess
+type mime_cache_t;
+files_type(mime_cache_t)
+permissive mime_cache_t;
+
+# test: sudo systemctl restart colord.service
+# AVC avc:  denied  { map } for  pid=11869 comm=colord path=/var/lib/flatpak/exports/share/mime/mime.cache dev="dm-9" ino=33921271 scontext=system_u:system_r:colord_t:s0 tcontext=system_u:object_r:mime_cache_t:s0 tclass=file permissive=1
+# AVC avc:  denied  { getattr } for  pid=11869 comm=colord path=/var/lib/flatpak/exports/share/mime/mime.cache dev="dm-9" ino=33921271 scontext=system_u:system_r:colord_t:s0 tcontext=system_u:object_r:mime_cache_t:s0 tclass=file permissive=1  "
+# AVC avc:  denied  { open } for  pid=11869 comm=colord path=/var/lib/flatpak/exports/share/mime/mime.cache dev="dm-9" ino=33921271 scontext=system_u:system_r:colord_t:s0 tcontext=system_u:object_r:mime_cache_t:s0 tclass=file permissive=1  "
+# AVC avc:  denied  { read } for  pid=11869 comm=colord name=mime.cache dev="dm-9" ino=33921271 scontext=system_u:system_r:colord_t:s0 tcontext=system_u:object_r:mime_cache_t:s0 tclass=file permissive=1  "
+
+# test: sudo update-mime-database -V /usr/share/mime
+optional_policy(`
+	gen_require(`
+		attribute domain;
+		type colord_t;
+		type init_var_lib_t;
+		type usr_t;
+		type xdm_t;
+	')
+
+	mmap_read_files_pattern({ colord_t xdm_t }, { init_var_lib_t usr_t }, mime_cache_t)
+
+	# Unknown what domains update the file, it creates the .new file and renames to right name
+	filetrans_pattern(domain, { init_var_lib_t usr_t }, mime_cache_t, file, "mime.cache")
+	filetrans_pattern(domain, { init_var_lib_t usr_t }, mime_cache_t, file, "mime.cache.new")
+')
