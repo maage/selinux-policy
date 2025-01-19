@@ -6,8 +6,9 @@
 /etc/rc\.d/init\.d/clamd.*		--	gen_context(system_u:object_r:antivirus_initrc_exec_t,s0)
 
 /usr/lib/systemd/system/amavisd.*	--	gen_context(system_u:object_r:antivirus_unit_file_t,s0)
-/usr/lib/systemd/system/clamd.*	--	gen_context(system_u:object_r:antivirus_unit_file_t,s0)
 /usr/lib/systemd/system/mimedefang\.service	--	gen_context(system_u:object_r:antivirus_unit_file_t,s0)
+
+gen_systemd_system_unit_fcontext(clamd, antivirus_unit_file_t)
 
 /usr/lib/AntiVir/antivir		--	gen_context(system_u:object_r:antivirus_exec_t,s0)
 
