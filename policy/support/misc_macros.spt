@@ -76,3 +76,20 @@ define(`can_exec',`allow $1 $2:file { mmap_exec_file_perms ioctl lock execute_no
 define(`gen_bool',`
 	bool $1 dflt_or_overr(`$1'_conf,$2);
 ')
+
+define(`_systemd_unit_rx',`$1[.@][^/]*(/.*)?')
+
+define(`gen_systemd_system_unit_fcontext',`
+/etc/systemd/system/_systemd_unit_rx($1)			gen_context(system_u:object_r:$2,s0)
+/etc/systemd/system\.attached/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+/etc/systemd/system\.control/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+/run/systemd/generator/_systemd_unit_rx($1)			gen_context(system_u:object_r:$2,s0)
+/run/systemd/generator\.early/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+/run/systemd/generator\.late/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+/run/systemd/system/_systemd_unit_rx($1)			gen_context(system_u:object_r:$2,s0)
+/run/systemd/system\.attached/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+/run/systemd/system\.control/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+/run/systemd/transient/_systemd_unit_rx($1)			gen_context(system_u:object_r:$2,s0)
+/usr/lib/systemd/system/_systemd_unit_rx($1)			gen_context(system_u:object_r:$2,s0)
+/usr/local/lib/systemd/system/_systemd_unit_rx($1)		gen_context(system_u:object_r:$2,s0)
+')
