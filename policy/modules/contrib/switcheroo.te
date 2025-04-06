@@ -39,3 +39,11 @@ optional_policy(`
 optional_policy(`
 	xserver_dbus_chat_xdm(switcheroo_control_t)
 ')
+
+# USER_AVC avc:  denied  { send_msg } for  scontext=system_u:system_r:xdm_t:s0-s0:c0.c1023 tcontext=system_u:system_r:switcheroo_control_t:s0 tclass=dbus permissive=1 exe=/usr/bin/dbus-broker sauid=dbus hostname=? addr=? terminal=?
+optional_policy(`
+	gen_require(`
+		type xdm_t;
+	')
+	switcheroo_dbus_chat(xdm_t)
+')
