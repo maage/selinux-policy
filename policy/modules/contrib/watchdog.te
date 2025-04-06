@@ -146,3 +146,9 @@ optional_policy(`
 		unconfined_domain(watchdog_unconfined_t)
 	')
 ')
+
+# AVC avc:  denied  { open } for  pid=<pid> comm=watchdog path=/proc/2/stat dev="proc" ino=<ino> scontext=system_u:system_r:watchdog_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=file permissive=1
+# AVC avc:  denied  { read } for  pid=<pid> comm=watchdog name=stat dev="proc" ino=<ino> scontext=system_u:system_r:watchdog_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=file permissive=1
+# Interface options:
+# kernel_read_state(watchdog_t) # [34]
+kernel_read_state(watchdog_t)
