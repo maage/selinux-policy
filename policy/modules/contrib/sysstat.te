@@ -68,3 +68,13 @@ optional_policy(`
 	cron_system_entry(sysstat_t, sysstat_exec_t)
 ')
 
+# AVC avc:  denied  { getattr } for  pid=<pid> comm=sadc path=/proc/pressure dev="proc" ino=<ino> scontext=system_u:system_r:sysstat_t:s0 tcontext=system_u:object_r:proc_psi_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { search } for  pid=<pid> comm=sadc name=pressure dev="proc" ino=<ino> scontext=system_u:system_r:sysstat_t:s0 tcontext=system_u:object_r:proc_psi_t:s0 tclass=dir permissive=1
+# Interface options: kernel_read_psi(sysstat_t) # [62] kernel_rw_psi(sysstat_t) # [203]
+# AVC avc:  denied  { open } for  pid=<pid> comm=sadc path=/proc/pressure/cpu dev="proc" ino=<ino> scontext=system_u:system_r:sysstat_t:s0 tcontext=system_u:object_r:proc_psi_t:s0 tclass=file permissive=1
+# AVC avc:  denied  { read } for  pid=<pid> comm=sadc name=cpu dev="proc" ino=<ino> scontext=system_u:system_r:sysstat_t:s0 tcontext=system_u:object_r:proc_psi_t:s0 tclass=file permissive=1
+# AVC avc:  denied  { getattr } for  pid=<pid> comm=sadc path=/proc/pressure/cpu dev="proc" ino=<ino> scontext=system_u:system_r:sysstat_t:s0 tcontext=system_u:object_r:proc_psi_t:s0 tclass=file permissive=1
+# Interface options:
+# kernel_read_psi(sysstat_t) # [56]
+# kernel_rw_psi(sysstat_t) # [197]
+kernel_read_psi(sysstat_t)
