@@ -2217,6 +2217,39 @@ domain_obj_id_change_exemption(systemd_user_runtimedir_t)
 files_dontaudit_delete_all_files(systemd_user_runtimedir_t)
 files_dontaudit_list_all_dirs(systemd_user_runtimedir_t)
 
+# sudo root: /run/user/0
+# AVC avc:  denied  { rmdir } for  pid=142188 comm="systemd-user-ru" name="units" dev="tmpfs" ino=13 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_unit_file_t:s0 tclass=dir permissive=1
+dontaudit systemd_user_runtimedir_t systemd_unit_file_t:dir rmdir;
+
+# AVC avc:  denied  { write } for  pid=142331 comm="systemd-user-ru" name="inaccessible" dev="tmpfs" ino=3 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_logind_inaccessible_var_run_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { remove_name } for  pid=142331 comm="systemd-user-ru" name="blk" dev="tmpfs" ino=9 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_logind_inaccessible_var_run_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { rmdir } for  pid=142331 comm="systemd-user-ru" name="dir" dev="tmpfs" ino=5 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_logind_inaccessible_var_run_t:s0 tclass=dir permissive=1
+
+# AVC avc:  denied  { remove_name } for  pid=142331 comm="systemd-user-ru" name="private" dev="tmpfs" ino=53 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_logind_var_run_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { rmdir } for  pid=142331 comm="systemd-user-ru" name=".os-release-stage" dev="tmpfs" ino=11 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_logind_var_run_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { write } for  pid=142188 comm="systemd-user-ru" name="systemd" dev="tmpfs" ino=2 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:systemd_logind_var_run_t:s0 tclass=dir permissive=1
+dontaudit systemd_user_runtimedir_t { systemd_logind_inaccessible_var_run_t systemd_logind_var_run_t }:dir { remove_name rmdir write };
+
+# AVC avc:  denied  { write } for  pid=19418 comm="systemd-user-ru" name="gnome-shell" dev="tmpfs" ino=66 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=system_u:object_r:gnome_home_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { remove_name } for  pid=19418 comm="systemd-user-ru" name="runtime-state-LE.(null)" dev="tmpfs" ino=67 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=system_u:object_r:gnome_home_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { rmdir } for  pid=19418 comm="systemd-user-ru" name="runtime-state-LE.(null)" dev="tmpfs" ino=67 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=system_u:object_r:gnome_home_t:s0 tclass=dir permissive=1
+optional_policy(`
+	gen_require(`
+		type gnome_home_t;
+	')
+	dontaudit systemd_user_runtimedir_t gnome_home_t:dir { remove_name rmdir write };
+')
+
+# AVC avc:  denied  { write } for  pid=19418 comm="systemd-user-ru" name="pulse" dev="tmpfs" ino=55 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:pulseaudio_var_run_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { remove_name } for  pid=19418 comm="systemd-user-ru" name="pid" dev="tmpfs" ino=79 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:pulseaudio_var_run_t:s0 tclass=dir permissive=1
+# AVC avc:  denied  { rmdir } for  pid=19418 comm="systemd-user-ru" name="pulse" dev="tmpfs" ino=55 scontext=system_u:system_r:systemd_user_runtimedir_t:s0 tcontext=unconfined_u:object_r:pulseaudio_var_run_t:s0 tclass=dir permissive=1
+optional_policy(`
+	gen_require(`
+		type pulseaudio_var_run_t;
+	')
+	dontaudit systemd_user_runtimedir_t pulseaudio_var_run_t:dir { remove_name rmdir write };
+')
+
 fs_get_tmpfs_quotas(systemd_user_runtimedir_t)
 fs_set_tmpfs_quotas(systemd_user_runtimedir_t)
 fs_mount_tmpfs(systemd_user_runtimedir_t)
