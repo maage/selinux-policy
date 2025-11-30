@@ -491,7 +491,6 @@ optional_policy(`
 # LOCAL: Try to silence mime.cache mess
 type mime_cache_t;
 files_type(mime_cache_t)
-permissive mime_cache_t;
 
 # test: sudo systemctl restart colord.service
 # AVC avc:  denied  { map } for  pid=11869 comm=colord path=/var/lib/flatpak/exports/share/mime/mime.cache dev="dm-9" ino=33921271 scontext=system_u:system_r:colord_t:s0 tcontext=system_u:object_r:mime_cache_t:s0 tclass=file permissive=1
