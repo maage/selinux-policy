@@ -503,14 +503,16 @@ optional_policy(`
 	gen_require(`
 		attribute domain;
 		type colord_t;
-		type var_lib_t;
 		type usr_t;
+		type var_lib_t;
+		type virtnodedevd_t;
 		type xdm_t;
 	')
-
-	mmap_read_files_pattern({ colord_t xdm_t }, { var_lib_t usr_t }, mime_cache_t)
 
 	# Unknown what domains update the file, it creates the .new file and renames to right name
 	filetrans_pattern(domain, { var_lib_t usr_t }, mime_cache_t, file, "mime.cache")
 	filetrans_pattern(domain, { var_lib_t usr_t }, mime_cache_t, file, "mime.cache.new")
+
+	# These domains use / mmap mime.cache
+	mime_cache_use({ colord_t virtnodedevd_t xdm_t })
 ')

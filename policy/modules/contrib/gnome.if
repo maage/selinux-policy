@@ -2308,3 +2308,23 @@ interface(`gnome_initial_setup_filetrans_named_content',`
 
 	files_pid_filetrans($1, gnome_initial_setup_var_run_t, dir, "gnome-initial-setup")
 ')
+
+########################################
+## <summary>
+##	Allow to use mime.cache
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`mime_cache_use',`
+	gen_require(`
+		type mime_cache_t;
+		type usr_t;
+		type var_lib_t;
+	')
+
+	mmap_read_files_pattern($1, { var_lib_t usr_t }, mime_cache_t)
+')
