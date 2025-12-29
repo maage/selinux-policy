@@ -148,8 +148,8 @@ optional_policy(`
 ')
 
 #optional_policy(`
-##	insights_client_domtrans(rhcd_t)
-##	insights_client_read_config(rhcd_t)
+#	insights_client_domtrans(rhcd_t)
+#	insights_client_read_config(rhcd_t)
 #')
 
 optional_policy(`
