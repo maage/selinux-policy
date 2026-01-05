@@ -1107,6 +1107,24 @@ interface(`systemd_timedated_status',`
 
 ########################################
 ## <summary>
+##	Start timedated unit service
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
+## </param>
+#
+interface(`systemd_start_timedated',`
+	gen_require(`
+		type systemd_timedated_unit_file_t;
+	')
+
+	allow $1 systemd_timedated_unit_file_t:service { start status };
+')
+
+########################################
+## <summary>
 ##	manage systemd timesync dir
 ## </summary>
 ## <param name="domain">

@@ -434,3 +434,23 @@ systemd_login_read_pid_files(session_bus_type)
 optional_policy(`
 	gnome_remote_desktop_rw_tcp_sockets(system_dbusd_t)
 ')
+
+optional_policy(`
+	# type=USER_AVC avc:  denied  { status } for auid=unset uid=root gid=dbus
+	#   path=/usr/lib/systemd/system/systemd-timedated.service
+	#   cmdline="/usr/bin/dbus-broker-launch --scope system --audit"
+	#   function="reply_unit_path"
+	#   scontext=system_u:system_r:system_dbusd_t:s0-s0:c0.c1023
+	#   tcontext=system_u:object_r:systemd_timedated_unit_file_t:s0 tclass=service
+	#   permissive=1 exe=/usr/lib/systemd/systemd sauid=root hostname=? addr=?
+	#   terminal=?
+	# type=USER_AVC avc:  denied  { start } for auid=unset uid=root gid=dbus
+	#   path=/usr/lib/systemd/system/systemd-timedated.service
+	#   cmdline="/usr/bin/dbus-broker-launch --scope system --audit"
+	#   function="bus_unit_method_start_generic"
+	#   scontext=system_u:system_r:system_dbusd_t:s0-s0:c0.c1023
+	#   tcontext=system_u:object_r:systemd_timedated_unit_file_t:s0 tclass=service
+	#   permissive=1 exe=/usr/lib/systemd/systemd sauid=root hostname=? addr=?
+	#   terminal=?
+	systemd_start_timedated(system_dbusd_t)
+')
