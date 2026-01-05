@@ -325,3 +325,27 @@ optional_policy(`
 		consolekit_dbus_chat(policykit_resolve_t)
 	')
 ')
+
+optional_policy(`
+	# AVC avc:  denied  { connectto } for  pid=2253 comm=pkla-check-auth path=/run/systemd/userdb/io.systemd.Machine scontext=system_u:system_r:policykit_auth_t:s0 tcontext=system_u:system_r:systemd_machined_t:s0 tclass=unix_stream_socket permissive=1
+	# Interface options:
+	#   systemd_machined_stream_connect(policykit_auth_t) # [0]
+	systemd_machined_stream_connect(policykit_auth_t)
+
+	# AVC avc:  denied  { connectto } for  pid=1353 comm=polkitd path=/run/systemd/userdb/io.systemd.Machine scontext=system_u:system_r:policykit_t:s0 tcontext=system_u:system_r:systemd_machined_t:s0 tclass=unix_stream_socket permissive=1
+	# Interface options:
+	#   systemd_machined_stream_connect(policykit_t) # [0]
+	systemd_machined_stream_connect(policykit_t)
+')
+
+optional_policy(`
+	# AVC avc:  denied  { connectto } for  pid=2253 comm=pkla-check-auth path=/run/systemd/userdb/io.systemd.Multiplexer scontext=system_u:system_r:policykit_auth_t:s0 tcontext=system_u:system_r:systemd_userdbd_t:s0 tclass=unix_stream_socket permissive=1
+	# Interface options:
+	#   systemd_userdbd_stream_connect(policykit_auth_t) # [177]
+	systemd_userdbd_stream_connect(policykit_auth_t)
+
+	# AVC avc:  denied  { connectto } for  pid=1353 comm=polkitd path=/run/systemd/userdb/io.systemd.Multiplexer scontext=system_u:system_r:policykit_t:s0 tcontext=system_u:system_r:systemd_userdbd_t:s0 tclass=unix_stream_socket permissive=1
+	# Interface options:
+	#   systemd_userdbd_stream_connect(policykit_t) # [177]
+	systemd_userdbd_stream_connect(policykit_t)
+')

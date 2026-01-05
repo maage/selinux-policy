@@ -108,3 +108,17 @@ optional_policy(`
 	xserver_manage_xdm_etc_files(accountsd_t)
 	xserver_watch_xdm_etc_dirs(accountsd_t)
 ')
+
+optional_policy(`
+	# AVC avc:  denied  { connectto } for  pid=1291 comm=accounts-daemon path=/run/systemd/userdb/io.systemd.Machine scontext=system_u:system_r:accountsd_t:s0 tcontext=system_u:system_r:systemd_machined_t:s0 tclass=unix_stream_socket permissive=1
+	# Interface options:
+	#   systemd_machined_stream_connect(accountsd_t) # [0]
+	systemd_machined_stream_connect(accountsd_t)
+')
+
+optional_policy(`
+        # AVC avc:  denied  { connectto } for  pid=1291 comm=accounts-daemon path=/run/systemd/userdb/io.systemd.Multiplexer scontext=system_u:system_r:accountsd_t:s0 tcontext=system_u:system_r:systemd_userdbd_t:s0 tclass=unix_stream_socket permissive=1
+        # Interface options:
+        #   systemd_userdbd_stream_connect(accountsd_t) # [177]
+        systemd_userdbd_stream_connect(accountsd_t)
+')

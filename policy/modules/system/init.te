@@ -2031,3 +2031,10 @@ fs_relabelfrom_tmpfs(init_t)
 sysnet_create_config(init_t)
 allow init_t ld_so_cache_t:file create;
 allow init_t bin_t:file { create write };
+
+optional_policy(`
+	# AVC avc:  denied  { connectto } for  pid=161864 comm=(systemd) path=/run/systemd/userdb/io.systemd.Machine scontext=system_u:system_r:init_t:s0 tcontext=system_u:system_r:systemd_machined_t:s0 tclass=unix_stream_socket permissive=1
+	# Interface options:
+	#   systemd_machined_stream_connect(init_t) # [0]
+	systemd_machined_stream_connect(init_t)
+')

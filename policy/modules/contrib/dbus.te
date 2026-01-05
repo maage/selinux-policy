@@ -454,3 +454,34 @@ optional_policy(`
 	#   terminal=?
 	systemd_start_timedated(system_dbusd_t)
 ')
+
+optional_policy(`
+	# type=USER_AVC avc:  denied  { status } for auid=unset uid=root gid=dbus
+	#   path=/usr/lib/systemd/system/colord.service cmdline="/usr/bin/dbus-broker-
+	#   launch --scope system --audit" function="reply_unit_path"
+	#   scontext=system_u:system_r:system_dbusd_t:s0-s0:c0.c1023
+	#   tcontext=system_u:object_r:colord_unit_file_t:s0 tclass=service permissive=1
+	#   exe=/usr/lib/systemd/systemd sauid=root hostname=? addr=? terminal=?
+	# Interface options:
+	#   colord_systemctl(system_dbusd_t) # [1237]
+	colord_systemctl(system_dbusd_t)
+')
+
+optional_policy(`
+	# type=USER_AVC avc:  denied  { status } for auid=unset uid=root gid=dbus
+	#   path=/usr/lib/systemd/system/fwupd.service cmdline="/usr/bin/dbus-broker-
+	#   launch --scope system --audit" function="reply_unit_path"
+	#   scontext=system_u:system_r:system_dbusd_t:s0-s0:c0.c1023
+	#   tcontext=system_u:object_r:fwupd_unit_file_t:s0 tclass=service permissive=1
+	#   exe=/usr/lib/systemd/systemd sauid=root hostname=? addr=? terminal=?
+	# Interface options:
+	#   fwupd_systemctl(system_dbusd_t) # [1212]
+	fwupd_systemctl(system_dbusd_t)
+')
+
+optional_policy(`
+	# AVC avc:  denied  { write } for  pid=1254 comm=dbus-broker path=/run/systemd/inhibit/25.ref dev="tmpfs" ino=5298 scontext=system_u:system_r:system_dbusd_t:s0-s0:c0.c1023 tcontext=system_u:object_r:systemd_logind_inhibit_var_run_t:s0 tclass=fifo_file permissive=1
+	# Interface options:
+	#   systemd_write_inhibit_pipes(system_dbusd_t) # [0]
+	systemd_write_inhibit_pipes(system_dbusd_t)
+')

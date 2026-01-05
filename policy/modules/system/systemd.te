@@ -2286,3 +2286,18 @@ optional_policy(`
 	userdom_delete_user_tmp_blk_files(systemd_user_runtimedir_t)
 	userdom_delete_user_tmp_chr_files(systemd_user_runtimedir_t)
 ')
+
+# AVC avc:  denied  { connectto } for  pid=8470 comm=systemd-tmpfile path=/run/systemd/userdb/io.systemd.Machine scontext=system_u:system_r:systemd_tmpfiles_t:s0 tcontext=system_u:system_r:systemd_machined_t:s0 tclass=unix_stream_socket permissive=1
+# Interface options:
+#   systemd_machined_stream_connect(systemd_tmpfiles_t) # [0]
+systemd_machined_stream_connect(systemd_tmpfiles_t)
+
+# AVC avc:  denied  { connectto } for  pid=1118 comm=systemd-userwor path=/run/systemd/userdb/io.systemd.Machine scontext=system_u:system_r:systemd_userdbd_t:s0 tcontext=system_u:system_r:systemd_machined_t:s0 tclass=unix_stream_socket permissive=1
+# Interface options:
+#   systemd_machined_stream_connect(systemd_userdbd_t) # [0]
+systemd_machined_stream_connect(systemd_userdbd_t)
+
+# AVC avc:  denied  { connectto } for  pid=8470 comm=systemd-tmpfile path=/run/systemd/userdb/io.systemd.Multiplexer scontext=system_u:system_r:systemd_tmpfiles_t:s0 tcontext=system_u:system_r:systemd_userdbd_t:s0 tclass=unix_stream_socket permissive=1
+# Interface options:
+#   systemd_userdbd_stream_connect(systemd_tmpfiles_t) # [177]
+systemd_userdbd_stream_connect(systemd_tmpfiles_t)
