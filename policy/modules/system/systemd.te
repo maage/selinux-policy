@@ -1072,6 +1072,13 @@ optional_policy(`
 ')
 
 optional_policy(`
+	# AVC avc:  denied  { create } for  pid=1196 comm="systemd-hostnam" name="io.systemd.Hostname" scontext=system_u:system_r:systemd_hostnamed_t:s0 tcontext=system_u:object_r:init_var_run_t:s0 tclass=sock_file permissive=0
+	# Interface options:
+	#   init_create_pid_socket(systemd_hostnamed_t) # [0]
+	init_create_pid_socket(systemd_hostnamed_t)
+')
+
+optional_policy(`
 	nscd_shutdown(systemd_hostnamed_t)
 ')
 
@@ -1977,6 +1984,9 @@ manage_fifo_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_
 manage_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
 # /run/user/<uid>/systemd/inaccessible/sock
 manage_sock_files_pattern(systemd_logind_t, systemd_logind_inaccessible_var_run_t, systemd_logind_inaccessible_var_run_t)
+
+# AVC avc:  denied  { create } for  pid=40558 comm="systemd-logind" name="io.systemd.Login" scontext=system_u:system_r:systemd_logind_t:s0 tcontext=system_u:object_r:systemd_logind_var_run_t:s0 tclass=sock_file permissive=0
+allow systemd_logind_t systemd_logind_var_run_t:sock_file create;
 
 optional_policy(`
 	sysstat_domtrans(systemd_sleep_t)
