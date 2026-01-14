@@ -105,6 +105,61 @@ interface(`thumb_role',`
 	thumb_filetrans_home_content($2)
 ')
 
+#######################################
+## <summary>
+##	Role access for thumb
+## </summary>
+## <param name="userdomain_prefix">
+##	<summary>
+##	The prefix of the role (e.g., user
+##	is the prefix for user_r).
+##	</summary>
+## </param>
+## <param name="user_role">
+##	<summary>
+##	Role allowed access
+##	</summary>
+## </param>
+## <param name="user_domain">
+##	<summary>
+##	User domain for the role
+##	</summary>
+## </param>
+## <rolecap/>
+#
+template(`thumb_role_template',`
+	gen_require(`
+		type thumb_exec_t;
+	')
+
+	type $1_thumb_t;
+	domain_type($1_thumb_t)
+	application_domain($1_thumb_t, thumb_exec_t)
+	ubac_constrained($1_thumb_t)
+	role $2 types $1_thumb_t;
+
+	optional_policy(`
+		gen_require(`
+			type $3;
+		')
+		domain_auto_transition_pattern($3, thumb_exec_t, $1_thumb_t)
+
+		allow $3 $1_thumb_t:process transition;
+		allow $3 $1_thumb_t:process2 { nnp_transition nosuid_transition };
+
+		allow $3 $1_thumb_t:unix_stream_socket { ioctl read write };
+
+		# Allow user to kill thumb
+		allow $3 $1_thumb_t:process { sigkill signal signull };
+
+		allow $3 $1_thumb_t:dbus send_msg;
+		allow $1_thumb_t $3:dbus send_msg;
+		ps_process_pattern($1_thumb_t, $3)
+
+		thumb_filetrans_home_content($3)
+	')
+')
+
 ########################################
 ## <summary>
 ##	Send and receive messages from

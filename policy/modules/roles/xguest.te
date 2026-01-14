@@ -117,7 +117,7 @@ optional_policy(`
 ')
 
 optional_policy(`
-    thumb_role(xguest_r, xguest_t)
+    thumb_role_template(xguest, xguest_r, xguest_t)
 ')
 
 optional_policy(`
